@@ -1,0 +1,70 @@
+@import 'tailwind/base';
+@import 'tailwind/components';
+@import 'tailwind/utilities';
+
+@layer base {
+  @font-face {
+    font-family: 'Headline-30';
+    src: url('../assets/font/NotoSansKR-Medium.otf') format('otf');
+    font-size: 30;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Headline-25';
+    src: url('../assets/font/NotoSansKR-Medium.otf') format('otf');
+    font-size: 25;
+    font-weight: bold;
+  }
+  @font-face {
+    font-family: 'SubHead-18';
+    src: url('../assets/font/NotoSansKR-Medium.otf') format('otf');
+    font-size: 18;
+    font-weight: bold;
+  }
+  @font-face {
+    font-family: 'SubHead-16';
+    src: url('../assets/font/NotoSansKR-Medium.otf') format('otf');
+    font-size: 16;
+    font-weight: bold;
+  }
+  @font-face {
+    font-family: 'SubHead-13';
+    src: url('../assets/font/NotoSansKR-Medium.otf') format('otf');
+    font-size: 13;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Body-18';
+    src: url('../assets/font/NotoSansKR-Medium.otf') format('otf');
+    font-size: 18;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Body-16';
+    src: url('../assets/font/NotoSansKR-Medium.otf') format('otf');
+    font-size: 16;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Body-15';
+    src: url('../assets/font/NotoSansKR-Medium.otf') format('otf');
+    font-size: 15;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Body-14';
+    src: url('../assets/font/NotoSansKR-Medium.otf') format('otf');
+    font-size: 14;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Caption-13';
+    src: url('../assets/font/NotoSansKR-Medium.otf') format('otf');
+    font-size: 13;
+    font-weight: normal;
+  }
+
+  html {
+    font-family: 'Noto Sans KR';
+  }
+}
