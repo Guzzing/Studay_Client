@@ -1,13 +1,11 @@
 ---
-name: Feature issue template
-about: 'about need to fix bug'
-title: '🐞 [Bug] '
-labels: Bug
+name: Feature request template
+about: feature
+title: '🚀 [Feature] '
+labels: Feature
 assignees: ''
 ---
 
-## 🛠️ 어떤 버그를 고치나요?
-
-## ☑ TODOS
+## ☑ Implement TODO
 
 - [ ]
