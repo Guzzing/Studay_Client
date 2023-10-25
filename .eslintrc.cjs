@@ -7,24 +7,26 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
     'plugin:unicorn/recommended',
-    'prettier',
+    'prettier'
   ],
   ignorePatterns: [
     'dist',
     '.eslintrc.cjs',
     'vite.config.ts',
     'tailwind.config.js',
+    'postcss.config.js',
+    'vite-env.d.ts'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.json',
+    project: './tsconfig.json'
   },
   plugins: [
     'react-refresh',
     'prettier',
     'eslint-plugin-prettier',
     'eslint-plugin-react',
-    'import',
+    'import'
   ],
   rules: {
     // TODO : 마지막에 불필요한 console지울 때 켜주시면 console부분만 빨간색으로 변해서 유용할 것 같습니다
@@ -34,7 +36,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react-refresh/only-export-components': [
       'warn',
-      { allowConstantExport: true },
+      { allowConstantExport: true }
     ],
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
@@ -47,24 +49,24 @@ module.exports = {
       {
         format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
         selector: 'variable',
-        leadingUnderscore: 'allow',
+        leadingUnderscore: 'allow'
       },
       {
         format: ['camelCase', 'PascalCase'],
-        selector: 'function',
+        selector: 'function'
       },
       {
         format: ['PascalCase'],
-        selector: 'interface',
+        selector: 'interface'
       },
       {
         format: ['PascalCase'],
-        selector: 'typeAlias',
-      },
+        selector: 'typeAlias'
+      }
     ],
     'react/jsx-curly-brace-presence': [
       'error',
-      { props: 'always', children: 'always' },
+      { props: 'always', children: 'always' }
     ],
     'import/order': [
       'error',
@@ -77,44 +79,44 @@ module.exports = {
           'parent',
           'sibling',
           'index',
-          'unknown',
+          'unknown'
         ],
         pathGroups: [
           {
             pattern: 'react*',
             group: 'external',
-            position: 'before',
+            position: 'before'
           },
           {
             pattern: '@hooks/*',
             group: 'internal',
-            position: 'after',
+            position: 'after'
           },
           {
             pattern: '@pages/*',
             group: 'internal',
-            position: 'after',
+            position: 'after'
           },
           {
             pattern: '@components/*',
             group: 'internal',
-            position: 'after',
-          },
+            position: 'after'
+          }
         ],
         pathGroupsExcludedImportTypes: ['@tanstack*'],
         alphabetize: {
-          order: 'asc',
-        },
-      },
+          order: 'asc'
+        }
+      }
     ],
     'unicorn/filename-case': [
       'error',
       {
         cases: {
           camelCase: true,
-          pascalCase: true,
-        },
-      },
-    ],
-  },
+          pascalCase: true
+        }
+      }
+    ]
+  }
 }
