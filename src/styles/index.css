@@ -3,7 +3,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-html {
+body {
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -11,7 +11,7 @@ html {
   justify-content: center;
   align-items: center;
 }
-body {
+#root {
   position: relative;
   width: 390px;
   height: 844px;
