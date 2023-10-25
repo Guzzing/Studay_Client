@@ -7,7 +7,7 @@ on:
       - dev
 
 jobs:
-  lint:
+  lint_build_Check:
     runs-on: ubuntu-latest
 
     steps:
