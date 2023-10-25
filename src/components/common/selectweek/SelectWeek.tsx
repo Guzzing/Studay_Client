@@ -38,7 +38,7 @@ const SelectWeek = ({
 }: SelectWeekProperties) => {
   const week = ['일', '월', '화', '수', '목', '금', '토']
   return (
-    <div className={'flex flex-row gap-2.5'}>
+    <div className={'flex flex-row gap-2.5 w-full justify-center items-center'}>
       {week.map((day, index) => (
         <button
           key={index}
