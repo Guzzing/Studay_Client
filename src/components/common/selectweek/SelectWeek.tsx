@@ -8,9 +8,9 @@ export const SelectWeekVariant = cva(
     variants: {
       variant: {
         default:
-          'bg-white-100 rounded-full body-16 text-black-900 border-blue-500',
+          'bg-white-100 rounded-full body-16 text-black-900 border border-blue-500',
         selected: 'bg-blue-500 rounded-full body-16 text-white-100',
-        fixed: 'disabled: bg-gray-400 rounded-full body-16 text-white-100'
+        fixed: 'cursor-default bg-gray-400 rounded-full body-16 text-white-100'
       },
       defaultVariants: {
         variant: 'default'
@@ -19,10 +19,16 @@ export const SelectWeekVariant = cva(
   }
 )
 
+/**
+ * @param selectedDate selectedDate값을 가지고 있는 state
+ * @param setSelectedDate selectedDate 값을 변경할 수 있는 setState 함수
+ * @param fixedDate 고정된 주 선택 (이미 선택하여 수정하지 않아도 되는 것 / 다수 선택에 사용)
+ */
+
 interface SelectWeekProperties {
-  fixedDate?: number
   selectedDate: number[]
   setSelectedDate: React.Dispatch<React.SetStateAction<number[]>>
+  fixedDate?: number[]
 }
 
 const SelectWeek = ({
@@ -39,7 +45,7 @@ const SelectWeek = ({
           className={cn(
             SelectWeekVariant({
               variant:
-                fixedDate === index
+                fixedDate?.includes(index)
                   ? 'fixed'
                   : selectedDate.includes(index)
                     ? 'selected'

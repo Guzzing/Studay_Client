@@ -8,7 +8,8 @@ const meta: Meta<typeof SelectWeek> = {
   tags: ['autodocs'],
   argTypes: {
     fixedDate: {
-      control: { type: 'number', min: 0, max: 6 }
+      control: 'multi-select',
+      options: [0, 1, 2, 3, 4, 5, 6]
     },
     selectedDate: {
       control: 'multi-select',
@@ -39,7 +40,7 @@ type Story = StoryObj<typeof SelectWeek>
 export const Default: Story = {
   ...meta,
   args: {
-    fixedDate: 0,
+    fixedDate: [0],
     selectedDate: [1]
   }
 }
