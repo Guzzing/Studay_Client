@@ -5,13 +5,15 @@ on:
     paths: ['src/components/common/**']
 
 jobs:
-  test:
+  storybook:
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name : Install dependencies
         run : npm install
       - name : Publish to Chromatic
@@ -19,10 +21,10 @@ jobs:
         uses: chromaui/action@v1
         with :
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          token: ${{secrets.GITHUB_TOKEN}}
-      - name: comment PR  
-        uses: thollander/actions-comment-pull-request@v2  
+          token: ${{secrets.ACTION_TOKEN}}
+      - name: comment PR
+        uses: thollander/actions-comment-pull-request@v2
         env:
-          GITHUB_TOEKN: ${{secrets.ACTION_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.ACTION_TOKEN}}
         with:  
-          message: "🚀storybook: ${{steps.chromatic.outputs.stroybookUrl}}"  
+          message: "🚀storybook: ${{ steps.chromatic.outputs.storybookUrl }}"
