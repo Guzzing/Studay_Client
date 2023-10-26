@@ -117,6 +117,7 @@ module.exports = {
           pascalCase: true
         }
       }
-    ]
+    ],
+    'unicorn/prevent-abbreviations': ['off']
   }
 }
