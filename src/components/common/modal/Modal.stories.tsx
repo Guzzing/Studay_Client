@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import InputModal from './InputModal.tsx'
-import Modal from './Modal.tsx'
+import InputModal from './InputModal'
+import Modal from './Modal'
 
 const meta = {
-  title: 'Components/Modal',
+  title: 'Components/modal',
   component: Modal,
   parameters: {
     layout: 'centered'
