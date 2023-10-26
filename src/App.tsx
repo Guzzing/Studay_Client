@@ -1,5 +1,5 @@
 import './styles/index.css'
-
+import { ReactComponent as CloseIcon } from './assets/icon/Abacus.svg'
 function App() {
   return (
     <div className={'App'}>
@@ -13,6 +13,7 @@ function App() {
       <p className={'body-15'}>{'body-15 font'}</p>
       <p className={'body-14'}>{'body-14 font'}</p>
       <p className={'caption-13'}>{'caption-13 font'}</p>
+      <CloseIcon />
     </div>
   )
 }

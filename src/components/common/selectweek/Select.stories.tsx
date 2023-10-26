@@ -4,7 +4,7 @@ import SelectWeek from './SelectWeek'
 
 const meta: Meta<typeof SelectWeek> = {
   component: SelectWeek,
-  title: 'Atom/SelectWeek',
+  title: 'components/SelectWeek',
   tags: ['autodocs'],
   argTypes: {
     fixedDate: {
