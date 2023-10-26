@@ -8,7 +8,7 @@ const InputModal = ({ onConfirm, onCancel, title }: InputModalProperties) => {
   return (
     <div
       className={
-        'flex flex-col justify-center items-center w-[339px] h-[189px] bg-white-0'
+        'flex flex-col justify-center items-center w-[339px] h-[189px] bg-white-0 rounded-[15px]'
       }
     >
       <div className={'w-11/12 text-left body-16 text-black-900 mb-1 ml-3'}>
