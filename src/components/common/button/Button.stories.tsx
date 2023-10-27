@@ -13,7 +13,14 @@ const meta = {
     },
     buttonType: {
       control: 'select',
-      options: ['Plain', 'Round', 'Square', 'Floating']
+      options: [
+        'Plain-blue',
+        'Plain-red',
+        'Round-blue-500',
+        'Round-blue-700',
+        'Square',
+        'Floating'
+      ]
     },
     textColor: {
       control: 'select',
@@ -49,11 +56,6 @@ export const FloatButton: Story = {
   args: {
     label: '+',
     buttonType: 'Floating',
-    width: 'SW',
-    height: 'LH',
-    bgColor: 'blue500',
-    textColor: 'white0',
-    borderRadius: 'max',
     onClick: () => alert('float clicked!')
   }
 }

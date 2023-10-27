@@ -1,3 +1,4 @@
+import Button from './components/common/button/Button'
 import './styles/index.css'
 
 function App() {
@@ -13,6 +14,15 @@ function App() {
       <p className={'body-15'}>{'body-15 font'}</p>
       <p className={'body-14'}>{'body-14 font'}</p>
       <p className={'caption-13'}>{'caption-13 font'}</p>
+
+      <Button label={'+'} buttonType={'Square'} />
+      <Button label={'안녕하세요'} buttonType={'Plain-red'} />
+      <Button label={'안녕하세요!'} buttonType={'Plain-blue'} />
+      <Button label={'안녕하세요'} buttonType={'Floating'} fullWidth={true} />
+      <Button label={'안녕하세요'} buttonType={'Round-blue-500'} />
+      <Button label={'안녕하세요'} buttonType={'Round-blue-700'} />
+      <Button label={'안녕하세요'} buttonType={'Round-blue-700'} />
+      <button className={'w-[100%]'}>{'안녕'}</button>
     </div>
   )
 }
