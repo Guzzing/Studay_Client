@@ -48,32 +48,43 @@ type Story = StoryObj<typeof meta>
 export const FloatButton: Story = {
   args: {
     label: '+',
+    buttonType: 'Floating',
     width: 'SW',
     height: 'LH',
     bgColor: 'blue500',
     textColor: 'white0',
+    borderRadius: 'max',
     onClick: () => alert('float clicked!')
   }
 }
 
-export const PlainButton: Story = {
+export const PlainBlueButton: Story = {
   args: {
     label: 'Plain',
-    width: 'LW',
-    height: 'MH',
-    bgColor: 'white0',
-    textColor: 'blue500',
+    buttonType: 'Plain-blue',
     onClick: () => alert('plain clicked!')
   }
 }
 
-export const RoundButton: Story = {
+export const PlainRedButton: Story = {
+  args: {
+    label: 'Plain',
+    buttonType: 'Plain-red',
+    onClick: () => alert('plain clicked!')
+  }
+}
+export const RoundBlue500Button: Story = {
   args: {
     label: 'Round',
-    width: 'MW',
-    height: 'MH',
-    bgColor: 'blue500',
-    textColor: 'white0',
+    buttonType: 'Round-blue-500',
+    onClick: () => alert('round clicked!')
+  }
+}
+
+export const RoundBlue700Button: Story = {
+  args: {
+    label: 'Round',
+    buttonType: 'Round-blue-700',
     onClick: () => alert('round clicked!')
   }
 }
@@ -81,11 +92,7 @@ export const RoundButton: Story = {
 export const SquareButton: Story = {
   args: {
     label: 'Square',
-    width: 'XLW',
-    height: 'MH',
-    bgColor: 'blue500',
-    textColor: 'white0',
-    borderRadius: 'min',
+    buttonType: 'Square',
     onClick: () => alert('square clicked!')
   }
 }
