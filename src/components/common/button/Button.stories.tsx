@@ -22,30 +22,14 @@ const meta = {
         'Floating'
       ]
     },
-    textColor: {
-      control: 'select',
-      options: ['blue500', 'white0', 'red600']
-    },
-    bgColor: {
-      control: 'select',
-      options: ['blue500', 'blue700', 'white0']
-    },
-    borderColor: {
-      control: 'select',
-      options: ['blue500', 'red600']
-    },
-    borderRadius: {
-      control: 'select',
-      options: ['min', 'middle', 'max']
-    },
     width: {
       control: 'select',
       options: ['SW', 'MW', 'LW', 'XLW']
-    },
-    height: {
-      control: 'select',
-      options: ['SH', 'MH', 'LH']
     }
+    // height: {
+    //   control: 'select',
+    //   options: ['SH', 'MH', 'LH']
+    // }
   }
 } satisfies Meta<typeof Button>
 
@@ -63,6 +47,7 @@ export const PlainBlueButton: Story = {
   args: {
     label: 'Plain',
     buttonType: 'Plain-blue',
+    fullWidth: true,
     onClick: () => alert('plain clicked!')
   }
 }
