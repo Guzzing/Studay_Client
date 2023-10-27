@@ -3,6 +3,9 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+* {
+  box-sizing: border-box;
+}
 body {
   position: relative;
   width: 100vw;
@@ -15,7 +18,7 @@ body {
   position: relative;
   width: 390px;
   height: 844px;
-  background-color: #ffffff;
+  background-color: gray;
 }
 @layer components {
   .headline-30 {

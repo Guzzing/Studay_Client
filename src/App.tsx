@@ -1,3 +1,4 @@
+import Button from './components/common/button/Button'
 import './styles/index.css'
 function App() {
   return (
