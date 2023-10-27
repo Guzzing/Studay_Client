@@ -4,13 +4,13 @@ export const FONT_STYLE = {
 
 export const BUTTON_RADIUS = {
   min: 'rounded-none',
-  middle: 'rounded-12',
+  middle: 'rounded-[12px]',
   max: 'rounded-full'
 }
 
 export const BUTTON_BORDER_COLOR = {
-  red600: 'border-red-600',
-  blue500: 'border-blue-500'
+  red600: 'border border-red-600',
+  blue500: 'border border-blue-500'
 }
 
 export const BUTTON_BG_COLOR = {

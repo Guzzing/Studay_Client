@@ -55,8 +55,7 @@ type Story = StoryObj<typeof meta>
 export const FloatButton: Story = {
   args: {
     label: '+',
-    buttonType: 'Floating',
-    onClick: () => alert('float clicked!')
+    buttonType: 'Floating'
   }
 }
 
