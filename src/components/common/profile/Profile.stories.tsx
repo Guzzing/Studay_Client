@@ -10,7 +10,7 @@ const meta = {
   argTypes: {
     imageSize: {
       control: 'select',
-      options: ['w-[150px] h-[150px]', 'w-[92px] h-[92px]', 'w-[70px] h-[70px]']
+      options: ['S', 'M', 'L']
     }
   }
 } satisfies Meta<typeof Profile>
