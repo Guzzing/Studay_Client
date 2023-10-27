@@ -20,16 +20,16 @@ export const BUTTON_BG_COLOR = {
 }
 
 export const BUTTON_WIDTH = {
-  SW: 'w-60px',
-  MW: 'w-124px',
-  LW: 'w-343px',
-  XLW: 'w-390px'
+  SW: 'w-[60px]',
+  MW: 'w-[124px]',
+  LW: 'w-[343px]',
+  XLW: 'w-[390px]'
 }
 
 export const BUTTON_HEIGHT = {
-  SH: 'w-43px',
-  MH: 'w-56px',
-  LH: 'w-60px'
+  SH: 'h-[43px]',
+  MH: 'h-[56px]',
+  LH: 'h-[60px]'
 }
 
 export const BUTTON_TEXT_COLOR = {
