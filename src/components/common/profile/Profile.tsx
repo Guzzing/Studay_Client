@@ -9,7 +9,7 @@ const Profile = ({
 }: ProfileImageProps) => {
   return (
     <div
-      className={`border ${
+      className={`border ${canEdit && 'cursor-pointer'} ${
         PROFILE_BORDER_COLOR['black500']
       } rounded-full relative overflow-hidden ${
         imageSize === 'S'
