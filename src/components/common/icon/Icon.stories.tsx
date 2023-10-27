@@ -38,7 +38,7 @@ export const ArrowDown: Story = {
   parameters: {
     docs: {
       description: {
-        story: `storke 값을 지정하면 색이 변합니다. ex. className={'fill-black-500 stroke-black'}`
+        story: `stroke 값을 지정하면 색이 변합니다. ex. className={'stroke-black'}`
       }
     }
   }
@@ -70,7 +70,7 @@ export const Computer: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'fill 값을 지정하면 색이 변합니다.'
+        story: `fill 값을 지정하면 색이 변합니다. ex. className={'fill-blue-500'}`
       }
     }
   }
