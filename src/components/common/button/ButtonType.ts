@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 
-export type ButtonSize = 'S' | 'M' | 'L'
 export type ButtonTextColor = 'blue500' | 'white0' | 'red600'
 export type ButtonBgColor = 'blue500' | 'blue700' | 'white0'
 export type ButtonBorderColor = 'blue500' | 'red600'
@@ -11,9 +10,8 @@ export type ButtonHeight = 'SH' | 'MH' | 'LH'
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode
+  label: ReactNode
   buttonType?: ButtonType
-  size?: ButtonSize
   textColor?: ButtonTextColor
   bgColor?: ButtonBgColor
   borderColor?: ButtonBorderColor
