@@ -1,14 +1,14 @@
-import { ReactNode } from 'react'
+import Icons from '@/components/common/icon/Icons'
+export type IconType = keyof typeof Icons
 
-interface IconProps {
-  children: ReactNode
-  width?: number
-  height?: number
-  color?: string
+export interface IconProps {
+  icon: IconType
+  classStyle?: string
 }
 
-const Icon = ({ children }: IconProps) => {
-  return <>{children}</>
+const Icon = ({ icon, classStyle }: IconProps) => {
+  const SvgIcon = Icons[icon]
+  return <SvgIcon className={classStyle} />
 }
 
 export default Icon
