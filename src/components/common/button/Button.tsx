@@ -9,14 +9,14 @@ import {
   FONT_STYLE
 } from './constants'
 const Button = ({
-  children,
-  buttonType = 'Round',
+  label,
+  buttonType = 'Square',
   textColor = 'blue500',
   bgColor = 'white0',
   borderColor = 'blue500',
   borderRadius = 'middle',
-  width = 'SW',
-  height = 'SH',
+  width = 'XLW',
+  height = 'LH',
   ...props
 }: ButtonProps) => {
   const btnClass = `
@@ -24,7 +24,7 @@ const Button = ({
   ${BUTTON_TEXT_COLOR[textColor]}
   ${FONT_STYLE['NSK']}
   ${BUTTON_HEIGHT[height]}
-  ${BUTTON_WIDTH[width]}
+  ${BUTTON_WIDTH[width]} 
   ${
     buttonType === 'Round'
       ? BUTTON_RADIUS['middle']
@@ -32,7 +32,7 @@ const Button = ({
       ? BUTTON_RADIUS['min']
       : buttonType === 'Floating'
       ? BUTTON_RADIUS['max']
-      : BUTTON_RADIUS[borderRadius]
+      : `${BUTTON_RADIUS[borderRadius]} text-1.2`
   }
   ${
     bgColor === 'white0' && textColor === 'blue500'
@@ -43,7 +43,7 @@ const Button = ({
   }`
   return (
     <button className={btnClass} {...props}>
-      {children}
+      {label}
     </button>
   )
 }
