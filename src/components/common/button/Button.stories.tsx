@@ -26,10 +26,6 @@ const meta = {
       control: 'select',
       options: ['SW', 'MW', 'LW', 'XLW']
     }
-    // height: {
-    //   control: 'select',
-    //   options: ['SH', 'MH', 'LH']
-    // }
   }
 } satisfies Meta<typeof Button>
 
