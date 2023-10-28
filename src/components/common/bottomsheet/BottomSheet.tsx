@@ -2,15 +2,21 @@
 import { useState } from 'react'
 import BottomSheetContent from '@/components/BottomSheet/BottomSheetContent'
 import BottomSheetHeader from '@/components/BottomSheet/BottomSheetHeader'
+
+/**
+ * @param title BottomSheet에 들어갈 Title을 입력합니다. 
+ */
+
+//TODO: 추후 BottomSheet 안의 내용은 client-side 상태관리 이용하여 정보 받아 사용할 예정. 이에 따라 title props도 사라질 수 있음
 interface BottomSheetProps {
   title: string
 }
-const BottomSheet = ({ title }: BottomSheetProps) => {
+const BottomSheet = ({ title = '학원명 입력' }: BottomSheetProps) => {
   const [expanded, setExpanded] = useState(false)
   return (
     <div
       className={`box-border absolute left-0 bottom-0 w-full transition-all duration-500 ${expanded ? 'h-full' : 'h-[210px]'
-        } z-10 flex flex-col items-center pt-[13px] px-[30px] bg-white stroke-amber-100 text-gray-600 rounded-t-xl shadow-inner `}
+        } z-10 flex flex-col items-center pt-[13px] px-[30px] bg-white stroke-amber-100 text-gray-600 rounded-t-[20px] shadow-inner `}
     >
       <header className={"w-full flex justify-center "}
         onClick={() => setExpanded(!expanded)}>

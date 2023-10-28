@@ -18,5 +18,5 @@ export default meta
 type Story = StoryObj<typeof BottomSheet>
 
 export const Default: Story = {
-  render: () => <BottomSheet title={'샤론음악학원'} />
+  render: (args) => <BottomSheet title={args.title} />
 }
