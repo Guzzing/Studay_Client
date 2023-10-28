@@ -6,7 +6,12 @@ import BottomSheet from './BottomSheet'
 
 const meta: Meta<typeof BottomSheet> = {
   title: 'Components/BottomSheet',
-  component: BottomSheet
+  component: BottomSheet,
+  argTypes: {
+    title: {
+      control: 'text'
+    }
+  }
 }
 
 export default meta
