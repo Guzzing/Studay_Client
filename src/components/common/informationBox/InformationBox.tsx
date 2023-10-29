@@ -32,6 +32,10 @@ const InformationBox = ({
           <p className={'text-black-900 caption-13 break-words'}>
             {description}
           </p>
+          {/* CHECK : 아이콘 컴포넌트 미반영 */}
+          <span className={'absolute top-[3px] right-[3px] cursor-pointer'}>
+            {'✏️'}
+          </span>
         </div>
       </div>
     </div>
