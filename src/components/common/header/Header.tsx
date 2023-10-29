@@ -2,7 +2,11 @@
 import type { HeaderProps } from './HeaderType'
 import { ReactNode } from 'react'
 
-const Header = ({ headerType, pageTitle, rightElement }: HeaderProps) => {
+const Header = ({
+  headerType,
+  pageTitle = 'pageTitle',
+  rightElement
+}: HeaderProps) => {
   return (
     <header
       className={`w-[390px] h-[80px] bg-white-0 relative text-black-900 px-[22px] border border-black-900`}
