@@ -11,6 +11,12 @@ const meta = {
     headerType: {
       control: 'select',
       options: ['BackPush', 'Logo', 'Close', 'CloseWithTitle']
+    },
+    pageTitle: {
+      control: 'text'
+    },
+    rightElement: {
+      control: 'text'
     }
   }
 } satisfies Meta<typeof Header>
@@ -26,7 +32,14 @@ export const BackPushHeader: Story = {
 
 export const LogoHeader: Story = {
   args: {
-    headerType: 'Logo'
+    headerType: 'Logo',
+    pageTitle: 'pageName',
+    rightElement: (
+      <>
+        <span className={'mx-[6px]'}>{'👏'}</span>
+        <span>{'👏'}</span>
+      </>
+    )
   }
 }
 
@@ -38,6 +51,7 @@ export const CloseHeader: Story = {
 
 export const CloseWithTitleHeader: Story = {
   args: {
-    headerType: 'CloseWithTitle'
+    headerType: 'CloseWithTitle',
+    pageTitle: 'pageName'
   }
 }

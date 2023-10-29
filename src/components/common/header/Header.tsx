@@ -1,7 +1,8 @@
 // 봐 결국 함수야..!
 import type { HeaderProps } from './HeaderType'
+import { ReactNode } from 'react'
 
-const Header = ({ headerType, rightElement }: HeaderProps) => {
+const Header = ({ headerType, pageTitle, rightElement }: HeaderProps) => {
   return (
     <header
       className={`w-[390px] h-[80px] bg-white-0 relative text-black-900 px-[22px] border border-black-900`}
@@ -21,7 +22,7 @@ const Header = ({ headerType, rightElement }: HeaderProps) => {
           <>
             <div>
               <span>{'👍'}</span>
-              <span className={'mx-[6px]'}>{'logo'}</span>
+              <span className={'mx-[6px]'}>{pageTitle}</span>
             </div>
             <div>
               {/*
@@ -36,7 +37,7 @@ const Header = ({ headerType, rightElement }: HeaderProps) => {
         ) : headerType === 'CloseWithTitle' ? (
           <div>
             <span>{'❌'}</span>
-            <span className={'mx-[6px]'}>{'logo'}</span>
+            <span className={'mx-[6px]'}>{pageTitle}</span>
           </div>
         ) : (
           ''
