@@ -1,11 +1,7 @@
 // 봐 결국 함수야..!
+import type { HeaderProps } from './HeaderType'
 import { ReactNode } from 'react'
 
-type HeaderType = 'BackPush' | 'Logo' | 'Close' | 'CloseWithTitle'
-interface HeaderProps {
-  headerType: HeaderType
-  rightElement?: ReactNode
-}
 const Header = ({ headerType, rightElement }: HeaderProps) => {
   return (
     <header
