@@ -19,6 +19,13 @@ const meta: Meta<typeof Spacing> = {
       control: { type: 'text' },
       type: { name: 'string', required: true }
     }
+  },
+  render: function Render(args) {
+    return (
+      <div className={'w-[100px] h-[100px]'}>
+        <Spacing size={args.size} color={args.color} />
+      </div>
+    )
   }
 }
 
@@ -27,5 +34,9 @@ export default meta
 type Story = StoryObj<typeof Spacing>
 
 export const Primary: Story = {
-  render: () => <Spacing size={32} color={'blue-500'} />
+  ...meta,
+  args: {
+    size: 32,
+    color: 'blue-500'
+  }
 }
