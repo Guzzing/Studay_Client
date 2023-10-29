@@ -46,7 +46,11 @@ export default {
         600: '#FF0000'
       }
     },
-    extend: {}
+    extend: {
+      transitionProperty: {
+        height: 'height'
+      }
+    }
   },
   plugins: []
 }
