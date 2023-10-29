@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { defaultDate, getDays } from '../../../libs/utils/date.ts'
-import { CalenderType, DaysInfo, MonthType } from '../../../types/date.ts'
+import { CalenderType, MonthType } from '../../../types/date.ts'
+import CalenderProps from './CalenderType.ts'
 import { DECEMBER, JANUARY, WEEK, WeekStyle } from './constants.ts'
 
-const Calender = () => {
+const Calender = ({ onClick }: CalenderProps) => {
   const [defaultYear, defaultMonth, defaultDays] = defaultDate()
   const [calenderState, setCalenderState] = useState<CalenderType>({
     nowYear: defaultYear,
@@ -12,10 +13,6 @@ const Calender = () => {
   })
 
   const { nowYear, nowMonth, nowDays } = calenderState
-
-  const handleDayClick = useCallback((dayInfo: DaysInfo) => {
-    console.log(dayInfo)
-  }, [])
 
   const nextMonth = () => {
     let nextMonth = nowMonth + 1
@@ -108,7 +105,7 @@ const Calender = () => {
                 key={index}
                 className={daysInfo.style}
                 data-id={`${daysInfo.year}-${daysInfo.month}`}
-                onClick={() => handleDayClick(daysInfo)}
+                onClick={() => onClick(daysInfo)}
               >
                 {daysInfo.day}
               </div>
