@@ -1,6 +1,5 @@
 // 봐 결국 함수야..!
 import type { HeaderProps } from './HeaderType'
-import { ReactNode } from 'react'
 
 const Header = ({ headerType, rightElement }: HeaderProps) => {
   return (
