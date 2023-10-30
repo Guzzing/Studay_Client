@@ -24,7 +24,7 @@ const Profile = ({
         onClick={
           canEdit
             ? () => {
-                alert('onClick')
+                alert('프로필 바꾸는 기능!')
               }
             : undefined
         }
