@@ -1,6 +1,6 @@
 // 봐 결국 함수야..!
 import type { HeaderProps } from './HeaderType'
-import { ReactNode } from 'react'
+import Icon from '../icon/Icon'
 
 const Header = ({ headerType, pageTitle = 'pageTitle' }: HeaderProps) => {
   return (
@@ -17,26 +17,33 @@ const Header = ({ headerType, pageTitle = 'pageTitle' }: HeaderProps) => {
         }`}
       >
         {headerType === 'BackPush' ? (
-          <span>{'<'}</span>
+          <span onClick={() => alert('뒤로가기')}>
+            <Icon icon={'BackPush'} classStyle={'cursor-pointer'} />
+          </span>
         ) : headerType === 'Logo' ? (
           <>
             <div>
               <span>{'👍'}</span>
               <span className={'mx-[6px]'}>{pageTitle}</span>
             </div>
-            <div>
-              {/*
-              CHECK : 이 부분에 rightElement icon요소 이름이 들어가는데, 아직 icon컴포넌트 미반영으로 넣지 못 했습니다!
-              */}
-              <span className={'mx-[6px]'}>{'👏'}</span>
-              <span>{'👏'}</span>
+            <div className={'flex items-center justify-between'}>
+              <div className={'mx-[7px]'} onClick={() => alert('알림보기!')}>
+                <Icon icon={'Alarm'} classStyle={'cursor-pointer'} />
+              </div>
+              <span onClick={() => alert('사이드 바 열기')}>
+                <Icon icon={'SideBar'} classStyle={'cursor-pointer'} />
+              </span>
             </div>
           </>
         ) : headerType === 'Close' ? (
-          <span>{'❌'}</span>
+          <span onClick={() => alert('페이지 닫기')}>
+            <Icon icon={'Close'} classStyle={'cursor-pointer'} />
+          </span>
         ) : headerType === 'CloseWithTitle' ? (
-          <div>
-            <span>{'❌'}</span>
+          <div className={'flex cursor-pointer'}>
+            <span onClick={() => alert('페이지 닫기')}>
+              <Icon icon={'Close'} classStyle={'cursor-pointer'} />
+            </span>
             <span className={'mx-[6px]'}>{pageTitle}</span>
           </div>
         ) : (

@@ -1,7 +1,7 @@
 import './styles/index.css'
 function App() {
   return (
-    <div className={'bg-blue-200'}>
+    <div className={'App relative'}>
       <p className={'headline-30'}>{'headline-30 font'}</p>
       <p className={'headline-25'}>{'headline-25 font'}</p>
       <p className={'subHead-18'}>{'subHead-18 font'}</p>
