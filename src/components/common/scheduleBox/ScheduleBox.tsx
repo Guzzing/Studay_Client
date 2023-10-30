@@ -1,11 +1,11 @@
 import type { ScheduleBoxProps } from './ScheduleBoxType'
+import Icon from '../icon/Icon'
 const ScheduleBox = ({
   isRegister = false,
   scheduleType,
   mainTitle,
   subElement,
-  rightBottomElement,
-  rightTopElement
+  rightBottomElement
 }: ScheduleBoxProps) => {
   return (
     <div
@@ -23,7 +23,8 @@ const ScheduleBox = ({
         <div className={'flex justify-between grow-4'}>
           <div className={'subHead-18-black'}>{mainTitle}</div>
           <div className={'flex cursor-pointer text-black-900 items-center'}>
-            {rightTopElement}
+            <Icon icon={'Edit'} />
+            <Icon icon={'Close'} />
           </div>
         </div>
         <div className={'grow-6'}>
@@ -41,7 +42,7 @@ const ScheduleBox = ({
               <div
                 className={`relative w-[42px] h-[20px] rounded-full ${
                   isRegister ? 'bg-blue-500' : 'bg-white-200'
-                }`}
+                } cursor-pointer`}
               >
                 <div
                   className={`absolute ${
