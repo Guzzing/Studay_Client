@@ -7,4 +7,5 @@ export interface ScheduleBoxProps {
   subElement: ReactNode // HTML태그를 넣을 수 있음!
   rightBottomElement?: ReactNode // HTML태그를 넣을 수 있음!
   isRegister?: boolean
+  cntOfChild?: number
 }
