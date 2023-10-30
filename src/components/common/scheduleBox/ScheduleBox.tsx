@@ -1,11 +1,11 @@
 import type { ScheduleBoxProps } from './ScheduleBoxType'
 import Icon from '../icon/Icon'
+import Profile from '../profile/Profile'
 const ScheduleBox = ({
   isRegister = false,
   scheduleType,
   mainTitle,
-  subElement,
-  rightBottomElement
+  subElement
 }: ScheduleBoxProps) => {
   return (
     <div
@@ -37,7 +37,14 @@ const ScheduleBox = ({
           </div>
           <div className={'absolute bottom-[3px] right-0 flex justify-end'}>
             {scheduleType === 'profile' ? (
-              rightBottomElement
+              <>
+                {/* 
+                ❗️TODO: 자식의 수 만큼 Profile컴포넌트 반복문 해주시면 됩니당
+                */}
+                <Profile imageSize={'S'} />
+                <Profile imageSize={'S'} />
+                <Profile imageSize={'S'} />
+              </>
             ) : (
               <div
                 className={`relative w-[42px] h-[20px] rounded-full ${
