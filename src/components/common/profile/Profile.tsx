@@ -4,8 +4,7 @@ import { PROFILE_SIZE, PROFILE_BORDER_COLOR } from './constants'
 const Profile = ({
   imageSize,
   imageUrl = 'https://chanwookim.me/agumon-dday/agumon.png',
-  canEdit = false,
-  onClick
+  canEdit = false
 }: ProfileImageProps) => {
   return (
     <div
@@ -22,7 +21,13 @@ const Profile = ({
       }`}
     >
       <img
-        onClick={canEdit ? onClick : undefined}
+        onClick={
+          canEdit
+            ? () => {
+                alert('onClick')
+              }
+            : undefined
+        }
         src={imageUrl}
         alt={'profile photo'}
         className={'absolute top-0 left-0 w-[100%] h-[100%]'}
