@@ -44,4 +44,5 @@ export interface CalenderType {
   nowYear: number
   nowMonth: MonthType
   nowDays: DaysInfo[][]
+  toDay: DayType
 }

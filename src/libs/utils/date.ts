@@ -5,13 +5,14 @@ import {
 } from '../../components/common/calender/constants.ts'
 import { MonthType, DaysInfo, DayType } from '../../types/date.ts'
 
-export const defaultDate = (): [number, MonthType, DaysInfo[][]] => {
+export const defaultDate = (): [number, MonthType, DaysInfo[][], DayType] => {
   const nowDate = new Date()
   const year = nowDate.getFullYear()
   const month = (nowDate.getMonth() + 1) as MonthType
   const days = getDays(year, month)
+  const today = nowDate.getDate() as DayType
 
-  return [year, month, days]
+  return [year, month, days, today]
 }
 
 export const getPrevDays = (

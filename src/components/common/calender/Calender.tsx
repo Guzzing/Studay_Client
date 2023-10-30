@@ -1,29 +1,42 @@
 import { useCallback, useEffect, useState } from 'react'
 import { defaultDate, getDays } from '../../../libs/utils/date.ts'
-import { CalenderType, DaysInfo, MonthType } from '../../../types/date.ts'
+import {
+  CalenderType,
+  DaysInfo,
+  DayType,
+  MonthType
+} from '../../../types/date.ts'
 import CalenderProps from './CalenderType.ts'
 import { DECEMBER, JANUARY, WEEK, WeekStyle } from './constants.ts'
 
 const Calender = ({ onClick }: CalenderProps) => {
-  const [defaultYear, defaultMonth, defaultDays] = defaultDate()
+  const [defaultYear, defaultMonth, defaultDays, days] = defaultDate()
   const [calenderState, setCalenderState] = useState<CalenderType>({
     nowYear: defaultYear,
     nowMonth: defaultMonth,
-    nowDays: defaultDays
+    nowDays: defaultDays,
+    toDay: days
   })
-  const { nowYear, nowMonth, nowDays } = calenderState
+  const { nowYear, nowMonth, nowDays, toDay } = calenderState
 
   const handleDayClick = useCallback(
     (dayInfo: DaysInfo) => {
       console.log(dayInfo.month, nowMonth)
+      console.log(dayInfo)
 
-      if (dayInfo.month !== nowMonth) {
-        const { year, month } = dayInfo
+      if (dayInfo.month === nowMonth) {
+        setCalenderState({
+          ...calenderState,
+          toDay: dayInfo.day
+        })
+      } else {
+        const { year, month, day } = dayInfo
         const days = getDays(year, month)
         setCalenderState({
           nowYear: year,
           nowMonth: month,
-          nowDays: days
+          nowDays: days,
+          toDay: day
         })
       }
 
@@ -46,7 +59,8 @@ const Calender = ({ onClick }: CalenderProps) => {
     setCalenderState({
       nowYear: nextYear,
       nowMonth: nextMonth as MonthType,
-      nowDays: nextDays
+      nowDays: nextDays,
+      toDay: 1 as DayType
     })
   }
 
@@ -64,7 +78,8 @@ const Calender = ({ onClick }: CalenderProps) => {
     setCalenderState({
       nowYear: previousYear,
       nowMonth: previousMonth as MonthType,
-      nowDays: previousDays
+      nowDays: previousDays,
+      toDay: 1 as DayType
     })
   }
 
@@ -121,8 +136,12 @@ const Calender = ({ onClick }: CalenderProps) => {
             {week.map((daysInfo, index) => (
               <div
                 key={index}
-                className={daysInfo.style}
-                data-id={`${daysInfo.year}-${daysInfo.month}`}
+                className={`${daysInfo.style} ${
+                  daysInfo.day === toDay && daysInfo.month === nowMonth
+                    ? 'bg-[rgba(87,164,255,0.2)] rounded-full '
+                    : ''
+                }`}
+                data-id={`${daysInfo.year}-${daysInfo.month}}`}
                 onClick={() => handleDayClick(daysInfo)}
               >
                 {daysInfo.day}
