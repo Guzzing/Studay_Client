@@ -1,4 +1,4 @@
-import Icons from '@/components/common/icon/Icons'
+import Icons from './Icons'
 export type IconType = keyof typeof Icons
 
 export interface IconProps {
