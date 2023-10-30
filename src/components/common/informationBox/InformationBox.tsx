@@ -11,7 +11,7 @@ const InformationBox = ({
   return (
     <div
       className={
-        'p-[14px] w-[345px] h-[120px] border border-black-900 font-nsk overflow-hidden'
+        'p-[14px] w-[345px] h-[120px] border border-black-900 font-nsk overflow-hidden rounded-[10px]'
       }
     >
       <div className={'w-full h-full flex'}>
