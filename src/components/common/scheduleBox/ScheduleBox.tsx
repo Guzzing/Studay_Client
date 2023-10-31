@@ -17,7 +17,7 @@ const ScheduleBox = ({
             ? 'w-[345px] h-[142px] bg-white-0'
             : 'w-[345px] h-[142px] bg-gray-200'
           : ''
-      } border border-black-900 pt-[16px] pb-[6px] px-[24px] rounded-[20px] font-nsk`}
+      } shadow-md pt-[16px] pb-[6px] px-[24px] rounded-[20px] font-nsk`}
     >
       <div className={'relative w-full h-full flex-col'}>
         <div className={'flex justify-between grow-4'}>
