@@ -27,7 +27,7 @@ const Header = ({
           <>
             <div>
               <span>{'👍'}</span>
-              <span className={'mx-[6px] font-nsk subHead-18'}>
+              <span className={'mx-[20px] font-nsk subHead-18'}>
                 {pageTitle}
               </span>
             </div>
@@ -45,11 +45,11 @@ const Header = ({
             <Icon icon={'Close'} classStyle={'cursor-pointer'} />
           </span>
         ) : headerType === 'CloseWithTitle' ? (
-          <div className={'flex cursor-pointer'}>
+          <div className={'flex cursor-pointer items-center'}>
             <span onClick={onClick}>
               <Icon icon={'Close'} classStyle={'cursor-pointer'} />
             </span>
-            <span className={'mx-[6px]'}>{pageTitle}</span>
+            <span className={'mx-[20px] font-nsk subHead-18'}>{pageTitle}</span>
           </div>
         ) : (
           ''
