@@ -74,7 +74,11 @@ export default {
         r600: 'rgba(255,0,0,1)'
       }
     },
-    extend: {}
+    extend: {
+      transitionProperty: {
+        height: 'height'
+      }
+    }
   },
   plugins: []
 }
