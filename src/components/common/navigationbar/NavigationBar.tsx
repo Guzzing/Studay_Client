@@ -32,7 +32,6 @@ const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
   const handleIconClick = useCallback(
     (selectedIcon: IconType) => {
       const updatedNavigationState = navigationState.map((item) => {
-        // 현재 클릭된 아이콘만 select 값을 true로 설정하고, 나머지는 false로 설정
         if (item.icon === selectedIcon) {
           return { ...item, select: true }
         }
@@ -46,7 +45,7 @@ const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
 
   return (
     <div
-      className={`flex flex-row w-[390px] h-[81px] bg-white-0 border border-solid border-gray-100`}
+      className={`flex flex-row w-[390px] h-[81px] bg-white-0 border border-solid border-gray-100 absolute bottom-0`}
     >
       {navigationState &&
         navigationState.map((list, index) => (
@@ -66,7 +65,11 @@ const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
                 list['select'] ? SelectIconFill : DefaultIconFill
               }`}
             ></Icon>
-            <span className={`${list['select'] ? SelectText : DefaultText}`}>
+            <span
+              className={`${
+                list['select'] ? SelectText : DefaultText
+              } font-nsk body-10`}
+            >
               {list['text']}
             </span>
           </div>
