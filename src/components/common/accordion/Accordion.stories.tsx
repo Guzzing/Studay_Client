@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { ArrowDown } from '@/assets/icon'
 import { Accordion } from '@/components/common/accordion/Accordion'
+import ListRow from '@/components/common/listRow/ListRow'
 
 const meta: Meta<typeof Accordion> = {
   component: Accordion,
@@ -10,20 +11,39 @@ const meta: Meta<typeof Accordion> = {
     title: {
       control: 'text',
       required: true
-    },
-    initialState: {
-      control: 'boolean'
     }
   },
   render: ({ ...args }) => (
     <Accordion
       title={args.title}
-      contentHeight={52}
+      contentHeight={106}
       initialState={args.initialState}
       content={
-        <div className={'flex flex-col gap-1 bg-blue-100'}>
-          <div>{'안녕'}</div>
-          <div>{'잘가'}</div>
+        <div className={'flex flex-col gap-0'}>
+          <ListRow
+            leftElement={
+              <div className={'font-nsk text-body-18'}>{'체르니 마스터반'}</div>
+            }
+            rightElement={
+              <div className={'font-nsk text-body-16 text-blue-500'}>
+                {'50명 정원'}
+              </div>
+            }
+            hasBorder={true}
+            className={'bg-white-100'}
+          />
+          <ListRow
+            leftElement={
+              <div className={'font-nsk text-body-18'}>{'금액'}</div>
+            }
+            rightElement={
+              <div className={'font-nsk text-body-16 text-blue-500'}>
+                {'300,000원'}
+              </div>
+            }
+            hasBorder={true}
+            className={'bg-white-100'}
+          />
         </div>
       }
       rightElement={<ArrowDown />}

@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { forwardRef, ReactNode, useState } from 'react'
+import ListRow from '@/components/common/listRow/ListRow'
 
 export interface AccordionProps {
   title: string
@@ -44,17 +45,13 @@ export const Accordion = forwardRef<HTMLButtonElement, AccordionProps>(
     }
 
     return (
-      <div style={{ width: '100%', padding: '0px 10px' }}>
+      <div className={'w-full'}>
         <button
           onClick={handleAccordion}
           ref={ref}
-          className={'flex flex-column justify-center'}
+          className={'flex flex-column justify-center w-full'}
         >
-          {/* TODO: ListRow로 바꾸기 */}
-          <div className={'flex flex-row justify-between items-center'}>
-            <div>{title}</div>
-            <div>{rightElement}</div>
-          </div>
+          <ListRow hasBorder={true} leftElement={title} rightElement={rightElement} />
         </button>
 
         <div
