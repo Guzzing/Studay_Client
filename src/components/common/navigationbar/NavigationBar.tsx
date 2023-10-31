@@ -1,6 +1,9 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import Icon, { IconType } from '@/components/common/icon/Icon.tsx'
-import { NavigationStateType } from '@/components/common/navigationbar/NavigationBarType.ts'
+import {
+  NavigationBarProps,
+  NavigationStateType
+} from '@/components/common/navigationbar/NavigationBarType.ts'
 import {
   DefaultIconFill,
   DefaultText,
@@ -9,9 +12,22 @@ import {
   SelectText
 } from '@/components/common/navigationbar/constants.ts'
 
-const NavigationBar = () => {
-  const [navigationState, setNavigationState] =
-    useState<NavigationStateType[]>(initNavigationList)
+const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
+  const [navigationState, setNavigationState] = useState<NavigationStateType[]>(
+    initNavigationList.map((item) => ({
+      ...item,
+      select: item.icon === selectIcon
+    }))
+  )
+
+  useEffect(() => {
+    setNavigationState((prevState) =>
+      prevState.map((item) => ({
+        ...item,
+        select: item.icon === selectIcon
+      }))
+    )
+  }, [selectIcon])
 
   const handleIconClick = useCallback(
     (selectedIcon: IconType) => {

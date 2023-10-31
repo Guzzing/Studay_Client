@@ -5,3 +5,7 @@ export interface NavigationStateType {
   text: string
   select: boolean
 }
+
+export interface NavigationBarProps {
+  selectIcon: 'SearchMap' | 'Home' | 'Timetable' | 'Info'
+}
