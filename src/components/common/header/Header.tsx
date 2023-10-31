@@ -2,10 +2,14 @@
 import type { HeaderProps } from './HeaderType'
 import Icon from '../icon/Icon'
 
-const Header = ({ headerType, pageTitle = 'pageTitle' }: HeaderProps) => {
+const Header = ({
+  headerType,
+  pageTitle = 'pageTitle',
+  onClick
+}: HeaderProps) => {
   return (
     <header
-      className={`fixed left-[50%] top-0 translate-x-[-50%] w-[390px] h-[80px] bg-white-0 text-black-900 px-[22px] border border-black-900`}
+      className={`fixed left-[50%] top-0 translate-x-[-50%] w-[390px] h-[80px] bg-white-0 text-black-900 px-[22px] border-b-[1px] border-gray-100`}
     >
       <div
         className={`w-full h-full ${
@@ -24,7 +28,9 @@ const Header = ({ headerType, pageTitle = 'pageTitle' }: HeaderProps) => {
           <>
             <div>
               <span>{'👍'}</span>
-              <span className={'mx-[6px]'}>{pageTitle}</span>
+              <span className={'mx-[6px] font-nsk subHead-18'}>
+                {pageTitle}
+              </span>
             </div>
             <div className={'flex items-center justify-between'}>
               <div className={'mx-[7px]'} onClick={() => alert('알림보기!')}>
@@ -36,12 +42,12 @@ const Header = ({ headerType, pageTitle = 'pageTitle' }: HeaderProps) => {
             </div>
           </>
         ) : headerType === 'Close' ? (
-          <span onClick={() => alert('페이지 닫기')}>
+          <span onClick={onClick}>
             <Icon icon={'Close'} classStyle={'cursor-pointer'} />
           </span>
         ) : headerType === 'CloseWithTitle' ? (
           <div className={'flex cursor-pointer'}>
-            <span onClick={() => alert('페이지 닫기')}>
+            <span onClick={onClick}>
               <Icon icon={'Close'} classStyle={'cursor-pointer'} />
             </span>
             <span className={'mx-[6px]'}>{pageTitle}</span>
