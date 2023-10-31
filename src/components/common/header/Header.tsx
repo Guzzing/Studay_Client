@@ -1,4 +1,3 @@
-// 봐 결국 함수야..!
 import type { HeaderProps } from './HeaderType'
 import Icon from '../icon/Icon'
 
