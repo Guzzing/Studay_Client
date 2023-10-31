@@ -18,7 +18,7 @@ const Profile = ({
           : imageSize === 'L'
           ? PROFILE_SIZE['L']
           : ''
-      }`}
+      } mx-[1px]`}
     >
       <img
         onClick={

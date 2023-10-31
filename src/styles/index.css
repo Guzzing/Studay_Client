@@ -20,64 +20,192 @@ body {
   background-color: gray;
 }
 @layer components {
-  .headline-30 {
+  .headline-30-black-lg {
     font-family: 'nsk';
     font-size: 30px;
-    font-weight: normal;
+    font-weight: 700;
+    line-height: 17px;
+    color: #000;
+  }
+  .headline-30-black-md {
+    font-family: 'nsk';
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.33px;
+    color: #000;
+  }
+
+  .headline-30-500 {
+    font-family: 'nsk';
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 40px;
+    letter-spacing: -0.33px;
   }
 
   .headline-25 {
     font-family: 'nsk';
     font-size: 25px;
-    font-weight: bold;
+    font-weight: 700;
+    line-height: 24px;
+    color: #000;
   }
 
-  .subHead-18 {
+  .headline-20-black {
+    font-family: 'nsk';
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #000;
+  }
+  .subHead-18-black {
     font-family: 'nsk';
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
+    line-height: 24px;
+    color: #000;
   }
 
-  .subHead-16 {
+  .subHead-16-black {
     font-family: 'nsk';
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
+    line-height: 24px;
+    color: #000;
   }
 
-  .subHead-13 {
-    font-family: 'nsk';
-    font-size: 13px;
-    font-weight: normal;
-  }
-
-  .body-18 {
-    font-family: 'nsk';
-    font-size: 18px;
-    font-weight: normal;
-  }
-
-  .body-16 {
+  .subHead-16-blue {
     font-family: 'nsk';
     font-size: 16px;
-    font-weight: normal;
+    font-weight: 700;
+    line-height: 24px;
+    color: #57a4ff;
   }
 
-  .body-15 {
+  .subHead-16-red {
     font-family: 'nsk';
-    font-size: 15px;
-    font-weight: normal;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #fc4c4e;
+  }
+  .subHead-13-black {
+    font-family: 'nsk';
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #000;
   }
 
-  .body-14 {
+  .body-18-blue {
     font-family: 'nsk';
     font-size: 14px;
-    font-weight: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.15px;
+    color: #57a4ff;
   }
 
-  .caption-13 {
+  .body-18-black-lg {
+    font-family: 'nsk';
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+    color: #000;
+  }
+  .body-18-black-sm {
     font-family: 'nsk';
     font-size: 13px;
-    font-weight: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.1px;
+    color: #000;
+  }
+  .body-18-gray {
+    font-family: 'nsk';
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: -2px;
+    color: #808080;
+  }
+  .body-16-black {
+    font-family: 'nsk';
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #000;
+  }
+  .body-15-black {
+    font-family: 'nsk';
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #000;
+    letter-spacing: -0.165px;
+  }
+  .body-15-gray {
+    font-family: 'nsk';
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #808080;
+  }
+
+  .body-14-black {
+    font-family: 'nsk';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #000;
+  }
+
+  .body-14-gray {
+    font-family: 'nsk';
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #808080;
+  }
+  .caption-13-black {
+    font-family: 'nsk';
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    color: #000;
+  }
+
+  .caption-13-gray {
+    font-family: 'nsk';
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    color: rgba(0, 0, 0, 0.7);
+  }
+  .caption-13-white {
+    font-family: 'nsk';
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #fff;
+  }
+  .placeholder {
+    font-family: 'nsk';
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.2;
+    color: #808080;
+  }
+
+  .button-white {
+    font-family: 'nsk';
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #fff;
   }
 
   .body-10 {
