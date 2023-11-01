@@ -1,3 +1,5 @@
+import Button from './components/common/button/Button'
+import Select from './components/common/inputbox/select/Select'
 import './styles/index.css'
 function App() {
   return (
