@@ -27,7 +27,7 @@ const Header = ({
           <>
             <div>
               <span>{'👍'}</span>
-              <span className={'mx-[20px] font-nsk subHead-18'}>
+              <span className={'mx-[20px] font-nsk subHead-18-black'}>
                 {pageTitle}
               </span>
             </div>
@@ -49,7 +49,9 @@ const Header = ({
             <span onClick={onClick}>
               <Icon icon={'Close'} classStyle={'cursor-pointer'} />
             </span>
-            <span className={'mx-[20px] font-nsk subHead-18'}>{pageTitle}</span>
+            <span className={'mx-[20px] font-nsk subHead-18-black'}>
+              {pageTitle}
+            </span>
           </div>
         ) : (
           ''
