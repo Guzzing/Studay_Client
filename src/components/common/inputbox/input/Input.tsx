@@ -1,5 +1,5 @@
 import type { InputProps } from './InputType'
-import { forwardRef } from 'react'
+import { forwardRef, useState } from 'react'
 import Icon from '../../icon/Icon'
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -20,6 +20,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     }: InputProps,
     ref
   ) => {
+    const [inputValue, setInputValue] = useState('')
+    const [searchInputValue, setSearchInputValue] = useState('')
     return inputType === 'Default' ? (
       <>
         <input
@@ -27,10 +29,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={`${
             fullWidth ? 'w-[324px] h-[52px]' : `w-[${width}px] h-[${height}px]`
           } rounded-[10px] border border-blue-500 px-[20px] font-nsk text-gray-600 bg-white-200 placeholder:text-gray-600 outline-none`}
-          value={value}
+          value={inputValue}
           name={name}
           placeholder={placeholder}
-          onChange={onChange}
+          onChange={(e) => {
+            setInputValue(e.target.value)
+          }}
           ref={ref}
           {...props}
         />
@@ -47,10 +51,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             type={'search'}
             className={`grow h-full w-full px-[5px] font-nsk body-15 bg-white-200 placeholder:body-15 text-gray-600 outline-none`}
-            value={value}
+            value={searchInputValue}
             name={name}
             placeholder={placeholder}
-            onChange={onChange}
+            onChange={(e) => {
+              setSearchInputValue(e.target.value)
+            }}
             ref={ref}
             {...props}
           />
