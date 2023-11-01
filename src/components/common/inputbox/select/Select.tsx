@@ -35,7 +35,13 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             <option value={optionValue}>{optionValue}</option>
           ))}
         </select>
-        <Icon icon={'ArrowDown'} />
+        <div
+          className={
+            'pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'
+          }
+        >
+          <Icon icon={'ArrowDown'} />
+        </div>
         <p className={'px-[10px] text-red-600'}>{errorMessage}</p>
       </>
     ) : (
