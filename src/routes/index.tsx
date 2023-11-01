@@ -1,6 +1,7 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom'
 import Header from '@/components/common/header/Header'
 import NavigationBar from '@/components/common/navigationbar/NavigationBar'
+import EditChildren from '@/pages/EditChildren/EditChildren'
 import ErrorPage from '@/pages/ErrorPage'
 import HomePage from '@/pages/home/HomePage'
 
@@ -37,7 +38,12 @@ export const router = createBrowserRouter(
         },
         {
           path: 'edit/:childId',
-          element: <p>{'자식 수정 페이지'}</p>,
+          element: (
+            <>
+              <Header headerType={'Close'} />
+              <EditChildren />
+            </>
+          ),
           errorElement: <ErrorPage />
         },
         {

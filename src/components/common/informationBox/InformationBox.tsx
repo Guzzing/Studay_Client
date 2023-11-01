@@ -7,7 +7,8 @@ import Profile from '../profile/Profile'
 const InformationBox = ({
   mainTitle,
   subTitle,
-  description // CHECK : description은 글자 수 설정을 해놓으면 좋을 것 같습니다!
+  description,
+  onClick // CHECK : description은 글자 수 설정을 해놓으면 좋을 것 같습니다!
 }: InformationBoxProps) => {
   return (
     <div
@@ -27,7 +28,10 @@ const InformationBox = ({
           <p className={'text-black-900 caption-13 break-words'}>
             {description}
           </p>
-          <span className={'absolute top-[3px] right-[3px] cursor-pointer'}>
+          <span
+            className={'absolute top-[3px] right-[3px] cursor-pointer'}
+            onClick={onClick}
+          >
             <Icon icon={'Edit'} classStyle={'text-black-900'} />
           </span>
         </div>

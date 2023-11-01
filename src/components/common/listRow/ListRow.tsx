@@ -11,8 +11,8 @@ import cn from '@/libs/utils/cn'
  * */
 
 interface ListRowProps extends ComponentProps<'div'> {
-  rightElement: ReactNode
-  leftElement?: ReactNode
+  rightElement?: ReactNode
+  leftElement: ReactNode
   paddingSize?: PaddingSizeType
   hasBorder?: boolean
   className?: string

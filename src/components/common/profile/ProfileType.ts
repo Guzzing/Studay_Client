@@ -1,4 +1,4 @@
-type ProfileImageType = 'S' | 'M' | 'L'
+type ProfileImageType = 'S' | 'M' | 'L' | 'XL'
 
 export interface ProfileImageProps {
   imageSize: ProfileImageType
