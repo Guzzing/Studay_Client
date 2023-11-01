@@ -3,7 +3,7 @@ import Icon from '../icon/Icon'
 import Profile from '../profile/Profile'
 
 // CHECK
-// Profile component가 머지되면 바로 프로필 컴포넌트 반영할게요!
+
 const InformationBox = ({
   mainTitle,
   subTitle,
@@ -12,14 +12,14 @@ const InformationBox = ({
   return (
     <div
       className={
-        'p-[14px] w-[345px] h-[120px] font-nsk overflow-hidden rounded-[10px] bg-white-200'
+        'p-[14px] w-[345px] h-[120px] font-nsk overflow-hidden rounded-[10px] bg-white-0'
       }
     >
-      <div className={'w-full h-full flex'}>
+      <div className={'w-full h-full flex items-center'}>
         <Profile imageSize={'M'} canEdit={true} />
         <div
           className={
-            'relative w-[240px] h-full pl-[17px] flex flex-col justify-between'
+            'relative w-[240px] h-full pl-[17px] flex flex-col justify-center gap-[5px]'
           }
         >
           <p className={'subHead-18 font-nsk text-black-900'}>{mainTitle}</p>

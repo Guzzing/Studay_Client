@@ -1,20 +1,28 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom'
+import Header from '@/components/common/header/Header'
+import NavigationBar from '@/components/common/navigationbar/NavigationBar'
 import ErrorPage from '@/pages/ErrorPage'
+import HomePage from '@/pages/home/HomePage'
 
 export const router = createBrowserRouter(
   [
     {
       path: '/',
       element: (
-        <div>
-          {'고정!'}
+        <div className={'w-full h-full relative'}>
           <Outlet />
         </div>
       ),
       children: [
         {
           index: true,
-          element: <p>{'mainpage 추가내용'}</p>,
+          element: (
+            <>
+              <Header headerType={'Logo'} pageTitle={'아이 정보 한눈에 보기'} />
+              <HomePage />
+              <NavigationBar selectIcon={'Home'} />
+            </>
+          ),
           errorElement: <ErrorPage />
         },
         {
@@ -103,5 +111,5 @@ export const router = createBrowserRouter(
       ]
     }
   ],
-  { basename: '/studay' }
+  { basename: '/' }
 )

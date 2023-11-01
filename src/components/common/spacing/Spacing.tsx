@@ -1,6 +1,6 @@
 interface SpacingProps {
   size: number
-  color: string
+  color?: string
 }
 
 /**
