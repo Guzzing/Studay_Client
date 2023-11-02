@@ -14,25 +14,22 @@ const InformationBox = ({
     <div
       className={
         'p-[14px] w-[345px] h-[120px] font-nsk overflow-hidden rounded-[10px] bg-white-0'
-      }
-    >
+      }>
       <div className={'w-full h-full flex items-center'}>
         <Profile imageSize={'M'} canEdit={true} />
         <div
           className={
             'relative w-[240px] h-full pl-[17px] flex flex-col justify-center gap-[5px]'
-          }
-        >
+          }>
           <p className={'subHead-18-black'}>{mainTitle}</p>
           <p className={'text-gray-700 body-15'}>{subTitle}</p>
-          <p className={'text-black-900 caption-13 break-words'}>
+          <p className={'text-black-700 caption-13 break-words'}>
             {description}
           </p>
           <span
             className={'absolute top-[3px] right-[3px] cursor-pointer'}
-            onClick={onClick}
-          >
-            <Icon icon={'Edit'} classStyle={'text-black-900'} />
+            onClick={onClick}>
+            <Icon icon={'Edit'} classStyle={'text-black-700'} />
           </span>
         </div>
       </div>
