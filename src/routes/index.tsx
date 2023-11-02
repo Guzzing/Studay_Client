@@ -56,7 +56,7 @@ export const router = createBrowserRouter(
           path: 'map',
           element: (
             <>
-              <Header headerType={'BackPush'} pageTitle={'학원 지도'} />
+              <Header headerType={'Logo'} pageTitle={'학원 지도'} />
               <MapPage />
               <NavigationBar selectIcon={'SearchMap'} />
             </>
