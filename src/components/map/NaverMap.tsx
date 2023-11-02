@@ -18,7 +18,7 @@ const NaverMap = () => {
   }, [])
 
   return (
-    <div className={'h-full w-full'}>
+    <div className={'flex h-full w-full '}>
       <div id={'map'} className={'w-[390px] h-full'} />
     </div>
   )
