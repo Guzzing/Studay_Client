@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useCallback, useEffect, useState } from 'react'
 import Icon, { IconType } from '@/components/common/icon/Icon.tsx'
 import {
@@ -9,7 +10,8 @@ import {
   DefaultText,
   initNavigationList,
   SelectIconFill,
-  SelectText
+  SelectText,
+  SelectIconFillStroke
 } from '@/components/common/navigationbar/constants.ts'
 
 const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
@@ -61,14 +63,16 @@ const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
           >
             <Icon
               icon={list['icon']}
-              classStyle={`${
-                list['select'] ? SelectIconFill : DefaultIconFill
-              }`}
+              classStyle={`${list['select']
+                ? list['icon'] === 'Timetable' || list['icon'] === 'Info'
+                  ? SelectIconFillStroke
+                  : SelectIconFill
+                : DefaultIconFill
+                }`}
             ></Icon>
             <span
-              className={`${
-                list['select'] ? SelectText : DefaultText
-              } font-nsk body-10`}
+              className={`${list['select'] ? SelectText : DefaultText
+                } font-nsk body-10`}
             >
               {list['text']}
             </span>
