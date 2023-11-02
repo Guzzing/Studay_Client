@@ -3,6 +3,7 @@ import Header from '@/components/common/header/Header'
 import NavigationBar from '@/components/common/navigationbar/NavigationBar'
 import ErrorPage from '@/pages/ErrorPage'
 import HomePage from '@/pages/home/HomePage'
+import MapPage from '@/pages/map/MapPage.tsx'
 
 export const router = createBrowserRouter(
   [
@@ -48,10 +49,11 @@ export const router = createBrowserRouter(
         {
           path: 'map',
           element: (
-            <div>
-              {'맵'}
-              <Outlet />
-            </div>
+            <>
+              <Header headerType={'BackPush'} pageTitle={'학원 지도'} />
+              <MapPage />
+              <NavigationBar selectIcon={'SearchMap'} />
+            </>
           ),
           children: [
             {

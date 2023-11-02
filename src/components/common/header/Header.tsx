@@ -8,7 +8,7 @@ const Header = ({
 }: HeaderProps) => {
   return (
     <header
-      className={`fixed left-[50%] top-0 translate-x-[-50%] w-[390px] h-[80px] bg-white-0 text-black-900 px-[22px] border-b-[1px] border-gray-100`}
+      className={`absolute fixed left-[50%] top-0 translate-x-[-50%] w-[390px] h-[80px] bg-white-0 text-black-900 px-[22px] border-b-[1px] border-gray-100`}
     >
       <div
         className={`w-full h-full ${
