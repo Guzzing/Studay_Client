@@ -6,7 +6,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       inputType = 'Default',
-      value = '',
       fullWidth = true,
       width,
       height,
@@ -15,7 +14,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         ? '정보를 입력해주세요'
         : '학원명을 입력해주세요',
       errorMessage,
-      onChange,
       ...props
     }: InputProps,
     ref

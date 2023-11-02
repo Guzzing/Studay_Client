@@ -31,7 +31,7 @@ const ScheduleBox = ({
           <div
             className={`${
               scheduleType === 'profile' ? 'flex' : 'caption-13-gray'
-            } justify-start items-center body-14-black py-[5px]`}
+            } justify-start items-center body-14 py-[5px]`}
           >
             {subElement}
           </div>
