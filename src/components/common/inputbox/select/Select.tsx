@@ -1,5 +1,5 @@
 import type { SelectProps } from './SelectType'
-import { forwardRef } from 'react'
+import { forwardRef, useState } from 'react'
 import Icon from '../../icon/Icon'
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
@@ -8,15 +8,18 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       selectType = 'Single',
       fullWidth = true,
       name,
-      value = [],
       width,
       height,
+      value = selectType === 'Single' ? '' : 'false',
       errorMessage,
-      onChange,
       ...props
     }: SelectProps,
     ref
   ) => {
+    const [singleSelectedValue, setSingleSelectedValue] = useState('')
+    const [boxSelectedValue, setBoxSelectedValue] = useState(false)
+    const OPTION_DUMMY_DATA = ['1', '2', '3', '4', '5'] // 서버에서 받아온 값
+
     return selectType === 'Single' ? (
       <div
         className={`relative ${
@@ -28,13 +31,15 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           name={name}
           id={''}
           className={`w-full h-full font-nsk body-18 px-[20px] border border-blue-500 rounded-[10px] outline-none bg-white-200
-      text-gray-600 appearance-none cursor-pointer
-      `}
-          onChange={onChange}
+      text-gray-600 appearance-none cursor-pointer`}
+          value={singleSelectedValue}
+          onChange={(e) => {
+            setSingleSelectedValue(e.target.value)
+          }}
           {...props}
         >
-          {value.map((optionValue) => (
-            <option value={optionValue}>{optionValue}</option>
+          {OPTION_DUMMY_DATA.map((option) => (
+            <option value={option}>{option}</option>
           ))}
         </select>
         <div
@@ -47,6 +52,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <p className={'px-[10px] text-red-600'}>{errorMessage}</p>
       </div>
     ) : (
+      // selectedType : Box
       <>
         <div
           className={`px-[23px] ${
@@ -63,11 +69,14 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             className={
               'bg-white-200 body-14 text-gray-600 outline-none cursor-pointer relative appearance-none w-[50px]'
             }
-            onChange={onChange}
+            value={boxSelectedValue ? 'yes' : 'no'}
+            onChange={(e) => {
+              setBoxSelectedValue((prev) => !prev)
+            }}
             {...props}
           >
-            {value.map((optionValue) => (
-              <option value={optionValue}>{optionValue}</option>
+            {OPTION_DUMMY_DATA.map((option) => (
+              <option value={option}>{option}</option>
             ))}
           </select>
           <div

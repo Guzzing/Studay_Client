@@ -23,7 +23,7 @@ const InformationBox = ({
             'relative w-[240px] h-full pl-[17px] flex flex-col justify-center gap-[5px]'
           }
         >
-          <p className={'subHead-18 font-nsk text-black-900'}>{mainTitle}</p>
+          <p className={'subHead-18-black'}>{mainTitle}</p>
           <p className={'text-gray-700 body-15'}>{subTitle}</p>
           <p className={'text-black-900 caption-13 break-words'}>
             {description}
