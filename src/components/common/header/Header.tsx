@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/prefer-logical-operator-over-ternary */
-/* eslint-disable prettier/prettier */
 import type { HeaderProps } from './HeaderType'
 import { useNavigate } from 'react-router-dom'
 import Icon from '../icon/Icon'
@@ -11,16 +9,15 @@ const Header = ({
   const navigate = useNavigate()
   return (
     <header
-      className={`fixed left-[50%] z-50 top-0 translate-x-[-50%] w-[390px] h-[80px] bg-white-0 text-black-900 px-[22px] border-b-[1px] border-gray-100`}
-    >
+      className={`fixed left-[50%] z-50 top-0 translate-x-[-50%] w-[390px] h-[80px] bg-white-0 text-black-900 px-[22px] border-b-[1px] border-gray-100`}>
       <div
-        className={`w-full h-full ${headerType === 'BackPush' ||
+        className={`w-full h-full ${
+          headerType === 'BackPush' ||
           headerType === 'Close' ||
           headerType === 'CloseWithTitle'
-          ? 'flex items-center justify-start'
-          : 'flex items-center justify-between'
-          }`}
-      >
+            ? 'flex items-center justify-start'
+            : 'flex items-center justify-between'
+        }`}>
         {headerType === 'BackPush' ? (
           <span onClick={() => alert('뒤로가기')}>
             <Icon icon={'BackPush'} classStyle={'cursor-pointer'} />
@@ -59,7 +56,7 @@ const Header = ({
           ''
         )}
       </div>
-    </header >
+    </header>
   )
 }
 
