@@ -6,38 +6,39 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {
       selectType = 'Single',
-      fullWidth = true,
-      name,
+      fullWidth = false,
+      optionData,
       width,
       height,
-      value = selectType === 'Single' ? '' : 'false',
-      errorMessage,
+      value,
       ...props
     }: SelectProps,
     ref
   ) => {
-    const [singleSelectedValue, setSingleSelectedValue] = useState('')
+    const [singleSelectedValue, setSingleSelectedValue] = useState(value)
     const [boxSelectedValue, setBoxSelectedValue] = useState(false)
-    const OPTION_DUMMY_DATA = ['1', '2', '3', '4', '5'] // 서버에서 받아온 값
+    const OPTION_DUMMY_DATA = optionData // 서버에서 받아온 값
 
     return selectType === 'Single' ? (
       <div
         className={`relative ${
-          fullWidth ? 'w-[324px] h-[52px]' : `w-[${width}px] h-[${height}px]`
-        }`}>
+          fullWidth ? 'w-full h-[52px]' : `'w-[324px] h-[52px]`
+        }`}
+        style={{ width: width, height: height }}>
         <select
           ref={ref}
-          name={name}
-          id={''}
-          className={`w-full h-full font-nsk body-18 px-[20px] border border-blue-500 rounded-[10px] outline-none bg-white-200
-      text-gray-600 appearance-none cursor-pointer`}
+          id={'singleSelect'}
           value={singleSelectedValue}
+          className={`w-full h-full font-nsk body-18 px-[20px] border border-blue-350 rounded-[10px] outline-none bg-white-200
+      text-black-800 appearance-none cursor-pointer`}
           onChange={(e) => {
             setSingleSelectedValue(e.target.value)
           }}
           {...props}>
-          {OPTION_DUMMY_DATA.map((option) => (
-            <option value={option}>{option}</option>
+          {OPTION_DUMMY_DATA.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
           ))}
         </select>
         <div
@@ -46,22 +47,20 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           }>
           <Icon icon={'ArrowDown'} classStyle={'text-gray-500'} />
         </div>
-        <p className={'px-[10px] text-red-600'}>{errorMessage}</p>
       </div>
     ) : (
       // selectedType : Box
       <>
         <div
           className={`px-[23px] ${
-            fullWidth ? 'w-[350px] h-[44px]' : `w-[${width}px] h-[${height}px]`
-          } flex justify-between items-center border border-blue-500 rounded-[10px] font-nsk
+            fullWidth ? 'w-full h-[44px]' : `'w-[350px] h-[44px]`
+          } flex justify-between items-center border border-blue-350 rounded-[10px] font-nsk
         bg-white-200 appearance-none relative
         `}>
           <p className={'body-18 text-black-800'}>{'반복'}</p>
           <select
             ref={ref}
-            name={name}
-            id={''}
+            key={'multiSelect'}
             className={
               'bg-white-200 body-14 text-gray-600 outline-none cursor-pointer relative appearance-none w-[50px]'
             }
@@ -70,8 +69,10 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
               setBoxSelectedValue((prev) => !prev)
             }}
             {...props}>
-            {OPTION_DUMMY_DATA.map((option) => (
-              <option value={option}>{option}</option>
+            {OPTION_DUMMY_DATA.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
             ))}
           </select>
           <div
@@ -81,7 +82,6 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             <Icon icon={'ArrowDown'} classStyle={'text-gray-500'} />
           </div>
         </div>
-        <p className={'px-[10px] text-red-600'}>{errorMessage}</p>
       </>
     )
   }

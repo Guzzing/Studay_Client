@@ -8,12 +8,14 @@ import {
   BUTTON_WIDTH,
   FONT_STYLE
 } from './constants'
+import cn from '@/libs/utils/cn'
 const Button = ({
+  className,
   label,
   buttonType,
   fullWidth = false,
   width = 'XLW',
-  height = 'SH',
+  height = 'MH',
   ...props
 }: ButtonProps) => {
   const btnClass = `
@@ -59,11 +61,7 @@ const Button = ({
   }
   ${FONT_STYLE['NSK']}
   `
-  return (
-    <button className={btnClass} {...props}>
-      {label}
-    </button>
-  )
+  return <button className={cn(btnClass, className)}>{label}</button>
 }
 
 export default Button

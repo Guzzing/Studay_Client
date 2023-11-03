@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router-dom'
 import Button from '@/components/common/button/Button'
 import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
 const EditChildren = () => {
+  const navigate = useNavigate()
   return (
     <div className={'flex flex-col items-center relative h-full'}>
       <Spacing size={150} />
@@ -19,13 +21,13 @@ const EditChildren = () => {
         }
       />
       <div
-        className={'absolute bottom-3 flex flex-col gap-[13px] items-center'}
-      >
+        className={'absolute bottom-3 flex flex-col gap-[13px] items-center'}>
         <Button
           buttonType={'Plain-blue'}
           width={'LW'}
           height={'SH'}
           label={'아이 정보 수정하기'}
+          onClick={() => navigate('editing')}
         />
         <Button buttonType={'Plain-red'} width={'LW'} label={'아이 삭제하기'} />
       </div>
