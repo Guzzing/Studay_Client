@@ -44,8 +44,8 @@ export const ProfileScheduleBox: Story = {
     ),
     rightTopElement: (
       <>
-        <Icon icon={'Edit'} classStyle={'text-black-900'} />
-        <Icon icon={'Close'} classStyle={'text-black-900'} />
+        <Icon icon={'Edit'} classStyle={'stroke-black-700'} />
+        <Icon icon={'Close'} classStyle={'stroke-black-700'} />
       </>
     ),
     rightBottomElement: (

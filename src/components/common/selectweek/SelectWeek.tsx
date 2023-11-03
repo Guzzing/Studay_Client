@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { cva } from 'class-variance-authority'
 import cn from '../../../libs/utils/cn'
 
@@ -44,12 +43,11 @@ const SelectWeek = ({
           key={index}
           className={cn(
             SelectWeekVariant({
-              variant:
-                fixedDate?.includes(index)
-                  ? 'fixed'
-                  : selectedDate.includes(index)
-                    ? 'selected'
-                    : 'default'
+              variant: fixedDate?.includes(index)
+                ? 'fixed'
+                : selectedDate.includes(index)
+                ? 'selected'
+                : 'default'
             })
           )}
           onClick={() => {
@@ -59,8 +57,7 @@ const SelectWeek = ({
             } else {
               setSelectedDate([...selectedDate, index])
             }
-          }}
-        >
+          }}>
           {day}
         </button>
       ))}

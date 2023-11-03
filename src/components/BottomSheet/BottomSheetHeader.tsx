@@ -5,7 +5,7 @@ const BottomSheetHeader = ({ title }: { title: string }) => {
   //TODO: 좋아요 API 로직 추가
   return (
     <div className={'flex flex-row justify-between w-full mb-[17px]'}>
-      <h1 className={'font-nsk headline-25 text-black-900'}>{title}</h1>
+      <h1 className={'font-nsk headline-25 text-black-800'}>{title}</h1>
       {liked ? (
         <LikeFilled
           className={'cursor-pointer'}
