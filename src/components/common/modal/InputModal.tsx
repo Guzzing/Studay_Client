@@ -9,9 +9,8 @@ const InputModal = ({ onConfirm, onCancel, title }: InputModalProperties) => {
     <div
       className={
         'flex flex-col justify-center items-center w-[339px] h-[189px] bg-white-0 rounded-[15px]'
-      }
-    >
-      <div className={'w-11/12 text-left body-16 text-black-900 mb-1 ml-3'}>
+      }>
+      <div className={'w-11/12 text-left body-16 text-black-800 mb-1 ml-3'}>
         {title}
       </div>
       <input
@@ -24,16 +23,14 @@ const InputModal = ({ onConfirm, onCancel, title }: InputModalProperties) => {
           className={
             'w-[123px] h-[40px] border rounded-xl mr-9 bg-blue-500 text-white-0 border-none'
           }
-          onClick={onConfirm}
-        >
+          onClick={onConfirm}>
           {'확인'}
         </button>
         <button
           className={
             'w-[123px] h-[40px] border rounded-xl bg-blue-500 text-white-0 border-none'
           }
-          onClick={onCancel}
-        >
+          onClick={onCancel}>
           {'취소'}
         </button>
       </div>

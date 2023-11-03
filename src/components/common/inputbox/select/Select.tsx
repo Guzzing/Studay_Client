@@ -24,8 +24,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       <div
         className={`relative ${
           fullWidth ? 'w-[324px] h-[52px]' : `w-[${width}px] h-[${height}px]`
-        }`}
-      >
+        }`}>
         <select
           ref={ref}
           name={name}
@@ -36,8 +35,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           onChange={(e) => {
             setSingleSelectedValue(e.target.value)
           }}
-          {...props}
-        >
+          {...props}>
           {OPTION_DUMMY_DATA.map((option) => (
             <option value={option}>{option}</option>
           ))}
@@ -45,8 +43,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <div
           className={
             'pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'
-          }
-        >
+          }>
           <Icon icon={'ArrowDown'} classStyle={'text-gray-500'} />
         </div>
         <p className={'px-[10px] text-red-600'}>{errorMessage}</p>
@@ -59,9 +56,8 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             fullWidth ? 'w-[350px] h-[44px]' : `w-[${width}px] h-[${height}px]`
           } flex justify-between items-center border border-blue-500 rounded-[10px] font-nsk
         bg-white-200 appearance-none relative
-        `}
-        >
-          <p className={'body-18 text-black-900'}>{'반복'}</p>
+        `}>
+          <p className={'body-18 text-black-800'}>{'반복'}</p>
           <select
             ref={ref}
             name={name}
@@ -73,8 +69,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             onChange={(e) => {
               setBoxSelectedValue((prev) => !prev)
             }}
-            {...props}
-          >
+            {...props}>
             {OPTION_DUMMY_DATA.map((option) => (
               <option value={option}>{option}</option>
             ))}
@@ -82,8 +77,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           <div
             className={
               'pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 right-[10px]'
-            }
-          >
+            }>
             <Icon icon={'ArrowDown'} classStyle={'text-gray-500'} />
           </div>
         </div>

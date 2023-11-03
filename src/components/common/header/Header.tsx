@@ -9,7 +9,7 @@ const Header = ({
   const navigate = useNavigate()
   return (
     <header
-      className={`fixed left-[50%] z-50 top-0 translate-x-[-50%] w-[390px] h-[80px] bg-white-0 text-black-900 px-[22px] border-b-[1px] border-gray-100`}>
+      className={`fixed left-[50%] z-50 top-0 translate-x-[-50%] w-[390px] h-[80px] bg-white-0 text-black-800 px-[22px] border-b-[1px] border-gray-100`}>
       <div
         className={`w-full h-full ${
           headerType === 'BackPush' ||
@@ -26,7 +26,7 @@ const Header = ({
           <>
             <div>
               <span>{'👍'}</span>
-              <span className={'mx-[20px] font-nsk subHead-18-black'}>
+              <span className={'mx-[20px] font-nsk subHead-18'}>
                 {pageTitle}
               </span>
             </div>
@@ -48,9 +48,7 @@ const Header = ({
             <span onClick={onClick ? onClick : () => navigate(-1)}>
               <Icon icon={'Close'} classStyle={'cursor-pointer'} />
             </span>
-            <span className={'mx-[20px] font-nsk subHead-18-black'}>
-              {pageTitle}
-            </span>
+            <span className={'mx-[20px] font-nsk subHead-18'}>{pageTitle}</span>
           </div>
         ) : (
           ''
