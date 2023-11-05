@@ -25,6 +25,10 @@ const MapPage = () => {
       longitute: 0
     }
   ])
+  const [selectAcademy, setSelectAcademy] = useState<Academy | null>(null)
+  const handleDetailAcademy = (academy: Academy) => {
+    setSelectAcademy(academy)
+  }
 
   useEffect(() => {
     const locationString = window.localStorage.getItem('location')
@@ -78,10 +82,15 @@ const MapPage = () => {
         latitude={TMPLAT}
         longitude={TMPLNG}
         academyList={academyList}
+        selectAcademy={handleDetailAcademy}
       ></NaverMap>
-      <div className={'hidden'}>
-        <BottomSheet title={'test'}></BottomSheet>
-      </div>
+      {selectAcademy && (
+        <BottomSheet
+          title={selectAcademy?.academyName}
+          number={selectAcademy?.address}
+          address={selectAcademy?.contact}
+        ></BottomSheet>
+      )}
     </div>
   )
 }

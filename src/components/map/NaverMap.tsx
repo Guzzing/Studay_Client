@@ -8,9 +8,15 @@ interface NaverMapProps {
   latitude: number
   longitude: number
   academyList: Academy[]
+  selectAcademy: (academy: Academy) => void
 }
 
-const NaverMap = ({ latitude, longitude, academyList }: NaverMapProps) => {
+const NaverMap = ({
+  latitude,
+  longitude,
+  academyList,
+  selectAcademy
+}: NaverMapProps) => {
   const center: naver.maps.LatLng = new naver.maps.LatLng(latitude, longitude)
 
   useEffect(() => {
@@ -18,8 +24,8 @@ const NaverMap = ({ latitude, longitude, academyList }: NaverMapProps) => {
       center: center,
       zoom: 14
     })
-    academyList.map((data) => {
-      new naver.maps.Marker({
+    academyList.map((data, index) => {
+      const marker = new naver.maps.Marker({
         position: new naver.maps.LatLng(data.latitute, data.longitute),
         map: map,
         icon: {
@@ -36,10 +42,11 @@ const NaverMap = ({ latitude, longitude, academyList }: NaverMapProps) => {
               </div>
               <div class='ml-[19px] mt-[-4px]  w-0 h-0 border-l-[5px] border-l-[transparent] border-r-[5px] border-r-[transparent] border-t-[10px] border-t-blue-700'></div>
             </div>
-
           `
         }
       })
+
+      naver.maps.Event.addListener(marker, 'click', () => selectAcademy(data))
     })
   }, [academyList])
 

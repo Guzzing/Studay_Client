@@ -10,8 +10,14 @@ import BottomSheetHeader from '@/components/BottomSheet/BottomSheetHeader'
 //TODO: 추후 BottomSheet 안의 내용은 client-side 상태관리 이용하여 정보 받아 사용할 예정. 이에 따라 title props도 사라질 수 있음
 interface BottomSheetProps {
   title: string
+  address: string
+  number: string
 }
-const BottomSheet = ({ title = '학원명 입력' }: BottomSheetProps) => {
+const BottomSheet = ({
+  title = '학원명 입력',
+  address,
+  number
+}: BottomSheetProps) => {
   const [expanded, setExpanded] = useState(false)
   return (
     <div
@@ -31,7 +37,11 @@ const BottomSheet = ({ title = '학원명 입력' }: BottomSheetProps) => {
       </header>
       <div className={'flex flex-col items-between w-full'}>
         <BottomSheetHeader title={title} />
-        <BottomSheetContent expanded={expanded} />
+        <BottomSheetContent
+          expanded={expanded}
+          address={address}
+          number={number}
+        />
       </div>
     </div>
   )
