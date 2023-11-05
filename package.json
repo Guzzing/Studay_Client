@@ -17,6 +17,8 @@
     "src/*.{js,ts}": "npm run lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.7.2",
+    "@tanstack/react-query-devtools": "^5.7.2",
     "@types/node": "^20.8.7",
     "axios": "^1.5.1",
     "class-variance-authority": "^0.7.0",
