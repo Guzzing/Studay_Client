@@ -1,9 +1,19 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { getChildrenInfo } from '../../api/children/ChildrenApi'
 import Icon from '@/components/common/icon/Icon'
 import InformationBox from '@/components/common/informationBox/InformationBox'
 import Spacing from '@/components/common/spacing/Spacing'
 const HomePage = () => {
   const navigate = useNavigate()
+  const { data } = useQuery({
+    queryKey: ['children'],
+    queryFn: () => getChildrenInfo()
+  })
+  useEffect(() => {
+    console.log(data)
+  }, [data])
   return (
     <div className={'bg-white-100 w-full h-full'}>
       <Spacing size={100} />
