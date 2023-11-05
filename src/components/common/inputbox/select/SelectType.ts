@@ -5,6 +5,7 @@ export interface SelectProps extends ComponentProps<'select'> {
   selectType: SelectType
   fullWidth: boolean
   value: string
+  options: string[]
   width?: number
   height?: number
   errorMessage?: string
