@@ -12,13 +12,13 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       height,
       value = selectType === 'Single' ? '' : 'false',
       errorMessage,
+      options,
       ...props
     }: SelectProps,
     ref
   ) => {
     const [singleSelectedValue, setSingleSelectedValue] = useState('')
     const [boxSelectedValue, setBoxSelectedValue] = useState(false)
-    const OPTION_DUMMY_DATA = ['1', '2', '3', '4', '5'] // 서버에서 받아온 값
 
     return selectType === 'Single' ? (
       <div
@@ -36,7 +36,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             setSingleSelectedValue(e.target.value)
           }}
           {...props}>
-          {OPTION_DUMMY_DATA.map((option) => (
+          {options.map((option) => (
             <option value={option}>{option}</option>
           ))}
         </select>
@@ -70,7 +70,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
               setBoxSelectedValue((prev) => !prev)
             }}
             {...props}>
-            {OPTION_DUMMY_DATA.map((option) => (
+            {options.map((option) => (
               <option value={option}>{option}</option>
             ))}
           </select>
