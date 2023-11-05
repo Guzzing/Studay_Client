@@ -27,12 +27,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={`${
             fullWidth ? 'w-[324px] h-[52px]' : `w-[${width}px] h-[${height}px]`
           } rounded-[10px] border border-blue-350 px-[20px] font-nsk text-gray-600 bg-white-200 placeholder:text-gray-600 outline-none`}
-          value={inputValue}
           name={name}
           placeholder={placeholder}
-          onChange={(e) => {
-            setInputValue(e.target.value)
-          }}
           ref={ref}
           {...props}
         />
