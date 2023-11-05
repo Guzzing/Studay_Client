@@ -7,13 +7,13 @@ import InformationBox from '@/components/common/informationBox/InformationBox'
 import Spacing from '@/components/common/spacing/Spacing'
 const HomePage = () => {
   const navigate = useNavigate()
-  const { data } = useQuery({
-    queryKey: ['children'],
-    queryFn: () => getChildrenInfo()
-  })
+  // const { data } = useQuery({
+  //   queryKey: ['children'],
+  //   queryFn: () => getChildrenInfo()
+  // })
   useEffect(() => {
-    console.log(data)
-  }, [data])
+    getChildrenInfo()
+  }, [])
   return (
     <div className={'bg-white-100 w-full h-full'}>
       <Spacing size={100} />
