@@ -1,9 +1,15 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Icon from '@/components/common/icon/Icon'
 import InformationBox from '@/components/common/informationBox/InformationBox'
 import Spacing from '@/components/common/spacing/Spacing'
 const HomePage = () => {
   const navigate = useNavigate()
+
+  useEffect(() => {
+    console.log('호출!')
+    if (localStorage.getItem('token') === null) navigate('/login')
+  }, [navigate])
   return (
     <div className={'bg-white-100 w-full h-full'}>
       <Spacing size={100} />
