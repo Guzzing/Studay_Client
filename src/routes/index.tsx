@@ -1,5 +1,6 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom'
 import Header from '@/components/common/header/Header'
+import Select from '@/components/common/inputbox/select/Select'
 import NavigationBar from '@/components/common/navigationbar/NavigationBar'
 import Layout from '@/components/layout/Layout.tsx'
 import EditChildren from '@/pages/EditChildren/EditChildren'
@@ -35,6 +36,12 @@ export const router = createBrowserRouter(
             <>
               <Header headerType={'BackPush'} />
               <OnboardingPage />
+              {/* <Select
+                selectType={'Single'}
+                fullWidth={true}
+                options={['초1', '초2', '초3', '초4']}
+                value={''}
+              /> */}
             </>
           ),
           errorElement: <ErrorPage />
