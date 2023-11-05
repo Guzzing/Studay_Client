@@ -1,21 +1,47 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getBeopjungdong } from '../../api/mapapi/mapApi.ts'
+import { getAcademys } from '../../api/mapapi/mapApi.ts'
+import { defaultLocation } from '../../constants/mapPage.ts'
+import { MapLocation } from '../../types/mapPage.ts'
+import BottomSheet from '@/components/common/bottomsheet/BottomSheet.tsx'
 import Icon from '@/components/common/icon/Icon.tsx'
 import Input from '@/components/common/inputbox/input/Input.tsx'
 import Spacing from '@/components/common/spacing/Spacing.tsx'
 import NaverMap from '@/components/map/NaverMap.tsx'
 
 const MapPage = () => {
+  const TMPLAT = 37.444_916_8
+  const TMPLNG = 127.138_868
   const navigate = useNavigate()
-
-  const apiTest = async () => {
-    return getBeopjungdong()
-  }
+  const [mapLocation, setMapLocation] = useState(defaultLocation)
+  const [academyList, setAcademyList] = useState<Academy[]>([
+    {
+      academyId: 0,
+      academyName: '',
+      address: '',
+      contact: '',
+      areaOfExpertise: '',
+      latitute: 0,
+      longitute: 0
+    }
+  ])
 
   useEffect(() => {
-    console.log(apiTest())
-  })
+    const locationString = window.localStorage.getItem('location')
+    if (locationString) {
+      setMapLocation(JSON.parse(locationString) as MapLocation)
+    }
+    const feachData = async () => {
+      const data = await getAcademys({
+        // latitute: mapLocation.latitude,
+        // longitute: mapLocation.longitude
+        latitute: TMPLAT,
+        longitute: TMPLNG
+      })
+      setAcademyList(data.academyGetResponses)
+    }
+    feachData()
+  }, [])
 
   const moveFilter = () => {
     navigate('/map/filter')
@@ -48,7 +74,14 @@ const MapPage = () => {
       >
         <Icon icon={'Gps'} />
       </div>
-      <NaverMap></NaverMap>
+      <NaverMap
+        latitude={TMPLAT}
+        longitude={TMPLNG}
+        academyList={academyList}
+      ></NaverMap>
+      <div className={'hidden'}>
+        <BottomSheet title={'test'}></BottomSheet>
+      </div>
     </div>
   )
 }

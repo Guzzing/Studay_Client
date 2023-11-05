@@ -23,3 +23,17 @@ interface LocationResponse {
   latitute: number
   longitute: number
 }
+
+interface Academy {
+  academyId: number
+  academyName: string
+  address: string
+  contact: string
+  areaOfExpertise: string
+  latitute: number
+  longitute: number
+}
+
+interface AcademiesResponse {
+  academyGetResponses: Academy[]
+}
