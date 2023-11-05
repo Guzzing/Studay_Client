@@ -25,8 +25,12 @@ const Header = ({
         ) : headerType === 'Logo' ? (
           <>
             <div className={'flex flex-row items-center'}>
-              <Icon icon={'Logo'} classStyle={'w-[50px]'} />
-              <span className={'mx-[15px] font-nsk subHead-18'}>
+              <Icon
+                icon={'Logo'}
+                classStyle={'w-[50px] cursor-pointer'}
+                onClick={() => navigate('/')}
+              />
+              <span className={'mx-[10px] font-nsk subHead-18'}>
                 {pageTitle}
               </span>
             </div>
