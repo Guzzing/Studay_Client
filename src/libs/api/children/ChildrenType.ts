@@ -4,3 +4,9 @@ export interface GetChildrenInfoResponse {
   nickname: string
   schedule: string
 }
+
+export interface EditChildInfoRequest {
+  childId: number
+  nickname: string
+  grade: string
+}

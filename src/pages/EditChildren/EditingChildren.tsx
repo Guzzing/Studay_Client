@@ -1,15 +1,42 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { QueryClient, useMutation } from '@tanstack/react-query'
 import Button from '@/components/common/button/Button'
 import Input from '@/components/common/inputbox/input/Input'
 import Select from '@/components/common/inputbox/select/Select'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
 import StepQuestion from '@/components/common/stepquestion/StepQuestion'
+import { editChildInfo } from '@/libs/api/children/ChildrenApi'
+import { EditChildInfoRequest } from '@/libs/api/children/ChildrenType'
+import { queryClient } from '@/libs/api/queryClient'
 
 const EditingChildren = () => {
-  const [value, setValue] = useState<string>('김잼민')
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [childInfo, setChildInfo] = useState<EditChildInfoRequest>({
+    childId: location.state.childId,
+    nickname: location.state.nickname,
+    grade: location.state.grade
+  })
   const [valid, setValid] = useState<boolean>(true)
-  const regex = /^[A-Za-z가-힣]{1,10}$/
+
+  const childInfoMutation = useMutation({
+    mutationFn: (payload: EditChildInfoRequest) => editChildInfo(payload),
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['children'] })
+    },
+    onSuccess: (data) => {
+      navigate(`/edit/${childInfo.childId}`, {
+        state: {
+          childId: data
+        }
+      })
+    }
+  })
+
+  const regex = /^[\sA-Za-z가-힣]{1,10}$/
   const handleChildrenName = (name: string) => {
     if (regex.test(name)) {
       setValid(true)
@@ -27,9 +54,13 @@ const EditingChildren = () => {
         <Spacing size={10} />
         <Input
           fullWidth={true}
-          value={value}
+          value={childInfo.nickname}
           onChange={(e) => {
-            setValue(e.target.value)
+            setChildInfo({
+              childId: childInfo.childId,
+              nickname: e.target.value,
+              grade: childInfo.grade
+            })
             handleChildrenName(e.target.value)
           }}
           placeholder={'아이의 이름을 입력해주세요'}
@@ -43,9 +74,14 @@ const EditingChildren = () => {
         <Spacing size={10} />
         <Select
           selectType={'Single'}
-          optionData={['중학교 1학년', '중학교 2학년', '중학교 3학년']}
+          optionData={[
+            '초등학교 1학년',
+            '중학교 1학년',
+            '중학교 2학년',
+            '중학교 3학년'
+          ]}
           fullWidth={true}
-          value={'중학교 3학년'}
+          value={childInfo.grade}
         />
       </div>
       <Button
@@ -53,6 +89,7 @@ const EditingChildren = () => {
         buttonType={'Round-blue-500'}
         width={'XLW'}
         label={'수정 완료'}
+        onClick={() => childInfoMutation.mutate(childInfo)}
       />
     </div>
   )

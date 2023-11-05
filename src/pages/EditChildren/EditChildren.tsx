@@ -3,13 +3,15 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import Loading from '@/components/Loading/Loading'
 import Button from '@/components/common/button/Button'
 import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
-import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
+import { deleteChild, getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 import { GetChildrenInfoResponse } from '@/libs/api/children/ChildrenType'
+import { queryClient } from '@/libs/api/queryClient'
 
 const EditChildren = () => {
   const navigate = useNavigate()
@@ -19,6 +21,16 @@ const EditChildren = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
+  })
+
+  const childInfoMutation = useMutation({
+    mutationFn: (childId: number) => deleteChild(childId),
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['children'] })
+    },
+    onSuccess: () => {
+      navigate(`/`)
+    }
   })
 
   useEffect(() => {
@@ -54,11 +66,21 @@ const EditChildren = () => {
           height={'SH'}
           label={'아이 정보 수정하기'}
           onClick={() => {
-            console.log('클릭')
-            navigate('editing')
+            navigate('editing', {
+              state: {
+                childId: childInfo?.childId,
+                nickname: childInfo?.nickname,
+                grade: childInfo?.grade
+              }
+            })
           }}
         />
-        <Button buttonType={'Plain-red'} width={'LW'} label={'아이 삭제하기'} />
+        <Button
+          buttonType={'Plain-red'}
+          width={'LW'}
+          label={'아이 삭제하기'}
+          onClick={() => childInfoMutation.mutate(id)}
+        />
       </div>
     </div>
   )
