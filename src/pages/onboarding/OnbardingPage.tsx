@@ -1,102 +1,46 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { onboarding } from '../../api/onboarding'
+import { DATA, grade } from './constants'
+import { validate } from './validate'
 import Button from '@/components/common/button/Button'
 import Input from '@/components/common/inputbox/input/Input'
 import Select from '@/components/common/inputbox/select/Select'
 import Spacing from '@/components/common/spacing/Spacing'
 import StepQuestion from '@/components/common/stepquestion/StepQuestion'
 
-const DATA = [
-  {
-    mainTitle: '안녕하세요 :) 스터데이에요',
-    subTitle: '스터데이의 커뮤니티 문화를 위해 매너있는 이름을 써주세요',
-    step: [1],
-    inputTitle: ['사용할 닉네임을 입력해주세요'],
-    buttonType: ['입력완료']
-  },
-  {
-    mainTitle: '스터데이의 최근 소식을 알려드리고 싶어요.',
-    subTitle: '작성해주신 이메일로 최신 정보를 보내드려요',
-    step: [2],
-    inputTitle: ['이메일을 입력해주세요'],
-    buttonType: ['입력완료']
-  },
-  {
-    mainTitle: '자녀에 대해서 알려주세요',
-    subTitle: '자녀별로 시간표를 관리하고 맞춤 정보를 관리할 수 있어요',
-    step: [3, 4],
-    inputTitle: [
-      '아이의 이름(애칭)을 알려주세요',
-      '현재 재학중인 학년을 알려주세요'
-    ],
-    // 참고로 2번쨰 버튼을 누르면 무조건 homepage로 가기!
-    buttonType: [
-      '저장! 둘째 입력하러가기',
-      '입력완료! 스터데이를 시작해볼까요?'
-    ]
-  },
-  {
-    mainTitle: '둘째는 어떤 아이인가요?',
-    subTitle: '자녀별로 시간표를 관리하고 맞춤 정보를 관리할 수 있어요',
-    step: [3, 4],
-    inputTitle: [
-      '아이의 이름(애칭)을 알려주세요',
-      '현재 재학중인 학년을 알려주세요'
-    ],
-    // 참고로 2번쨰 버튼을 누르면 무조건 homepage로 가기!
-    buttonType: [
-      '저장! 셋째 입력하러가기',
-      '입력완료! 스터데이를 시작해볼까요?'
-    ]
-  },
-  {
-    mainTitle: '귀염둥이 셋째! 정보를 입력해주세요',
-    subTitle: '자녀별로 시간표를 관리하고 맞춤 정보를 관리할 수 있어요',
-    step: [3, 4],
-    inputTitle: [
-      '아이의 이름(애칭)을 알려주세요',
-      '현재 재학중인 학년을 알려주세요'
-    ],
-    // 참고로 2번쨰 버튼을 누르면 무조건 homepage로 가기!
-    buttonType: [
-      '저장! 넷째 입력하러가기',
-      '입력완료! 스터데이를 시작해볼까요?'
-    ]
-  },
-  {
-    mainTitle: '우와, 벌써 넷째에요',
-    subTitle: '자녀별로 시간표를 관리하고 맞춤 정보를 관리할 수 있어요',
-    step: [3, 4],
-    inputTitle: [
-      '아이의 이름(애칭)을 알려주세요',
-      '현재 재학중인 학년을 알려주세요'
-    ],
-    // 참고로 2번쨰 버튼을 누르면 무조건 homepage로 가기!
-    buttonType: [
-      '저장! 다섯째 입력하러가기',
-      '입력완료! 스터데이를 시작해볼까요?'
-    ]
-  },
-  {
-    mainTitle: '마지막이에요! 다섯째는요?',
-    subTitle: '자녀별로 시간표를 관리하고 맞춤 정보를 관리할 수 있어요',
-    step: [3, 4],
-    inputTitle: [
-      '아이의 이름(애칭)을 알려주세요',
-      '현재 재학중인 학년을 알려주세요'
-    ],
-    // 참고로 2번쨰 버튼을 누르면 무조건 homepage로 가기!
-    buttonType: ['입력완료! 스터데이를 시작해볼까요?']
-  }
-]
 const OnboardingPage = () => {
   const [storage, setStorage] = useState<string[]>([])
   const [pageData, setPageData] = useState(DATA[storage.length])
+  const inputRef = useRef<HTMLInputElement | null>(null)
+  const selectRef = useRef<HTMLSelectElement | null>(null)
+  const [inputValue, setInputValue] = useState('')
+  const [requestValue, setRequestValue] = useState({
+    nickname: '',
+    email: '',
+    children: [{ nickname: '', grade: '' }]
+  })
+  const [onboardingToggle, setOnboardingToggle] = useState(false)
   const navigate = useNavigate()
 
+  const handleChange = () => {
+    const inputElement = inputRef.current
+    if (inputElement) {
+      const inputValue: string = inputElement.value
+      setInputValue(inputValue)
+    }
+  }
   useEffect(() => {
     setPageData(DATA[storage.length])
   }, [storage])
+  useEffect(() => {
+    const start = async () => {
+      const res = await onboarding(requestValue)
+      if (res) navigate('/')
+    }
+    start()
+  }, [onboardingToggle])
+
   return (
     <div className={'w-full h-full pt-[125px] flex flex-col px-[25px] border'}>
       <div className={'h-[25%]'}>
@@ -115,9 +59,28 @@ const OnboardingPage = () => {
                 inputType={'Default'}
                 placeholder={'정보를 입력해주세요'}
                 fullWidth={true}
+                ref={inputRef}
+                onChange={handleChange}
+                errorMessage={
+                  storage.length === 0
+                    ? validate('nickname', inputValue)
+                      ? '영어와 한글만 올 수 있습니다'
+                      : undefined
+                    : storage.length === 1
+                    ? validate('email', inputValue)
+                      ? '잘못된 email형식입니다!'
+                      : undefined
+                    : undefined
+                }
               />
             ) : (
-              <Select fullWidth={true} selectType={'Single'} value={''} />
+              <Select
+                fullWidth={true}
+                selectType={'Single'}
+                options={grade}
+                value={''}
+                ref={selectRef}
+              />
             )}
           </>
         ))}
@@ -130,14 +93,117 @@ const OnboardingPage = () => {
               label={value}
               buttonType={index === 0 ? 'Round-blue-500' : 'Round-blue-700'}
               width={'LW'}
+              disabled={
+                storage.length === 0
+                  ? validate('nickname', inputValue)
+                    ? true
+                    : false
+                  : storage.length === 1
+                  ? validate('email', inputValue)
+                    ? true
+                    : false
+                  : false
+              }
               onClick={
                 index === 0
                   ? () => {
-                      setStorage((prev) => [...prev, '값'])
+                      console.log(storage)
+                      if (storage.length === 6) {
+                        setOnboardingToggle((prev) => !prev)
+                        return
+                      }
+                      const value = inputRef.current as { value: string } | null
+                      const select = selectRef.current as {
+                        value: string
+                      } | null
                       setPageData(DATA[storage.length])
+                      if (value !== null) {
+                        console.log(value?.value)
+                        console.log('select >>', select?.value)
+                        setStorage((prev) => [...prev, value.value])
+                        switch (storage.length) {
+                          case 0: {
+                            setRequestValue({
+                              ...requestValue,
+                              nickname: value.value
+                            })
+
+                            break
+                          }
+                          case 1: {
+                            setRequestValue({
+                              ...requestValue,
+                              email: value.value
+                            })
+
+                            break
+                          }
+                          case 2: {
+                            select !== null &&
+                              setRequestValue({
+                                ...requestValue,
+                                children: [
+                                  {
+                                    ...requestValue.children,
+                                    nickname: value.value,
+                                    grade: select?.value
+                                  }
+                                ]
+                              })
+
+                            break
+                          }
+                          default: {
+                            const newValue = {
+                              nickname: value.value,
+                              grade: select ? select.value : ''
+                            }
+                            setRequestValue({
+                              ...requestValue,
+                              children: [...requestValue.children, newValue]
+                            })
+                          }
+                        }
+                      }
                     }
-                  : () => {
-                      navigate('/')
+                  : // 2번째 버튼도 일단 state에 넣고나서!!!
+                    async () => {
+                      const value = inputRef.current as { value: string } | null
+                      const select = selectRef.current as {
+                        value: string
+                      } | null
+                      if (value !== null) {
+                        switch (
+                          storage.length // 3번쨰 질문부터~
+                        ) {
+                          case 2: {
+                            select !== null &&
+                              setRequestValue({
+                                ...requestValue,
+                                children: [
+                                  {
+                                    ...requestValue.children,
+                                    nickname: value.value,
+                                    grade: select?.value
+                                  }
+                                ]
+                              })
+                            setOnboardingToggle((prev) => !prev)
+                            break
+                          }
+                          default: {
+                            const newValue = {
+                              nickname: value.value,
+                              grade: select ? select.value : ''
+                            }
+                            setRequestValue({
+                              ...requestValue,
+                              children: [...requestValue.children, newValue]
+                            })
+                            setOnboardingToggle((prev) => !prev)
+                          }
+                        }
+                      }
                     }
               }
             />
