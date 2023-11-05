@@ -53,7 +53,10 @@ const EditChildren = () => {
           width={'LW'}
           height={'SH'}
           label={'아이 정보 수정하기'}
-          onClick={() => navigate('editing')}
+          onClick={() => {
+            console.log('클릭')
+            navigate('editing')
+          }}
         />
         <Button buttonType={'Plain-red'} width={'LW'} label={'아이 삭제하기'} />
       </div>

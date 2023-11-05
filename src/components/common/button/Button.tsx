@@ -61,7 +61,11 @@ const Button = ({
   }
   ${FONT_STYLE['NSK']}
   `
-  return <button className={cn(btnClass, className)}>{label}</button>
+  return (
+    <button {...props} className={cn(btnClass, className)}>
+      {label}
+    </button>
+  )
 }
 
 export default Button
