@@ -12,13 +12,14 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       height,
       value = selectType === 'Single' ? '' : 'false',
       errorMessage,
+      options,
       ...props
     }: SelectProps,
     ref
   ) => {
-    const [singleSelectedValue, setSingleSelectedValue] = useState('')
     const [boxSelectedValue, setBoxSelectedValue] = useState(false)
-    const OPTION_DUMMY_DATA = ['1', '2', '3', '4', '5'] // 서버에서 받아온 값
+    const OPTION_DUMMY_DATA = ['1', '2', '3', '4', '5'] // 서버에서 받아온 값 스토리북에 들어가야할듯
+    console.log(value)
 
     return selectType === 'Single' ? (
       <div
@@ -32,14 +33,13 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           id={''}
           className={`w-full h-full font-nsk body-18 px-[20px] border border-blue-500 rounded-[10px] outline-none bg-white-200
       text-gray-600 appearance-none cursor-pointer`}
-          value={singleSelectedValue}
-          onChange={(e) => {
-            setSingleSelectedValue(e.target.value)
-          }}
+          value={value}
           {...props}
         >
-          {OPTION_DUMMY_DATA.map((option) => (
-            <option value={option}>{option}</option>
+          {options?.map((option, index) => (
+            <option value={option} key={index}>
+              {option}
+            </option>
           ))}
         </select>
         <div

@@ -8,5 +8,6 @@ export interface SelectProps extends ComponentProps<'select'> {
   width?: number
   height?: number
   errorMessage?: string
+  options: string[]
   onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
