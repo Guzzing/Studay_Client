@@ -1,10 +1,34 @@
+import { useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import Loading from '@/components/Loading/Loading'
 import Button from '@/components/common/button/Button'
 import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
+import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
+import { GetChildrenInfoResponse } from '@/libs/api/children/ChildrenType'
+
 const EditChildren = () => {
   const navigate = useNavigate()
+  const location = useLocation()
+  const [childInfo, setChildInfo] = useState<GetChildrenInfoResponse>()
+  const id = location.state.childId
+  const { data, isLoading } = useQuery({
+    queryKey: ['children'],
+    queryFn: () => getChildrenInfo()
+  })
+
+  useEffect(() => {
+    const mychild = data?.filter((data) => data.childId === id)
+    if (mychild) {
+      setChildInfo(mychild[0])
+    }
+  }, [data])
+
+  if (isLoading) return <Loading />
   return (
     <div className={'flex flex-col items-center relative h-full'}>
       <Spacing size={150} />
@@ -12,12 +36,14 @@ const EditChildren = () => {
       <div className={'mt-[30px]'}></div>
       <ListRow
         leftElement={<div className={'font-nsk subHead-18'}>{'이름'}</div>}
-        rightElement={<div className={'font-nsk body-18'}>{'김잼민'}</div>}
+        rightElement={
+          <div className={'font-nsk body-18'}>{childInfo?.nickname}</div>
+        }
       />
       <ListRow
         leftElement={<div className={'font-nsk subHead-18'}>{'학년'}</div>}
         rightElement={
-          <div className={'font-nsk body-18'}>{'중학교 3학년'}</div>
+          <div className={'font-nsk body-18'}>{childInfo?.grade}</div>
         }
       />
       <div
