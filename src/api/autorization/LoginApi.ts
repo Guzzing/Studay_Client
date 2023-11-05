@@ -1,8 +1,7 @@
 import axios from 'axios'
 import request from '..'
+import { VITE_CLIENT_ID, VITE_CLIENT_SECRET } from '../../constants'
 
-const { VITE_CLIENT_ID, VITE_CLIENT_SECRET } = import.meta.env
-// 카카오 코드
 export const getCode = () => {
   const currentURL = window.location.href
   const params = new URLSearchParams(currentURL.split('?')[1])

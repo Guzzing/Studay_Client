@@ -6,11 +6,11 @@ import {
   getAccessToken,
   pushData
 } from '../../api/autorization'
+import { VITE_CLIENT_ID } from '../../constants'
 import Button from '@/components/common/button/Button'
 
 const LoginPage = () => {
   const navigate = useNavigate()
-  const { VITE_CLIENT_ID } = import.meta.env
   useEffect(() => {
     if (getCode()) {
       const req = async () => {
