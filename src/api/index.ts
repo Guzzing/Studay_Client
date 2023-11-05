@@ -9,6 +9,10 @@ const request = axios.create({
 
 request.interceptors.request.use(
   (config) => {
+    const curAccessToken = localStorage.getItem('token')
+    if (curAccessToken) {
+      config.headers['Authorization'] = `Bearer ${curAccessToken}`
+    }
     return config
   },
   (error) => {
