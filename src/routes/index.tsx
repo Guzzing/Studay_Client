@@ -5,6 +5,7 @@ import Layout from '@/components/layout/Layout.tsx'
 import EditChildren from '@/pages/EditChildren/EditChildren'
 import ErrorPage from '@/pages/ErrorPage'
 import HomePage from '@/pages/home/HomePage'
+import OnboardingPage from '@/pages/onboarding/OnbardingPage'
 
 export const router = createBrowserRouter(
   [
@@ -30,7 +31,12 @@ export const router = createBrowserRouter(
         },
         {
           path: 'onboarding',
-          element: <p>{'onboarding page'}</p>,
+          element: (
+            <>
+              <Header headerType={'BackPush'} />
+              <OnboardingPage />
+            </>
+          ),
           errorElement: <ErrorPage />
         },
         {
