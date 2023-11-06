@@ -64,11 +64,11 @@ const OnboardingPage = () => {
                 errorMessage={
                   storage.length === 0
                     ? validate('nickname', inputValue)
-                      ? '영어와 한글만 올 수 있습니다'
+                      ? '닉네임은 한글 영어만 사용 가능해요!'
                       : undefined
                     : storage.length === 1
                     ? validate('email', inputValue)
-                      ? '잘못된 email형식입니다!'
+                      ? '이메일 형식만 입력해주세요!'
                       : undefined
                     : undefined
                 }
@@ -99,7 +99,7 @@ const OnboardingPage = () => {
                   ? validate('email', inputValue)
                     ? 'bg-gray-400 text-white-0 w-[343px] h-[56px] rounded-[10px] cursor-not-allowed'
                     : 'bg-blue-500 text-white-0 w-[343px] h-[56px] rounded-[10px]'
-                  : ''
+                  : 'bg-blue-500 text-white-0 w-[343px] h-[56px] rounded-[10px]'
               }
               label={value}
               buttonType={index === 0 ? 'Round-blue-500' : 'Round-blue-700'}
@@ -118,7 +118,6 @@ const OnboardingPage = () => {
               onClick={
                 index === 0
                   ? () => {
-                      console.log(storage)
                       if (storage.length === 6) {
                         setOnboardingToggle((prev) => !prev)
                         return
@@ -129,8 +128,6 @@ const OnboardingPage = () => {
                       } | null
                       setPageData(DATA[storage.length])
                       if (value !== null) {
-                        console.log(value?.value)
-                        console.log('select >>', select?.value)
                         setStorage((prev) => [...prev, value.value])
                         switch (storage.length) {
                           case 0: {

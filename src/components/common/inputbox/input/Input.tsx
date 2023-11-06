@@ -39,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <div
           className={`${
             fullWidth ? 'w-[298px] h-[50px]' : `w-[${width}px] h-[${height}px]`
-          } rounded-[30px] border border-blue-350 px-[20px] flex items-center bg-white-200`}>
+          } rounded-[30px] border border-blue-350 px-[20px] my-[10px] flex items-center bg-white-200`}>
           <Icon icon={'Search'} classStyle={'text-black-800'} />
           <input
             type={'search'}
