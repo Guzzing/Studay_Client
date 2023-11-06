@@ -1,1 +1,1 @@
-console.log('constants folder')
+export * from './env'

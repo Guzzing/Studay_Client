@@ -8,6 +8,8 @@ import EditChildren from '@/pages/EditChildren/EditChildren'
 import EditingChildren from '@/pages/EditChildren/EditingChildren'
 import ErrorPage from '@/pages/ErrorPage'
 import HomePage from '@/pages/home/HomePage'
+import LoginPage from '@/pages/login/LoginPage'
+
 export const router = createBrowserRouter(
   [
     {
@@ -31,7 +33,7 @@ export const router = createBrowserRouter(
         },
         {
           path: 'login',
-          element: <p>{'login page'}</p>,
+          element: <LoginPage />,
           errorElement: <ErrorPage />
         },
         {

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import Loading from '@/components/Loading/Loading'
@@ -14,6 +15,11 @@ const HomePage = () => {
   if (isLoading) {
     return <Loading />
   }
+
+  useEffect(() => {
+    console.log('호출!')
+    if (localStorage.getItem('token') === null) navigate('/login')
+  }, [navigate])
   return (
     <div className={'bg-white-100 w-full h-full'}>
       <Spacing size={100} />
