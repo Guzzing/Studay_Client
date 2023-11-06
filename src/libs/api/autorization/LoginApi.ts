@@ -13,7 +13,7 @@ export const pushData = () => {
   const data = new URLSearchParams()
   data.append('grant_type', 'authorization_code')
   data.append('client_id', VITE_CLIENT_ID)
-  data.append('redirect_uri', 'http://localhost:5173/login')
+  data.append('redirect_uri', 'https://www.studay.me')
   data.append('code', getCode())
   data.append('client_secret', VITE_CLIENT_SECRET)
 
