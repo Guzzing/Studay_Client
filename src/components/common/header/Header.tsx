@@ -24,9 +24,13 @@ const Header = ({
           </span>
         ) : headerType === 'Logo' ? (
           <>
-            <div>
-              <span>{'👍'}</span>
-              <span className={'mx-[20px] font-nsk subHead-18'}>
+            <div className={'flex flex-row items-center'}>
+              <Icon
+                icon={'Logo'}
+                classStyle={'w-[50px] cursor-pointer'}
+                onClick={() => navigate('/')}
+              />
+              <span className={'mx-[10px] font-nsk subHead-18'}>
                 {pageTitle}
               </span>
             </div>
