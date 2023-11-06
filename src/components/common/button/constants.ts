@@ -24,7 +24,7 @@ export const BUTTON_WIDTH = {
   MW: 'w-[124px]',
   LW: 'w-[343px]',
   XLW: 'w-[390px]',
-  FULL: 'w-[100vw]'
+  FULL: 'w-full'
 }
 
 export const BUTTON_HEIGHT = {

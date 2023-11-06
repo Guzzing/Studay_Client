@@ -7,8 +7,11 @@ import Layout from '@/components/layout/Layout.tsx'
 import EditChildren from '@/pages/EditChildren/EditChildren'
 import EditingChildren from '@/pages/EditChildren/EditingChildren'
 import ErrorPage from '@/pages/ErrorPage'
+import FilterPage from '@/pages/filter/FilterPage.tsx'
 import HomePage from '@/pages/home/HomePage'
 import LoginPage from '@/pages/login/LoginPage'
+import MapPage from '@/pages/map/MapPage.tsx'
+import SelectCity from '@/pages/selectcity/SelectCity.tsx'
 
 export const router = createBrowserRouter(
   [
@@ -61,25 +64,37 @@ export const router = createBrowserRouter(
           )
         },
         {
-          path: 'select-city',
-          element: <p>{'도시 선택 페이지'}</p>,
+          path: 'selectcity',
+          element: (
+            <>
+              <Header headerType={'BackPush'} />
+              <SelectCity />
+            </>
+          ),
           errorElement: <ErrorPage />
         },
         {
           path: 'map',
           element: (
-            <div>
-              {'맵'}
-              <Outlet />
-            </div>
+            <>
+              <Header headerType={'Logo'} pageTitle={'학원 지도'} />
+              <MapPage />
+              <NavigationBar selectIcon={'SearchMap'} />
+            </>
+          )
+        },
+        {
+          path: 'map/filter',
+          element: (
+            <>
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'학원 필터 적용하기'}
+              />
+              <FilterPage />
+            </>
           ),
-          children: [
-            {
-              path: 'filter',
-              element: <p>{'맵 하위 필더링 페이지'}</p>,
-              errorElement: <ErrorPage />
-            }
-          ]
+          errorElement: <ErrorPage />
         },
         {
           path: 'schedule',
