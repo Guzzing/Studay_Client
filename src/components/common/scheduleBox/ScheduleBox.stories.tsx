@@ -20,9 +20,6 @@ const meta: Meta<typeof ScheduleBox> = {
     rightBottomElement: {
       control: 'text'
     },
-    rightTopElement: {
-      control: 'text'
-    },
     isRegister: {
       control: 'boolean'
     }
@@ -40,12 +37,6 @@ export const ProfileScheduleBox: Story = {
       <>
         <Icon icon={'Time'} />
         <p>{'오후 4시에 종료'}</p>
-      </>
-    ),
-    rightTopElement: (
-      <>
-        <Icon icon={'Edit'} classStyle={'stroke-black-700'} />
-        <Icon icon={'Close'} classStyle={'stroke-black-700'} />
       </>
     ),
     rightBottomElement: (
@@ -83,12 +74,6 @@ export const RegisteredScheduleBox: Story = {
         <div>{'tkghl'}</div>
       </>
     ),
-    rightTopElement: (
-      <>
-        <Icon icon={'Edit'} classStyle={'text-black-900'} />
-        <Icon icon={'Close'} classStyle={'text-black-900'} />
-      </>
-    ),
     rightBottomElement: (
       <>
         {/* 반복문 */}
@@ -108,12 +93,6 @@ export const NotRegisteredScheduleBox: Story = {
           <p>{'매주 월,화,수'}</p>
         </div>
         <div>{'tkghl'}</div>
-      </>
-    ),
-    rightTopElement: (
-      <>
-        <Icon icon={'Edit'} classStyle={'text-black-900'} />
-        <Icon icon={'Close'} classStyle={'text-black-900'} />
       </>
     ),
     rightBottomElement: (

@@ -37,8 +37,7 @@ const SelectCityStep2 = ({
             fullWidth={true}
             value={sido}
             disabled={true}
-            onClick={() => onClick(1)}
-          ></Input>
+            onClick={() => onClick(1)}></Input>
         </div>
         <StepQuestion text={'지역구'} step={2}></StepQuestion>
         <div className={'mt-[14px]'}>

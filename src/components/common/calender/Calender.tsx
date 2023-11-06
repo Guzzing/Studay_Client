@@ -102,8 +102,7 @@ const Calender = ({ onClick }: CalenderProps) => {
       <div
         className={
           'flex flex-row w-full justify-center items-center mr-[8px] ml-[11px] mt-[17px] mb-[12px]'
-        }
-      >
+        }>
         {WEEK.map((daysOfWeek, index) => (
           <div
             key={index}
@@ -111,8 +110,7 @@ const Calender = ({ onClick }: CalenderProps) => {
               daysOfWeek === 'SUN' || daysOfWeek === 'SAT'
                 ? WeekStyle[daysOfWeek]
                 : ''
-            }`}
-          >
+            }`}>
             {daysOfWeek}
           </div>
         ))}
@@ -120,15 +118,13 @@ const Calender = ({ onClick }: CalenderProps) => {
       <div
         className={
           'flex-col flex w-full justify-center items-center mr-[8px] ml-[11px] mb-[18px]'
-        }
-      >
+        }>
         {nowDays.map((week, index) => (
           <div
             key={index}
             className={
               'flex flex-row w-full justify-center items-center mt-[17px] mb[18px]'
-            }
-          >
+            }>
             {week.map((daysInfo, index) => (
               <div
                 key={index}
@@ -138,8 +134,7 @@ const Calender = ({ onClick }: CalenderProps) => {
                     : ''
                 }`}
                 data-id={`${daysInfo.year}-${daysInfo.month}}`}
-                onClick={() => handleDayClick(daysInfo)}
-              >
+                onClick={() => handleDayClick(daysInfo)}>
                 {daysInfo.day}
               </div>
             ))}
