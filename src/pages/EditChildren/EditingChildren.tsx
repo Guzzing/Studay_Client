@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
-import { QueryClient, useMutation } from '@tanstack/react-query'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
 import Button from '@/components/common/button/Button'
 import Input from '@/components/common/inputbox/input/Input'
 import Select from '@/components/common/inputbox/select/Select'
@@ -73,8 +72,15 @@ const EditingChildren = () => {
         <StepQuestion step={2} text={'학년'} />
         <Spacing size={10} />
         <Select
+          onChange={(e) => {
+            setChildInfo({
+              childId: childInfo.childId,
+              nickname: childInfo.nickname,
+              grade: e.target.value
+            })
+          }}
           selectType={'Single'}
-          optionData={[
+          options={[
             '초등학교 1학년',
             '중학교 1학년',
             '중학교 2학년',

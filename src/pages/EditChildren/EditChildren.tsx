@@ -25,10 +25,8 @@ const EditChildren = () => {
 
   const childInfoMutation = useMutation({
     mutationFn: (childId: number) => deleteChild(childId),
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['children'] })
-    },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['children'] })
       navigate(`/`)
     }
   })

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Icon, { IconType } from '@/components/common/icon/Icon.tsx'
 import {
   NavigationBarProps,
@@ -14,6 +15,8 @@ import {
 } from '@/components/common/navigationbar/constants.ts'
 
 const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
+  const navigate = useNavigate()
+
   const [navigationState, setNavigationState] = useState<NavigationStateType[]>(
     initNavigationList.map((item) => ({
       ...item,
@@ -22,6 +25,7 @@ const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
   )
 
   useEffect(() => {
+    console.log(navigationState)
     setNavigationState((prevState) =>
       prevState.map((item) => ({
         ...item,
@@ -34,6 +38,11 @@ const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
     (selectedIcon: IconType) => {
       const updatedNavigationState = navigationState.map((item) => {
         if (item.icon === selectedIcon) {
+          if (item.icon === 'SearchMap') {
+            navigate('/selectcity')
+          } else if (item.icon === 'Home') {
+            navigate('/home')
+          }
           return { ...item, select: true }
         }
         return { ...item, select: false }

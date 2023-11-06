@@ -1,12 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-  getBeopjungdong,
-  getDongne,
-  getLocation,
-  getSigungu
-} from '../../api/mapapi/mapApi.ts'
-import {
   initDongne,
   initSido,
   initSigungu
@@ -17,6 +11,12 @@ import Spacing from '@/components/common/spacing/Spacing.tsx'
 import SelectCityStep1 from '@/components/selectcity/SelectCityStep1.tsx'
 import SelectCityStep2 from '@/components/selectcity/SelectCityStep2.tsx'
 import SelectCityStep3 from '@/components/selectcity/SelectCityStep3.tsx'
+import {
+  getBeopjungdong,
+  getDongne,
+  getLocation,
+  getSigungu
+} from '@/libs/api/mapapi/mapApi.ts'
 
 const SelectCity = () => {
   const navigate = useNavigate()
