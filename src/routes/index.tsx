@@ -1,16 +1,22 @@
+import { Suspense } from 'react'
 import { Outlet, createBrowserRouter } from 'react-router-dom'
+import Loading from '@/components/Loading/Loading'
 import Header from '@/components/common/header/Header'
 import NavigationBar from '@/components/common/navigationbar/NavigationBar'
 import Layout from '@/components/layout/Layout.tsx'
 import EditChildren from '@/pages/EditChildren/EditChildren'
+import EditingChildren from '@/pages/EditChildren/EditingChildren'
 import ErrorPage from '@/pages/ErrorPage'
 import HomePage from '@/pages/home/HomePage'
-
 export const router = createBrowserRouter(
   [
     {
       path: '/',
-      element: <Layout />,
+      element: (
+        <Suspense fallback={<Loading />}>
+          <Layout />
+        </Suspense>
+      ),
       children: [
         {
           index: true,
@@ -42,6 +48,15 @@ export const router = createBrowserRouter(
             </>
           ),
           errorElement: <ErrorPage />
+        },
+        {
+          path: 'edit/:childId/editing',
+          element: (
+            <>
+              <Header headerType={'Close'} />
+              <EditingChildren />
+            </>
+          )
         },
         {
           path: 'select-city',

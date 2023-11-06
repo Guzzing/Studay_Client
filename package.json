@@ -17,6 +17,8 @@
     "src/*.{js,ts}": "npm run lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.7.2",
+    "@tanstack/react-query-devtools": "^5.7.2",
     "@types/node": "^20.8.7",
     "axios": "^1.5.1",
     "class-variance-authority": "^0.7.0",
@@ -29,7 +31,6 @@
     "jotai": "^2.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-query": "^3.39.3",
     "react-router-dom": "^6.17.0",
     "tailwind-merge": "^1.14.0"
   },
