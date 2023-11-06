@@ -9,6 +9,7 @@ import EditingChildren from '@/pages/EditChildren/EditingChildren'
 import ErrorPage from '@/pages/ErrorPage'
 import FilterPage from '@/pages/filter/FilterPage.tsx'
 import HomePage from '@/pages/home/HomePage'
+import LoginPage from '@/pages/login/LoginPage'
 import MapPage from '@/pages/map/MapPage.tsx'
 import SelectCity from '@/pages/selectcity/SelectCity.tsx'
 
@@ -35,7 +36,7 @@ export const router = createBrowserRouter(
         },
         {
           path: 'login',
-          element: <p>{'login page'}</p>,
+          element: <LoginPage />,
           errorElement: <ErrorPage />
         },
         {
