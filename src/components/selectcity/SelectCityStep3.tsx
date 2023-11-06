@@ -36,8 +36,7 @@ const SelectCityStep3 = ({
             inputType={'Default'}
             fullWidth={true}
             value={sido}
-            disabled={true}
-          ></Input>
+            disabled={true}></Input>
         </div>
         <StepQuestion text={'지역구'} step={2}></StepQuestion>
         <div className={'mt-[14px] mb-[30px]'}>
@@ -45,8 +44,7 @@ const SelectCityStep3 = ({
             inputType={'Default'}
             fullWidth={true}
             value={sigungu}
-            disabled={true}
-          ></Input>
+            disabled={true}></Input>
         </div>
         <StepQuestion text={'동네'} step={3}></StepQuestion>
         <div className={'mt-[14px] mb-[30px]'}>

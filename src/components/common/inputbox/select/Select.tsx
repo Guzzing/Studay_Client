@@ -63,7 +63,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
               'bg-white-200 body-14 text-gray-600 outline-none cursor-pointer relative appearance-none w-[50px]'
             }
             value={boxSelectedValue ? 'yes' : 'no'}
-            onChange={(e) => {
+            onChange={() => {
               setBoxSelectedValue((prev) => !prev)
             }}
             {...props}>

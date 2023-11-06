@@ -27,8 +27,7 @@ export const Primary: Story = {
       <InputModal
         onConfirm={() => alert('onConfirm!')}
         onCancel={() => alert('onCancel!')}
-        title={'TEST!'}
-      ></InputModal>
+        title={'TEST!'}></InputModal>
     )
   }
 }

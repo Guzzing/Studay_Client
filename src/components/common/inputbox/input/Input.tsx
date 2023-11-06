@@ -29,6 +29,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           }  px-[20px] font-nsk text-black-800 bg-white-200 body-18 placeholder:text-gray-600 outline-none`}
           value={inputValue}
           style={{ width: width, height: height }}
+          onChange={(e) => {
+            setInputValue(e.target.value)
+          }}
           name={name}
           placeholder={placeholder}
           ref={ref}

@@ -25,8 +25,8 @@ const MapPage = () => {
       longitute: 0
     }
   ])
-  const [selectAcademy, setSelectAcademy] = useState<Academy | null>(null)
-
+  const [selectAcademy, setSelectAcademy] = useState<Academy | null>()
+  console.log(mapLocation)
   const handleDetailAcademy = (academy: Academy) => {
     setSelectAcademy(academy)
   }

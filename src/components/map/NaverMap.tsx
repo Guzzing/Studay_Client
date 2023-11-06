@@ -24,7 +24,8 @@ const NaverMap = ({
       center: center,
       zoom: 14
     })
-    academyList.map((data, index) => {
+
+    academyList.map((data) => {
       const marker = new naver.maps.Marker({
         position: new naver.maps.LatLng(data.latitute, data.longitute),
         map: map,
