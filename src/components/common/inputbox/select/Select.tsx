@@ -18,9 +18,6 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     ref
   ) => {
     const [boxSelectedValue, setBoxSelectedValue] = useState(false)
-    const OPTION_DUMMY_DATA = ['1', '2', '3', '4', '5'] // 서버에서 받아온 값 스토리북에 들어가야할듯
-    console.log(value)
-
     return selectType === 'Single' ? (
       <div
         className={`relative ${
@@ -73,9 +70,8 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             onChange={(e) => {
               setBoxSelectedValue((prev) => !prev)
             }}
-            {...props}
-          >
-            {OPTION_DUMMY_DATA.map((option) => (
+            {...props}>
+            {options.map((option) => (
               <option value={option}>{option}</option>
             ))}
           </select>

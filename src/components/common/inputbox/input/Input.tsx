@@ -31,9 +31,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           style={{ width: width, height: height }}
           name={name}
           placeholder={placeholder}
-          onChange={(e) => {
-            setInputValue(e.target.value)
-          }}
           ref={ref}
           {...props}
         />
