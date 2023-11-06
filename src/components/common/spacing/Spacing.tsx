@@ -9,9 +9,9 @@ interface SpacingProps {
  * */
 
 const Spacing = ({ size, color }: SpacingProps) => {
-  const spacingStyle = `h-[${size}px] bg-${color}`
+  const spacingStyle = `bg-${color}`
 
-  return <div className={spacingStyle}></div>
+  return <div className={spacingStyle} style={{ height: size + 'px' }}></div>
 }
 
 export default Spacing

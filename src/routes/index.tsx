@@ -1,18 +1,29 @@
+import { Suspense } from 'react'
 import { Outlet, createBrowserRouter } from 'react-router-dom'
+import Loading from '@/components/Loading/Loading'
 import Header from '@/components/common/header/Header'
 import Select from '@/components/common/inputbox/select/Select'
 import NavigationBar from '@/components/common/navigationbar/NavigationBar'
 import Layout from '@/components/layout/Layout.tsx'
 import EditChildren from '@/pages/EditChildren/EditChildren'
+import EditingChildren from '@/pages/EditChildren/EditingChildren'
 import ErrorPage from '@/pages/ErrorPage'
+import FilterPage from '@/pages/filter/FilterPage.tsx'
 import HomePage from '@/pages/home/HomePage'
 import OnboardingPage from '@/pages/onboarding/OnbardingPage'
+import LoginPage from '@/pages/login/LoginPage'
+import MapPage from '@/pages/map/MapPage.tsx'
+import SelectCity from '@/pages/selectcity/SelectCity.tsx'
 
 export const router = createBrowserRouter(
   [
     {
       path: '/',
-      element: <Layout />,
+      element: (
+        <Suspense fallback={<Loading />}>
+          <Layout />
+        </Suspense>
+      ),
       children: [
         {
           index: true,
@@ -27,7 +38,7 @@ export const router = createBrowserRouter(
         },
         {
           path: 'login',
-          element: <p>{'login page'}</p>,
+          element: <LoginPage />,
           errorElement: <ErrorPage />
         },
         {
@@ -36,12 +47,6 @@ export const router = createBrowserRouter(
             <>
               <Header headerType={'BackPush'} />
               <OnboardingPage />
-              {/* <Select
-                selectType={'Single'}
-                fullWidth={true}
-                options={['초1', '초2', '초3', '초4']}
-                value={''}
-              /> */}
             </>
           ),
           errorElement: <ErrorPage />
@@ -57,25 +62,46 @@ export const router = createBrowserRouter(
           errorElement: <ErrorPage />
         },
         {
-          path: 'select-city',
-          element: <p>{'도시 선택 페이지'}</p>,
+          path: 'edit/:childId/editing',
+          element: (
+            <>
+              <Header headerType={'Close'} />
+              <EditingChildren />
+            </>
+          )
+        },
+        {
+          path: 'selectcity',
+          element: (
+            <>
+              <Header headerType={'BackPush'} />
+              <SelectCity />
+            </>
+          ),
           errorElement: <ErrorPage />
         },
         {
           path: 'map',
           element: (
-            <div>
-              {'맵'}
-              <Outlet />
-            </div>
+            <>
+              <Header headerType={'Logo'} pageTitle={'학원 지도'} />
+              <MapPage />
+              <NavigationBar selectIcon={'SearchMap'} />
+            </>
+          )
+        },
+        {
+          path: 'map/filter',
+          element: (
+            <>
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'학원 필터 적용하기'}
+              />
+              <FilterPage />
+            </>
           ),
-          children: [
-            {
-              path: 'filter',
-              element: <p>{'맵 하위 필더링 페이지'}</p>,
-              errorElement: <ErrorPage />
-            }
-          ]
+          errorElement: <ErrorPage />
         },
         {
           path: 'schedule',

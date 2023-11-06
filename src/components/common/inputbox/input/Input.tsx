@@ -6,13 +6,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       inputType = 'Default',
-      fullWidth = true,
+      fullWidth = false,
       width,
       height,
       name,
-      placeholder = inputType === 'Default'
-        ? '정보를 입력해주세요'
-        : '학원명을 입력해주세요',
+      placeholder = '',
       errorMessage,
       ...props
     }: InputProps,
@@ -25,25 +23,34 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           type={'text'}
           className={`${
-            fullWidth ? 'w-[324px] h-[52px]' : `w-[${width}px] h-[${height}px]`
-          } rounded-[10px] border border-blue-350 px-[20px] font-nsk text-gray-600 bg-white-200 placeholder:text-gray-600 outline-none`}
+            fullWidth ? 'w-full h-[52px]' : 'w-[323px] h-[52px]'
+          } rounded-[10px] ${
+            errorMessage ? 'border border-red-600' : 'border border-blue-350'
+          }  px-[20px] font-nsk text-black-800 bg-white-200 body-18 placeholder:text-gray-600 outline-none`}
+          value={inputValue}
+          style={{ width: width, height: height }}
           name={name}
           placeholder={placeholder}
           ref={ref}
           {...props}
         />
-        <p className={'text-red-600'}>{errorMessage}</p>
+        <p className={'font-nsk caption-13 text-red-600 px-3 mt-1'}>
+          {errorMessage}
+        </p>
       </>
     ) : inputType === 'Search' ? (
       <>
         <div
+          style={{ width: width, height: height }}
           className={`${
-            fullWidth ? 'w-[298px] h-[50px]' : `w-[${width}px] h-[${height}px]`
-          } rounded-[30px] border border-blue-350 px-[20px] my-[10px] flex items-center bg-white-200`}>
+            fullWidth ? 'w-full h-[50px]' : `w-[298px] h-[50px]`
+          } rounded-[30px] border  border-blue-350 
+          px-[20px] flex items-center bg-white-200 body-18 `}>
           <Icon icon={'Search'} classStyle={'text-black-800'} />
           <input
             type={'search'}
-            className={`grow h-full w-full px-[5px] font-nsk body-15 bg-white-200 placeholder:body-15 text-gray-600 outline-none`}
+            className={`grow h-full w-full px-[5px] 
+            font-nsk body-15 text-black-800  bg-white-200 placeholder:text-gray-600 outline-none`}
             value={searchInputValue}
             name={name}
             placeholder={placeholder}
@@ -54,7 +61,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
         </div>
-        <p className={'text-red-600'}>{errorMessage}</p>
+        <p className={'font-nsk caption-13 text-red-600 px-3 mt-1'}>
+          {errorMessage}
+        </p>
       </>
     ) : (
       ''

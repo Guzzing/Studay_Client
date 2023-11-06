@@ -36,8 +36,7 @@ const Label = ({
           }),
           LabelColorVariant[color][variant],
           LabelTextColorVariant[color][variant]
-        )}
-      >
+        )}>
         {icon && (
           <Icon
             icon={icon}
