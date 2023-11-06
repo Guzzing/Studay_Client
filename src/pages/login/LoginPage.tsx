@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-  getCode,
-  getKaKaoAccessToken,
-  getAccessToken,
-  pushData
-} from '../../api/autorization'
 import { VITE_CLIENT_ID } from '../../constants'
 import Button from '@/components/common/button/Button'
+import {
+  getAccessToken,
+  getCode,
+  getKaKaoAccessToken,
+  pushData
+} from '@/libs/api/autorization'
 
 const LoginPage = () => {
   const navigate = useNavigate()

@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { onboarding } from '../../api/onboarding'
 import { DATA, grade } from './constants'
 import { validate } from './validate'
 import Button from '@/components/common/button/Button'
@@ -8,6 +7,7 @@ import Input from '@/components/common/inputbox/input/Input'
 import Select from '@/components/common/inputbox/select/Select'
 import Spacing from '@/components/common/spacing/Spacing'
 import StepQuestion from '@/components/common/stepquestion/StepQuestion'
+import { onboarding } from '@/libs/api/onboarding.ts'
 
 const OnboardingPage = () => {
   const [storage, setStorage] = useState<string[]>([])

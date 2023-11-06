@@ -1,4 +1,4 @@
-import request from '../index.ts'
+import request from '@/libs/api'
 
 export const getBeopjungdong = async (): Promise<BeopjungdongResponse> => {
   const res = await request.get('/regions/beopjungdong')
