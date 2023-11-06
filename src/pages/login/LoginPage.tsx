@@ -48,7 +48,7 @@ const LoginPage = () => {
           buttonType={'Round-blue-500'}
           width={'LW'}
           onClick={() => {
-            window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${VITE_CLIENT_ID}&redirect_uri=http://localhost:5173/login&response_type=code`
+            window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${VITE_CLIENT_ID}&redirect_uri=https://www.studay.me/&response_type=code`
           }}
         />
         <Button
