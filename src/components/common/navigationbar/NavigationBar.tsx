@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { useCallback, useEffect, useState } from 'react'
 import Icon, { IconType } from '@/components/common/icon/Icon.tsx'
 import {
@@ -47,8 +46,7 @@ const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
 
   return (
     <div
-      className={`flex flex-row w-[390px] h-[81px] bg-white-0 border border-solid border-gray-100 absolute bottom-0`}
-    >
+      className={`flex flex-row w-[390px] h-[81px] bg-white-0 border border-solid border-gray-100 absolute bottom-0`}>
       {navigationState &&
         navigationState.map((list, index) => (
           <div
@@ -59,21 +57,20 @@ const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
             data-id={list['icon']}
             onClick={(e) =>
               handleIconClick(e.currentTarget.dataset.id as IconType)
-            }
-          >
+            }>
             <Icon
               icon={list['icon']}
-              classStyle={`${list['select']
-                ? list['icon'] === 'Timetable' || list['icon'] === 'Info'
-                  ? SelectIconFillStroke
-                  : SelectIconFill
-                : DefaultIconFill
-                }`}
-            ></Icon>
+              classStyle={`${
+                list['select']
+                  ? list['icon'] === 'Timetable' || list['icon'] === 'Info'
+                    ? SelectIconFillStroke
+                    : SelectIconFill
+                  : DefaultIconFill
+              }`}></Icon>
             <span
-              className={`${list['select'] ? SelectText : DefaultText
-                } font-nsk body-10`}
-            >
+              className={`${
+                list['select'] ? SelectText : DefaultText
+              } font-nsk body-10`}>
               {list['text']}
             </span>
           </div>

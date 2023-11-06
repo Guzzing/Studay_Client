@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { useState } from 'react'
 import BottomSheetContent from '@/components/BottomSheet/BottomSheetContent'
 import BottomSheetHeader from '@/components/BottomSheet/BottomSheetHeader'
@@ -43,7 +42,7 @@ const BottomSheet = ({
           number={number}
         />
       </div>
-    </div>
+    </div >
   )
 }
 

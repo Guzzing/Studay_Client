@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { forwardRef, ReactNode, useState } from 'react'
 import ListRow from '@/components/common/listRow/ListRow'
 
@@ -49,22 +48,31 @@ export const Accordion = forwardRef<HTMLButtonElement, AccordionProps>(
         <button
           onClick={handleAccordion}
           ref={ref}
-          className={'flex flex-column justify-center w-full'}
-        >
-          <ListRow hasBorder={true} leftElement={title} rightElement={rightElement} />
+          className={'flex flex-column justify-center w-full'}>
+          <ListRow
+            hasBorder={true}
+            leftElement={title}
+            rightElement={rightElement}
+          />
         </button>
 
         <div
-          style={isOpen ? {
-            maxHeight: `${contentHeight}px`, transition: 'all 0.4s ease', overflow: 'hidden'
-          } : {
-            maxHeight: '0px', transition: 'all 0.1s ease-in-out', overflow: 'hidden'
-          }}
-        >
+          style={
+            isOpen
+              ? {
+                  maxHeight: `${contentHeight}px`,
+                  transition: 'all 0.4s ease',
+                  overflow: 'hidden'
+                }
+              : {
+                  maxHeight: '0px',
+                  transition: 'all 0.1s ease-in-out',
+                  overflow: 'hidden'
+                }
+          }>
           {content}
         </div>
-      </div >
+      </div>
     )
   }
 )
-
