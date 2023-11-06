@@ -1,6 +1,6 @@
 import axios from 'axios'
-import request from '..'
 import { VITE_CLIENT_ID, VITE_CLIENT_SECRET } from '../../constants'
+import request from '@/libs/api'
 
 export const getCode = () => {
   const currentURL = window.location.href

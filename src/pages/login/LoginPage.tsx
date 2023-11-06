@@ -19,7 +19,7 @@ const LoginPage = () => {
           if (kakaoToken) {
             const accessToken = await getAccessToken(kakaoToken)
             if (accessToken) {
-              localStorage.setItem('token', JSON.stringify(accessToken))
+              localStorage.setItem('token', accessToken)
               accessToken && navigate('/')
             }
           }
