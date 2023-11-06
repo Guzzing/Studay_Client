@@ -1,10 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+* {
+  box-sizing: border-box;
+}
+.nsk * {
+  font-family: 'Noto Sans KR', sans-serif;
+}
 body {
-  position: relative;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -14,67 +19,177 @@ body {
 #root {
   position: relative;
   width: 390px;
-  height: 844px;
-  background-color: #ffffff;
 }
 @layer components {
   .headline-30 {
     font-family: 'nsk';
     font-size: 30px;
-    font-weight: normal;
+    font-weight: 600;
+    line-height: 17px;
+    color: #202027;
   }
 
   .headline-25 {
     font-family: 'nsk';
     font-size: 25px;
-    font-weight: bold;
+    font-weight: 700;
+    line-height: 24px;
+    color: #202027;
   }
 
+  .headline-20 {
+    font-family: 'nsk';
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #202027;
+  }
   .subHead-18 {
     font-family: 'nsk';
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
+    line-height: 24px;
+    color: #202027;
   }
 
   .subHead-16 {
     font-family: 'nsk';
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
+    line-height: 24px;
+    color: #202027;
   }
 
-  .subHead-13 {
+  .body-17 {
     font-family: 'nsk';
-    font-size: 13px;
-    font-weight: normal;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 24px;
+    color: #202027;
   }
 
-  .body-18 {
+  .subHead-16-blue {
+    font-family: 'nsk';
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #57a4ff;
+  }
+
+  .subHead-16-red {
+    font-family: 'nsk';
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #fc4c4e;
+  }
+
+  .body-18-blue {
     font-family: 'nsk';
     font-size: 18px;
-    font-weight: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.15px;
+    color: #57a4ff;
   }
 
+  .body-18-black-lg {
+    font-family: 'nsk';
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+    color: #202027;
+  }
+  .body-18-black-sm {
+    font-family: 'nsk';
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.1px;
+    color: #202027;
+  }
+  .body-18-gray {
+    font-family: 'nsk';
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 40px;
+    letter-spacing: -2px;
+    color: #808080;
+  }
   .body-16 {
     font-family: 'nsk';
     font-size: 16px;
-    font-weight: normal;
+    font-weight: 600;
+    line-height: 24px;
   }
-
   .body-15 {
     font-family: 'nsk';
     font-size: 15px;
-    font-weight: normal;
+    font-weight: 500;
+    line-height: 24px;
+    color: #202027;
   }
-
+  .body-15-gray {
+    font-family: 'nsk';
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #808080;
+  }
   .body-14 {
     font-family: 'nsk';
     font-size: 14px;
-    font-weight: normal;
+    font-weight: 500;
+    line-height: 24px;
   }
-
+  .body-14-gray {
+    font-family: 'nsk';
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #808080;
+  }
   .caption-13 {
     font-family: 'nsk';
     font-size: 13px;
-    font-weight: normal;
+    font-weight: 400;
+    line-height: 17px;
+    color: #202027;
+  }
+  .caption-13-gray {
+    font-family: 'nsk';
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px;
+    color: rgba(0, 0, 0, 0.8);
+  }
+  .caption-13-white {
+    font-family: 'nsk';
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #fff;
+  }
+  .placeholder {
+    font-family: 'nsk';
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.2;
+    color: #808080;
+  }
+
+  .button-white {
+    font-family: 'nsk';
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    color: #fff;
+  }
+  .body-10 {
+    font-size: 10px;
+    font-weight: 500;
+    color: #202027;
   }
 }

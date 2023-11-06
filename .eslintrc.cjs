@@ -15,7 +15,8 @@ module.exports = {
     'vite.config.ts',
     'tailwind.config.js',
     'postcss.config.js',
-    'vite-env.d.ts'
+    'vite-env.d.ts',
+    '.storybook/preview.ts'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -117,6 +118,8 @@ module.exports = {
           pascalCase: true
         }
       }
-    ]
+    ],
+    'unicorn/prevent-abbreviations': ['off'],
+    'unicorn/prefer-logical-operator-over-ternary': ['off']
   }
 }
