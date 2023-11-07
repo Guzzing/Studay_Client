@@ -13,7 +13,6 @@ const LoginPage = () => {
   const navigate = useNavigate()
   useEffect(() => {
     if (getCode()) {
-      console.log(getCode())
       const req = async () => {
         try {
           const kakaoToken = await getKaKaoAccessToken(pushData())
@@ -21,7 +20,7 @@ const LoginPage = () => {
             const accessToken = await getAccessToken(kakaoToken)
             if (accessToken) {
               localStorage.setItem('token', accessToken)
-              accessToken && navigate('/login')
+              accessToken && navigate('/')
             }
           }
         } catch (error) {
@@ -50,7 +49,6 @@ const LoginPage = () => {
           width={'LW'}
           onClick={() => {
             window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${VITE_CLIENT_ID}&redirect_uri=https://www.studay.me/login&response_type=code`
-            // https://studay.me/
           }}
         />
         <Button
