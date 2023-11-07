@@ -13,7 +13,7 @@ export const pushData = () => {
   const data = new URLSearchParams()
   data.append('grant_type', 'authorization_code')
   data.append('client_id', VITE_CLIENT_ID)
-  data.append('redirect_uri', 'https://studay.me')
+  data.append('redirect_uri', 'https://studay.me/')
   data.append('code', getCode())
   data.append('client_secret', VITE_CLIENT_SECRET)
 
@@ -43,6 +43,9 @@ export const getAccessToken = async (kakaoAccessToken: string) => {
         Authorization: `Bearer ${kakaoAccessToken}`
       }
     })
+    if (res.data.appToken) {
+      console.log(res.data.appToken)
+    }
     return res.data.appToken
   } catch {
     throw new Error('cannt get access token')
