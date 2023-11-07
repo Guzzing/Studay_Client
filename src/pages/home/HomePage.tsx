@@ -1,16 +1,9 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import Loading from '@/components/Loading/Loading'
 import Icon from '@/components/common/icon/Icon'
 import InformationBox from '@/components/common/informationBox/InformationBox'
 import Spacing from '@/components/common/spacing/Spacing'
-import {
-  getAccessToken,
-  getCode,
-  getKaKaoAccessToken,
-  pushData
-} from '@/libs/api/autorization'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 const HomePage = () => {
   const navigate = useNavigate()
@@ -18,30 +11,14 @@ const HomePage = () => {
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
   })
-  useEffect(() => {
-    if (getCode()) {
-      console.log(getCode())
-      const req = async () => {
-        try {
-          const kakaoToken = await getKaKaoAccessToken(pushData())
-          if (kakaoToken) {
-            const accessToken = await getAccessToken(kakaoToken)
-            if (accessToken) {
-              localStorage.setItem('token', accessToken)
-              accessToken && navigate('/login')
-            }
-          }
-        } catch (error) {
-          console.error('액세스 토큰 요청 실패:', error)
-        }
-      }
-      req()
-    }
-  }, [navigate])
   if (isLoading) {
     return <Loading />
   }
 
+  // useEffect(() => {
+  //   console.log('호출!')
+  //   if (localStorage.getItem('token') === null) navigate('/login')
+  // }, [navigate])
   return (
     <div className={'bg-white-100 w-full h-full'}>
       <Spacing size={100} />
