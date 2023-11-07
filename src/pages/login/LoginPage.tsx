@@ -1,35 +1,7 @@
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { VITE_CLIENT_ID } from '../../constants'
 import Button from '@/components/common/button/Button'
-import {
-  getAccessToken,
-  getCode,
-  getKaKaoAccessToken,
-  pushData
-} from '@/libs/api/autorization'
 
 const LoginPage = () => {
-  const navigate = useNavigate()
-  useEffect(() => {
-    if (getCode()) {
-      const req = async () => {
-        try {
-          const kakaoToken = await getKaKaoAccessToken(pushData())
-          if (kakaoToken) {
-            const accessToken = await getAccessToken(kakaoToken)
-            if (accessToken) {
-              localStorage.setItem('token', accessToken)
-              accessToken && navigate('/')
-            }
-          }
-        } catch (error) {
-          console.error('액세스 토큰 요청 실패:', error)
-        }
-      }
-      req()
-    }
-  }, [navigate])
   return (
     <div className={'w-full h-full border flex-col flex'}>
       <div className={'h-[80%] w-full flex justify-center items-center'}>
@@ -49,6 +21,7 @@ const LoginPage = () => {
           width={'LW'}
           onClick={() => {
             window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${VITE_CLIENT_ID}&redirect_uri=https://studay.me/&response_type=code`
+            // https://studay.me/
           }}
         />
         <Button

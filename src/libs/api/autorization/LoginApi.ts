@@ -6,6 +6,7 @@ export const getCode = () => {
   const currentURL = window.location.href
   const params = new URLSearchParams(currentURL.split('?')[1])
   const code = params.get('code')
+  console.log('카카오 인자코드 >', code)
   return code as string
 }
 
@@ -44,7 +45,7 @@ export const getAccessToken = async (kakaoAccessToken: string) => {
       }
     })
     if (res.data.appToken) {
-      console.log(res.data.appToken)
+      console.log(res.data)
     }
     return res.data.appToken
   } catch {
