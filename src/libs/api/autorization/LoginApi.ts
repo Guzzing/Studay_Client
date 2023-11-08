@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {
   VITE_CLIENT_ID,
-  VITE_CLIENT_SECRET,
+  VITE_CLIENT_SECRET_KEY,
   VITE_REDIRECT_URL
 } from '../../../constants'
 import request from '@/libs/api'
@@ -19,7 +19,7 @@ export const pushData = () => {
   data.append('client_id', VITE_CLIENT_ID)
   data.append('redirect_uri', VITE_REDIRECT_URL)
   data.append('code', getCode())
-  data.append('client_secret', VITE_CLIENT_SECRET)
+  data.append('client_secret', VITE_CLIENT_SECRET_KEY)
 
   return data
 }
