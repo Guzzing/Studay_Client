@@ -38,10 +38,23 @@ const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
     (selectedIcon: IconType) => {
       const updatedNavigationState = navigationState.map((item) => {
         if (item.icon === selectedIcon) {
-          if (item.icon === 'SearchMap') {
-            navigate('/selectcity')
-          } else if (item.icon === 'Home') {
-            navigate('/home')
+          switch (item.icon) {
+            case 'SearchMap': {
+              navigate('/selectcity')
+
+              break
+            }
+            case 'Home': {
+              navigate('/')
+
+              break
+            }
+            case 'Info': {
+              navigate('/academies')
+
+              break
+            }
+            // No default
           }
           return { ...item, select: true }
         }
