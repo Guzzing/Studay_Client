@@ -1,117 +1,117 @@
-import { useEffect, useState } from 'react'
+import { ReactNode, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-  initDongne,
-  initSido,
-  initSigungu
-} from '../../constants/selectCity.ts'
+import { useQuery } from '@tanstack/react-query'
 import useSteps from '../../hooks/useSteps.ts'
-import { SigunguType, SidoType, DongneType } from '../../types/selectcity.ts'
+import {
+  HandleChangeParam,
+  ResetSelectedParam
+} from '../../types/selectcity.ts'
 import Spacing from '@/components/common/spacing/Spacing.tsx'
 import SelectCityStep1 from '@/components/selectcity/SelectCityStep1.tsx'
 import SelectCityStep2 from '@/components/selectcity/SelectCityStep2.tsx'
 import SelectCityStep3 from '@/components/selectcity/SelectCityStep3.tsx'
 import {
   getBeopjungdong,
-  getDongne,
-  getLocation,
-  getSigungu
+  getSigungu,
+  getDongne
 } from '@/libs/api/mapapi/mapApi.ts'
 
 const SelectCity = () => {
   const navigate = useNavigate()
-  const [sido, setSido] = useState<SidoType>(initSido)
-  const [sigungu, setSigungu] = useState<SigunguType>(initSigungu)
-  const [dongne, setDongne] = useState<DongneType>(initDongne)
+  const [selectSido, setSelectSido] = useState('')
+  const [selectSigungu, setSelectSigungu] = useState('')
+  const [selectDongne, setSelectDongne] = useState('')
   const { currentStep, nextStep, setCurrentStep } = useSteps()
+  const [prevRision, setPrevRision] = useState<string[]>([])
 
-  useEffect(() => {
-    async function fetchData() {
-      const data = await getBeopjungdong()
-      setSido({
-        sidoArr: data.subRegion,
-        select: ''
-      })
+  const { data: sido } = useQuery({
+    queryKey: ['sido'],
+    queryFn: () => getBeopjungdong()
+  })
+  const { data: sigungu } = useQuery({
+    queryKey: ['sigungu', selectSido],
+    queryFn: () => getSigungu(selectSido),
+    enabled: selectSido !== ''
+  })
+  const { data: dongne } = useQuery({
+    queryKey: ['dongne', selectSido, selectSigungu],
+    queryFn: () => getDongne({ sido: selectSido, sigungu: selectSigungu }),
+    enabled: selectSigungu !== ''
+  })
+
+  const resetSelectValues = (step: number) => {
+    if (step <= 1) {
+      setSelectSido('')
     }
-    fetchData()
-  }, [])
-
-  const handleSidoChange = async (selectedSido: string) => {
-    console.log(selectedSido)
-    setSido((prevSido) => ({
-      ...prevSido,
-      select: selectedSido
-    }))
-    const res = await getSigungu(selectedSido)
-    console.log(res)
-    setSigungu({
-      sigunguArr: res.subRegion,
-      select: ''
-    })
-    nextStep()
+    if (step <= 2) {
+      setSelectSigungu('')
+    }
+    setSelectDongne('')
   }
 
-  const handleSiGunguChange = async (selectSigungu: string) => {
-    setSigungu((prevState) => ({
-      ...prevState,
-      select: selectSigungu
-    }))
-    const res = await getDongne({ sido: sido.select, sigungu: selectSigungu })
-    setDongne({
-      dongneArr: res.subRegion,
-      select: ''
-    })
-    nextStep()
+  const resetSelected = ({ step }: ResetSelectedParam) => {
+    setCurrentStep(step)
+    resetSelectValues(step)
   }
 
-  const handleDongneChange = async (selectDongne: string) => {
-    setDongne((prevState) => ({
-      ...prevState,
-      select: selectDongne
-    }))
-    const data = await getLocation({
-      sido: sido.select,
-      sigungu: sigungu.select,
-      dongne: selectDongne
-    })
-    console.log(data)
-    window.localStorage.setItem('location', JSON.stringify(data))
-    navigate('/map')
+  const stepComponents: { [key: number]: ReactNode } = {
+    1: sido && (
+      <SelectCityStep1
+        sidoArr={sido?.subRegion || []}
+        select={selectSido}
+        onChange={(selectSido) =>
+          handleChange({ selectData: selectSido, setState: setSelectSido })
+        }
+      />
+    ),
+    2: (
+      <SelectCityStep2
+        sido={selectSido}
+        sigunguArr={sigungu?.subRegion || []}
+        select={selectSigungu}
+        onChange={(selectDongne) =>
+          handleChange({ selectData: selectDongne, setState: setSelectSigungu })
+        }
+        onClick={(step) => resetSelected({ step })}
+      />
+    ),
+    3: (
+      <SelectCityStep3
+        sido={selectSido}
+        sigungu={selectSigungu}
+        onChange={(selectDongne) => {
+          handleChange({ selectData: selectDongne, setState: setSelectDongne })
+        }}
+        dongneArr={dongne?.subRegion || []}
+        select={selectDongne}
+        onClick={(step) => resetSelected({ step })}
+      />
+    )
   }
 
-  useEffect(() => {
-    console.log(sido)
-  }, [sido])
+  const isLast = () => {
+    return currentStep === 3
+  }
+
+  const handleChange = useCallback(
+    ({ selectData, setState }: HandleChangeParam) => {
+      if (selectData === '') return
+      setPrevRision((prevState) => [...prevState, selectData])
+      console.log(prevRision)
+      setState(selectData)
+      if (isLast()) {
+        navigate('/map')
+      } else {
+        nextStep()
+      }
+    },
+    [selectSido, selectSigungu, nextStep]
+  )
 
   return (
     <div className={'flex flex-col w-full h-full'}>
       <Spacing size={80}></Spacing>
-
-      {currentStep === 1 && (
-        <SelectCityStep1
-          sidoArr={sido.sidoArr}
-          select={sido.select}
-          onChange={handleSidoChange}
-        />
-      )}
-      {currentStep === 2 && (
-        <SelectCityStep2
-          sido={sido.select}
-          onChange={handleSiGunguChange}
-          sigunguArr={sigungu.sigunguArr}
-          select={sigungu.select}
-          onClick={setCurrentStep}
-        />
-      )}
-      {currentStep === 3 && (
-        <SelectCityStep3
-          sido={sido.select}
-          sigungu={sigungu.select}
-          dongneArr={dongne.dongneArr}
-          select={dongne.select}
-          onChange={handleDongneChange}
-        />
-      )}
+      {stepComponents[currentStep]}
     </div>
   )
 }
