@@ -26,10 +26,3 @@ export const SingleSelect: Story = {
     fullWidth: true
   }
 }
-
-export const BoxSelect: Story = {
-  args: {
-    selectType: 'Box',
-    fullWidth: true
-  }
-}
