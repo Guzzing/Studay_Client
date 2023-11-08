@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { Outlet, createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 import Loading from '@/components/Loading/Loading'
 import Header from '@/components/common/header/Header'
 import NavigationBar from '@/components/common/navigationbar/NavigationBar'

@@ -15,10 +15,6 @@ const HomePage = () => {
     return <Loading />
   }
 
-  // useEffect(() => {
-  //   console.log('호출!')
-  //   if (localStorage.getItem('token') === null) navigate('/login')
-  // }, [navigate])
   return (
     <div className={'bg-white-100 w-full h-full'}>
       <Spacing size={100} />
