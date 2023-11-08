@@ -13,7 +13,7 @@ export const pushData = () => {
   const data = new URLSearchParams()
   data.append('grant_type', 'authorization_code')
   data.append('client_id', VITE_CLIENT_ID)
-  data.append('redirect_uri', 'https://studay.me/')
+  data.append('redirect_uri', 'https://www.studay.me/login')
   data.append('code', getCode())
   data.append('client_secret', VITE_CLIENT_SECRET)
 
@@ -44,7 +44,7 @@ export const getAccessToken = async (kakaoAccessToken: string) => {
       }
     })
     if (res.data.appToken) {
-      console.log(res.data.appToken)
+      console.log(res.data)
     }
     return res.data.appToken
   } catch {
