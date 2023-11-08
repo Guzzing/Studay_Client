@@ -34,11 +34,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           value={value}
           {...props}>
           {isPlace && (
-            <option
-              value={''}
-              disabled={true}
-              hidden={true}
-              selected={value === ''}>
+            <option value={''} disabled={true} hidden={true}>
               {placeholder}
             </option>
           )}
