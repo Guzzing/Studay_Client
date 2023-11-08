@@ -27,8 +27,8 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           ref={ref}
           name={name}
           id={''}
-          className={`w-full h-full font-nsk body-18 px-[20px] border border-blue-500 rounded-[10px] outline-none bg-white-200
-      text-gray-600 appearance-none cursor-pointer`}
+          className={`w-full h-full font-nsk body-18 px-[20px] border border-blue-350 rounded-[10px] outline-none bg-white-200
+      text-gray-800 appearance-none cursor-pointer`}
           value={value}
           {...props}>
           {options?.map((option, index) => (
