@@ -4,6 +4,7 @@ import Icon from '../icon/Icon'
 const Header = ({
   headerType,
   pageTitle = 'pageTitle',
+  backUrl = '',
   onClick
 }: HeaderProps) => {
   const navigate = useNavigate()
@@ -44,7 +45,10 @@ const Header = ({
             </div>
           </>
         ) : headerType === 'Close' ? (
-          <span onClick={onClick ? onClick : () => navigate(-1)}>
+          <span
+            onClick={
+              backUrl.length > 0 ? () => navigate(backUrl) : () => navigate(-1)
+            }>
             <Icon icon={'Close'} classStyle={'cursor-pointer'} />
           </span>
         ) : headerType === 'CloseWithTitle' ? (

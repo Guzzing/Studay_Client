@@ -1,0 +1,16 @@
+import{j as e}from"./jsx-runtime-6eef64cc.js";import{r as o}from"./index-c013ead5.js";import{I as _}from"./Icon-591b1838.js";import"./_commonjsHelpers-725317a4.js";import"./ArrowDown-54d7f6d1.js";import"./LikeFilled-8c5d7500.js";const s=o.forwardRef(({inputType:r="Default",fullWidth:u=!1,width:p,height:c,name:d,placeholder:i="",errorMessage:l,...m},f)=>{const[v,S]=o.useState(""),[j,V]=o.useState("");return r==="Default"?e.jsxs(e.Fragment,{children:[e.jsx("input",{type:"text",className:`${u?"w-full h-[52px]":"w-[323px] h-[52px]"} rounded-[10px] ${l?"border border-red-600":"border border-blue-350"}  px-[20px] font-nsk text-black-800 bg-white-200 body-18 placeholder:text-gray-600 outline-none`,value:v,style:{width:p,height:c},onChange:n=>{S(n.target.value)},name:d,placeholder:i,ref:f,...m}),e.jsx("p",{className:"font-nsk caption-13 text-red-600 px-3 mt-1",children:l})]}):r==="Search"?e.jsxs(e.Fragment,{children:[e.jsxs("div",{style:{width:p,height:c},className:`${u?"w-full h-[50px]":"w-[298px] h-[50px]"} rounded-[30px] border  border-blue-350 
+          px-[20px] flex items-center bg-white-200 body-18 `,children:[e.jsx(_,{icon:"Search",classStyle:"text-black-800"}),e.jsx("input",{type:"search",className:`grow h-full w-full px-[5px] 
+            font-nsk body-15 text-black-800  bg-white-200 placeholder:text-gray-600 outline-none`,value:j,name:d,placeholder:i,onChange:n=>{V(n.target.value)},ref:f,...m})]}),e.jsx("p",{className:"font-nsk caption-13 text-red-600 px-3 mt-1",children:l})]}):""});try{s.displayName="Input",s.__docgenInfo={description:"",displayName:"Input",props:{fullWidth:{defaultValue:{value:"false"},description:"",name:"fullWidth",required:!1,type:{name:"boolean"}},placeholder:{defaultValue:{value:""},description:"",name:"placeholder",required:!1,type:{name:"string"}},onChange:{defaultValue:null,description:"",name:"onChange",required:!1,type:{name:"((e: ChangeEvent<HTMLInputElement>) => void)"}},errorMessage:{defaultValue:null,description:"",name:"errorMessage",required:!1,type:{name:"string"}},inputType:{defaultValue:{value:"Default"},description:"",name:"inputType",required:!1,type:{name:"enum",value:[{value:'"Search"'},{value:'"Default"'}]}},typo:{defaultValue:null,description:"",name:"typo",required:!1,type:{name:"string"}}}}}catch{}const W={component:s,tags:["autodocs"],title:"components/Input",argTypes:{inputType:{control:"select",options:["Default","Select"]},fullWidth:{control:"boolean"},value:{control:"text"},placeholder:{control:"text"}}},t={args:{inputType:"Default",fullWidth:!0,placeholder:"값을 입력해주세요"}},a={args:{inputType:"Search",fullWidth:!0,placeholder:"값을 입력해주세요"}};var h,x,y;t.parameters={...t.parameters,docs:{...(h=t.parameters)==null?void 0:h.docs,source:{originalSource:`{
+  args: {
+    inputType: 'Default',
+    fullWidth: true,
+    placeholder: '값을 입력해주세요'
+  }
+}`,...(y=(x=t.parameters)==null?void 0:x.docs)==null?void 0:y.source}}};var g,b,I;a.parameters={...a.parameters,docs:{...(g=a.parameters)==null?void 0:g.docs,source:{originalSource:`{
+  args: {
+    inputType: 'Search',
+    fullWidth: true,
+    placeholder: '값을 입력해주세요'
+  }
+}`,...(I=(b=a.parameters)==null?void 0:b.docs)==null?void 0:I.source}}};const C=["DefaultInput","SearchInput"];export{t as DefaultInput,a as SearchInput,C as __namedExportsOrder,W as default};
+//# sourceMappingURL=Input.stories-5d200474.js.map

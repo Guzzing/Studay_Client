@@ -52,9 +52,10 @@ export const router = createBrowserRouter(
         },
         {
           path: 'edit/:childId',
+
           element: (
             <>
-              <Header headerType={'Close'} />
+              <Header headerType={'Close'} backUrl={'/'} />
               <EditChildren />
             </>
           ),

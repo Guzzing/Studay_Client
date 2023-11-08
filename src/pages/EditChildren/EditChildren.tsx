@@ -57,7 +57,9 @@ const EditChildren = () => {
         }
       />
       <div
-        className={'absolute bottom-3 flex flex-col gap-[13px] items-center'}>
+        className={
+          'absolute bottom-[40px] flex flex-col gap-[13px] items-center'
+        }>
         <Button
           buttonType={'Plain-blue'}
           width={'LW'}
@@ -76,6 +78,7 @@ const EditChildren = () => {
         <Button
           buttonType={'Plain-red'}
           width={'LW'}
+          height={'SH'}
           label={'아이 삭제하기'}
           onClick={() => childInfoMutation.mutate(id)}
         />
