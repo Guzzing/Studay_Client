@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { VITE_CLIENT_ID } from '../../constants'
+import { VITE_CLIENT_ID, VITE_REDIRECT_URL } from '../../constants/env'
 import Button from '@/components/common/button/Button'
 import {
   getAccessToken,
@@ -12,6 +12,8 @@ import {
 const LoginPage = () => {
   const navigate = useNavigate()
   useEffect(() => {
+    console.log(import.meta.env.VITE_REDIRECT_URL)
+    console.log(import.meta.env.VITE_CLIENT_ID)
     if (getCode()) {
       const req = async () => {
         try {
@@ -48,7 +50,7 @@ const LoginPage = () => {
           buttonType={'Round-blue-500'}
           width={'LW'}
           onClick={() => {
-            window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${VITE_CLIENT_ID}&redirect_uri=http://localhost:5173/login&response_type=code`
+            window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${VITE_CLIENT_ID}&redirect_uri=${VITE_REDIRECT_URL}&response_type=code`
           }}
         />
         <Button

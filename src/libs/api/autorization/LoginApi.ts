@@ -1,5 +1,9 @@
 import axios from 'axios'
-import { VITE_CLIENT_ID, VITE_CLIENT_SECRET } from '../../../constants'
+import {
+  VITE_CLIENT_ID,
+  VITE_CLIENT_SECRET,
+  VITE_REDIRECT_URL
+} from '../../../constants'
 import request from '@/libs/api'
 
 export const getCode = () => {
@@ -13,7 +17,7 @@ export const pushData = () => {
   const data = new URLSearchParams()
   data.append('grant_type', 'authorization_code')
   data.append('client_id', VITE_CLIENT_ID)
-  data.append('redirect_uri', 'http://localhost:5173/login')
+  data.append('redirect_uri', VITE_REDIRECT_URL)
   data.append('code', getCode())
   data.append('client_secret', VITE_CLIENT_SECRET)
 
