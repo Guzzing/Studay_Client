@@ -1,6 +1,5 @@
-import { Suspense, useEffect } from 'react'
-import { Link, Outlet, createBrowserRouter } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { Suspense } from 'react'
+import { Outlet, createBrowserRouter } from 'react-router-dom'
 import Loading from '@/components/Loading/Loading'
 import Header from '@/components/common/header/Header'
 import NavigationBar from '@/components/common/navigationbar/NavigationBar'
