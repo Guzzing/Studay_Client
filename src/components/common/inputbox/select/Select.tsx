@@ -13,6 +13,8 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       value = selectType === 'Single' ? '' : 'false',
       errorMessage,
       options,
+      isPlace,
+      placeholder,
       ...props
     }: SelectProps,
     ref
@@ -31,6 +33,15 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       text-gray-600 appearance-none cursor-pointer`}
           value={value}
           {...props}>
+          {isPlace && (
+            <option
+              value={''}
+              disabled={true}
+              hidden={true}
+              selected={value === ''}>
+              {placeholder}
+            </option>
+          )}
           {options?.map((option, index) => (
             <option value={option} key={index}>
               {option}
