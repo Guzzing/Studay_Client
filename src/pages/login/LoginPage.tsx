@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { VITE_CLIENT_ID, VITE_REDIRECT_URL } from '../../constants/env'
+import { BUTTON_IMG_LINK } from './constants'
 import Button from '@/components/common/button/Button'
 import {
   getAccessToken,
