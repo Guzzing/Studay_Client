@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useAtom } from 'jotai'
 import useSteps from '../../hooks/useSteps.ts'
 import {
   HandleChangeParam,
@@ -17,12 +18,13 @@ import {
   getDongne,
   getLocation
 } from '@/libs/api/mapapi/mapApi.ts'
+import { mapInfoAtom } from '@/libs/store/mapInfoAtom.ts'
+
+const LAST_STEP = 3
 
 const SelectCity = () => {
   const navigate = useNavigate()
-  const [selectSido, setSelectSido] = useState('')
-  const [selectSigungu, setSelectSigungu] = useState('')
-  const [selectDongne, setSelectDongne] = useState('')
+  const [mapInfo, setMapInfo] = useAtom(mapInfoAtom)
   const { currentStep, nextStep, setCurrentStep } = useSteps()
 
   const { data: sido } = useQuery({
@@ -30,34 +32,39 @@ const SelectCity = () => {
     queryFn: () => getBeopjungdong()
   })
   const { data: sigungu } = useQuery({
-    queryKey: ['sigungu', selectSido],
-    queryFn: () => getSigungu(selectSido),
-    enabled: selectSido !== ''
+    queryKey: ['sigungu', mapInfo.selectSido],
+    queryFn: () => getSigungu(mapInfo.selectSido),
+    enabled: mapInfo.selectSido !== ''
   })
   const { data: dongne } = useQuery({
-    queryKey: ['dongne', selectSido, selectSigungu],
-    queryFn: () => getDongne({ sido: selectSido, sigungu: selectSigungu }),
-    enabled: selectSigungu !== ''
+    queryKey: ['dongne', mapInfo.selectSido, mapInfo.selectSigungu],
+    queryFn: () =>
+      getDongne({ sido: mapInfo.selectSido, sigungu: mapInfo.selectSigungu }),
+    enabled: mapInfo.selectSigungu !== ''
   })
   const { data: location } = useQuery({
-    queryKey: ['location', selectSido, selectSigungu, selectDongne],
+    queryKey: [
+      'location',
+      mapInfo.selectSido,
+      mapInfo.selectSigungu,
+      mapInfo.selectDongne
+    ],
     queryFn: () =>
       getLocation({
-        sido: selectSido,
-        sigungu: selectSigungu,
-        dongne: selectDongne
+        sido: mapInfo.selectSido,
+        sigungu: mapInfo.selectSigungu,
+        dongne: mapInfo.selectDongne
       }),
-    enabled: selectDongne !== ''
+    enabled: mapInfo.selectDongne !== ''
   })
 
   const resetSelectValues = (step: number) => {
-    if (step <= 1) {
-      setSelectSido('')
-    }
-    if (step <= 2) {
-      setSelectSigungu('')
-    }
-    setSelectDongne('')
+    setMapInfo((prev) => ({
+      ...prev,
+      selectSido: step <= 1 ? '' : prev.selectSido,
+      selectSigungu: step <= 2 ? '' : prev.selectSigungu,
+      selectDongne: ''
+    }))
   }
 
   const resetSelected = ({ step }: ResetSelectedParam) => {
@@ -65,26 +72,26 @@ const SelectCity = () => {
     resetSelectValues(step)
   }
 
-  const isLast = () => {
-    return currentStep === 3
-  }
-
   const handleChange = useCallback(
-    ({ selectData, setState }: HandleChangeParam) => {
+    ({ selectData, key }: HandleChangeParam) => {
       if (selectData === '') return
-      setState(selectData)
-      if (isLast()) {
-        navigate('/map')
-      } else {
+      setMapInfo((prev) => ({ ...prev, [key]: selectData }))
+
+      if (currentStep < LAST_STEP) {
         nextStep()
       }
     },
-    [selectSido, selectSigungu, selectDongne, nextStep]
+    [mapInfo, nextStep]
   )
 
   useEffect(() => {
-    if (isLast()) {
-      console.log(location)
+    if (currentStep === LAST_STEP) {
+      setMapInfo((prev) => ({
+        ...prev,
+        latitude: location?.latitute || 0,
+        longitude: location?.longitute || 0
+      }))
+      navigate('/map')
     }
   }, [location])
 
@@ -95,39 +102,39 @@ const SelectCity = () => {
         <SelectCityStep.Step>
           <SelectCityStep1
             onChange={(selectSido) =>
-              handleChange({ selectData: selectSido, setState: setSelectSido })
+              handleChange({ selectData: selectSido, key: 'selectSido' })
             }
             sidoArr={sido?.subRegion || []}
-            select={selectSido}
+            select={mapInfo.selectSido}
           />
         </SelectCityStep.Step>
         <SelectCityStep.Step>
           <SelectCityStep2
-            sido={selectSido}
+            sido={mapInfo.selectSido}
             onChange={(selectDongne) =>
               handleChange({
                 selectData: selectDongne,
-                setState: setSelectSigungu
+                key: 'selectSigungu'
               })
             }
             onClick={(step) => resetSelected({ step })}
             sigunguArr={sigungu?.subRegion || []}
-            select={selectSigungu}
+            select={mapInfo.selectSigungu}
           />
         </SelectCityStep.Step>
         <SelectCityStep.Step>
           <SelectCityStep3
-            sido={selectSido}
-            sigungu={selectSigungu}
+            sido={mapInfo.selectSido}
+            sigungu={mapInfo.selectSigungu}
             onChange={(selectDongne) => {
               handleChange({
                 selectData: selectDongne,
-                setState: setSelectDongne
+                key: 'selectDongne'
               })
             }}
             onClick={(step) => resetSelected({ step })}
             dongneArr={dongne?.subRegion || []}
-            select={selectDongne}
+            select={mapInfo.selectDongne}
           />
         </SelectCityStep.Step>
       </SelectCityStep>

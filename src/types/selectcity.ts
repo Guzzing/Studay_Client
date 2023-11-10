@@ -23,7 +23,15 @@ export interface SelectCityStepParam {
 
 export interface HandleChangeParam {
   selectData: string
-  setState: (selectData: string) => void
+  key: keyof MapInfoAtomType
+}
+
+export interface MapInfoAtomType {
+  selectSido: string
+  selectSigungu: string
+  selectDongne: string
+  latitude: number
+  longitude: number
 }
 
 export interface ResetSelectedParam {
