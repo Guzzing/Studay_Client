@@ -5,6 +5,6 @@ export const mapInfoAtom = atom<MapInfoAtomType>({
   selectSido: '',
   selectSigungu: '',
   selectDongne: '',
-  latitude: 0,
-  longitude: 0
+  latitude: 37.444_916_8,
+  longitude: 127.138_868
 })

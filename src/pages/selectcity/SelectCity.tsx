@@ -80,16 +80,17 @@ const SelectCity = () => {
       if (currentStep < LAST_STEP) {
         nextStep()
       }
+      console.log(location)
     },
     [mapInfo, nextStep]
   )
 
   useEffect(() => {
-    if (currentStep === LAST_STEP) {
+    if (currentStep === LAST_STEP && location && location.longitude > 0) {
       setMapInfo((prev) => ({
         ...prev,
-        latitude: location?.latitute || 0,
-        longitude: location?.longitute || 0
+        latitude: location.latitude,
+        longitude: location.longitude
       }))
       navigate('/map')
     }
