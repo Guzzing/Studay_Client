@@ -1,7 +1,8 @@
+import type { LoginResponse } from './LoginType'
 import axios from 'axios'
 import {
-  VITE_CLIENT_ID,
-  VITE_CLIENT_SECRET_KEY,
+  VITE_KAKAO_CLIENT_ID,
+  VITE_KAKAO_CLIENT_SECRET_KEY,
   VITE_REDIRECT_URL
 } from '../../../constants'
 import request from '@/libs/api'
@@ -16,10 +17,10 @@ export const getCode = () => {
 export const pushData = () => {
   const data = new URLSearchParams()
   data.append('grant_type', 'authorization_code')
-  data.append('client_id', VITE_CLIENT_ID)
+  data.append('client_id', VITE_KAKAO_CLIENT_ID)
   data.append('redirect_uri', VITE_REDIRECT_URL)
   data.append('code', getCode())
-  data.append('client_secret', VITE_CLIENT_SECRET_KEY)
+  data.append('client_secret', VITE_KAKAO_CLIENT_SECRET_KEY)
 
   return data
 }
@@ -40,16 +41,18 @@ export const getKaKaoAccessToken = async (data: URLSearchParams) => {
   }
 }
 
-export const getAccessToken = async (kakaoAccessToken: string) => {
+export const getAccessToken = async (
+  kakaoAccessToken: string
+): Promise<LoginResponse> => {
   try {
     const res = await axios.get('http://3.114.43.57:8080/auth/kakao', {
       headers: {
         Authorization: `Bearer ${kakaoAccessToken}`
       }
     })
-    if (res.data.appToken) {
-      console.log(res.data)
-    }
+    // if (res.data.appToken) {
+    //   console.log(res.data)
+    // }
     return res.data.appToken
   } catch {
     throw new Error('cannt get access token')
