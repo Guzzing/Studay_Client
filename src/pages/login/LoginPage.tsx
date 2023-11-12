@@ -17,10 +17,10 @@ const LoginPage = () => {
         try {
           const kakaoToken = await getKaKaoAccessToken(pushData())
           if (kakaoToken) {
-            const accessToken = await getAccessToken(kakaoToken)
-            if (accessToken) {
-              localStorage.setItem('token', accessToken)
-              accessToken && navigate('/')
+            const res = await getAccessToken(kakaoToken)
+            if (res) {
+              localStorage.setItem('token', res.appToken)
+              res.appToken && navigate('/')
             }
           }
         } catch (error) {
@@ -42,13 +42,15 @@ const LoginPage = () => {
           }
           buttonType={'Round-blue-500'}
           width={'LW'}
-          onClick={() => {
-            window.location.href = `${LOGIN_LINK.kakao}`
-          }}
+          onClick={() => (window.location.href = `${LOGIN_LINK.kakao}`)}
         />
         <Button
           label={
-            <img src={BUTTON_IMG_LINK.google} className={'w-[100%] h-[100%]'} />
+            <img
+              src={BUTTON_IMG_LINK.google}
+              className={'w-[100%] h-[100%]'}
+              onClick={() => (window.location.href = `${LOGIN_LINK.google}`)}
+            />
           }
           buttonType={'Round-blue-500'}
           width={'LW'}

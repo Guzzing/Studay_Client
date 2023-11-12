@@ -50,10 +50,7 @@ export const getAccessToken = async (
         Authorization: `Bearer ${kakaoAccessToken}`
       }
     })
-    // if (res.data.appToken) {
-    //   console.log(res.data)
-    // }
-    return res.data.appToken
+    return res.data
   } catch {
     throw new Error('cannt get access token')
   }
