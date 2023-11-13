@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { SetLocationProps } from '../../types/mapPage.ts'
+import BottomSheet from '@/components/common/bottomsheet/BottomSheet.tsx'
 import Icon from '@/components/common/icon/Icon.tsx'
 import throttle from '@/libs/utils/throttle.ts'
 
@@ -108,6 +109,7 @@ const NaverMap = ({
         }>
         <Icon icon={'Gps'} onClick={currentLocation} />
       </div>
+      <BottomSheet title={'test'} address={'test'} number={'0'} />
     </div>
   )
 }
