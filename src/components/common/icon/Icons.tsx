@@ -32,7 +32,8 @@ import {
   Timetable,
   User,
   Write,
-  Logo
+  Logo,
+  Save
 } from '@/assets/icon'
 const Icons = {
   Abacus,
@@ -68,7 +69,8 @@ const Icons = {
   Timetable,
   User,
   Write,
-  Logo
+  Logo,
+  Save
 }
 
 export default Icons
