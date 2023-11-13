@@ -22,7 +22,8 @@ const ListRow = ({
   rightElement,
   hasBorder = true,
   paddingSize = 'medium',
-  className
+  className,
+  ...props
 }: ListRowProps) => {
   return (
     <div
@@ -31,7 +32,8 @@ const ListRow = ({
           hasBorder ? 'border-b-[1px] border-gray-200' : ''
         } ${PaddingVariant[paddingSize]}`,
         className
-      )}>
+      )}
+      onClick={props.onClick}>
       {leftElement}
       {rightElement}
     </div>
