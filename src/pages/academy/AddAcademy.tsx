@@ -1,11 +1,12 @@
-import { useState } from 'react'
-import SelectTime from '@/components/academy/SelectTime'
-import Button from '@/components/common/button/Button'
+import { useAtom } from 'jotai'
 import Input from '@/components/common/inputbox/input/Input'
-import SelectWeek from '@/components/common/selectweek/SelectWeek'
 import Spacing from '@/components/common/spacing/Spacing'
+import { academyInfoAtom } from '@/libs/store/academyInfo'
+import AddSchedule from '@/pages/academy/AddSchedule'
+
 const AddAcademy = () => {
-  const [selectedWeek, setSelectedWeek] = useState<number[]>([])
+  const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
+
   return (
     <>
       <Spacing size={100} />
@@ -19,13 +20,7 @@ const AddAcademy = () => {
       <Spacing size={20} />
       <h2 className={'body-16 text-black-800'}>{'요일 선택하기'}</h2>
       <Spacing size={20} />
-      <SelectWeek
-        selectedDate={selectedWeek}
-        setSelectedDate={setSelectedWeek}
-      />
-      <Spacing size={14} />
-      <SelectTime />
-      <Button buttonType={'Plain-blue'} label={'추가하기'}></Button>
+      <AddSchedule />
     </>
   )
 }

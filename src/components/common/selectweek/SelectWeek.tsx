@@ -1,5 +1,7 @@
 import { cva } from 'class-variance-authority'
+import { useAtom } from 'jotai'
 import cn from '../../../libs/utils/cn'
+import { schedulesAtom } from '@/libs/store/academyInfo'
 
 export const SelectWeekVariant = cva(
   `flex justify-center items-center w-[39px] h-[39px]`,
@@ -25,16 +27,11 @@ export const SelectWeekVariant = cva(
  */
 
 interface SelectWeekProperties {
-  selectedDate: number[]
-  setSelectedDate: React.Dispatch<React.SetStateAction<number[]>>
   fixedDate?: number[]
 }
 
-const SelectWeek = ({
-  fixedDate,
-  setSelectedDate,
-  selectedDate
-}: SelectWeekProperties) => {
+const SelectWeek = ({ fixedDate }: SelectWeekProperties) => {
+  const [scheduleInfo, setScheduleInfo] = useAtom(schedulesAtom)
   const week = ['일', '월', '화', '수', '목', '금', '토']
   return (
     <div className={'flex flex-row gap-2.5 w-full justify-center items-center'}>
@@ -45,17 +42,22 @@ const SelectWeek = ({
             SelectWeekVariant({
               variant: fixedDate?.includes(index)
                 ? 'fixed'
-                : selectedDate.includes(index)
+                : scheduleInfo.weekArray.includes(index)
                 ? 'selected'
                 : 'default'
             })
           )}
           onClick={() => {
-            if (selectedDate.includes(index)) {
-              const filteredDate = selectedDate.filter((data) => data !== index)
-              setSelectedDate([...filteredDate])
+            if (scheduleInfo.weekArray.includes(index)) {
+              const filteredDate = scheduleInfo.weekArray.filter(
+                (data) => data !== index
+              )
+              setScheduleInfo({ ...scheduleInfo, weekArray: [...filteredDate] })
             } else {
-              setSelectedDate([...selectedDate, index])
+              setScheduleInfo({
+                ...scheduleInfo,
+                weekArray: [...scheduleInfo.weekArray, index]
+              })
             }
           }}>
           {day}

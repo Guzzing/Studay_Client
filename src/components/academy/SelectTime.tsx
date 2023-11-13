@@ -1,28 +1,42 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
-import { setHours } from 'date-fns'
+import { setHours, getTime } from 'date-fns'
 import ko from 'date-fns/locale/ko'
 import 'react-datepicker/dist/react-datepicker.css'
+import { useAtom } from 'jotai'
 import CustomTimePicker from '@/components/academy/CustomTimePicker'
-
+import { schedulesAtom } from '@/libs/store/academyInfo'
 const SelectTime = () => {
   const [startTime, setStartTime] = useState(setHours(new Date(0), 0))
   const [endTime, setEndTime] = useState<Date | null>()
   const [isSelected, setIsSelected] = useState(false)
+  const [scheduleInfo, setScheduleInfo] = useAtom(schedulesAtom)
 
   registerLocale('ko', ko)
   const onSelect = (time: Date) => {
-    console.log(time)
     setStartTime(time)
+    setScheduleInfo({
+      ...scheduleInfo,
+      startTime: time.toTimeString(),
+      // eslint-disable-next-line unicorn/no-null
+      endTime: null
+    })
     setIsSelected(true)
-    // eslint-disable-next-line unicorn/no-null
-    setEndTime(null)
   }
+
+  useEffect(() => {
+    if (scheduleInfo.endTime === '' && scheduleInfo.startTime === '') {
+      setStartTime(setHours(new Date(0), 0))
+      setIsSelected(false)
+      // eslint-disable-next-line unicorn/no-null
+      setEndTime(null)
+    }
+  }, [scheduleInfo])
 
   return (
     <div
       className={
-        'flex flex-col gap-[5px] border rounded-[10px] border-blue-350 px-[12px] py-[8px]'
+        'flex flex-col gap-[5px] m-[20px] w-full border rounded-[10px] border-blue-350 px-[12px] py-[8px]'
       }>
       <div className={'flex flex-row justify-between items-center '}>
         <h3 className={'body-15'}>{'시작 시간'}</h3>
@@ -47,7 +61,14 @@ const SelectTime = () => {
             selected={endTime}
             locale={'ko'}
             disabled={isSelected ? false : true}
-            onChange={(time) => setEndTime(time)}
+            onChange={(time) => {
+              setEndTime(time)
+              time &&
+                setScheduleInfo({
+                  ...scheduleInfo,
+                  endTime: time.toTimeString()
+                })
+            }}
             showTimeSelect
             showTimeSelectOnly
             timeIntervals={30}

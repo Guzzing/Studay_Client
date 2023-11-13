@@ -10,7 +10,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       name,
       width,
       height,
-      value = selectType === 'Single' ? '' : 'false',
+      //value = selectType === 'Single' ? '' : 'false',
       errorMessage,
       options,
       ...props
@@ -29,7 +29,6 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           id={''}
           className={`w-full h-full font-nsk body-18 px-[20px] border border-blue-350 rounded-[10px] outline-none bg-white-200
       text-gray-800 appearance-none cursor-pointer`}
-          value={value}
           {...props}>
           {options?.map((option, index) => (
             <option value={option} key={index}>
