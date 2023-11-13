@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import BottomSheetContent from '@/components/BottomSheet/BottomSheetContent'
 import BottomSheetHeader from '@/components/BottomSheet/BottomSheetHeader'
+import Spacing from '@/components/common/spacing/Spacing.tsx'
 
 /**
  * @param title BottomSheet에 들어갈 Title을 입력합니다.
@@ -23,6 +24,7 @@ const BottomSheet = ({
       className={`box-border absolute left-0 bottom-0 w-full transition-all duration-500 ${
         expanded ? 'h-full' : 'h-[210px]'
       } z-10 flex flex-col items-center pt-[13px] px-[30px] bg-white-0 stroke-amber-100 text-gray-600 rounded-t-[20px] shadow-inner `}>
+      <Spacing size={80}></Spacing>
       <header
         className={'w-full flex justify-center '}
         onClick={() => setExpanded(!expanded)}>

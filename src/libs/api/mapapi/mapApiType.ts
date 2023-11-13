@@ -20,8 +20,8 @@ interface LocationResponse {
   sido: string
   sigungu: string
   upmyeondong: string
-  latitute: number
-  longitute: number
+  latitude: number
+  longitude: number
 }
 
 interface Academy {

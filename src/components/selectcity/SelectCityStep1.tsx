@@ -1,4 +1,3 @@
-import React from 'react'
 import { SidoType } from '../../types/selectcity.ts'
 import Select from '@/components/common/inputbox/select/Select.tsx'
 import StepQuestion from '@/components/common/stepquestion/StepQuestion.tsx'
@@ -12,11 +11,6 @@ const SelectCityStep1 = ({
   select,
   onChange
 }: SelectCityStepProps) => {
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(event.target.value)
-    onChange(event.target.value)
-  }
-
   return (
     <>
       <span className={'headline-30 text-left mt-[60px] ml-[37px]'}>
@@ -31,9 +25,11 @@ const SelectCityStep1 = ({
           <Select
             selectType={'Single'}
             fullWidth={true}
-            options={['', ...sidoArr]}
+            options={sidoArr}
             value={select}
-            onChange={handleChange}
+            isPlace={true}
+            placeholder={'도시를 선택해 주세요'}
+            onChange={(e) => onChange(e.target.value)}
           />
         </div>
       </div>
