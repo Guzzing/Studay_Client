@@ -20,9 +20,14 @@ const Header = ({
             : 'flex items-center justify-between'
         }`}>
         {headerType === 'BackPush' ? (
-          <span onClick={() => alert('뒤로가기')}>
-            <Icon icon={'BackPush'} classStyle={'cursor-pointer'} />
-          </span>
+          <>
+            <span onClick={() => alert('뒤로가기')}>
+              <Icon icon={'BackPush'} classStyle={'cursor-pointer'} />
+            </span>
+            {pageTitle && (
+              <span className={'ml-[30px] subHead-18'}>{pageTitle}</span>
+            )}
+          </>
         ) : headerType === 'Logo' ? (
           <>
             <div className={'flex flex-row items-center'}>
