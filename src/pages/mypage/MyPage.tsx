@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAtom } from 'jotai'
 import { MY_PAGE_DUMMY } from './constants'
 import Button from '@/components/common/button/Button'
 import Header from '@/components/common/header/Header'
@@ -7,16 +8,17 @@ import Icon from '@/components/common/icon/Icon'
 import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
-import request from '@/libs/api'
 import { logoutApi } from '@/libs/api/autorization/logout/LogoutApi'
 import { myPageApi } from '@/libs/api/mypage/myPageApi'
+import { myPageAtom } from '@/libs/store/myPageAtom'
+
 const MyPage = () => {
   const navigate = useNavigate()
-
+  const [myPageData, setMyPageData] = useAtom(myPageAtom)
   useEffect(() => {
     const response = async () => {
       const res = await myPageApi()
-      console.log(res)
+      setMyPageData(res)
     }
     response()
   }, [])
@@ -25,7 +27,7 @@ const MyPage = () => {
       <Header headerType={'Logo'} pageTitle={'마이페이지'} />
       <Spacing size={80} />
       <div className={'h-[110px] pl-[25px] py-[30px] headline-20'}>
-        <h2>{`${MY_PAGE_DUMMY.nickname}님 안녕하세요!`}</h2>
+        <h2>{`${myPageData?.nickname}님 안녕하세요!`}</h2>
         <p className={'body-15-gray py-[5px]'}>{MY_PAGE_DUMMY.email}</p>
       </div>
       <div className={'h-[175px] p-[20px]'}>
@@ -49,8 +51,11 @@ const MyPage = () => {
       </div>
       <ListRow
         leftElement={<p>{'찜한 학원 보러가기'}</p>}
-        rightElement={<Icon icon={'ArrowDown'} />}
-        className={'py-[20px]'}
+        rightElement={
+          <Icon icon={'ArrowDown'} classStyle={'rotate-[-90deg]'} />
+        }
+        onClick={() => navigate('/likeacademy')}
+        className={'py-[20px] cursor-pointer'}
       />
       <div className={'absolute bottom-[38px] flex flex-col mx-8'}>
         <Button
