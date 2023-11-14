@@ -3,6 +3,7 @@ import Header from '@/components/common/header/Header'
 import Icon from '@/components/common/icon/Icon'
 import ListRow from '@/components/common/listRow/ListRow'
 import Spacing from '@/components/common/spacing/Spacing'
+import { logoutApi } from '@/libs/api/autorization/logout/LogoutApi'
 
 const SettingPage = () => {
   const navigate = useNavigate()
@@ -18,7 +19,7 @@ const SettingPage = () => {
           </div>
         }
         rightElement={<Icon icon={'ArrowDown'} />}
-        onClick={() => navigate('/myPage')}
+        onClick={() => navigate('/myPages')}
         className={'cursor-pointer'}
       />
       <ListRow
@@ -40,7 +41,7 @@ const SettingPage = () => {
           </div>
         }
         rightElement={<Icon icon={'ArrowDown'} />}
-        onClick={() => alert('로그아웃')}
+        onClick={() => logoutApi()}
         className={'cursor-pointer'}
       />
     </>
@@ -48,3 +49,5 @@ const SettingPage = () => {
 }
 
 export default SettingPage
+
+// 로그아웃 시 모달 컴포넌트 띄우기
