@@ -1,51 +1,25 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { MY_PAGE_DUMMY } from './constants'
 import Button from '@/components/common/button/Button'
 import Header from '@/components/common/header/Header'
 import Icon from '@/components/common/icon/Icon'
 import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
-
-const MY_PAGE_DUMMY = {
-  nickname: '메시엄마',
-  email: 'messiMother@naver.com',
-  children: [
-    {
-      // 첫 째 아이
-      childId: 1,
-      childname: '첫 째',
-      profile: 'messi image',
-      schedule: '휴식중'
-    },
-    {
-      // 둘 째 아이
-      childId: 2,
-      childname: '둘 째',
-      profile: 'ronaldo image',
-      schedule: '휴식중'
-    },
-    {
-      childId: 3,
-      childname: '셋 째',
-      profile: 'messi',
-      schedule: '휴식중'
-    },
-    {
-      childId: 4,
-      childname: '넷 째',
-      profile: 'messi',
-      schedule: '휴식중'
-    },
-    {
-      childId: 5,
-      childname: '다섯 째',
-      profile: 'messi',
-      schedule: '휴식중'
-    }
-  ]
-}
+import request from '@/libs/api'
+import { logoutApi } from '@/libs/api/autorization/logout/LogoutApi'
+import { myPageApi } from '@/libs/api/mypage/myPageApi'
 const MyPage = () => {
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const response = async () => {
+      const res = await myPageApi()
+      console.log(res)
+    }
+    response()
+  }, [])
   return (
     <div className={'relative h-full'}>
       <Header headerType={'Logo'} pageTitle={'마이페이지'} />
@@ -83,8 +57,13 @@ const MyPage = () => {
           buttonType={'Plain-blue'}
           label={'로그아웃 하기'}
           className={'mb-[20px]'}
+          onClick={() => logoutApi()}
         />
-        <Button buttonType={'Plain-red'} label={'회원탈퇴 하기'} />
+        <Button
+          buttonType={'Plain-red'}
+          label={'회원탈퇴 하기'}
+          onClick={() => alert('회원 탈퇴하기!')}
+        />
       </div>
     </div>
   )
