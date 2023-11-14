@@ -10,6 +10,7 @@ import ErrorPage from '@/pages/ErrorPage'
 import AcademyDashboard from '@/pages/academy/AcademyDashboard'
 import FilterPage from '@/pages/filter/FilterPage.tsx'
 import HomePage from '@/pages/home/HomePage'
+import LikeAcademy from '@/pages/likeAcademy/LikeAcademy'
 import LoginPage from '@/pages/login/LoginPage'
 import MapPage from '@/pages/map/MapPage.tsx'
 import MyPage from '@/pages/mypage/MyPage'
@@ -152,6 +153,16 @@ export const router = createBrowserRouter(
         {
           path: 'myPages',
           element: <MyPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: '/likeacademy',
+          element: (
+            <>
+              <Header headerType={'Logo'} pageTitle={'찜한 학원 모아보기'} />
+              <LikeAcademy />
+            </>
+          ),
           errorElement: <ErrorPage />
         }
       ]
