@@ -21,7 +21,7 @@ const Header = ({
         }`}>
         {headerType === 'BackPush' ? (
           <>
-            <span onClick={() => alert('뒤로가기')}>
+            <span onClick={onClick}>
               <Icon icon={'BackPush'} classStyle={'cursor-pointer'} />
             </span>
             {pageTitle && (
