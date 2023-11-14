@@ -1,11 +1,12 @@
-import type { LikeAcademyResponse } from '@/libs/api/likeacademy/LikeAcademyType'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import { useAtom } from 'jotai'
 import Icon from '@/components/common/icon/Icon'
 import Spacing from '@/components/common/spacing/Spacing'
 import { likeAcademyApi } from '@/libs/api/likeacademy/LikeAcademyApi'
+import { likeAcademyAtom } from '@/libs/store/likeacademyAtom'
 
 const LikeAcademy = () => {
-  const [data, setData] = useState<LikeAcademyResponse>()
+  const [data, setData] = useAtom(likeAcademyAtom)
   const ACADEMY_DATA = [
     { academyName: '샤론음악학원', expectedFee: 150_000 },
     { academyName: '피겨 스케이팅', expectedFee: 300_000 },
@@ -40,7 +41,7 @@ const LikeAcademy = () => {
               <p className={'subHead-18'}>{academyName}</p>
               <p>
                 {'예상 교육비'}
-                <span>{}</span>
+                <span>{expectedFee}</span>
               </p>
             </div>
             <Icon
