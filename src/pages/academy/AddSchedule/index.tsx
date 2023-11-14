@@ -1,104 +1,28 @@
-import { useEffect, useState } from 'react'
-import { useRef } from 'react'
 import { useAtom } from 'jotai'
-import SelectTime from '@/components/academy/SelectTime'
-import Button from '@/components/common/button/Button'
-import Icon from '@/components/common/icon/Icon'
-import Select from '@/components/common/inputbox/select/Select'
-import SelectWeek from '@/components/common/selectweek/SelectWeek'
+import Input from '@/components/common/inputbox/input/Input'
 import Spacing from '@/components/common/spacing/Spacing'
-import {
-  ClientWeekData,
-  RepeatOptionType,
-  RepeatanceData,
-  WeekData
-} from '@/libs/api/academy/AcademyType'
-import { schedulesAtom } from '@/libs/store/academyInfo'
-import { academyInfoAtom, academyTimeFamily } from '@/libs/store/academyInfo'
+import { academyInfoAtom } from '@/libs/store/academyInfo'
+import AddSchedule from '@/pages/academy/AddSchedule'
 
-const AddSchedule = () => {
+const AddAcademy = () => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
-  const [scheduleInfo, setScheduleInfo] = useAtom(schedulesAtom)
-  const [fixedDate, setFixedDate] = useState<number[]>([])
-  const selectRef = useRef(null)
-  const [timeInfo, setTimeInfo] = useAtom(academyTimeFamily('schedules'))
-  const addTimeSchedule = () => {
-    if (scheduleInfo.weekArray.length === 0) {
-      alert('요일을 선택해주세요.')
-    } else if (scheduleInfo.weekArray.length === 1) {
-      setTimeInfo({
-        dayOfWeek: WeekData[scheduleInfo.weekArray[0]],
-        startTime: scheduleInfo.startTime.split(':').slice(0, 2).join(':'),
-        endTime: scheduleInfo.endTime?.split(':').slice(0, 2).join(':'),
-        repeatance: scheduleInfo.repeatance
-      })
-      setFixedDate([...fixedDate, ...scheduleInfo.weekArray])
-      setScheduleInfo({
-        startTime: '',
-        weekArray: [],
-        endTime: '',
-        repeatance: 'NONE'
-      })
-    } else {
-      const newArray = scheduleInfo.weekArray.map((data) => {
-        return {
-          dayOfWeek: WeekData[data],
-          startTime: scheduleInfo.startTime.split(':').slice(0, 2).join(':'),
-          endTime: scheduleInfo.endTime?.split(':').slice(0, 2).join(':'),
-          repeatance: scheduleInfo.repeatance
-        }
-      })
-      setTimeInfo({ ...newArray })
-      setFixedDate([...fixedDate, ...scheduleInfo.weekArray])
-      setScheduleInfo({
-        startTime: '',
-        weekArray: [],
-        endTime: '',
-        repeatance: 'NONE'
-      })
-    }
-  }
-  useEffect(() => {}, [scheduleInfo])
+
   return (
-    <div className={'flex flex-col items-center'}>
-      <SelectWeek fixedDate={fixedDate} />
-      <SelectTime />
-      <Select
-        title={'반복'}
-        selectType={'Single'}
-        fullWidth={true}
-        options={['안 함', '매일', '매주', '격주', '한달마다', '매년']}
-        onChange={(e) => {
-          setScheduleInfo({
-            ...scheduleInfo,
-            repeatance: RepeatanceData[e.target.value as RepeatOptionType]
-          })
-        }}
-      />
-      <Spacing size={16} />
-      <Button
-        buttonType={'Plain-blue'}
-        label={'추가하기'}
-        onClick={addTimeSchedule}></Button>
-      {academyInfo.schedules.map((data, index) => {
-        return (
-          <div key={index}>
-            <div className={'flex justify-between body-16 text-gray-600'}>
-              {ClientWeekData[data.dayOfWeek]}
-              <div className={'flex'}>
-                <div>
-                  {data.startTime}
-                  {' ~ '}
-                  {data.endTime}
-                </div>
-                <Icon icon={'Delete'} />
-              </div>
-            </div>
-          </div>
-        )
-      })}
-    </div>
+    <>
+      <Spacing size={100} />
+      <Input placeholder={'학원 등록하기'} inputType={'Default'} />
+      <div
+        className={
+          'caption-13 text-gray-600 underline underline-offset-2 cursor-pointer'
+        }>
+        {'찾는 학원이 없나요?'}
+      </div>
+      <Spacing size={20} />
+      <h2 className={'body-16 text-black-800'}>{'요일 선택하기'}</h2>
+      <Spacing size={20} />
+      <AddSchedule />
+    </>
   )
 }
 
-export default AddSchedule
+export default AddAcademy
