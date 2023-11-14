@@ -56,7 +56,6 @@ export const getAccessToken = async (
     )
     if (res.data) {
       localStorage.setItem('token', res.data.appToken)
-      localStorage.setItem('userId', res.data.userId)
       window.location.href = '/'
     }
     return res.data
