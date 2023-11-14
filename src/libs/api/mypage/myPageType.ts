@@ -4,12 +4,8 @@ interface Children {
   profile: string
   schedule: string
 }
-export interface MyPageResponse {
+export interface GetMyPageResponse {
   nickname: string
   email: string
   children: Children[]
-}
-
-export interface MyPageRequest {
-  userId: number
 }

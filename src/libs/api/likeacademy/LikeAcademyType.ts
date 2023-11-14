@@ -2,7 +2,7 @@ interface AcademyInfo {
   academyName: string
   expectedFee: number
 }
-export interface LikeAcademyResponse {
+export interface GetLikeAcademyResponse {
   likeAcademyInfo: AcademyInfo[]
   totalFee: number
 }
