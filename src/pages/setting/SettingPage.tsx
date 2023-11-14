@@ -9,7 +9,11 @@ const SettingPage = () => {
   const navigate = useNavigate()
   return (
     <>
-      <Header headerType={'BackPush'} pageTitle={'settings'} />
+      <Header
+        headerType={'BackPush'}
+        pageTitle={'settings'}
+        onClick={() => navigate(-1)}
+      />
       <Spacing size={120} />
       <ListRow
         leftElement={
@@ -18,7 +22,9 @@ const SettingPage = () => {
             <span className={'px-[5px]'}>{'마이페이지'}</span>
           </div>
         }
-        rightElement={<Icon icon={'ArrowDown'} />}
+        rightElement={
+          <Icon icon={'ArrowDown'} classStyle={'rotate-[-90deg]'} />
+        }
         onClick={() => navigate('/myPages')}
         className={'cursor-pointer'}
       />
@@ -29,7 +35,9 @@ const SettingPage = () => {
             <span className={'px-[5px]'}>{'찜한 학원보기'}</span>
           </div>
         }
-        rightElement={<Icon icon={'ArrowDown'} />}
+        rightElement={
+          <Icon icon={'ArrowDown'} classStyle={'rotate-[-90deg]'} />
+        }
         onClick={() => navigate('/likeacademy')}
         className={'cursor-pointer'}
       />
@@ -40,7 +48,9 @@ const SettingPage = () => {
             <span className={'px-[5px]'}>{'로그아웃'}</span>
           </div>
         }
-        rightElement={<Icon icon={'ArrowDown'} />}
+        rightElement={
+          <Icon icon={'ArrowDown'} classStyle={'rotate-[-90deg]'} />
+        }
         onClick={() => logoutApi()}
         className={'cursor-pointer'}
       />
