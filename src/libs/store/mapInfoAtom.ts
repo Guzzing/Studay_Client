@@ -8,3 +8,16 @@ export const mapInfoAtom = atom<MapInfoAtomType>({
   latitude: 37.444_916_8,
   longitude: 127.138_868
 })
+
+export const selectAcademyAtom = atom<InitSelectAcademyType>({
+  isBottomSheet: false,
+  academy: {
+    academyId: -1,
+    academyName: '',
+    address: '',
+    contact: '',
+    areaOfExpertise: '',
+    latitude: -1,
+    longitude: -1
+  }
+})
