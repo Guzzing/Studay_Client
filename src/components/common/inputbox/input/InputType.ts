@@ -5,6 +5,7 @@ export interface InputProps extends ComponentProps<'input'> {
   inputType: InputType
   fullWidth?: boolean
   typo?: string
+  field?: string
   errorMessage?: string
   placeholder?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
