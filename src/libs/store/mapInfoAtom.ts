@@ -1,5 +1,6 @@
 import { atom } from 'jotai'
 import { MapInfoAtomType } from '../../types/selectcity.ts'
+import { InitSelectAcademyType } from '@/components/map/naverMapType.ts'
 
 export const mapInfoAtom = atom<MapInfoAtomType>({
   selectSido: '',

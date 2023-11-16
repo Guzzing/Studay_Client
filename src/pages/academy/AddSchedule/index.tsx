@@ -1,14 +1,14 @@
-import { useAtom } from 'jotai'
+// import { useAtom } from 'jotai'
 import AddSchedule from './AddSchedule'
 import Button from '@/components/common/button/Button'
 import Spacing from '@/components/common/spacing/Spacing'
-import { academyInfoAtom } from '@/libs/store/academyInfo'
+// import { academyInfoAtom } from '@/libs/store/academyInfo'
 import AddAcademyInfo from '@/pages/academy/AddSchedule/AddAcademyInfo'
 import AddAcademyName from '@/pages/academy/AddSchedule/AddAcademyName'
 import AddMemo from '@/pages/academy/AddSchedule/AddMemo'
 import AddPayment from '@/pages/academy/AddSchedule/AddPayment'
 const AddAcademy = () => {
-  const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
+  // const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
 
   return (
     <div className={'w-full overflow-scroll relative scrollbar-hide'}>

@@ -6,7 +6,7 @@ import Button from '@/components/common/button/Button'
 import Input from '@/components/common/inputbox/input/Input'
 import Select from '@/components/common/inputbox/select/Select'
 const AddPayment = () => {
-  const [paymentDate, setPaymentDate] = useState(new Date())
+  const [paymentDate, _] = useState(new Date())
   registerLocale('ko', ko)
   return (
     <div

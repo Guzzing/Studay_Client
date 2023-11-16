@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import Select from '@/components/common/inputbox/select/Select'
 import ListRowSelect from '@/components/common/listRowSelect/ListRowSelect'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 const AddAcademyInfo = () => {

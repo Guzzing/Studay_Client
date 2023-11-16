@@ -1,3 +1,8 @@
+import {
+  InfiniteScrollPage,
+  SearchAcademiesResponse
+} from '@/libs/api/mapapi/mapApiType.ts'
+
 export type AcademyInfoRequest = {
   academyId: number
   childId: number
