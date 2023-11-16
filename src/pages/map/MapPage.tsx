@@ -6,16 +6,16 @@ import Icon from '@/components/common/icon/Icon.tsx'
 import Input from '@/components/common/inputbox/input/Input.tsx'
 import Spacing from '@/components/common/spacing/Spacing.tsx'
 import NaverMap from '@/components/map/NaverMap.tsx'
-import { getAcademys } from '@/libs/api/mapapi/mapApi.ts'
+import { getAcademyList } from '@/libs/api/mapapi/mapApi.ts'
 import { mapInfoAtom } from '@/libs/store/mapInfoAtom.ts'
 
 const MapPage = () => {
   const navigate = useNavigate()
   const [mapInfo, setMapInfo] = useAtom(mapInfoAtom)
-  const { data: academy } = useQuery({
-    queryKey: ['academy', mapInfo.latitude, mapInfo.longitude],
+  const { data: academyList } = useQuery({
+    queryKey: ['academyList', mapInfo.latitude, mapInfo.longitude],
     queryFn: () =>
-      getAcademys({
+      getAcademyList({
         latitude: mapInfo.latitude,
         longitude: mapInfo.longitude
       })
@@ -54,8 +54,7 @@ const MapPage = () => {
       <NaverMap
         latitude={mapInfo.latitude}
         longitude={mapInfo.longitude}
-        academyList={academy?.academyGetResponses || []}
-        selectAcademy={() => console.log('')}
+        academyList={academyList?.academiesByLocationResponse || []}
         setLocation={setLocation}
       />
     </div>

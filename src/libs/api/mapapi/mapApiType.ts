@@ -73,7 +73,7 @@ interface ReviewPercent {
   lovelyTeachingPercent: number
 }
 
-export interface AcademyResponse {
+export interface DetailAcademyResponse {
   academyName: string
   contact: string
   fullAddress: string
@@ -85,4 +85,5 @@ export interface AcademyResponse {
     lessons: Lesson[]
   }
   reviewPercentGetResponse: ReviewPercent
+  isLiked: boolean
 }

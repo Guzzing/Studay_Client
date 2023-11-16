@@ -2,6 +2,7 @@ import request from '@/libs/api'
 import {
   AcademyResponse,
   BeopjungdongResponse,
+  DetailAcademyResponse,
   DongneResponse,
   GetAcademyDetailProps,
   GetAcademysParams,
@@ -54,7 +55,7 @@ export const getAcademyList = async ({
 
 export const getAcademyDetail = async ({
   academyId
-}: GetAcademyDetailProps): Promise<AcademyResponse> => {
+}: GetAcademyDetailProps): Promise<DetailAcademyResponse> => {
   const res = await request.get(`/academies/${academyId}`)
 
   return res.data
