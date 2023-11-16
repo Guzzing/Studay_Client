@@ -4,7 +4,7 @@ type SelectType = 'Single' | 'Box'
 export interface SelectProps extends ComponentProps<'select'> {
   selectType: SelectType
   value?: string
-  options: string[]
+  options: string[] | undefined
   fullWidth?: boolean
   width?: number
   height?: number

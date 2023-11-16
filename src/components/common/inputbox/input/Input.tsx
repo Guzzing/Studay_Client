@@ -37,9 +37,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
-        <p className={'font-nsk caption-13 text-red-600 px-3 mt-1'}>
-          {errorMessage}
-        </p>
+        {errorMessage && (
+          <p className={'font-nsk caption-13 text-red-600 px-3 mt-1'}>
+            {errorMessage}
+          </p>
+        )}
       </>
     ) : inputType === 'Search' ? (
       <>

@@ -34,51 +34,53 @@ const SelectTime = () => {
   }, [scheduleInfo])
 
   return (
-    <div
-      className={
-        'flex flex-col gap-[5px] m-[20px] w-full border rounded-[10px] border-blue-350 px-[12px] py-[8px]'
-      }>
-      <div className={'flex flex-row justify-between items-center '}>
-        <h3 className={'body-15'}>{'시작 시간'}</h3>
-        <DatePicker
-          selected={startTime}
-          locale={'ko'}
-          onChange={onSelect}
-          showTimeSelect
-          showTimeSelectOnly
-          timeIntervals={30}
-          minTime={setHours(new Date(0), 6)}
-          maxTime={setHours(new Date(0), 22)}
-          dateFormat={`aa h시 mm분`}
-          customInput={<CustomTimePicker value={''} />}
-        />
-      </div>
-      <div className={'w-full h-[1px] bg-blue-350'}> </div>
-      <div className={'flex flex-row justify-between items-center'}>
-        <h3 className={'body-15'}>{'종료 시간'}</h3>
-        <div>
+    <div className={'w-full px-[20px] my-[14px] '}>
+      <div
+        className={
+          'flex flex-col gap-[5px] w-full border rounded-[10px] border-blue-350 px-[12px] py-[8px]'
+        }>
+        <div className={'flex flex-row shrink justify-between items-center '}>
+          <h3 className={'body-15'}>{'시작 시간'}</h3>
           <DatePicker
-            selected={endTime}
+            selected={startTime}
             locale={'ko'}
-            disabled={isSelected ? false : true}
-            onChange={(time) => {
-              setEndTime(time)
-              time &&
-                setScheduleInfo({
-                  ...scheduleInfo,
-                  endTime: time.toTimeString()
-                })
-            }}
+            onChange={onSelect}
             showTimeSelect
             showTimeSelectOnly
             timeIntervals={30}
-            minTime={startTime}
+            minTime={setHours(new Date(0), 6)}
             maxTime={setHours(new Date(0), 22)}
-            excludeTimes={[startTime]}
-            dateFormat={'aa h시 mm분'}
-            placeholderText={'종료 시간'}
+            dateFormat={`aa h시 mm분`}
             customInput={<CustomTimePicker value={''} />}
           />
+        </div>
+        <div className={'w-full h-[1px] bg-blue-350'}></div>
+        <div className={'w-full flex flex-row justify-between items-center'}>
+          <h3 className={'body-15'}>{'종료 시간'}</h3>
+          <div>
+            <DatePicker
+              selected={endTime}
+              locale={'ko'}
+              disabled={isSelected ? false : true}
+              onChange={(time) => {
+                setEndTime(time)
+                time &&
+                  setScheduleInfo({
+                    ...scheduleInfo,
+                    endTime: time.toTimeString()
+                  })
+              }}
+              showTimeSelect
+              showTimeSelectOnly
+              timeIntervals={30}
+              minTime={startTime}
+              maxTime={setHours(new Date(0), 22)}
+              excludeTimes={[startTime]}
+              dateFormat={'aa h시 mm분'}
+              placeholderText={'종료 시간'}
+              customInput={<CustomTimePicker value={''} />}
+            />
+          </div>
         </div>
       </div>
     </div>

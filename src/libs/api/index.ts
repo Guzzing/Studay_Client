@@ -10,10 +10,14 @@ const request = axios.create({
 request.interceptors.request.use(
   (config) => {
     const curAccessToken = localStorage.getItem('token')
+    config.headers[
+      'Authorization'
+    ] = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMTQ4MzYxNTc0Iiwicm9sZSI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjoxLCJleHAiOjE3MDAwMzUxODV9.9eIPZ_oX8sBw4WZe2hk9B3aPLT8MVFRsjfktvqVTEF8`
     if (curAccessToken) {
-      config.headers[
-        'Authorization'
-      ] = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMTM2MzQ4MDMzIiwicm9sZSI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjoxLCJleHAiOjEwMzM5MzQ0ODMwfQ.U4TatitwBf8o_yw5h2RHjf4DpeRTJ4HsGM24_plrsmY`
+      //   config.headers[
+      //     'Authorization'
+      //   ] = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMTQ4MzYxNTc0Iiwicm9sZSI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjoxLCJleHAiOjE3MDAwMzUxODV9.9eIPZ_oX8sBw4WZe2hk9B3aPLT8MVFRsjfktvqVTEF8`
+      // }
     }
     return config
   },

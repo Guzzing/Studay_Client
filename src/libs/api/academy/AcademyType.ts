@@ -1,5 +1,3 @@
-import { constants } from 'node:zlib'
-
 export type AcademyInfoRequest = {
   academyId: number
   childId: number
@@ -21,6 +19,18 @@ export type AcademyInfoRequest = {
     shuttleAvailability: boolean
   }
 }
+
+export const AcademyMemo = [
+  '선생님이 친절해요 👨‍🏫',
+  '시설이 좋아요 🏫',
+  '교육 관리가 철저해요 📝',
+  '학생에 대한 애정 가득 💓',
+  '등하원이 편리해요 🚌',
+  '교육비가 저렴해요 💰'
+] as const
+
+export type AcademyMemoType = (typeof AcademyMemo)[number]
+
 export type ServerWeekType =
   | 'MONDAY'
   | 'TUESDAY'

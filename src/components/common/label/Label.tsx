@@ -30,7 +30,7 @@ const Label = ({
   onClick
 }: LabelProps) => {
   return (
-    <label className={'w-[66px]'}>
+    <label className={'w-auto'}>
       <button
         onClick={onClick}
         className={cn(

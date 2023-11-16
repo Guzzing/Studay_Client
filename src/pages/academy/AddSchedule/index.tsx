@@ -1,27 +1,38 @@
 import { useAtom } from 'jotai'
-import Input from '@/components/common/inputbox/input/Input'
+import AddSchedule from './AddSchedule'
+import Button from '@/components/common/button/Button'
 import Spacing from '@/components/common/spacing/Spacing'
 import { academyInfoAtom } from '@/libs/store/academyInfo'
-import AddSchedule from '@/pages/academy/AddSchedule'
-
+import AddAcademyInfo from '@/pages/academy/AddSchedule/AddAcademyInfo'
+import AddAcademyName from '@/pages/academy/AddSchedule/AddAcademyName'
+import AddMemo from '@/pages/academy/AddSchedule/AddMemo'
+import AddPayment from '@/pages/academy/AddSchedule/AddPayment'
 const AddAcademy = () => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
 
   return (
-    <>
+    <div className={'w-full overflow-scroll relative scrollbar-hide'}>
       <Spacing size={100} />
-      <Input placeholder={'학원 등록하기'} inputType={'Default'} />
-      <div
-        className={
-          'caption-13 text-gray-600 underline underline-offset-2 cursor-pointer'
-        }>
-        {'찾는 학원이 없나요?'}
-      </div>
-      <Spacing size={20} />
-      <h2 className={'body-16 text-black-800'}>{'요일 선택하기'}</h2>
-      <Spacing size={20} />
+      <AddAcademyName />
+      <h2 className={'body-16 text-black-800 px-[24px] mb-[14px]'}>
+        {'요일 선택하기'}
+      </h2>
       <AddSchedule />
-    </>
+      <h2 className={'body-16 text-black-800 px-[24px] my-[14px]'}>
+        {'학원 정보 입력'}
+      </h2>
+      <AddAcademyInfo />
+      <h2 className={'body-16 text-black-800 px-[24px] my-[14px]'}>
+        {'학원비 입력하기'}
+      </h2>
+      <AddPayment />
+      <h2 className={'body-16 text-black-800 px-[24px] my-[14px]'}>
+        {'간편 메모하기'}
+      </h2>
+      <AddMemo />
+      <Spacing size={40} />
+      <Button buttonType={'Square'} label={'저장 완료'} fullWidth={true} />
+    </div>
   )
 }
 
