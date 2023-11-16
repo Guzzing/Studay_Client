@@ -2,7 +2,8 @@ import { atom } from 'jotai'
 import { atomFamily } from 'jotai/utils'
 import {
   AcademyInfoRequest,
-  TempAcademyScheduleType
+  TempAcademyScheduleType,
+  AcademyScheduleType
 } from '@/libs/api/academy/AcademyType'
 
 const initialAcademyInfoAtom: AcademyInfoRequest = {
@@ -46,31 +47,12 @@ export const academyTimeFamily = atomFamily(
   ) =>
     atom(
       (get) => get(academyInfoAtom)[name],
-      (get, set, arg: object) => {
+      (get, set, arg: AcademyScheduleType[]) => {
         const prev = get(academyInfoAtom)
-        if (name === 'schedules') {
-          if (Object.keys(arg).includes('0')) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            const strArr = Object.keys(arg).map((item) => arg[item])
-            set(academyInfoAtom, {
-              ...prev,
-              [name]: [...prev[name], ...strArr]
-            })
-          } else {
-            set(academyInfoAtom, {
-              ...prev,
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              [name]: [...prev[name], arg]
-            })
-          }
-        } else {
-          set(academyInfoAtom, {
-            ...prev,
-            [name]: { ...prev[name], ...arg }
-          })
-        }
+        set(academyInfoAtom, {
+          ...prev,
+          [name]: { ...prev[name], ...arg }
+        })
       }
     )
 )

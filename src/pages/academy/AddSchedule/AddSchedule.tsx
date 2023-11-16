@@ -12,7 +12,8 @@ import {
   ServerWeekType,
   RepeatOptionType,
   RepeatanceData,
-  WeekData
+  WeekData,
+  AcademyScheduleType
 } from '@/libs/api/academy/AcademyType'
 import { schedulesAtom } from '@/libs/store/academyInfo'
 import { academyInfoAtom, academyTimeFamily } from '@/libs/store/academyInfo'
@@ -37,12 +38,14 @@ const AddSchedule = () => {
     if (scheduleInfo.weekArray.length === 0) {
       alert('요일을 선택해주세요.')
     } else if (scheduleInfo.weekArray.length === 1) {
-      setTimeInfo({
-        dayOfWeek: WeekData[scheduleInfo.weekArray[0]],
-        startTime: scheduleInfo.startTime.split(':').slice(0, 2).join(':'),
-        endTime: scheduleInfo.endTime?.split(':').slice(0, 2).join(':'),
-        repeatance: scheduleInfo.repeatance
-      })
+      setTimeInfo([
+        {
+          dayOfWeek: WeekData[scheduleInfo.weekArray[0]],
+          startTime: scheduleInfo.startTime.split(':').slice(0, 2).join(':'),
+          endTime: scheduleInfo.endTime?.split(':').slice(0, 2).join(':'),
+          repeatance: scheduleInfo.repeatance
+        }
+      ])
       setFixedDate([...fixedDate, ...scheduleInfo.weekArray])
       setScheduleInfo({
         startTime: '',
@@ -59,7 +62,7 @@ const AddSchedule = () => {
           repeatance: scheduleInfo.repeatance
         }
       })
-      setTimeInfo({ ...newArray })
+      setTimeInfo([...newArray])
       setFixedDate([...fixedDate, ...scheduleInfo.weekArray])
       setScheduleInfo({
         startTime: '',
