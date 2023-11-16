@@ -42,15 +42,15 @@ export const getLocation = async ({
 }
 
 interface GetAcademysParams {
-  latitute: number
-  longitute: number
+  latitude: number
+  longitude: number
 }
 export const getAcademys = async ({
-  latitute,
-  longitute
+  latitude,
+  longitude
 }: GetAcademysParams): Promise<AcademiesResponse> => {
   const res = await request.get(
-    `/academies/complexes?lat=${latitute}&lng=${longitute}`
+    `/academies/complexes?lat=${latitude}&lng=${longitude}`
   )
   console.log(res.data)
   return {

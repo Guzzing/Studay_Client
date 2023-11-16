@@ -5,3 +5,8 @@ export interface MapLocation {
   sigungu: string
   upmyeondong: string
 }
+
+export interface SetLocationProps {
+  latitude: number
+  longitude: number
+}

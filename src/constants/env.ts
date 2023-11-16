@@ -1,1 +1,7 @@
-export const { VITE_CLIENT_ID, VITE_CLIENT_SECRET } = import.meta.env
+export const {
+  VITE_KAKAO_CLIENT_ID,
+  VITE_CLIENT_GOOGLE_ID,
+  VITE_KAKAO_CLIENT_SECRET_KEY,
+  VITE_GOOGLE_CLIENT_SECRET_KEY,
+  VITE_REDIRECT_URL
+} = import.meta.env
