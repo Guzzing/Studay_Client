@@ -5,7 +5,7 @@ import {
   initSido,
   initSigungu
 } from '../../constants/selectCity.ts'
-import useSteps from '../../hooks/useSteps.ts'
+import useSteps from '../../libs/hooks/useSteps.ts'
 import { SigunguType, SidoType, DongneType } from '../../types/selectcity.ts'
 import Spacing from '@/components/common/spacing/Spacing.tsx'
 import SelectCityStep1 from '@/components/selectcity/SelectCityStep1.tsx'

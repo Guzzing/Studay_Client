@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useState } from 'react'
-import Modal from '../components/common/modal/Modal'
+import Modal from '../../components/common/modal/Modal'
 
 interface ModalProperties {
   children: ReactNode

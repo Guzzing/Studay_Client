@@ -59,9 +59,8 @@ const Select = ({
             setBoxSelectedValue((prev) => !prev)
           }}
           {...props}>
-          {options.map((option) => (
-            <option value={option}>{option}</option>
-          ))}
+          {options &&
+            options.map((option) => <option value={option}>{option}</option>)}
         </select>
         <div
           className={
