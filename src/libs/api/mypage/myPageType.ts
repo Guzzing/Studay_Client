@@ -1,11 +1,10 @@
 interface Children {
   childId: number
-  childname: string
-  profile: string
+  childName: string
   schedule: string
 }
 export interface GetMyPageResponse {
   nickname: string
   email: string
-  children: Children[]
+  childInformationResponses: Children[]
 }

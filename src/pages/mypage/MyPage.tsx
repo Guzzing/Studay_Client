@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAtom } from 'jotai'
-import { MY_PAGE_DUMMY } from './constants'
+// import { MY_PAGE_DUMMY } from './constants'
 import Button from '@/components/common/button/Button'
 import Header from '@/components/common/header/Header'
 import Icon from '@/components/common/icon/Icon'
@@ -16,8 +16,14 @@ const MyPage = () => {
   const navigate = useNavigate()
   const [myPageData, setMyPageData] = useAtom(myPageAtom)
   useEffect(() => {
+    if (localStorage.getItem('token') === null) {
+      alert('로그인 페이지로 이동합니다!')
+      navigate('/login')
+      return
+    }
     const response = async () => {
       const res = await myPageApi()
+      console.log('받아온 data >>', res)
       setMyPageData(res)
     }
     response()
@@ -28,7 +34,7 @@ const MyPage = () => {
       <Spacing size={80} />
       <div className={'h-[110px] pl-[25px] py-[30px] headline-20'}>
         <h2>{`${myPageData?.nickname}님 안녕하세요!`}</h2>
-        <p className={'body-15-gray py-[5px]'}>{MY_PAGE_DUMMY.email}</p>
+        <p className={'body-15-gray py-[5px]'}>{myPageData?.email}</p>
       </div>
       <div className={'h-[175px] p-[20px]'}>
         <div className={'flex items-center mb-[5px]'}>
@@ -40,10 +46,15 @@ const MyPage = () => {
           />
         </div>
         <div className={'flex overflow-x-scroll'}>
-          {MY_PAGE_DUMMY.children.map(
-            ({ childId, childname, profile }, index) => (
+          {myPageData.childInformationResponses.map(
+            ({ childId, childName }) => (
               <li key={childId} className={`list-none px-[10px] flex-shrink-0`}>
-                <Profile imageSize={'M'} imageLabel={childname} />
+                <Profile
+                  imageSize={'M'}
+                  imageLabel={childName}
+                  canEdit={true}
+                  onClick={() => navigate(`/edit/${childId}`)}
+                />
               </li>
             )
           )}

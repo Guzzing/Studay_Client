@@ -56,7 +56,9 @@ export const getAccessToken = async (
     )
     if (res.data) {
       localStorage.setItem('token', res.data.appToken)
-      window.location.href = '/'
+      const { isNewMember } = res.data
+      console.log(res.data)
+      window.location.href = isNewMember ? '/onboarding' : '/'
     }
     return res.data
   } catch {

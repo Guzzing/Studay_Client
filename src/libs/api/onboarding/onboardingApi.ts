@@ -6,7 +6,7 @@ import request from '@/libs/api'
 
 export const onboardingApi = async (
   requestValue: PostOnboardingRequest
-): Promise<PostOnboardingRequest> => {
+): Promise<GetOnboardingResponse> => {
   const req = await request.patch(
     'http://3.114.43.57:8080/members',
     requestValue,

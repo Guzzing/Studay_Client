@@ -4,12 +4,11 @@ import { GetMyPageResponse } from '@/libs/api/mypage/myPageType'
 const initialMyPagesAtom: GetMyPageResponse = {
   nickname: '',
   email: '',
-  children: [
+  childInformationResponses: [
     {
       childId: 0,
-      childname: '',
-      profile: '',
-      schedule: ''
+      childName: '',
+      schedule: '휴식중입니다'
     }
   ]
 }
