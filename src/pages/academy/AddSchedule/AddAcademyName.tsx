@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAtom } from 'jotai'
 import Button from '@/components/common/button/Button'
 import Input from '@/components/common/inputbox/input/Input'
 // import Modal from '@/components/common/modal/Modal'
 import { getAcademiesSearchResult } from '@/libs/api/academy/AcademyApi'
+import { SearchAcademiesResponse } from '@/libs/api/mapapi/mapApiType.ts'
 import { useDebounce } from '@/libs/hooks/useDebounce'
 import useModal from '@/libs/hooks/useModal'
 import { academyInfoAtom } from '@/libs/store/academyInfo'
 const AddAcademyName = () => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
-  const [isModalOpen, setModalOpen] = useState(false)
-  const [academyName, setAcademyName] = useState('')
+  // const [isModalOpen, setModalOpen] = useState(false)
+  const [academyName, _] = useState('')
   const [searchValue, setSearchValue] = useState('')
   const [academiesData, setAcademiesData] = useState<SearchAcademiesResponse[]>(
     []
