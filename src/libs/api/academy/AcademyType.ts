@@ -72,8 +72,8 @@ export type RepeatOptionType =
 
 export type AcademyScheduleType = {
   dayOfWeek: ServerWeekType
-  startTime: string
-  endTime: string
+  startTime: string | undefined
+  endTime: string | undefined
   repeatance: RepeatanceType
 }
 
