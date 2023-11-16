@@ -19,6 +19,7 @@ export const pushData = () => {
   data.append('grant_type', 'authorization_code')
   data.append('client_id', VITE_KAKAO_CLIENT_ID)
   data.append('redirect_uri', VITE_REDIRECT_URL)
+
   data.append('code', getCode())
   data.append('client_secret', VITE_KAKAO_CLIENT_SECRET_KEY)
 
