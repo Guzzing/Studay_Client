@@ -54,7 +54,6 @@ export const getAccessToken = async (
         }
       }
     )
-    console.log(res)
     return res.data
   } catch {
     throw new Error('cannt get access token')
