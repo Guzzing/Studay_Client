@@ -3,7 +3,6 @@ import { useAtom } from 'jotai'
 import Icon from '@/components/common/icon/Icon'
 import { GetChildrenInfoResponse } from '@/libs/api/children/ChildrenType'
 import { childAtom } from '@/libs/store/childInfoAtom'
-
 interface SelectMyChildProps {
   data: GetChildrenInfoResponse[]
 }
@@ -30,9 +29,11 @@ const SelectMyChild = ({ data }: SelectMyChildProps) => {
         </div>
       </button>
       {istoggle && (
-        <ul className={'absolute bg-white-200 w-[150px] z-20 border'}>
+        <ul
+          className={'absolute bg-white-100 w-[150px] z-20 border rounded-md '}>
           {data.map((data) => (
             <li
+              className={'font-nsk body-18 p-[10px] border-b-gray-200'}
               key={data.childId}
               onClick={() => {
                 setChildrenInfo(data)
