@@ -50,6 +50,8 @@ export const academyTimeFamily = atomFamily(
         const prev = get(academyInfoAtom)
         if (name === 'schedules') {
           if (Object.keys(arg).includes('0')) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             const strArr = Object.keys(arg).map((item) => arg[item])
             set(academyInfoAtom, {
               ...prev,
@@ -58,6 +60,8 @@ export const academyTimeFamily = atomFamily(
           } else {
             set(academyInfoAtom, {
               ...prev,
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               [name]: [...prev[name], arg]
             })
           }
