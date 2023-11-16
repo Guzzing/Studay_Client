@@ -49,18 +49,10 @@ export const academyTimeFamily = atomFamily(
       (get) => get(academyInfoAtom)[name],
       (get, set, arg: AcademyScheduleType[]) => {
         const prev = get(academyInfoAtom)
-        console.log(arg)
-        if (name === 'schedules') {
-          set(academyInfoAtom, {
-            ...prev,
-            [name]: [...prev[name], ...arg]
-          })
-        } else {
-          set(academyInfoAtom, {
-            ...prev,
-            [name]: { ...prev[name], ...arg }
-          })
-        }
+        set(academyInfoAtom, {
+          ...prev,
+          [name]: { ...prev[name], ...arg }
+        })
       }
     )
 )
