@@ -1,3 +1,8 @@
+import {
+  InitSelectAcademyType,
+  MarkerProps
+} from '@/components/map/naverMapType.ts'
+
 export const initSelectAcademy: InitSelectAcademyType = {
   isBottomSheet: false,
   academy: {
@@ -6,8 +11,8 @@ export const initSelectAcademy: InitSelectAcademyType = {
     address: '',
     contact: '',
     areaOfExpertise: '',
-    latitute: -1,
-    longitute: -1
+    latitude: -1,
+    longitude: -1
   }
 }
 

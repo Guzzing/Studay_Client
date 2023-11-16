@@ -88,7 +88,7 @@ export interface DetailAcademyResponse {
   isLiked: boolean
 }
 
-interface SearchAcademiesResponse {
+export interface SearchAcademiesResponse {
   academyId: number
   academyName: string
   address: string
@@ -96,7 +96,7 @@ interface SearchAcademiesResponse {
   longitude: number
 }
 
-interface InfiniteScrollPage {
+export interface InfiniteScrollPage {
   pageNumber: number
   pageSize: number
   sort: {
