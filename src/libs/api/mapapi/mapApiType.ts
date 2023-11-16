@@ -37,3 +37,24 @@ interface Academy {
 interface AcademiesResponse {
   academyGetResponses: Academy[]
 }
+
+interface SearchAcademiesResponse {
+  academyId: number
+  academyName: string
+  address: string
+  latitude: number
+  longitude: number
+}
+
+interface InfiniteScrollPage {
+  pageNumber: number
+  pageSize: number
+  sort: {
+    empty: boolean
+    sorted: boolean
+    unsorted: boolean
+  }
+  offset: number
+  paged: boolean
+  unpaged: boolean
+}
