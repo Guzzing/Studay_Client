@@ -46,11 +46,15 @@ export const getAccessToken = async (
   kakaoAccessToken: string
 ): Promise<LoginResponse> => {
   try {
-    const res = await axios.get('http://3.114.43.57:8080/auth/kakao', {
-      headers: {
-        Authorization: `Bearer ${kakaoAccessToken}`
+    const res = await axios.post(
+      'http://3.114.43.57:8080/auth/kakao',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${kakaoAccessToken}`
+        }
       }
-    })
+    )
     return res.data
   } catch {
     throw new Error('cannt get access token')
