@@ -1,5 +1,4 @@
 import type { LoginResponse } from './LoginType'
-import axios from 'axios'
 import {
   VITE_KAKAO_CLIENT_ID,
   VITE_KAKAO_CLIENT_SECRET_KEY,
@@ -46,8 +45,8 @@ export const getAccessToken = async (
   kakaoAccessToken: string
 ): Promise<LoginResponse> => {
   try {
-    const res = await axios.post(
-      'http://3.114.43.57:8080/auth/kakao',
+    const res = await request.post(
+      '/auth/kakao',
       {},
       {
         headers: {
@@ -55,6 +54,7 @@ export const getAccessToken = async (
         }
       }
     )
+    console.log(res)
     return res.data
   } catch {
     throw new Error('cannt get access token')
