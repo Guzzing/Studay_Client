@@ -111,3 +111,19 @@ export const ClientWeekData: ClientSelectWeekType = {
   SATURDAY: '토요일',
   SUNDAY: '일요일'
 }
+
+export interface SearchAcademiesInfiniteScroll {
+  content: SearchAcademiesResponse[]
+  pageable: InfiniteScrollPage
+  size: number
+  number: number
+  sort: {
+    empty: boolean
+    sorted: boolean
+    unsorted: boolean
+  }
+  first: boolean
+  last: boolean
+  numberOfElements: number
+  empty: boolean
+}

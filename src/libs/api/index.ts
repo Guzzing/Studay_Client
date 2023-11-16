@@ -12,7 +12,7 @@ request.interceptors.request.use(
     const curAccessToken = localStorage.getItem('token')
     config.headers[
       'Authorization'
-    ] = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMTQ4MzYxNTc0Iiwicm9sZSI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjoxLCJleHAiOjE3MDAwMzUxODV9.9eIPZ_oX8sBw4WZe2hk9B3aPLT8MVFRsjfktvqVTEF8`
+    ] = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMTQ2MzgyNTU5Iiwicm9sZSI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjo0LCJleHAiOjE3MDAxMjAyMDZ9.nUO2sYnGJBgP6uTcoiXddXgVaPt8BIK5tWKfj5sjfcQ`
     if (curAccessToken) {
       //   config.headers[
       //     'Authorization'

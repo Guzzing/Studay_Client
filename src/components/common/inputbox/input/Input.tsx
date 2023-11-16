@@ -12,6 +12,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       name,
       placeholder = '',
       errorMessage,
+      onChange,
       ...props
     }: InputProps,
     ref
@@ -30,6 +31,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           value={inputValue}
           style={{ width: width, height: height }}
           onChange={(e) => {
+            if (onChange) {
+              onChange(e)
+            }
             setInputValue(e.target.value)
           }}
           name={name}
@@ -50,16 +54,19 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={`${
             fullWidth ? 'w-full h-[50px]' : `w-[298px] h-[50px]`
           } rounded-[30px] border  border-blue-350 
-          px-[20px] flex items-center bg-white-200 body-18 `}>
-          <Icon icon={'Search'} classStyle={'text-black-800'} />
+          px-[15px] flex items-center bg-white-200 body-18 `}>
+          <Icon icon={'Search'} classStyle={'text-black-800 mr-[5px]'} />
           <input
             type={'search'}
-            className={`grow h-full w-full px-[5px] 
+            className={`grow h-full w-full px-[5px] rounded-[30px]
             font-nsk body-15 text-black-800  bg-white-200 placeholder:text-gray-600 outline-none`}
             value={searchInputValue}
             name={name}
             placeholder={placeholder}
             onChange={(e) => {
+              if (onChange) {
+                onChange(e)
+              }
               setSearchInputValue(e.target.value)
             }}
             ref={ref}
