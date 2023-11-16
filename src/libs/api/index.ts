@@ -11,9 +11,7 @@ request.interceptors.request.use(
   (config) => {
     const curAccessToken = localStorage.getItem('token')
     if (curAccessToken) {
-      config.headers[
-        'Authorization'
-      ] = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMTQ2MzgyNTU5Iiwicm9sZSI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjo0LCJleHAiOjE3MDAyMDY3MzN9.S7dELKbPbPXcBigYQH4OKesg6R0rLngk5xzyBwSXjd8`
+      config.headers['Authorization'] = `Bearer ${curAccessToken}`
     } else console.log('토큰 없음!')
     return config
   },

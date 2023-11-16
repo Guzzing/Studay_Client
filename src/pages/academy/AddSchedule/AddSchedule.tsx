@@ -62,7 +62,6 @@ const AddSchedule = () => {
           repeatance: scheduleInfo.repeatance
         }
       })
-      console.log(newArray)
       setTimeInfo([...newArray])
       setFixedDate([...fixedDate, ...scheduleInfo.weekArray])
       setScheduleInfo({
