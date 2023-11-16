@@ -10,15 +10,9 @@ const request = axios.create({
 request.interceptors.request.use(
   (config) => {
     const curAccessToken = localStorage.getItem('token')
-    config.headers[
-      'Authorization'
-    ] = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMTQ2MzgyNTU5Iiwicm9sZSI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjo0LCJleHAiOjE3MDAyMDY3MzN9.S7dELKbPbPXcBigYQH4OKesg6R0rLngk5xzyBwSXjd8`
     if (curAccessToken) {
-      //   config.headers[
-      //     'Authorization'
-      //   ] = `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMTQ4MzYxNTc0Iiwicm9sZSI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjoxLCJleHAiOjE3MDAwMzUxODV9.9eIPZ_oX8sBw4WZe2hk9B3aPLT8MVFRsjfktvqVTEF8`
-      // }
-    }
+      config.headers['Authorization'] = `Bearer ${curAccessToken}`
+    } else console.log('토큰 없음!')
     return config
   },
   (error) => {
@@ -28,12 +22,11 @@ request.interceptors.request.use(
 )
 
 request.interceptors.response.use(
-  (res) => {
+  async (res) => {
     return res
   },
-  (error) => {
-    console.error(error)
-    return Promise.reject(error)
+  async (error) => {
+    throw error
   }
 )
 
