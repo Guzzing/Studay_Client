@@ -1,7 +1,13 @@
 import { useState } from 'react'
 import { LikeBlank, LikeFilled } from '@/assets/icon'
-const BottomSheetHeader = ({ title }: { title: string }) => {
-  const [liked, setLiked] = useState<boolean>(false)
+const BottomSheetHeader = ({
+  title,
+  isLike
+}: {
+  title: string
+  isLike: boolean
+}) => {
+  const [liked, setLiked] = useState<boolean>(isLike)
   //TODO: 좋아요 API 로직 추가
   return (
     <div className={'flex flex-row justify-between w-full mb-[17px]'}>

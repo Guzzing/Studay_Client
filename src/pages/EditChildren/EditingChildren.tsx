@@ -93,7 +93,7 @@ const EditingChildren = () => {
       <Button
         className={'absolute bottom-[25px] '}
         buttonType={'Round-blue-500'}
-        width={'XLW'}
+        fullWidth={true}
         label={'수정 완료'}
         onClick={() => childInfoMutation.mutate(childInfo)}
       />

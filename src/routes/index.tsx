@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { Outlet, createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 import Loading from '@/components/Loading/Loading'
 import Header from '@/components/common/header/Header'
 import NavigationBar from '@/components/common/navigationbar/NavigationBar'
@@ -7,6 +7,8 @@ import Layout from '@/components/layout/Layout.tsx'
 import EditChildren from '@/pages/EditChildren/EditChildren'
 import EditingChildren from '@/pages/EditChildren/EditingChildren'
 import ErrorPage from '@/pages/ErrorPage'
+import AcademyDashboard from '@/pages/academy/AcademyDashboard'
+import AddAcademy from '@/pages/academy/AddSchedule'
 import FilterPage from '@/pages/filter/FilterPage.tsx'
 import HomePage from '@/pages/home/HomePage'
 import LoginPage from '@/pages/login/LoginPage'
@@ -52,9 +54,10 @@ export const router = createBrowserRouter(
         },
         {
           path: 'edit/:childId',
+
           element: (
             <>
-              <Header headerType={'Close'} />
+              <Header headerType={'Close'} backUrl={'/'} />
               <EditChildren />
             </>
           ),
@@ -111,8 +114,9 @@ export const router = createBrowserRouter(
           path: 'academies',
           element: (
             <div>
-              <h1>{'학원 리스트 보기'}</h1>
-              <Outlet />
+              <Header headerType={'Logo'} pageTitle={'학원 관리하기'} />
+              <AcademyDashboard />
+              <NavigationBar selectIcon={'Info'} />
             </div>
           ),
           errorElement: <ErrorPage />,
@@ -126,13 +130,21 @@ export const router = createBrowserRouter(
               path: ':academiesId',
               element: <p>{'학원 상세보기'}</p>,
               errorElement: <ErrorPage />
-            },
-            {
-              path: 'register',
-              element: <p>{'학원 등록'}</p>,
-              errorElement: <ErrorPage />
             }
           ]
+        },
+        {
+          path: 'academies/register',
+          element: (
+            <>
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'학원 등록하기'}
+              />
+              <AddAcademy />
+            </>
+          ),
+          errorElement: <ErrorPage />
         },
         {
           path: 'reports',
