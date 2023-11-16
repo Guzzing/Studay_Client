@@ -1,7 +1,30 @@
+import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Button from '@/components/common/button/Button.tsx'
 import Label from '@/components/common/label/Label.tsx'
+import { LabelColorType } from '@/components/common/label/LabelType.ts'
 import Spacing from '@/components/common/spacing/Spacing.tsx'
 const FilterPage = () => {
+  const navigate = useNavigate()
+  const subjects = useMemo(
+    () => [
+      { title: '예능', filter: '예능(대)', color: 'default' },
+      { title: '국제화', filter: '국제화', color: 'default' },
+      { title: '입시', filter: '입시, 검정 및 보습', color: 'default' },
+      { title: '직업기술', filter: '직업기술', color: 'default' },
+      { title: '종합', filter: '종합(대)', color: 'default' },
+      { title: '독서실', filter: '독서실', color: 'default' },
+      { title: '기예', filter: '기예(대)', color: 'default' },
+      { title: '기타', filter: '기타(대)', color: 'default' },
+      { title: '인문사회', filter: '인문사회(대)', color: 'default' },
+      { title: '정보', filter: '정보', color: 'default' }
+    ],
+    []
+  )
+
+  const moveSelectCity = () => {
+    navigate('/selectcity')
+  }
   return (
     <div className={'flex flex-col w-[390px] h-full bg-white-100'}>
       <Spacing size={80} />
@@ -21,7 +44,8 @@ const FilterPage = () => {
             label={'지역을 다시 선택할래요'}
             buttonType={'Plain-blue'}
             width={'LW'}
-            height={'SH'}></Button>
+            height={'SH'}
+            onClick={moveSelectCity}></Button>
         </div>
       </div>
       <div
@@ -38,18 +62,18 @@ const FilterPage = () => {
           className={
             'w-[324px] h-full grid grid-cols-4 justify-center justify-items-center mt-[37px] mb-[46px] gap-4'
           }>
-          <Label variant={'medium'} label={'국어'} icon={'Korean'}></Label>
-          <Label variant={'medium'} label={'국어'} icon={'Korean'}></Label>
-          <Label variant={'medium'} label={'국어'} icon={'Korean'}></Label>
-          <Label variant={'medium'} label={'국어'} icon={'Korean'}></Label>
-          <Label variant={'medium'} label={'국어'} icon={'Korean'}></Label>
-          <Label variant={'medium'} label={'국어'} icon={'Korean'}></Label>
-          <Label variant={'medium'} label={'국어'} icon={'Korean'}></Label>
-          <Label variant={'medium'} label={'국어'} icon={'Korean'}></Label>
-          <Label variant={'medium'} label={'국어'} icon={'Korean'}></Label>
-          <Label variant={'medium'} label={'국어'} icon={'Korean'}></Label>
-          <Label variant={'medium'} label={'국어'} icon={'Korean'}></Label>
-          <Label variant={'medium'} label={'국어'} icon={'Korean'}></Label>
+          {subjects.map((subject, index) => (
+            <div
+              key={index}
+              className={`w-full h-full`}
+              style={{ cursor: 'pointer !important' }}>
+              <Label
+                variant={'medium'}
+                label={subject.title}
+                color={subject.color as LabelColorType}
+              />
+            </div>
+          ))}
         </div>
       </div>
       <div

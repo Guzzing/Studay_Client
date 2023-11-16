@@ -1,22 +1,32 @@
-interface BeopjungdongResponse {
+export interface GetLocationParam {
+  sido: string
+  sigungu: string
+  dongne: string
+}
+export interface BeopjungdongResponse {
   subRegion: string[]
   subRegionCount: number
   targetRegion: string
 }
 
-interface SigunguResponse {
+export interface SigunguResponse {
   targetRegion: string
   subRegion: string[]
   subRegionCount: number
 }
 
-interface DongneResponse {
+export interface GetDongneParam {
+  sido: string
+  sigungu: string
+}
+
+export interface DongneResponse {
   targetRegion: string
   subRegion: string[]
   subRegionCount: number
 }
 
-interface LocationResponse {
+export interface LocationResponse {
   sido: string
   sigungu: string
   upmyeondong: string
@@ -24,18 +34,58 @@ interface LocationResponse {
   longitude: number
 }
 
-interface Academy {
+export interface GetAcademysParams {
+  latitude: number
+  longitude: number
+}
+
+export interface Academy {
   academyId: number
   academyName: string
   address: string
   contact: string
   areaOfExpertise: string
-  latitute: number
-  longitute: number
+  latitude: number
+  longitude: number
 }
 
-interface AcademiesResponse {
-  academyGetResponses: Academy[]
+export interface AcademyResponse {
+  academiesByLocationResponse: Academy[]
+}
+
+export interface GetAcademyDetailProps {
+  academyId: number
+}
+
+interface Lesson {
+  lessonId: number
+  subject: string
+  capacity: number
+  duration: string
+  totalFee: number
+}
+
+interface ReviewPercent {
+  kindnessPercent: number
+  goodFacilityPercent: number
+  cheapFeePercent: number
+  goodManagementPercent: number
+  lovelyTeachingPercent: number
+}
+
+export interface DetailAcademyResponse {
+  academyName: string
+  contact: string
+  fullAddress: string
+  shuttleAvailability: string
+  expectedFee: number
+  updatedDate: string
+  areaOfExpertise: string
+  lessonGetResponses: {
+    lessons: Lesson[]
+  }
+  reviewPercentGetResponse: ReviewPercent
+  isLiked: boolean
 }
 
 interface SearchAcademiesResponse {
