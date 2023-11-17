@@ -96,7 +96,7 @@ const OnboardingPage = () => {
                     ? 'bg-gray-400 text-white-0 w-[343px] h-[56px] rounded-[10px] cursor-not-allowed'
                     : 'bg-blue-500 text-white-0 w-[343px] h-[56px] rounded-[10px]'
                   : storage.length === 1
-                  ? validate('email', inputValue)
+                  ? validate('email', value)
                     ? 'bg-gray-400 text-white-0 w-[343px] h-[56px] rounded-[10px] cursor-not-allowed'
                     : 'bg-blue-500 text-white-0 w-[343px] h-[56px] rounded-[10px]'
                   : 'bg-blue-500 text-white-0 w-[343px] h-[56px] rounded-[10px]'

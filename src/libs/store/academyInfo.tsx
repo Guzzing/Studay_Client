@@ -39,19 +39,14 @@ export const academyInfoAtom = atom(initialAcademyInfoAtom)
 export const schedulesAtom = atom(initialSchedulesInfoAtom)
 
 export const academyTimeFamily = atomFamily(
-  (
-    name: keyof Pick<
-      AcademyInfoRequest,
-      'paymentInfo' | 'schedules' | 'simpleMemo'
-    >
-  ) =>
+  (name: keyof Pick<AcademyInfoRequest, 'schedules'>) =>
     atom(
       (get) => get(academyInfoAtom)[name],
       (get, set, arg: AcademyScheduleType[]) => {
         const prev = get(academyInfoAtom)
         set(academyInfoAtom, {
           ...prev,
-          [name]: { ...prev[name], ...arg }
+          [name]: [...prev[name], ...arg]
         })
       }
     )
