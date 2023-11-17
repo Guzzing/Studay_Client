@@ -10,7 +10,7 @@ const Select = ({
   errorMessage,
   options,
   ...props
-}: SelectProps) => {
+}: SelectProps<string>) => {
   const [boxSelectedValue, setBoxSelectedValue] = useState(false)
   return selectType === 'Single' ? (
     <div

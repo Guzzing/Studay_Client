@@ -9,11 +9,11 @@ export type AcademyInfoRequest = {
   lessonId: number
   schedules: AcademyScheduleType[]
   paymentInfo: {
-    educationFee: number | null
-    bookFee: number | null
-    shuttleFee: number | null
-    etcFee: number | null
-    paymentDay: number | null
+    educationFee: number
+    bookFee: number
+    shuttleFee: number
+    etcFee: number
+    paymentDay: number
   }
   simpleMemo: {
     kindness: boolean

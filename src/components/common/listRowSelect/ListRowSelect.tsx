@@ -1,16 +1,20 @@
 import Icon from '@/components/common/icon/Icon'
 import { SelectProps } from '@/components/common/inputbox/select/SelectType'
 import ListRow from '@/components/common/listRow/ListRow'
+import { GetChildrenInfoResponse } from '@/libs/api/children/ChildrenType'
 
-type ListRowSelectProps = {
+type ListRowSelectProps<T> = {
   title: string
-} & SelectProps
+  values: number[]
+} & SelectProps<T>
 
 const ListRowSelect = ({
   title,
   options,
+  values,
+  placeholder,
   ...props
-}: Partial<ListRowSelectProps>) => {
+}: Partial<ListRowSelectProps<string>>) => {
   return (
     <div
       className={
@@ -26,11 +30,12 @@ const ListRowSelect = ({
               className={`font-nsk body-14 outline-none
       text-gray-600 appearance-none cursor-pointer bg-white-200 elative text-right w-full items-center px-[40px]`}
               {...props}>
+              {placeholder && <option selected>{placeholder}</option>}
+
               {options?.map((option, index) => (
                 <option
-                  value={option}
-                  key={index}
-                  selected={index === 0 ? true : false}>
+                  value={values?.find((_, index) => index === index)}
+                  key={index}>
                   {option}
                 </option>
               ))}

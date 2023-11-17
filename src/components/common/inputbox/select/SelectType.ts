@@ -1,10 +1,10 @@
 import { ComponentProps } from 'react'
 
 type SelectType = 'Single' | 'Box'
-export interface SelectProps extends ComponentProps<'select'> {
+export interface SelectProps<T> extends ComponentProps<'select'> {
   selectType: SelectType
   value?: string
-  options: string[] | undefined
+  options: T[]
   fullWidth?: boolean
   width?: number
   height?: number
