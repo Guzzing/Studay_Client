@@ -1,6 +1,5 @@
 import type { InputProps } from './InputType'
 import { forwardRef, useState } from 'react'
-import { ChangeEvent } from 'react'
 import Icon from '../../icon/Icon'
 
 const Input = forwardRef<HTMLInputElement, InputProps>(

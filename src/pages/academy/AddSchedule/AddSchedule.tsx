@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react'
+import { useRef } from 'react'
 import { useAtom, useSetAtom } from 'jotai'
 import SelectTime from '@/components/academy/SelectTime'
 import Button from '@/components/common/button/Button'
 import Icon from '@/components/common/icon/Icon'
-// import Select from '@/components/common/inputbox/select/Select'
-import ListRowSelect from '@/components/common/listRowSelect/ListRowSelect'
 import SelectWeek from '@/components/common/selectweek/SelectWeek'
 import Spacing from '@/components/common/spacing/Spacing'
-import {
-  ClientWeekData,
-  ServerWeekType,
-  RepeatOptionType,
-  RepeatanceData,
-  WeekData
-} from '@/libs/api/academy/AcademyType'
+import { ClientWeekData, WeekData } from '@/libs/api/academy/AcademyType'
 import { schedulesAtom } from '@/libs/store/academyInfo'
 import { academyInfoAtom, academyTimeFamily } from '@/libs/store/academyInfo'
 
@@ -22,43 +15,36 @@ const AddSchedule = () => {
   const [scheduleInfo, setScheduleInfo] = useAtom(schedulesAtom)
   const [fixedDate, setFixedDate] = useState<number[]>([])
   const setTimeInfo = useSetAtom(academyTimeFamily('schedules'))
+  const selectRef = useRef<HTMLSelectElement>(null)
 
-  const deleteTimeSchedule = (week: ServerWeekType) => {
+  const deleteTimeSchedule = (week: number) => {
     setAcademyInfo({
       ...academyInfo,
       schedules: academyInfo.schedules.filter((data) => data.dayOfWeek !== week)
     })
   }
-  useEffect(() => {
-    console.log(academyInfo)
-  }, [academyInfo])
 
   const addTimeSchedule = () => {
-    if (scheduleInfo.weekArray.length === 0) {
-      alert('요일을 선택해주세요.')
-    } else if (scheduleInfo.weekArray.length === 1) {
+    if (scheduleInfo.weekArray.length === 1) {
       setTimeInfo([
         {
           dayOfWeek: WeekData[scheduleInfo.weekArray[0]],
           startTime: scheduleInfo.startTime.split(':').slice(0, 2).join(':'),
-          endTime: scheduleInfo.endTime?.split(':').slice(0, 2).join(':'),
-          repeatance: scheduleInfo.repeatance
+          endTime: scheduleInfo.endTime?.split(':').slice(0, 2).join(':')
         }
       ])
       setFixedDate([...fixedDate, ...scheduleInfo.weekArray])
       setScheduleInfo({
         startTime: '',
         weekArray: [],
-        endTime: '',
-        repeatance: scheduleInfo.repeatance
+        endTime: ''
       })
     } else {
       const newArray = scheduleInfo.weekArray.map((data) => {
         return {
           dayOfWeek: WeekData[data],
           startTime: scheduleInfo.startTime.split(':').slice(0, 2).join(':'),
-          endTime: scheduleInfo.endTime?.split(':').slice(0, 2).join(':'),
-          repeatance: scheduleInfo.repeatance
+          endTime: scheduleInfo.endTime?.split(':').slice(0, 2).join(':')
         }
       })
       setTimeInfo([...newArray])
@@ -66,32 +52,31 @@ const AddSchedule = () => {
       setScheduleInfo({
         startTime: '',
         weekArray: [],
-        endTime: '',
-        repeatance: 'NONE'
+        endTime: ''
       })
     }
+    if (selectRef.current) selectRef.current.selectedIndex = 0
   }
-  useEffect(() => {}, [scheduleInfo])
+
   return (
     <div className={'flex flex-col items-center w-full border-b'}>
       <SelectWeek fixedDate={fixedDate} />
       <SelectTime />
-      <div className={'w-full px-[20px]'}>
-        <ListRowSelect
-          title={'반복'}
-          selectType={'Single'}
-          options={['안 함', '매일', '매주', '격주', '한달마다', '매년']}
-          onChange={(e) => {
-            setScheduleInfo({
-              ...scheduleInfo,
-              repeatance: RepeatanceData[e.target.value as RepeatOptionType]
-            })
-          }}
-        />
-      </div>
-      <Spacing size={16} />
       <Button
-        buttonType={'Plain-blue'}
+        buttonType={
+          scheduleInfo.weekArray.length > 0 &&
+          scheduleInfo.startTime.length > 1 &&
+          scheduleInfo.endTime
+            ? 'Plain-blue'
+            : 'Plain-disabled'
+        }
+        disabled={
+          scheduleInfo.weekArray.length > 0 &&
+          scheduleInfo.startTime.length > 1 &&
+          scheduleInfo.endTime
+            ? false
+            : true
+        }
         label={'추가하기'}
         onClick={addTimeSchedule}></Button>
       <Spacing size={16} />
@@ -102,7 +87,10 @@ const AddSchedule = () => {
               className={
                 'flex w-full justify-between items-center body-16 text-gray-600'
               }>
-              <div>{ClientWeekData[data.dayOfWeek]}</div>
+              <div>
+                {'매주 '}
+                {ClientWeekData[data.dayOfWeek]}
+              </div>
               <div className={'flex flex-row gap-1'}>
                 <div>
                   {data.startTime}

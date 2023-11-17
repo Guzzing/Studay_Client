@@ -1,31 +1,66 @@
 import { useEffect, useState } from 'react'
+import { useRef } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import ko from 'date-fns/locale/ko'
 import { useAtom } from 'jotai'
 import CustomTimePicker from '@/components/academy/CustomTimePicker'
 import Button from '@/components/common/button/Button'
+import Icon from '@/components/common/icon/Icon'
 import Input from '@/components/common/inputbox/input/Input'
 import Select from '@/components/common/inputbox/select/Select'
 import { academyInfoAtom } from '@/libs/store/academyInfo'
+import { getFormattingDate } from '@/libs/utils/dateParse'
 const AddPayment = () => {
-  const [paymentDate, _] = useState(new Date())
+  const selectRef = useRef<HTMLSelectElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [paymentDate, setPaymentDate] = useState(new Date(2023, 11, 10))
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
   const [paymentInfo, setPaymentInfo] = useState({
     paymentName: '',
     paymentFee: 0
   })
-  const typeKeys = Object.keys(academyInfo.paymentInfo) as Array<
-    keyof typeof academyInfo.paymentInfo
+  const deletePayment = (key: keyof typeof academyInfo.paymentInfo) => {
+    setAcademyInfo({
+      ...academyInfo,
+      paymentInfo: {
+        ...academyInfo.paymentInfo,
+        [key]: 0
+      }
+    })
+  }
+  const onSelect = (time: Date) => {
+    setAcademyInfo({
+      ...academyInfo,
+      paymentInfo: {
+        ...academyInfo.paymentInfo,
+        paymentDay: getFormattingDate(time)
+      }
+    })
+    setPaymentDate(time)
+  }
+  const paymentTypeKeys = Object.keys(academyInfo.paymentInfo).slice(
+    0,
+    length - 1
+  ) as unknown as Array<
+    keyof Omit<typeof academyInfo.paymentInfo, 'paymentDay'>
   >
-  // eslint-disable-next-line unicorn/consistent-function-scoping
-  const parseAcademyName = (name: string) => {
-    if (name === 'educationFee') return '교육비'
+  const parseAcademyName = (name: keyof typeof academyInfo.paymentInfo) => {
+    switch (name) {
+      case 'educationFee': {
+        return '교육비'
+      }
+      case 'shuttleFee': {
+        return '셔틀비'
+      }
+      case 'bookFee': {
+        return '교재비'
+      }
+      default: {
+        return '기타'
+      }
+    }
   }
   const handlePayment = () => {
-    if (paymentInfo.paymentFee === 0) {
-      alert('0원을 설정할수 없습니다.')
-      return
-    }
     switch (paymentInfo.paymentName) {
       case '교육비': {
         setAcademyInfo({
@@ -75,10 +110,13 @@ const AddPayment = () => {
       paymentFee: 0,
       paymentName: ''
     })
+    if (selectRef.current) {
+      selectRef.current.selectedIndex = 0
+    }
+    if (inputRef.current) {
+      inputRef.current.value = ''
+    }
   }
-  useEffect(() => {
-    console.log(paymentInfo)
-  }, [paymentInfo])
   registerLocale('ko', ko)
   return (
     <div
@@ -91,17 +129,20 @@ const AddPayment = () => {
         }>
         <Select
           title={'반복'}
-          selectType={'Single'}
+          selecttype={'Single'}
           fullWidth={true}
+          placeholder={'비용 종류 선택'}
           options={['교재비', '교육비', '셔틀비', '기타']}
+          ref={selectRef}
           onChange={(e) =>
-            setPaymentInfo({ paymentFee: 0, paymentName: e.target.value })
+            setPaymentInfo({ ...paymentInfo, paymentName: e.target.value })
           }
         />
         <div className={'flex flex-row w-full items-center gap-[7px]'}>
           <Input
             inputType={'Default'}
             fullWidth={true}
+            ref={inputRef}
             onChange={(e) => {
               setPaymentInfo({
                 ...paymentInfo,
@@ -113,14 +154,43 @@ const AddPayment = () => {
         </div>
       </div>
       <Button
-        buttonType={'Plain-blue'}
+        buttonType={
+          paymentInfo.paymentName.length > 0 && paymentInfo.paymentFee > 0
+            ? 'Plain-blue'
+            : 'Plain-disabled'
+        }
+        disabled={
+          paymentInfo.paymentName.length > 0 && paymentInfo.paymentFee > 0
+            ? false
+            : true
+        }
         label={'추가하기'}
         onClick={() => {
           handlePayment()
         }}></Button>
-      <div>
-        {typeKeys.map((key) => {
-          if (academyInfo.paymentInfo[key] > 0) return <div>{key}</div>
+      <div className={'w-full'}>
+        {paymentTypeKeys.map((key) => {
+          if (academyInfo.paymentInfo[key] > 0)
+            return (
+              <div
+                key={key}
+                className={
+                  'flex w-full justify-between items-center body-16 text-gray-600 mb-2'
+                }>
+                <div>{parseAcademyName(key)}</div>
+                <div className={'flex flex-row gap-1'}>
+                  {academyInfo.paymentInfo[key].toLocaleString('ko-KR')}
+                  {'원'}
+                  <Icon
+                    icon={'Delete'}
+                    classStyle={'cursor-pointer'}
+                    onClick={() => {
+                      deletePayment(key)
+                    }}
+                  />
+                </div>
+              </div>
+            )
         })}
       </div>
       <div
@@ -131,9 +201,7 @@ const AddPayment = () => {
         <DatePicker
           selected={paymentDate}
           locale={'ko'}
-          onChange={() => {
-            console.log('클릭')
-          }}
+          onChange={onSelect}
           dateFormat={`매달 dd일`}
           customInput={<CustomTimePicker value={''} />}
         />
