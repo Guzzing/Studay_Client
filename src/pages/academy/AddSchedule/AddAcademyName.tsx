@@ -32,7 +32,6 @@ const AddAcademyName = () => {
       fetchSearchInfiniteScroll(debounceValue, page)
     }
   }, [inView])
-
   const observer = (
     <div
       className={'observer'}

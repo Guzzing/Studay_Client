@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react'
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -7,6 +8,7 @@ import AddSchedule from './AddSchedule'
 import Button from '@/components/common/button/Button'
 import Spacing from '@/components/common/spacing/Spacing'
 import { postDashboardInfo } from '@/libs/api/academy/AcademyApi'
+
 import { academyInfoAtom } from '@/libs/store/academyInfo'
 import AddAcademyInfo from '@/pages/academy/AddSchedule/AddAcademyInfo'
 import AddAcademyName from '@/pages/academy/AddSchedule/AddAcademyName'
@@ -29,6 +31,7 @@ const AddAcademy = () => {
   useEffect(() => {
     console.log(academyInfo)
   }, [academyInfo])
+
   return (
     <div className={'w-full overflow-scroll relative scrollbar-hide'}>
       <Spacing size={100} />

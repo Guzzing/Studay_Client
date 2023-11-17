@@ -6,6 +6,7 @@ import Button from '@/components/common/button/Button'
 import Icon from '@/components/common/icon/Icon'
 import SelectWeek from '@/components/common/selectweek/SelectWeek'
 import Spacing from '@/components/common/spacing/Spacing'
+
 import { ClientWeekData, WeekData } from '@/libs/api/academy/AcademyType'
 import { schedulesAtom } from '@/libs/store/academyInfo'
 import { academyInfoAtom, academyTimeFamily } from '@/libs/store/academyInfo'
@@ -23,7 +24,6 @@ const AddSchedule = () => {
       schedules: academyInfo.schedules.filter((data) => data.dayOfWeek !== week)
     })
   }
-
   const addTimeSchedule = () => {
     if (scheduleInfo.weekArray.length === 1) {
       setTimeInfo([
