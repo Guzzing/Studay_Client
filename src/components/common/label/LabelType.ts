@@ -38,8 +38,8 @@ export const LabelVariant = cva(
   {
     variants: {
       variant: {
-        medium: 'rounded-[10px] font-nsk body-14 w-fit h-[32px]',
-        small: 'font-nsk caption-13 rounded-[10px]  w-fit h-[28px] text-white'
+        medium: 'rounded-[10px] font-nsk body-14 h-[32px]',
+        small: 'font-nsk caption-13 rounded-[10px] h-[28px] text-white'
       },
       defaultVariants: {
         variant: 'medium'
