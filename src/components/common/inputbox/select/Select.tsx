@@ -24,7 +24,6 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     )
 
     const handleChangeEvent = (e: ChangeEvent<HTMLSelectElement>) => {
-      console.log('호출!')
       setSelectedOption(e.target.value)
     }
     return selectType === 'Single' ? (

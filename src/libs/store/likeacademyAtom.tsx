@@ -2,14 +2,15 @@ import { atom } from 'jotai'
 import { GetLikeAcademyResponse } from '@/libs/api/likeacademy/LikeAcademyType'
 
 const initialLikeAcademyAtom: GetLikeAcademyResponse = {
-  likeAcademyInfo: [{ academyName: '', expectedFee: 0 }],
+  likeAcademyInfos: [
+    { likeId: 0, academyId: 0, academyName: '', expectedFee: 0 }
+  ],
   totalFee: 0
 }
-const initialLikeAcademyCheckBox = [
-  Array.from({ length: initialLikeAcademyAtom.likeAcademyInfo.length }).fill(
-    true
-  )
-]
 
+const total = 0
+const checkGroup: boolean[] = []
+
+export const totalAtom = atom(total)
+export const checkGroupAtom = atom(checkGroup)
 export const likeAcademyAtom = atom(initialLikeAcademyAtom)
-export const likeAcademyCheckBoxAtom = atom(initialLikeAcademyCheckBox)

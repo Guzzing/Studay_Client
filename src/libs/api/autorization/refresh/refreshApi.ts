@@ -5,7 +5,7 @@ export const refreshApi = async (): Promise<RefreshResponse> => {
   const prevAccessToken = JSON.stringify(localStorage.getItem('token'))
   try {
     const res = await request.post(
-      'http://3.114.43.57:8080/auth/refresh',
+      '/auth/refresh',
       {},
       {
         headers: {

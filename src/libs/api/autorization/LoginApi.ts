@@ -57,8 +57,8 @@ export const getAccessToken = async (
     if (res.data) {
       localStorage.setItem('token', res.data.appToken)
       const { isNewMember } = res.data
-      console.log(res.data)
       window.location.href = isNewMember ? '/onboarding' : '/'
+      // 회원 탈퇴가 되면 온보딩으로 바로 감!
     }
     return res.data
   } catch {
