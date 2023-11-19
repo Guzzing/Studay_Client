@@ -40,7 +40,11 @@ const MyPage = () => {
           <Icon
             icon={'Add'}
             classStyle={'w-[30px] h-[30px] cursor-pointer'}
-            onClick={() => navigate('/onboarding')}
+            onClick={() =>
+              myPageData.childInformationResponses.length === 5
+                ? alert('아이가 꽉 찼습니다!')
+                : navigate('/onboarding')
+            }
           />
         </div>
         <div className={'flex overflow-x-scroll'}>

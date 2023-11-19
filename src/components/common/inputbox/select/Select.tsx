@@ -30,7 +30,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       <div
         className={`relative ${
           fullWidth ? 'w-[324px] h-[52px]' : `w-[${width}px] h-[${height}px]`
-        }`}>
+        } mt-[10px]`}>
         <select
           ref={ref}
           name={name}

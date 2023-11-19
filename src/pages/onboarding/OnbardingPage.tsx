@@ -83,21 +83,25 @@ const Onboarding = () => {
     }
   }, [isDone])
   return (
-    <>
+    <div className={'pl-[36px] border h-full w-full relative'}>
       <Header
         headerType={'BackPush'}
-        pageTitle={'onboarding'}
+        pageTitle={''}
         onClick={() =>
           Array.isArray(getItem('onboarding')) ? setCurPage(0) : navigate('/')
         }
       />
-      <Spacing size={80} />
-      <h2>{PAGE_CONTENT[curPage].mainTitle}</h2>
-      <p>{PAGE_CONTENT[curPage].subTitle}</p>
+      <Spacing size={125} />
+      <h2 className={'headline-30 leading-[40px] w-[250px]'}>
+        {PAGE_CONTENT[curPage].mainTitle}
+      </h2>
+      <p className={'body-15-gray w-[200px] leading-[20px]'}>
+        {PAGE_CONTENT[curPage].subTitle}
+      </p>
 
-      <div>
+      <div className={'mt-[30px]'}>
         {PAGE_CONTENT[curPage].inputTitle.map((title, index) => (
-          <li key={index} className={'list-none'}>
+          <li key={index} className={'list-none mt-[25px]'}>
             <StepQuestion
               text={title}
               step={PAGE_CONTENT[curPage].step[index]}
@@ -114,13 +118,13 @@ const Onboarding = () => {
           </li>
         ))}
       </div>
-      <div>
+      <div className={'absolute bottom-[25px] left-[22px]'}>
         {PAGE_CONTENT[curPage].buttonType.map((value, index) =>
           index === 0 && value !== '' ? (
             <Button
               key={index}
               label={value}
-              buttonType={'Round-blue-500'}
+              buttonType={'Round-blue-700'}
               onClick={() => {
                 if (
                   curPage < 6 &&
@@ -168,10 +172,11 @@ const Onboarding = () => {
             <Button
               key={index}
               label={value}
-              buttonType={'Round-blue-700'}
+              className={'my-[10px]'}
+              buttonType={'Round-blue-500'}
               onClick={() => {
                 if (
-                  curPage < 6 &&
+                  curPage <= 6 &&
                   inputRef.current?.value !== '' &&
                   selectRef.current?.value !== ''
                 ) {
@@ -194,6 +199,8 @@ const Onboarding = () => {
                       ...pageData.children.slice(curPage === 2 ? 1 : 0)
                     ]
                   })
+                  inputRef.current && (inputRef.current.value = '')
+                  selectRef.current && (selectRef.current.value = '')
                   setIsDone(true)
                 } else {
                   alert('빈 값은 허용되지 않습니다.')
@@ -205,7 +212,7 @@ const Onboarding = () => {
           )
         )}
       </div>
-    </>
+    </div>
   )
 }
 
