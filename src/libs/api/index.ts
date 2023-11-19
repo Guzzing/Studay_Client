@@ -34,7 +34,7 @@ request.interceptors.response.use(
       response: { status }
     } = error
     if (status === 403) {
-      console.log('토큰이 만료된거같아요!')
+      // console.log('토큰이 만료된거같아요!')
       // const newAccessToken = await refreshApi()
       // if (newAccessToken.appToken) {
       //   config.headers.Authorization = `Bearer ${newAccessToken.appToken}`
