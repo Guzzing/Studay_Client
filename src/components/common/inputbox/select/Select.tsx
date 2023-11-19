@@ -1,7 +1,6 @@
 import type { SelectProps } from './SelectType'
-import { forwardRef, useState } from 'react'
+import { forwardRef, useState, ChangeEvent } from 'react'
 import Icon from '../../icon/Icon'
-
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {
@@ -10,16 +9,24 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       name,
       width,
       height,
-      value = selectType === 'Single' ? '' : 'false',
       errorMessage,
       options,
       isPlace,
       placeholder,
+      onChange,
       ...props
     }: SelectProps,
     ref
   ) => {
-    const [boxSelectedValue, setBoxSelectedValue] = useState(false)
+    const [boxSelectedValue, setBoxSelectedValue] = useState<boolean>(false)
+    const [selectedOption, setSelectedOption] = useState<string | boolean>(
+      options?.[0] || ''
+    )
+
+    const handleChangeEvent = (e: ChangeEvent<HTMLSelectElement>) => {
+      console.log('호출!')
+      setSelectedOption(e.target.value)
+    }
     return selectType === 'Single' ? (
       <div
         className={`relative ${
@@ -31,7 +38,8 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           id={''}
           className={`w-full h-full font-nsk body-18 px-[20px] border border-blue-350 rounded-[10px] outline-none bg-white-200
       text-gray-800 appearance-none cursor-pointer`}
-          value={value}
+          value={selectedOption as string}
+          onChange={handleChangeEvent}
           {...props}>
           {isPlace && (
             <option value={''} disabled={true} hidden={true}>
