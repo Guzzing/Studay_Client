@@ -1,4 +1,5 @@
 interface AcademyInfo {
+  likeId: number
   academyId: number
   academyName: string
   expectedFee: number
