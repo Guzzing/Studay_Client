@@ -48,7 +48,6 @@ export const router = createBrowserRouter(
           path: 'onboarding',
           element: (
             <>
-              <Header headerType={'BackPush'} />
               <OnboardingPage />
             </>
           ),

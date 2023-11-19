@@ -1,175 +1,212 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { atom, useAtom } from 'jotai'
-import { DATA, grade } from './constants'
-import { getStorageLength, getItem } from './storage'
+import { useAtom } from 'jotai'
 import Button from '@/components/common/button/Button'
 import Header from '@/components/common/header/Header'
 import Input from '@/components/common/inputbox/input/Input'
 import Select from '@/components/common/inputbox/select/Select'
 import Spacing from '@/components/common/spacing/Spacing'
 import StepQuestion from '@/components/common/stepquestion/StepQuestion'
-import { myPageApi } from '@/libs/api/mypage/myPageApi'
-import { onboardingApi } from '@/libs/api/onboarding/onboardingApi'
-import { PostOnboardingRequest } from '@/libs/api/onboarding/onboardingType'
+import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
+import {
+  onboardingApi,
+  createChildApi
+} from '@/libs/api/onboarding/onboardingApi'
+import {
+  initialCurPageNumber,
+  onboardingPageData,
+  isSubmit
+} from '@/libs/store/onboardingAtom'
+import { getItem, setItem } from '@/libs/utils/storage'
+import { PAGE_CONTENT, CHILD_GRADE } from '@/pages/onboarding/constants'
 
-const percentAtom = atom(50)
-const pageContentAtom = atom(DATA[getStorageLength('onboarding')])
-const pageValuesAtom = atom<PostOnboardingRequest>({
-  nickname: '',
-  email: '',
-  children: [
-    {
-      nickname: '',
-      grade: ''
-    }
-  ]
-})
-interface Obj {
-  childName: string
-  grade: string
-}
-const OnboardingPage = () => {
-  const [onboardingProcess, setOnboardingProcess] = useState<
-    Array<string | Obj>
-  >([])
-  const [curPage, setCurPage] = useState(0)
-  // ❗️TODO : progressbar : 이걸로 참고하시면 됩니다!
-  const navigate = useNavigate()
-  const [pageContent, setPageContent] = useAtom(pageContentAtom)
+const Onboarding = () => {
+  const [curPage, setCurPage] = useAtom(initialCurPageNumber)
+  const [pageData, setPageData] = useAtom(onboardingPageData)
+  const [isDone, setIsDone] = useAtom(isSubmit)
   const inputRef = useRef<HTMLInputElement | null>(null)
   const selectRef = useRef<HTMLSelectElement | null>(null)
-
+  const navigate = useNavigate()
   useEffect(() => {
-    const values = []
-    if (getStorageLength('onboarding') === 0) setOnboardingProcess([])
-    else {
-      setOnboardingProcess(getItem('onboarding'))
+    const res = async () => {
+      const children = await getChildrenInfo()
+      if (children.length === 5) {
+        alert('자식이 5명 가득찼습니다! 홈페이지로 이동합니다')
+        navigate('/')
+      } else {
+        setCurPage(children.length + 2)
+      }
     }
+    Array.isArray(getItem('onboarding')) || res()
   }, [])
 
+  useEffect(() => {
+    if (isDone) {
+      const saveUser = async () => {
+        const res = await onboardingApi(pageData)
+        res && navigate('/')
+      }
+      const saveChild = async () => {
+        const res = await createChildApi({
+          nickname: inputRef.current?.value as string,
+          grade: selectRef.current?.value as string
+        })
+        res && navigate('/')
+      }
+      if (Array.isArray(getItem('onboarding'))) {
+        setItem('onboarding', JSON.stringify(pageData)) // 스토리지에 저장하고...!
+        saveUser()
+      } else {
+        setItem(
+          'onboarding',
+          JSON.stringify({
+            ...pageData,
+            children: [
+              {
+                ...pageData.children[0],
+                nickname:
+                  curPage === 2
+                    ? inputRef.current?.value || pageData.children[0].nickname
+                    : (inputRef.current?.value as string),
+                grade:
+                  curPage === 2
+                    ? selectRef.current?.value || pageData.children[0].grade
+                    : (selectRef.current?.value as string)
+              },
+              ...(curPage === 2 ? [] : pageData.children.slice(1))
+            ]
+          })
+        )
+        saveChild()
+      }
+      setIsDone(false)
+    }
+  }, [isDone])
   return (
-    <div className={'px-[25px] pb-[25px] h-full relative border-x'}>
+    <>
       <Header
         headerType={'BackPush'}
-        pageTitle={''}
-        onClick={() => {
-          setPageContent(DATA[0])
-          setOnboardingProcess([])
-        }}
+        pageTitle={'onboarding'}
+        onClick={() =>
+          Array.isArray(getItem('onboarding')) ? setCurPage(0) : navigate('/')
+        }
       />
-      <Spacing size={125} />
-      <p className={'headline-30 leading-[40px] my-[18px]'}>
-        {pageContent.mainTitle}
-      </p>
-      <p className={'body-15-gray leading-[20px]'}>{pageContent.subTitle}</p>
-      {pageContent.inputTitle.map((title, index) => (
-        <div className={'mt-[30px]'}>
-          {index === 0 ? (
-            <>
-              <StepQuestion
-                step={pageContent.inputTitle.length === 1 ? 1 : 3 + index}
-                text={title}
+      <Spacing size={80} />
+      <h2>{PAGE_CONTENT[curPage].mainTitle}</h2>
+      <p>{PAGE_CONTENT[curPage].subTitle}</p>
+
+      <div>
+        {PAGE_CONTENT[curPage].inputTitle.map((title, index) => (
+          <li key={index} className={'list-none'}>
+            <StepQuestion
+              text={title}
+              step={PAGE_CONTENT[curPage].step[index]}
+            />
+            {index === 0 ? (
+              <Input inputType={'Default'} ref={inputRef} />
+            ) : (
+              <Select
+                selectType={'Single'}
+                options={CHILD_GRADE}
+                ref={selectRef}
               />
-              <div className={''}>
-                <Input
-                  inputType={'Default'}
-                  ref={inputRef}
-                  field={
-                    curPage === 0
-                      ? 'nickname'
-                      : curPage === 1
-                      ? 'email'
-                      : curPage === 2
-                      ? 'childname'
-                      : ''
-                  }
-                  placeholder={
-                    curPage === 0
-                      ? '닉네임을 입력해주세요'
-                      : curPage === 1
-                      ? '이메일을 입력해주세요'
-                      : curPage === 2
-                      ? '자녀 닉네임을 입력해주세요'
-                      : ''
-                  }
-                />
-              </div>
-            </>
-          ) : (
-            <>
-              <StepQuestion
-                step={pageContent.inputTitle.length === 1 ? 1 : 3 + index}
-                text={title}
-              />
-              <Select selectType={'Single'} options={grade} ref={selectRef} />
-            </>
-          )}
-        </div>
-      ))}
-      <div className={'absolute bottom-[25px] flex flex-col justify-start'}>
-        {pageContent.buttonType.map((value, index) =>
-          index === 0 ? (
-            <div>
-              <Button
-                buttonType={'Round-blue-500'}
-                label={
-                  DATA.length - 1 === curPage
-                    ? '입력 완료! 스터데이를 시작하러 가볼까요?'
-                    : curPage === 0 || curPage === 1
-                    ? '입력 완료'
-                    : `저장! ${curPage}째 입력하러 가기`
-                }
-                width={'LW'}
-                onClick={() => {
-                  if (onboardingProcess.length <= 1) {
-                    console.log('이번 페이지 >>', onboardingProcess.length)
-                    setOnboardingProcess((prev) => [
-                      ...prev,
-                      inputRef.current?.value as string
-                    ])
-                    setPageContent(DATA[onboardingProcess.length + 1])
-                  } else if (
-                    onboardingProcess.length > 1 &&
-                    onboardingProcess.length <= 6
-                  ) {
-                    setOnboardingProcess((prev) => [
-                      ...prev,
-                      {
-                        childName: inputRef.current?.value as string,
-                        grade: selectRef.current?.value as string
-                      }
-                    ])
-                    setPageContent(DATA[onboardingProcess.length + 1])
-                    navigate('/')
+            )}
+          </li>
+        ))}
+      </div>
+      <div>
+        {PAGE_CONTENT[curPage].buttonType.map((value, index) =>
+          index === 0 && value !== '' ? (
+            <Button
+              key={index}
+              label={value}
+              buttonType={'Round-blue-500'}
+              onClick={() => {
+                if (
+                  curPage < 6 &&
+                  inputRef.current?.value !== '' &&
+                  selectRef.current?.value !== ''
+                ) {
+                  setCurPage(curPage + 1)
+                  if (curPage === 0) {
+                    setPageData({
+                      ...pageData,
+                      nickname: inputRef.current?.value as string
+                    })
+                  } else if (curPage === 1) {
+                    setPageData({
+                      ...pageData,
+                      email: inputRef.current?.value as string
+                    })
                   } else {
-                    localStorage.setItem(
-                      'onboarding',
-                      JSON.stringify(onboardingProcess)
-                    )
-                    navigate('/')
+                    setPageData({
+                      ...pageData,
+                      children: [
+                        {
+                          ...pageData.children[0],
+                          nickname:
+                            curPage === 2
+                              ? inputRef.current?.value ||
+                                pageData.children[0].nickname
+                              : (inputRef.current?.value as string),
+                          grade:
+                            curPage === 2
+                              ? selectRef.current?.value ||
+                                pageData.children[0].grade
+                              : (selectRef.current?.value as string)
+                        },
+                        ...pageData.children.slice(curPage === 2 ? 1 : 0)
+                      ]
+                    })
                   }
-                }}
-              />
-            </div>
+                } else {
+                  alert('빈값은 죄송하지만 안됩니다!')
+                }
+              }}
+            />
+          ) : index === 1 && value !== '' ? (
+            <Button
+              key={index}
+              label={value}
+              buttonType={'Round-blue-700'}
+              onClick={() => {
+                if (
+                  curPage < 6 &&
+                  inputRef.current?.value !== '' &&
+                  selectRef.current?.value !== ''
+                ) {
+                  setPageData({
+                    ...pageData,
+                    children: [
+                      {
+                        ...pageData.children[0],
+                        nickname:
+                          curPage === 2
+                            ? inputRef.current?.value ||
+                              pageData.children[0].nickname
+                            : (inputRef.current?.value as string),
+                        grade:
+                          curPage === 2
+                            ? selectRef.current?.value ||
+                              pageData.children[0].grade
+                            : (selectRef.current?.value as string)
+                      },
+                      ...pageData.children.slice(curPage === 2 ? 1 : 0)
+                    ]
+                  })
+                  setIsDone(true)
+                } else {
+                  alert('빈 값은 허용되지 않습니다.')
+                }
+              }}
+            />
           ) : (
-            <div className={'mt-[10px]'}>
-              <Button
-                buttonType={'Round-blue-700'}
-                label={'입력완료! 스터데이를 시작해볼까요?'}
-                width={'LW'}
-                onClick={() => {
-                  localStorage.setItem(
-                    'onboarding',
-                    JSON.stringify(onboardingProcess)
-                  )
-                }}
-              />
-            </div>
+            ''
           )
         )}
       </div>
-    </div>
+    </>
   )
 }
-export default OnboardingPage
+
+export default Onboarding

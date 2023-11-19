@@ -1,20 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { useAtom } from 'jotai'
 import Icon from '@/components/common/icon/Icon'
 import Spacing from '@/components/common/spacing/Spacing'
 import {
   getLikeAcademyApi,
   deleteLikeAcademyApi
 } from '@/libs/api/likeacademy/LikeAcademyApi'
-import { GetLikeAcademyResponse } from '@/libs/api/likeacademy/LikeAcademyType'
+import {
+  totalAtom,
+  checkGroupAtom,
+  likeAcademyAtom
+} from '@/libs/store/likeacademyAtom'
 
 const LikeAcademy = () => {
-  const [total, setTotal] = useState(0)
-  const [likeAcademies, setLikeAcademy] = useState<GetLikeAcademyResponse>()
-  const [checkGroup, setCheckGroup] = useState<boolean[]>()
+  const [total, setTotal] = useAtom(totalAtom)
+  const [likeAcademies, setLikeAcademy] = useAtom(likeAcademyAtom)
+  const [checkGroup, setCheckGroup] = useAtom(checkGroupAtom)
 
   const onClick = (index: number) => {
     setCheckGroup((prevCheckGroup) => {
-      const newCheckGroup = [...(prevCheckGroup as boolean[])]
+      const newCheckGroup = [...prevCheckGroup]
       newCheckGroup[index] = !newCheckGroup[index]
       return newCheckGroup
     })
@@ -47,7 +52,7 @@ const LikeAcademy = () => {
       <div className={'overflow-auto h-[550px]'}>
         {likeAcademies?.likeAcademyInfos &&
           likeAcademies.likeAcademyInfos?.map(
-            ({ academyId, academyName, expectedFee }, index) => (
+            ({ likeId, academyId, academyName, expectedFee }, index) => (
               <li
                 key={academyId}
                 className={
@@ -58,9 +63,7 @@ const LikeAcademy = () => {
                   name={''}
                   id={''}
                   checked={checkGroup && checkGroup[index] ? true : false}
-                  onClick={() => {
-                    onClick(index)
-                  }}
+                  onClick={() => onClick(index)}
                   className={
                     'absolute top-[50%] translate-y-[-50%] cursor-pointer'
                   }
@@ -78,7 +81,19 @@ const LikeAcademy = () => {
                 <Icon
                   icon={'Close'}
                   classStyle={'absolute right-[20px] top-[14px] cursor-pointer'}
-                  onClick={() => deleteLikeAcademyApi(academyId)}
+                  onClick={() => {
+                    deleteLikeAcademyApi(likeId)
+                    setLikeAcademy((prev) => ({
+                      likeAcademyInfos:
+                        prev?.likeAcademyInfos?.filter((_, i) => i !== index) ||
+                        [],
+                      totalFee: prev?.totalFee || 0
+                    }))
+                    setCheckGroup(
+                      (prevCheckGroup) =>
+                        prevCheckGroup?.filter((_, i) => i !== index) || []
+                    )
+                  }}
                 />
               </li>
             )

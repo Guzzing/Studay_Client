@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAtom } from 'jotai'
-// import { MY_PAGE_DUMMY } from './constants'
 import Button from '@/components/common/button/Button'
 import Header from '@/components/common/header/Header'
 import Icon from '@/components/common/icon/Icon'
@@ -23,7 +22,6 @@ const MyPage = () => {
     }
     const response = async () => {
       const res = await myPageApi()
-      console.log('받아온 data >>', res)
       setMyPageData(res)
     }
     response()
@@ -42,7 +40,7 @@ const MyPage = () => {
           <Icon
             icon={'Add'}
             classStyle={'w-[30px] h-[30px] cursor-pointer'}
-            onClick={() => navigate('/study/onboarding')}
+            onClick={() => navigate('/onboarding')}
           />
         </div>
         <div className={'flex overflow-x-scroll'}>

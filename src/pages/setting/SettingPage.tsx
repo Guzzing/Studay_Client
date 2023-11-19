@@ -19,7 +19,7 @@ const SettingPage = () => {
       <Header
         headerType={'BackPush'}
         pageTitle={'settings'}
-        onClick={() => navigate(-1)}
+        onClick={() => navigate('/')}
       />
       <Spacing size={120} />
       <ListRow
