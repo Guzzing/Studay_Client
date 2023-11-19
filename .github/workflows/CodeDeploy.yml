@@ -20,11 +20,15 @@ jobs:
 
       - name: create env file
         run: |
-          touch .env.production
+          touch .env           
           echo VITE_API_ENDPOINT=${{secrets.VITE_API_ENDPOINT}} >> .env
           echo VITE_CLIENT_ID=${{secrets.VITE_CLIENT_ID}} >> .env
           echo VITE_CLIENT_SECRET=${{secrets.VITE_CLIENT_SECRET}} >> .env
-          cat .env
+          echo VITE_REDIRECT_URL=${{secrets.VITE_REDIRECT_URL}} >> .env
+          echo VITE_KAKAO_CLIENT_ID=${{secrets.VITE_KAKAO_CLIENT_ID}} >> .env
+          echo VITE_KAKAO_CLIENT_SECRET_KEY=${{secrets.VITE_KAKAO_CLIENT_SECRET_KEY}} >> .env
+          echo VITE_GOOGLE_CLIENT_ID=${{secrets.VITE_GOOGLE_CLIENT_ID}} >> .env
+          echo VITE_GOOGLE_CLIENT_SECRET_KEY=${{secrets.VITE_GOOGLE_CLIENT_SECRET_KEY}} >> .env
 
       - name: Install dependencies and build
         run: |

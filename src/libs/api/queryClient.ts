@@ -4,7 +4,7 @@ import { QueryCache } from '@tanstack/react-query'
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
+      // refetchOnWindowFocus: false,
       refetchOnMount: true
     }
   },

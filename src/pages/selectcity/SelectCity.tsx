@@ -1,8 +1,14 @@
 import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+// import {
+//   initDongne,
+//   initSido,
+//   initSigungu
+// } from '../../constants/selectCity.ts'
 import { useQuery } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
-import useSteps from '../../hooks/useSteps.ts'
+import useSteps from '../../libs/hooks/useSteps.ts'
+// import { SigunguType, SidoType, DongneType } from '../../types/selectcity.ts'
 import {
   HandleChangeParam,
   ResetSelectedParam

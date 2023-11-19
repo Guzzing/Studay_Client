@@ -42,6 +42,7 @@ request.interceptors.response.use(
     } else {
       console.log('토큰 만료 안 됐어~!')
     }
+  async (error) => {
     throw error
   }
 )

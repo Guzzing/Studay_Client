@@ -8,6 +8,7 @@ interface Request {
     grade: string
   }[]
 }
+const curAccessToken = localStorage.getItem('token')
 
 export const onboarding = async (requestValue: Request) => {
   const req = await request.patch(
@@ -15,7 +16,7 @@ export const onboarding = async (requestValue: Request) => {
     requestValue,
     {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMTQ2MzgyNTU5Iiwicm9sZSI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjo0LCJleHAiOjEwMzM5MTk4NDE5fQ.f4_QlKQAdHiph9ZWhSSJ9kpGgXMklR2S-O3aCOXmr5o`
+        Authorization: `Bearer ${curAccessToken}`
       }
     }
   )

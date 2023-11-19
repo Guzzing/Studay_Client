@@ -1,4 +1,5 @@
 import { ComponentProps } from 'react'
+import { ChangeEvent } from 'react'
 
 type InputType = 'Default' | 'Search'
 export interface InputProps extends ComponentProps<'input'> {
@@ -8,5 +9,5 @@ export interface InputProps extends ComponentProps<'input'> {
   field?: string
   errorMessage?: string
   placeholder?: string
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }

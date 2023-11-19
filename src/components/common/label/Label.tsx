@@ -19,17 +19,20 @@ interface LabelProps {
   label: string
   icon?: IconType
   color?: LabelColorType
+  onClick?: () => void
 }
 
 const Label = ({
   variant,
   label = '라벨',
   icon,
-  color = 'default'
+  color = 'default',
+  onClick
 }: LabelProps) => {
   return (
-    <label className={'w-[66px]'}>
-      <div
+    <label className={'w-auto'}>
+      <button
+        onClick={onClick}
         className={cn(
           LabelVariant({
             variant
@@ -44,7 +47,7 @@ const Label = ({
           />
         )}
         <div>{label}</div>
-      </div>
+      </button>
     </label>
   )
 }

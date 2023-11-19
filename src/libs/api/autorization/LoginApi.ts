@@ -1,5 +1,4 @@
 import type { LoginResponse } from './LoginType'
-import axios from 'axios'
 import {
   VITE_KAKAO_CLIENT_ID,
   VITE_KAKAO_CLIENT_SECRET_KEY,
@@ -19,6 +18,7 @@ export const pushData = () => {
   data.append('grant_type', 'authorization_code')
   data.append('client_id', VITE_KAKAO_CLIENT_ID)
   data.append('redirect_uri', VITE_REDIRECT_URL)
+
   data.append('code', getCode())
   data.append('client_secret', VITE_KAKAO_CLIENT_SECRET_KEY)
 
@@ -45,8 +45,8 @@ export const getAccessToken = async (
   kakaoAccessToken: string
 ): Promise<LoginResponse> => {
   try {
-    const res = await axios.post(
-      'https://studay.store/auth/kakao',
+    const res = await request.post(
+      '/auth/kakao',
       {},
       {
         headers: {
@@ -60,6 +60,7 @@ export const getAccessToken = async (
       window.location.href = isNewMember ? '/onboarding' : '/'
       // 회원 탈퇴가 되면 온보딩으로 바로 감!
     }
+
     return res.data
   } catch {
     throw new Error('cannot get access token')
