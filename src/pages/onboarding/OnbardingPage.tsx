@@ -107,7 +107,28 @@ const Onboarding = () => {
               step={PAGE_CONTENT[curPage].step[index]}
             />
             {index === 0 ? (
-              <Input inputType={'Default'} ref={inputRef} />
+              <Input
+                inputType={'Default'}
+                ref={inputRef}
+                field={
+                  curPage === 0
+                    ? 'nickname'
+                    : curPage === 1
+                    ? 'email'
+                    : curPage >= 2
+                    ? 'childname'
+                    : ''
+                }
+                placeholder={
+                  curPage === 0
+                    ? '닉네임 입력해주세요'
+                    : curPage === 1
+                    ? '이메일 입력해주세요'
+                    : curPage >= 2
+                    ? '아이에게 닉네임을 선물해주세요'
+                    : ''
+                }
+              />
             ) : (
               <Select
                 selectType={'Single'}
