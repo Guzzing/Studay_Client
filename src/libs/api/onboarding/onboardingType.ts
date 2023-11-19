@@ -10,3 +10,12 @@ export interface PostOnboardingRequest {
 export interface GetOnboardingResponse {
   userId: number
 }
+
+export interface OnboardingData {
+  [key: string]: string | number | { nickname: string; grade: string }[]
+}
+
+export interface CreateChild {
+  nickname: string
+  grade: string
+}
