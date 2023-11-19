@@ -5,7 +5,6 @@ export const getAcademiesSearchResult = async (
   academyName: string,
   pageNumber: number
 ): Promise<SearchAcademiesInfiniteScroll> => {
-  console.log(academyName)
   const res = await request.get(
     `/academies/search?academyName=${academyName}&pageNumber=${pageNumber}`
   )

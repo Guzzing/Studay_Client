@@ -1,5 +1,6 @@
 import type { InputProps } from './InputType'
 import { forwardRef, useState } from 'react'
+import { ChangeEvent } from 'react'
 import Icon from '../../icon/Icon'
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -73,9 +74,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
         </div>
-        <p className={'font-nsk caption-13 text-red-600 px-3 mt-1'}>
-          {errorMessage}
-        </p>
+        {errorMessage && (
+          <p className={'font-nsk caption-13 text-red-600 px-3 mt-1'}>
+            {errorMessage}
+          </p>
+        )}
       </>
     ) : (
       ''

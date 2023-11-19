@@ -12,8 +12,7 @@ import {
   ServerWeekType,
   RepeatOptionType,
   RepeatanceData,
-  WeekData,
-  AcademyScheduleType
+  WeekData
 } from '@/libs/api/academy/AcademyType'
 import { schedulesAtom } from '@/libs/store/academyInfo'
 import { academyInfoAtom, academyTimeFamily } from '@/libs/store/academyInfo'
@@ -31,7 +30,7 @@ const AddSchedule = () => {
     })
   }
   useEffect(() => {
-    console.log(academyInfo.schedules)
+    console.log(academyInfo)
   }, [academyInfo])
 
   const addTimeSchedule = () => {
