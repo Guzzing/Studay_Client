@@ -14,7 +14,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
       placeholder,
       onChange,
       ...props
-    }: SelectProps<string>,
+    }: SelectProps,
     ref
   ) => {
     const [boxSelectedValue, setBoxSelectedValue] = useState<boolean>(false)

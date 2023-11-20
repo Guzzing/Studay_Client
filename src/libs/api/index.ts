@@ -26,7 +26,6 @@ request.interceptors.response.use(
   async (res) => {
     return res
   },
-  // 응답이 잘 오지 않았을 때! => 토큰 처리
   async (error) => {
     // 토큰이 이상할 때!
     const {
