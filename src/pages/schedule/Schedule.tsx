@@ -30,7 +30,8 @@ const Schedule = () => {
             date: '2023-05-15',
             names: ['National Holiday']
           }
-        ]}></Calender>
+        ]}
+      />
     </div>
   )
 }

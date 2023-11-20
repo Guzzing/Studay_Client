@@ -1,23 +1,20 @@
-import { useCallback, useEffect, useState } from 'react'
-import { defaultDate, getDays } from '../../../libs/utils/date.ts'
-import {
-  CalenderType,
-  DaysInfo,
-  DayType,
-  MonthType
-} from '../../../types/date.ts'
+import { useCallback, useEffect } from 'react'
+import { getDays } from '../../../libs/utils/date.ts'
+import { DaysInfo, DayType, MonthType } from '../../../types/date.ts'
 import CalenderProps from './CalenderType.ts'
 import { DECEMBER, JANUARY, WEEK, WeekStyle } from './constants.ts'
 
-const Calender = ({ onClick }: CalenderProps) => {
-  const [defaultYear, defaultMonth, defaultDays, days] = defaultDate()
-  const [calenderState, setCalenderState] = useState<CalenderType>({
-    nowYear: defaultYear,
-    nowMonth: defaultMonth,
-    nowDays: defaultDays,
-    toDay: days
-  })
+const Calender = ({
+  onClick,
+  calenderState,
+  setCalenderState,
+  existenceDays,
+  holidays
+}: CalenderProps) => {
   const { nowYear, nowMonth, nowDays, toDay } = calenderState
+  const holidaysArr = new Set(
+    holidays.map((holiday) => new Date(holiday.date).getDate())
+  )
 
   const handleDayClick = useCallback(
     (dayInfo: DaysInfo) => {
@@ -127,15 +124,29 @@ const Calender = ({ onClick }: CalenderProps) => {
             }>
             {week.map((daysInfo, index) => (
               <div
-                key={index}
                 className={`${daysInfo.style} ${
-                  daysInfo.day === toDay && daysInfo.month === nowMonth
-                    ? 'bg-[rgba(87,164,255,0.2)] rounded-full '
+                  holidaysArr.has(daysInfo.day) && daysInfo.month === nowMonth
+                    ? 'text-red-500'
                     : ''
                 }`}
-                data-id={`${daysInfo.year}-${daysInfo.month}}`}
+                key={index}
                 onClick={() => handleDayClick(daysInfo)}>
-                {daysInfo.day}
+                <div
+                  className={`${
+                    daysInfo.day === toDay && daysInfo.month === nowMonth
+                      ? 'bg-[rgba(87,164,255,0.2)] rounded-full '
+                      : ''
+                  }`}
+                  data-id={`${daysInfo.year}-${daysInfo.month}}`}>
+                  {daysInfo.day}
+                </div>
+                {existenceDays.includes(daysInfo.day) && (
+                  <div
+                    className={
+                      'relative bg-gray-100 w-[5px] h-[5px] rounded-full left-[17px] bottom-[10px] '
+                    }
+                  />
+                )}
               </div>
             ))}
           </div>
