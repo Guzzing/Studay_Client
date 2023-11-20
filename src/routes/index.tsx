@@ -11,10 +11,13 @@ import AcademyDashboard from '@/pages/academy/AcademyDashboard'
 import AddAcademy from '@/pages/academy/AddSchedule'
 import FilterPage from '@/pages/filter/FilterPage.tsx'
 import HomePage from '@/pages/home/HomePage'
+import LikeAcademy from '@/pages/likeAcademy/LikeAcademy'
 import LoginPage from '@/pages/login/LoginPage'
 import MapPage from '@/pages/map/MapPage.tsx'
+import MyPage from '@/pages/mypage/MyPage'
 import OnboardingPage from '@/pages/onboarding/OnbardingPage'
 import SelectCity from '@/pages/selectcity/SelectCity.tsx'
+import SettingPage from '@/pages/setting/SettingPage'
 
 export const router = createBrowserRouter(
   [
@@ -46,7 +49,6 @@ export const router = createBrowserRouter(
           path: 'onboarding',
           element: (
             <>
-              <Header headerType={'BackPush'} />
               <OnboardingPage />
             </>
           ),
@@ -153,12 +155,22 @@ export const router = createBrowserRouter(
         },
         {
           path: 'settings',
-          element: <p>{'setting page'}</p>,
+          element: <SettingPage />,
           errorElement: <ErrorPage />
         },
         {
           path: 'myPages',
-          element: <p>{'my page'}</p>,
+          element: <MyPage />,
+          errorElement: <ErrorPage />
+        },
+        {
+          path: '/likeacademy',
+          element: (
+            <>
+              <Header headerType={'Logo'} pageTitle={'찜한 학원 모아보기'} />
+              <LikeAcademy />
+            </>
+          ),
           errorElement: <ErrorPage />
         }
       ]

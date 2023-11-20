@@ -16,13 +16,7 @@ const LoginPage = () => {
       const req = async () => {
         try {
           const kakaoToken = await getKaKaoAccessToken(pushData())
-          if (kakaoToken) {
-            const res = await getAccessToken(kakaoToken)
-            if (res) {
-              localStorage.setItem('token', res.appToken)
-              res.appToken && navigate('/')
-            }
-          }
+          kakaoToken && (await getAccessToken(kakaoToken))
         } catch (error) {
           console.error('액세스 토큰 요청 실패:', error)
         }

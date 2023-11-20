@@ -1,34 +1,47 @@
 import type { SelectProps } from './SelectType'
-import { useState } from 'react'
-import { forwardRef } from 'react'
+import { forwardRef, useState, ChangeEvent } from 'react'
 import Icon from '../../icon/Icon'
-
-const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
+const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {
       selecttype = 'Single',
       fullWidth = true,
+      name,
       width,
       height,
       errorMessage,
-      placeholder,
       options,
+      isPlace,
+      placeholder,
+      onChange,
       ...props
-    }: SelectProps<string>,
+    }: SelectProps,
     ref
   ) => {
-    const [boxSelectedValue, setBoxSelectedValue] = useState(false)
-    return selecttype === 'Single' ? (
+    const [boxSelectedValue, setBoxSelectedValue] = useState<boolean>(false)
+    const [selectedOption, setSelectedOption] = useState<string | boolean>(
+      options?.[0] || ''
+    )
+
+    const handleChangeEvent = (e: ChangeEvent<HTMLSelectElement>) => {
+      setSelectedOption(e.target.value)
+    }
+    return selectType === 'Single' ? (
       <div
         className={`relative ${
           fullWidth ? 'w-[324px] h-[52px]' : `w-[${width}px] h-[${height}px]`
-        }`}>
+        } mt-[10px]`}>
         <select
-          id={''}
           ref={ref}
+          name={name}
+          id={''}
           className={`w-full h-full font-nsk body-18 px-[20px] border border-blue-350 rounded-[10px] outline-none bg-white-200
       text-gray-800 appearance-none cursor-pointer`}
-          {...props}
+          value={selectedOption as string}
+          onChange={handleChangeEvent}
+          {...props}>
+          {isPlace && (
+            <option value={''} disabled={true} hidden={true}>
           defaultValue={''}>
           {placeholder && (
             <option value={''} key={'default'}>
