@@ -1,7 +1,7 @@
 import type { SelectProps } from './SelectType'
 import { forwardRef, useState, ChangeEvent } from 'react'
 import Icon from '../../icon/Icon'
-const Select = forwardRef<HTMLSelectElement, SelectProps>(
+const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
   (
     {
       selecttype = 'Single',
@@ -11,11 +11,10 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
       height,
       errorMessage,
       options,
-      isPlace,
       placeholder,
       onChange,
       ...props
-    }: SelectProps,
+    }: SelectProps<string>,
     ref
   ) => {
     const [boxSelectedValue, setBoxSelectedValue] = useState<boolean>(false)
@@ -26,7 +25,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     const handleChangeEvent = (e: ChangeEvent<HTMLSelectElement>) => {
       setSelectedOption(e.target.value)
     }
-    return selectType === 'Single' ? (
+    return selecttype === 'Single' ? (
       <div
         className={`relative ${
           fullWidth ? 'w-[324px] h-[52px]' : `w-[${width}px] h-[${height}px]`
@@ -40,9 +39,6 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           value={selectedOption as string}
           onChange={handleChangeEvent}
           {...props}>
-          {isPlace && (
-            <option value={''} disabled={true} hidden={true}>
-          defaultValue={''}>
           {placeholder && (
             <option value={''} key={'default'}>
               {placeholder}
@@ -63,7 +59,6 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <p className={'px-[10px] text-red-600'}>{errorMessage}</p>
       </div>
     ) : (
-      // selectedType : Box
       <>
         <div
           className={`px-[23px] ${
