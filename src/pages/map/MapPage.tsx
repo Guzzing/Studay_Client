@@ -30,6 +30,7 @@ const MapPage = () => {
   )
   const [page, setPage] = useState(0)
   const [isinitial, setInitial] = useState(true)
+  const [searchAcademy, setSearchAcademy] = useState(-1)
 
   useEffect(() => {
     if (lastPage) {
@@ -71,6 +72,9 @@ const MapPage = () => {
       style={{ width: '100%', height: '2px' }}
     />
   )
+  useEffect(() => {
+    console.log(searchAcademy)
+  })
 
   const [mapInfo, setMapInfo] = useAtom(mapInfoAtom)
   const { data: academyList } = useQuery({
@@ -125,11 +129,15 @@ const MapPage = () => {
                   <div
                     className={
                       'flex flex-row items-center cursor-pointer border-b-2 border-gray-100'
-                    }>
+                    }
+                    key={index}
+                    onClick={() => {
+                      setSearchAcademy(data.academyId)
+                      console.log(data)
+                    }}>
                     <Icon icon={'Marker'} classStyle={'ml-[20px] mr-[8px]'} />
                     <div
                       className={`flex flex-col items-center w-full cursor-pointer p-[10px]`}
-                      key={index}
                       onClick={() => {
                         setAcademiesData([])
                       }}>
@@ -166,6 +174,8 @@ const MapPage = () => {
           []
         }
         setLocation={setLocation}
+        //현재 상태관리가 엉망으로되있어서 나중에 제외해야할 코드입니다.
+        searchAcademy={searchAcademy}
       />
     </div>
   )
