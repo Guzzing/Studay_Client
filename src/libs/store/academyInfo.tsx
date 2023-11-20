@@ -9,30 +9,29 @@ import {
 const initialAcademyInfoAtom: AcademyInfoRequest = {
   academyId: 0,
   childId: 0,
-  lessonId: 0,
+  lessonId: 747,
   schedules: [],
   paymentInfo: {
     educationFee: 0,
     bookFee: 0,
     shuttleFee: 0,
     etcFee: 0,
-    paymentDay: 0
+    paymentDay: ''
   },
   simpleMemo: {
     kindness: false,
-    goodFacility: false,
-    cheapFee: false,
-    goodManagement: false,
-    lovelyTeaching: false,
-    shuttleAvailability: false
+    facility: false,
+    price: false,
+    management: false,
+    love: false,
+    shttule: false
   }
 }
 
 const initialSchedulesInfoAtom: TempAcademyScheduleType = {
   weekArray: [],
   startTime: '',
-  endTime: '',
-  repeatance: 'NONE'
+  endTime: ''
 }
 
 export const academyInfoAtom = atom(initialAcademyInfoAtom)
