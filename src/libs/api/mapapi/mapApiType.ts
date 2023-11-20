@@ -76,7 +76,7 @@ interface ReviewPercent {
 export interface DetailAcademyResponse {
   academyName: string
   contact: string
-  fullAddress: string
+  address: string
   shuttleAvailability: string
   expectedFee: number
   updatedDate: string

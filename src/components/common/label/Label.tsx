@@ -18,6 +18,7 @@ interface LabelProps {
   variant: LabelVariant
   label: string
   icon?: IconType
+  isFullWidth?: boolean
   color?: LabelColorType
   onClick?: () => void
 }
@@ -26,13 +27,15 @@ const Label = ({
   variant,
   label = '라벨',
   icon,
+  isFullWidth = false,
   color = 'default',
   onClick
 }: LabelProps) => {
   return (
-    <label className={'w-auto'}>
+    <label style={{ width: isFullWidth ? '100%' : 'auto' }}>
       <button
         onClick={onClick}
+        style={{ width: isFullWidth ? '100%' : 'fit-content' }}
         className={cn(
           LabelVariant({
             variant
