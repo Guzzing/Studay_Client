@@ -119,3 +119,42 @@ export interface AcademyClassResponse {
   lessonId: 746
   subject: string
 }
+
+export type ServerAcademyType =
+  | '예능(대)'
+  | '국제화'
+  | '입시, 검정 및 보습'
+  | '직업기술'
+  | '종합(대)'
+  | '독서실'
+  | '기예(대)'
+  | '기타(대)'
+  | '인문사회(대)'
+  | '정보'
+
+export type ClientAcademyType =
+  | '예능'
+  | '국제화'
+  | '입시'
+  | '직업기술'
+  | '종합'
+  | '독서실'
+  | '기예'
+  | '기타'
+  | '인문사회'
+  | '정보'
+
+export type AcademyType = Record<ServerAcademyType, ClientAcademyType>
+
+export const AcademyTypeData: AcademyType = {
+  '예능(대)': '예능',
+  국제화: '국제화',
+  '입시, 검정 및 보습': '입시',
+  직업기술: '직업기술',
+  '종합(대)': '종합',
+  독서실: '독서실',
+  '기예(대)': '기예',
+  '기타(대)': '기타',
+  '인문사회(대)': '인문사회',
+  정보: '정보'
+}

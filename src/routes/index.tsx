@@ -115,7 +115,7 @@ export const router = createBrowserRouter(
         {
           path: 'academies',
           element: (
-            <div>
+            <div className={'h-full'}>
               <Header headerType={'Logo'} pageTitle={'학원 관리하기'} />
               <AcademyDashboard />
               <NavigationBar selectIcon={'Info'} />
