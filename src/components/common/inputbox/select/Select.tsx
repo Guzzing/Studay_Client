@@ -4,7 +4,7 @@ import Icon from '../../icon/Icon'
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {
-      selectType = 'Single',
+      selecttype = 'Single',
       fullWidth = true,
       name,
       width,
@@ -42,6 +42,9 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           {...props}>
           {isPlace && (
             <option value={''} disabled={true} hidden={true}>
+          defaultValue={''}>
+          {placeholder && (
+            <option value={''} key={'default'}>
               {placeholder}
             </option>
           )}
@@ -70,20 +73,24 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         `}>
           <p className={'body-18 text-black-900'}>{'반복'}</p>
           <select
-            ref={ref}
-            name={name}
             id={''}
+            ref={ref}
             className={
               'bg-white-200 body-14 text-gray-600 outline-none cursor-pointer relative appearance-none w-[50px]'
             }
+            defaultValue={''}
             value={boxSelectedValue ? 'yes' : 'no'}
             onChange={() => {
               setBoxSelectedValue((prev) => !prev)
             }}
             {...props}>
-            {options.map((option) => (
-              <option value={option}>{option}</option>
-            ))}
+            {placeholder && (
+              <option value={''} key={'default'}>
+                {placeholder}
+              </option>
+            )}
+            {options &&
+              options.map((option) => <option value={option}>{option}</option>)}
           </select>
           <div
             className={

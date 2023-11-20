@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useRef } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useAtom } from 'jotai'
 import Button from '@/components/common/button/Button'
@@ -11,7 +10,7 @@ import { useDebounce } from '@/libs/hooks/useDebounce'
 import { academyInfoAtom } from '@/libs/store/academyInfo'
 
 const AddAcademyName = () => {
-  const { ref, inView, entry } = useInView({
+  const { ref, inView } = useInView({
     threshold: 1
   })
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
