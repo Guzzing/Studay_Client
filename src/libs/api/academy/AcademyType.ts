@@ -114,3 +114,8 @@ export interface SearchAcademiesInfiniteScroll {
   numberOfElements: number
   empty: boolean
 }
+
+export interface AcademyClassResponse {
+  lessonId: 746
+  subject: string
+}
