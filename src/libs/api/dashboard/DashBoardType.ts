@@ -24,7 +24,7 @@ export interface GetAllDashBoardResponse {
     lovelyTeaching: boolean
     shuttleAvailability: boolean
   }
-  active: boolean
+  isActive: boolean
 }
 
 interface AcademyInfoType {
@@ -49,4 +49,9 @@ interface AcademyLessonType {
   capacitys: number
   duration: string
   totalFee: number
+}
+
+export interface ToggleAcademyResponseType {
+  dashboardId: number
+  active: boolean
 }

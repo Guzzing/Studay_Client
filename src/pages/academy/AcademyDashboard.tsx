@@ -11,6 +11,7 @@ import Spacing from '@/components/common/spacing/Spacing'
 import { AcademyTypeData } from '@/libs/api/academy/AcademyType'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 import { GetChildrenInfoResponse } from '@/libs/api/children/ChildrenType'
+import { patchToggleDashboardState } from '@/libs/api/dashboard/DashBoardApi'
 import { getAllDashboards } from '@/libs/api/dashboard/DashBoardApi'
 import { GetAllDashBoardResponse } from '@/libs/api/dashboard/DashBoardType'
 import { getWeekday } from '@/libs/utils/weekParse'
@@ -29,6 +30,22 @@ const AcademyDashboard = () => {
       const data = await getAllDashboards(child.childId)
       setDashboardData(data)
     }
+  }
+  const fetchToggleDashboard = async (dashboardId: number) => {
+    const res = await patchToggleDashboardState(dashboardId)
+    dashboardData.map((data) => {
+      {
+        if (data.dashboardId === res.dashboardId) {
+          const newData = dashboardData.map((data) => {
+            if (data.dashboardId === res.dashboardId) {
+              data.isActive = !data.isActive
+            }
+            return data
+          })
+          setDashboardData([...newData])
+        }
+      }
+    })
   }
 
   useEffect(() => {
@@ -72,16 +89,24 @@ const AcademyDashboard = () => {
                       subElement={`매주 ${getWeekday(data.schedules)}요일 / ${
                         data.lessonInfo.subject
                       }`}
-                      isRegister={data.active}
+                      isRegister={data.isActive}
                       rightBottomElement={
                         <Label
                           variant={'medium'}
                           label={
                             AcademyTypeData[data.academyInfo.areaOfExpertise]
                           }
-                          color={data.active ? 'default' : 'disabled'}
+                          color={data.isActive ? 'default' : 'disabled'}
                         />
                       }
+                      handleToggle={() =>
+                        fetchToggleDashboard(data.dashboardId)
+                      }
+                      onClick={() => {
+                        navigate(`/academies/${data.dashboardId}`, {
+                          state: data.dashboardId
+                        })
+                      }}
                     />
                   )
                 })}

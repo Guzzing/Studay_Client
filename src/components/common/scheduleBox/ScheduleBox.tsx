@@ -6,7 +6,9 @@ const ScheduleBox = ({
   scheduleType,
   mainTitle,
   subElement,
-  rightBottomElement
+  rightBottomElement,
+  handleToggle,
+  ...props
 }: ScheduleBoxProps) => {
   return (
     <div
@@ -18,7 +20,8 @@ const ScheduleBox = ({
             ? 'w-[345px] h-[142px] bg-white-0'
             : 'w-[345px] h-[142px] bg-gray-200'
           : ''
-      } shadow-md pt-[22px] pb-[20px] px-[24px] rounded-[20px] font-nsk`}>
+      } shadow-md pt-[22px] pb-[20px] px-[24px] rounded-[20px] font-nsk`}
+      {...props}>
       <div className={'relative w-full h-full flex-col'}>
         <div className={'flex justify-between grow-4'}>
           <div className={'subHead-18'}>{mainTitle}</div>
@@ -51,7 +54,8 @@ const ScheduleBox = ({
               <div
                 className={`relative w-[42px] h-[20px] rounded-full ${
                   isRegister ? 'bg-blue-500' : 'bg-white-200'
-                } cursor-pointer`}>
+                } cursor-pointer`}
+                onClick={handleToggle}>
                 <div
                   className={`absolute ${
                     isRegister

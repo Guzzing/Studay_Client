@@ -8,6 +8,7 @@ import EditChildren from '@/pages/EditChildren/EditChildren'
 import EditingChildren from '@/pages/EditChildren/EditingChildren'
 import ErrorPage from '@/pages/ErrorPage'
 import AcademyDashboard from '@/pages/academy/AcademyDashboard'
+import AcademyDetail from '@/pages/academy/AcademyDetail'
 import AddAcademy from '@/pages/academy/AddSchedule'
 import FilterPage from '@/pages/filter/FilterPage.tsx'
 import HomePage from '@/pages/home/HomePage'
@@ -121,19 +122,17 @@ export const router = createBrowserRouter(
               <NavigationBar selectIcon={'Info'} />
             </div>
           ),
-          errorElement: <ErrorPage />,
-          children: [
-            {
-              index: true,
-              element: <p>{'학원 리스트 body'}</p>,
-              errorElement: <ErrorPage />
-            },
-            {
-              path: ':academiesId',
-              element: <p>{'학원 상세보기'}</p>,
-              errorElement: <ErrorPage />
-            }
-          ]
+          errorElement: <ErrorPage />
+        },
+        {
+          path: 'academies/:dashboardId/',
+          element: (
+            <>
+              <Header headerType={'Close'} pageTitle={'학원 상세보기'} />
+              <AcademyDetail />
+            </>
+          ),
+          errorElement: <ErrorPage />
         },
         {
           path: 'academies/register',
