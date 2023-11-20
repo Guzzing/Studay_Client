@@ -16,9 +16,9 @@ const HomePage = () => {
   }
 
   return (
-    <div className={'bg-white-100 w-full h-full'}>
+    <div className={'bg-white-100 w-full h-[750px] overflow-scroll'}>
       <Spacing size={100} />
-      <div className={'flex flex-col items-center gap-[20px]'}>
+      <div className={'flex flex-col items-center gap-[20px] pb-[20px]'}>
         {data && data?.length > 0 ? (
           data.map((data) => {
             return (
@@ -44,7 +44,15 @@ const HomePage = () => {
         )}
       </div>
       <div className={'absolute right-[10px] bottom-[90px] cursor-pointer'}>
-        <Icon icon={'Add'} classStyle={'h-[60px] w-[60px]'} />
+        <Icon
+          icon={'Add'}
+          classStyle={'h-[60px] w-[60px]'}
+          onClick={() =>
+            (data?.length as number) < 5
+              ? navigate('/onboarding')
+              : alert('5명이상 등록할 수 없습니다!')
+          }
+        />
       </div>
     </div>
   )

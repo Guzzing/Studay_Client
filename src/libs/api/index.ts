@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import { refreshApi } from './autorization/refresh/refreshApi'
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT,
@@ -25,6 +26,22 @@ request.interceptors.response.use(
   async (res) => {
     return res
   },
+  // 응답이 잘 오지 않았을 때! => 토큰 처리
+  async (error) => {
+    // 토큰이 이상할 때!
+    const {
+      // config,
+      response: { status }
+    } = error
+    if (status === 403) {
+      // console.log('토큰이 만료된거같아요!')
+      // const newAccessToken = await refreshApi()
+      // if (newAccessToken.appToken) {
+      //   config.headers.Authorization = `Bearer ${newAccessToken.appToken}`
+      // }
+    } else {
+      console.log('토큰 만료 안 됐어~!')
+    }
   async (error) => {
     throw error
   }
