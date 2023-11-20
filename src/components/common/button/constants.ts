@@ -10,13 +10,15 @@ export const BUTTON_RADIUS = {
 
 export const BUTTON_BORDER_COLOR = {
   red600: 'border border-red-600',
-  blue500: 'border border-blue-500'
+  blue500: 'border border-blue-500',
+  gray500: 'border border-gray-600'
 }
 
 export const BUTTON_BG_COLOR = {
   white0: 'bg-white-0',
   blue500: 'bg-blue-500',
-  blue700: 'bg-blue-700'
+  blue700: 'bg-blue-700',
+  gray500: 'bg-gray-500'
 }
 
 export const BUTTON_WIDTH = {
@@ -36,5 +38,6 @@ export const BUTTON_HEIGHT = {
 export const BUTTON_TEXT_COLOR = {
   white0: 'text-white-0',
   blue500: 'text-blue-500',
-  red600: 'text-red-600'
+  red600: 'text-red-600',
+  gray500: 'text-gray-500'
 }
