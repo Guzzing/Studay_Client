@@ -60,12 +60,15 @@ export const getDays = (year: number, month: MonthType) => {
   const prevYear = month - 1 === 0 ? year - 1 : year
 
   const prevMonthLastDay = getLastDayOfMonth(prevYear, prevMonth)
+  console.log(firstDay)
   for (let i = 0; i < firstDay; i++) {
     weeks[0][i] = {
       year: prevYear,
       month: prevMonth,
       day: (prevMonthLastDay - firstDay + i + 1) as DayType,
-      style: `${WeekStyle.WEEKDAY} ${WeekStyle.OPACITY}`
+      style: `${WeekStyle.WEEKDAY} ${WeekStyle.OPACITY} ${
+        i === 0 ? WeekStyle.SUN : ''
+      }`
     }
   }
 

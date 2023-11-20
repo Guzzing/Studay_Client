@@ -3,6 +3,7 @@ import { getDays } from '../../../libs/utils/date.ts'
 import { DaysInfo, DayType, MonthType } from '../../../types/date.ts'
 import CalenderProps from './CalenderType.ts'
 import { DECEMBER, JANUARY, WEEK, WeekStyle } from './constants.ts'
+import Icon from '@/components/common/icon/Icon.tsx'
 
 const Calender = ({
   onClick,
@@ -85,15 +86,21 @@ const Calender = ({
   }, [calenderState])
 
   return (
-    <div className={'flex flex-col justify-center items-center w-[388px]'}>
-      <div className={'flex flex-row'}>
-        <div className={'cursor-pointer'} onClick={previousMonth}>
-          {'<'}
-        </div>
-        <div>{`${nowYear}년 ${nowMonth}월`}</div>
-        <div className={'cursor-pointer'} onClick={nextMonth}>
-          {'>'}
-        </div>
+    <div
+      className={
+        'flex flex-col justify-center items-center w-[388px] mt-[17px]'
+      }>
+      <div className={'flex flex-row justify-center items-center'}>
+        <Icon
+          classStyle={'cursor-pointer rotate-90'}
+          icon={'ArrowDown'}
+          onClick={previousMonth}></Icon>
+        <div className={'headline-20'}>{`${nowYear}년 ${nowMonth}월`}</div>
+        <Icon
+          icon={'ArrowDown'}
+          onClick={nextMonth}
+          classStyle={'cursor-pointer rotate-[-90deg]'}
+        />
       </div>
 
       <div
