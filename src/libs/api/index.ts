@@ -26,7 +26,6 @@ request.interceptors.response.use(
   async (res) => {
     return res
   },
-  // 응답이 잘 오지 않았을 때! => 토큰 처리
   async (error) => {
     // 토큰이 이상할 때!
     const {
@@ -42,8 +41,9 @@ request.interceptors.response.use(
     } else {
       console.log('토큰 만료 안 됐어~!')
     }
-  async (error) => {
-    throw error
+    // async (error) => {
+    //   throw error
+    // }
   }
 )
 
