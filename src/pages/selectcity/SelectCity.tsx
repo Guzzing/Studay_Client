@@ -1,75 +1,69 @@
 import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-// import {
-//   initDongne,
-//   initSido,
-//   initSigungu
-// } from '../../constants/selectCity.ts'
 import { useQuery } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import useSteps from '../../libs/hooks/useSteps.ts'
-// import { SigunguType, SidoType, DongneType } from '../../types/selectcity.ts'
 import {
   HandleChangeParam,
   ResetSelectedParam
 } from '../../types/selectcity.ts'
 import Spacing from '@/components/common/spacing/Spacing.tsx'
+import CityStep from '@/components/selectcity/CityStep.tsx'
 import SelectCityStep from '@/components/selectcity/SelectCityStep.tsx'
-import SelectCityStep1 from '@/components/selectcity/SelectCityStep1.tsx'
-import SelectCityStep2 from '@/components/selectcity/SelectCityStep2.tsx'
-import SelectCityStep3 from '@/components/selectcity/SelectCityStep3.tsx'
 import {
-  getBeopjungdong,
-  getSigungu,
-  getDongne,
-  getLocation
+  getLocation,
+  getProvince,
+  getCity,
+  getTown
 } from '@/libs/api/mapapi/mapApi.ts'
 import { mapInfoAtom } from '@/libs/store/mapInfoAtom.ts'
-
-const LAST_STEP = 3
+import { LAST_STEP } from '@/pages/selectcity/constants.ts'
 
 const SelectCity = () => {
   const navigate = useNavigate()
   const [mapInfo, setMapInfo] = useAtom(mapInfoAtom)
   const { currentStep, nextStep, setCurrentStep } = useSteps()
 
-  const { data: sido } = useQuery({
-    queryKey: ['sido'],
-    queryFn: () => getBeopjungdong()
+  const { data: province } = useQuery({
+    queryKey: ['province'],
+    queryFn: () => getProvince()
   })
-  const { data: sigungu } = useQuery({
-    queryKey: ['sigungu', mapInfo.selectSido],
-    queryFn: () => getSigungu(mapInfo.selectSido),
-    enabled: mapInfo.selectSido !== ''
+  const { data: city } = useQuery({
+    queryKey: ['city', mapInfo.selectProvince],
+    queryFn: () => getCity({ province: mapInfo.selectProvince }),
+    enabled: mapInfo.selectProvince !== ''
   })
-  const { data: dongne } = useQuery({
-    queryKey: ['dongne', mapInfo.selectSido, mapInfo.selectSigungu],
+  const { data: town } = useQuery({
+    queryKey: ['town', mapInfo.selectProvince, mapInfo.selectCity],
     queryFn: () =>
-      getDongne({ sido: mapInfo.selectSido, sigungu: mapInfo.selectSigungu }),
-    enabled: mapInfo.selectSigungu !== ''
+      getTown({ province: mapInfo.selectProvince, city: mapInfo.selectCity }),
+    enabled: mapInfo.selectProvince !== '' && mapInfo.selectCity !== ''
   })
   const { data: location } = useQuery({
     queryKey: [
       'location',
-      mapInfo.selectSido,
-      mapInfo.selectSigungu,
-      mapInfo.selectDongne
+      mapInfo.selectProvince,
+      mapInfo.selectCity,
+      mapInfo.selectTown
     ],
     queryFn: () =>
       getLocation({
-        sido: mapInfo.selectSido,
-        sigungu: mapInfo.selectSigungu,
-        dongne: mapInfo.selectDongne
+        province: mapInfo.selectProvince,
+        city: mapInfo.selectCity,
+        town: mapInfo.selectTown
       }),
-    enabled: mapInfo.selectDongne !== ''
+    enabled:
+      mapInfo.selectTown !== '' &&
+      mapInfo.selectProvince !== '' &&
+      mapInfo.selectCity !== ''
   })
 
   const resetSelectValues = (step: number) => {
     setMapInfo((prev) => ({
       ...prev,
-      selectSido: step <= 1 ? '' : prev.selectSido,
-      selectSigungu: step <= 2 ? '' : prev.selectSigungu,
-      selectDongne: ''
+      selectProvince: step <= 1 ? '' : prev.selectProvince,
+      selectCity: step <= 2 ? '' : prev.selectCity,
+      selectTown: ''
     }))
   }
 
@@ -86,7 +80,6 @@ const SelectCity = () => {
       if (currentStep < LAST_STEP) {
         nextStep()
       }
-      console.log(location)
     },
     [mapInfo, nextStep]
   )
@@ -107,41 +100,38 @@ const SelectCity = () => {
       <Spacing size={80}></Spacing>
       <SelectCityStep currentStep={currentStep}>
         <SelectCityStep.Step>
-          <SelectCityStep1
-            onChange={(selectSido) =>
-              handleChange({ selectData: selectSido, key: 'selectSido' })
+          <CityStep
+            selectList={province?.subRegion || []}
+            onChange={(selectProvince) =>
+              handleChange({
+                selectData: selectProvince,
+                key: 'selectProvince'
+              })
             }
-            sidoArr={sido?.subRegion || []}
-            select={mapInfo.selectSido}
+            currentStep={currentStep}
           />
         </SelectCityStep.Step>
         <SelectCityStep.Step>
-          <SelectCityStep2
-            sido={mapInfo.selectSido}
-            onChange={(selectDongne) =>
-              handleChange({
-                selectData: selectDongne,
-                key: 'selectSigungu'
-              })
+          <CityStep
+            selectProvince={mapInfo.selectProvince}
+            selectList={city?.subRegion || []}
+            onChange={(selectCity) =>
+              handleChange({ selectData: selectCity, key: 'selectCity' })
             }
+            currentStep={currentStep}
             onClick={(step) => resetSelected({ step })}
-            sigunguArr={sigungu?.subRegion || []}
-            select={mapInfo.selectSigungu}
           />
         </SelectCityStep.Step>
         <SelectCityStep.Step>
-          <SelectCityStep3
-            sido={mapInfo.selectSido}
-            sigungu={mapInfo.selectSigungu}
-            onChange={(selectDongne) => {
-              handleChange({
-                selectData: selectDongne,
-                key: 'selectDongne'
-              })
-            }}
+          <CityStep
+            selectList={town?.subRegion || []}
+            onChange={(selectTown) =>
+              handleChange({ selectData: selectTown, key: 'selectTown' })
+            }
+            selectProvince={mapInfo.selectProvince}
+            selectCity={mapInfo.selectCity}
+            currentStep={currentStep}
             onClick={(step) => resetSelected({ step })}
-            dongneArr={dongne?.subRegion || []}
-            select={mapInfo.selectDongne}
           />
         </SelectCityStep.Step>
       </SelectCityStep>
