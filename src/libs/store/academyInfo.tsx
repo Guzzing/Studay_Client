@@ -20,11 +20,11 @@ const initialAcademyInfoAtom: AcademyInfoRequest = {
   },
   simpleMemo: {
     kindness: false,
-    facility: false,
-    price: false,
-    management: false,
-    love: false,
-    shttule: false
+    goodFacility: false,
+    cheapFee: false,
+    goodManagement: false,
+    lovelyTeaching: false,
+    shuttleAvailability: false
   }
 }
 

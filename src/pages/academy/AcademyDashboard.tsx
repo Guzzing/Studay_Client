@@ -61,9 +61,12 @@ const AcademyDashboard = () => {
   }
 
   return (
-    <div className={'h-full'}>
+    <div className={'h-full '}>
       <Spacing size={100} />
-      <div className={'flex flex-col items-center relative w-full h-full'}>
+      <div
+        className={
+          'flex flex-col items-center relative w-full h-full overflow-scroll scrollbar-hide'
+        }>
         {data && data?.length > 0 ? (
           <div className={'w-full h-full'}>
             <SelectMyChild data={data} />
@@ -102,7 +105,8 @@ const AcademyDashboard = () => {
                       handleToggle={() =>
                         fetchToggleDashboard(data.dashboardId)
                       }
-                      onClick={() => {
+                      onClick={(e) => {
+                        if (e.target !== e.currentTarget) return
                         navigate(`/academies/${data.dashboardId}`, {
                           state: data.dashboardId
                         })
@@ -110,6 +114,7 @@ const AcademyDashboard = () => {
                     />
                   )
                 })}
+                <Spacing size={180} />
               </div>
             )}
 
