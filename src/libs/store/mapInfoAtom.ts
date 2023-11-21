@@ -3,9 +3,9 @@ import { MapInfoAtomType } from '../../types/selectcity.ts'
 import { InitSelectAcademyType } from '@/components/map/naverMapType.ts'
 
 export const mapInfoAtom = atom<MapInfoAtomType>({
-  selectSido: '',
-  selectSigungu: '',
-  selectDongne: '',
+  selectProvince: '',
+  selectCity: '',
+  selectTown: '',
   latitude: 37.444_916_8,
   longitude: 127.138_868
 })
