@@ -36,18 +36,18 @@ const LoginPage = () => {
       <div className={`h-[20%] flex flex-col justify-around items-center`}>
         <Button
           label={
-            <img src={BUTTON_IMG_LINK.kakao} className={'w-[100%] h-[100%]'} />
+            <img src={BUTTON_IMG_LINK.KAKAO} className={'w-[100%] h-[100%]'} />
           }
           buttonType={'Round-blue-500'}
           width={'LW'}
-          onClick={() => (window.location.href = `${LOGIN_LINK.kakao}`)}
+          onClick={() => (window.location.href = `${LOGIN_LINK.KAKAO}`)}
         />
         <Button
           label={
             <img
-              src={BUTTON_IMG_LINK.google}
+              src={BUTTON_IMG_LINK.GOOGLE}
               className={'w-[100%] h-[100%]'}
-              onClick={() => (window.location.href = `${LOGIN_LINK.google}`)}
+              onClick={() => (window.location.href = `${LOGIN_LINK.GOOGLE}`)}
             />
           }
           buttonType={'Round-blue-500'}
