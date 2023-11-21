@@ -54,7 +54,7 @@ export const getAccessToken = async (
 ): Promise<LoginResponse> => {
   try {
     const res = await request.post(
-      `${variant === 'kakao' ? '/auth/kakao' : '/auth/google'}`,
+      `/auth/${variant}`,
       {},
       {
         headers: {
