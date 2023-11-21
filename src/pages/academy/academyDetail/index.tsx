@@ -3,11 +3,11 @@ import { useQuery } from '@tanstack/react-query'
 import Loading from '@/components/Loading/Loading'
 import Spacing from '@/components/common/spacing/Spacing'
 import { getDetailDashboard } from '@/libs/api/dashboard/DashBoardApi'
+import AcademyDetailClass from '@/pages/academy/academyDetail/AcademyDetailClass'
 import AcademyDetailHeader from '@/pages/academy/academyDetail/AcademyDetailHeader'
 import AcademyDetailMemo from '@/pages/academy/academyDetail/AcademyDetailMemo'
 import AcademyDetailPayment from '@/pages/academy/academyDetail/AcademyDetailPayment'
 import AcademySetting from '@/pages/academy/academyDetail/AcademySetting'
-import AcademyDetailClass from '@/pages/academy/academyDetail/academyDetailClass'
 const AcademyDetail = () => {
   const { state } = useLocation()
   const { data, isSuccess, isLoading } = useQuery({

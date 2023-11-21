@@ -8,6 +8,8 @@ const ScheduleBox = ({
   subElement,
   rightBottomElement,
   handleToggle,
+  handleEdit,
+  handleDelete,
   ...props
 }: ScheduleBoxProps) => {
   return (
@@ -25,8 +27,8 @@ const ScheduleBox = ({
         <div className={'flex justify-between grow-4'}>
           <div className={'subHead-18'}>{mainTitle}</div>
           <div className={'flex cursor-pointer text-black-800 items-center'}>
-            <Icon icon={'Edit'} />
-            <Icon icon={'Close'} />
+            <Icon icon={'Edit'} onClick={handleEdit} />
+            <Icon icon={'Close'} onClick={handleDelete} />
           </div>
         </div>
         <div className={'grow-6'}>

@@ -11,6 +11,7 @@ import Spacing from '@/components/common/spacing/Spacing'
 import { AcademyTypeData } from '@/libs/api/academy/AcademyType'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 import { GetChildrenInfoResponse } from '@/libs/api/children/ChildrenType'
+import { deleteDashboard } from '@/libs/api/dashboard/DashBoardApi'
 import { patchToggleDashboardState } from '@/libs/api/dashboard/DashBoardApi'
 import { getAllDashboards } from '@/libs/api/dashboard/DashBoardApi'
 import { GetAllDashBoardResponse } from '@/libs/api/dashboard/DashBoardType'
@@ -31,6 +32,15 @@ const AcademyDashboard = () => {
       setDashboardData(data)
     }
   }
+  const deleteDashboardInfo = async (dashboardId: number) => {
+    const data = await deleteDashboard(dashboardId)
+    console.log(dashboardId)
+    const newData = dashboardData.filter(
+      (data) => data.dashboardId !== dashboardId
+    )
+    setDashboardData([...newData])
+  }
+
   const fetchToggleDashboard = async (dashboardId: number) => {
     const res = await patchToggleDashboardState(dashboardId)
     dashboardData.map((data) => {
@@ -65,7 +75,7 @@ const AcademyDashboard = () => {
       <Spacing size={100} />
       <div
         className={
-          'flex flex-col items-center relative w-full h-full overflow-scroll scrollbar-hide'
+          'flex flex-col items-center w-full h-full overflow-scroll scrollbar-hide'
         }>
         {data && data?.length > 0 ? (
           <div className={'w-full h-full'}>
@@ -81,7 +91,7 @@ const AcademyDashboard = () => {
             ) : (
               <div
                 className={
-                  'flex flex-col items-center relative w-full gap-[16px] px-[20px]'
+                  'flex flex-col items-center w-full gap-[16px] px-[20px]'
                 }>
                 {dashboardData.map((data, index) => {
                   return (
@@ -105,6 +115,14 @@ const AcademyDashboard = () => {
                       handleToggle={() =>
                         fetchToggleDashboard(data.dashboardId)
                       }
+                      handleDelete={() => {
+                        if (data.isActive) {
+                          alert('다니고 있는 학원은 삭제가 불가능합니다!')
+                        } else {
+                          deleteDashboardInfo(data.dashboardId)
+                          alert('삭제 완료!')
+                        }
+                      }}
                       onClick={(e) => {
                         if (e.target !== e.currentTarget) return
                         navigate(`/academies/${data.dashboardId}`, {
@@ -114,12 +132,11 @@ const AcademyDashboard = () => {
                     />
                   )
                 })}
-                <Spacing size={180} />
+                <Spacing size={250} />
               </div>
             )}
-
             <div
-              className={'absolute bottom-[190px] w-full flex justify-center'}>
+              className={'absolute bottom-[95px] w-full flex justify-center'}>
               <Button
                 buttonType={'Plain-blue'}
                 label={`${child?.nickname} 교육비 보고서 보기`}

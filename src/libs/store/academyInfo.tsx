@@ -6,7 +6,7 @@ import {
   AcademyScheduleType
 } from '@/libs/api/academy/AcademyType'
 
-const initialAcademyInfoAtom: AcademyInfoRequest = {
+export const initialAcademyInfoAtom: AcademyInfoRequest = {
   academyId: 0,
   childId: 0,
   lessonId: 0,
