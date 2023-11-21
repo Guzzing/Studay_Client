@@ -9,8 +9,8 @@ import request from '@/libs/api'
 export const getCode = () => {
   const currentURL = window.location.href
   if (currentURL.includes('access_token')) {
-    const params = new URLSearchParams(currentURL.split('#')[1]) // 변경: '?' 대신 '#'를 사용하여 해시 파트를 추출
-    const accessToken = params.get('access_token') // 변경: 'code' 대신 'access_token' 사용
+    const params = new URLSearchParams(currentURL.split('#')[1])
+    const accessToken = params.get('access_token')
     return { accessToken: accessToken as string, method: 'google' }
   } else {
     const params = new URLSearchParams(currentURL.split('?')[1])
@@ -19,7 +19,6 @@ export const getCode = () => {
   }
 }
 
-// 카카오만!
 export const pushData = () => {
   const data = new URLSearchParams()
   data.append('grant_type', 'authorization_code')
