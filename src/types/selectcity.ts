@@ -1,17 +1,3 @@
-export interface SidoType {
-  sidoArr: string[]
-  select: string
-}
-export interface SigunguType {
-  sigunguArr: string[]
-  select: string
-}
-
-export interface DongneType {
-  dongneArr: string[]
-  select: string
-}
-
 export interface SelectCityStepParam {
   step: number
   selectArr: string[]
@@ -27,9 +13,9 @@ export interface HandleChangeParam {
 }
 
 export interface MapInfoAtomType {
-  selectSido: string
-  selectSigungu: string
-  selectDongne: string
+  selectProvince: string
+  selectCity: string
+  selectTown: string
   latitude: number
   longitude: number
 }
