@@ -144,6 +144,7 @@ const AddPayment = () => {
             fullWidth={true}
             ref={inputRef}
             onChange={(e) => {
+              console.log(e.target.value)
               setPaymentInfo({
                 ...paymentInfo,
                 paymentFee: Number.parseInt(e.target.value, 10)

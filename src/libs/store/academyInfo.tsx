@@ -9,7 +9,7 @@ import {
 const initialAcademyInfoAtom: AcademyInfoRequest = {
   academyId: 0,
   childId: 0,
-  lessonId: 747,
+  lessonId: 0,
   schedules: [],
   paymentInfo: {
     educationFee: 0,

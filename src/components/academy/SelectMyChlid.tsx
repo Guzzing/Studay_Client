@@ -15,9 +15,9 @@ const SelectMyChild = ({ data }: SelectMyChildProps) => {
     setChildrenInfo(data[0])
   }, [])
   return (
-    <div className={'relative'}>
+    <div>
       <button className={'subHead-18'} onClick={() => setToggle(!istoggle)}>
-        <div className={'flex gap-1 items-center justify-center'}>
+        <div className={'pl-[20px] flex gap-1 items-center justify-center'}>
           <label>
             {childInfo.nickname}
             {'의 학원'}

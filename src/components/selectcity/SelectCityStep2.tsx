@@ -41,7 +41,7 @@ const SelectCityStep2 = ({
           <Select
             isPlace={true}
             placeholder={'지역구를 선택해 주세요'}
-            selectType={'Single'}
+            selecttype={'Single'}
             fullWidth={true}
             options={sigunguArr}
             value={select}

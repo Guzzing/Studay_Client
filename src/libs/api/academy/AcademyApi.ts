@@ -2,7 +2,8 @@ import request from '@/libs/api'
 import {
   AcademyInfoRequest,
   SearchAcademiesInfiniteScroll,
-  PostDashboardResponse
+  PostDashboardResponse,
+  AcademyClassResponse
 } from '@/libs/api/academy/AcademyType'
 
 export const getAcademiesSearchResult = async (
@@ -20,4 +21,11 @@ export const postDashboardInfo = async (
 ): Promise<PostDashboardResponse> => {
   const res = await request.post('/dashboards', dashboardInfo)
   return res.data
+}
+
+export const getAcademyClass = async (
+  academyId: number
+): Promise<AcademyClassResponse[]> => {
+  const res = await request.get(`/academies/${academyId}/lessons`)
+  return res.data.lessonInfos
 }
