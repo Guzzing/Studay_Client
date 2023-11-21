@@ -15,8 +15,12 @@ const LoginPage = () => {
     if (getCode()) {
       const req = async () => {
         try {
-          const kakaoToken = await getKaKaoAccessToken(pushData())
-          kakaoToken && (await getAccessToken(kakaoToken))
+          if (getCode().method === 'kakao') {
+            const kakaoToken = await getKaKaoAccessToken(pushData())
+            kakaoToken && (await getAccessToken(kakaoToken, 'kakao'))
+          } else {
+            await getAccessToken(getCode().accessToken as string, 'google')
+          }
         } catch (error) {
           console.error('액세스 토큰 요청 실패:', error)
         }
