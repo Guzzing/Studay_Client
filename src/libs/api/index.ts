@@ -1,5 +1,6 @@
 import axios from 'axios'
-// import { refreshApi } from './autorization/refresh/refreshApi'
+import { logoutApi } from './autorization/logout/LogoutApi'
+import { refreshApi } from './autorization/refresh/refreshApi'
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT,
@@ -13,7 +14,7 @@ request.interceptors.request.use(
     const curAccessToken = localStorage.getItem('token')
     if (curAccessToken) {
       config.headers['Authorization'] = `Bearer ${curAccessToken}`
-    } else console.log('토큰 없음!')
+    } else window.location.href = `/login`
     return config
   },
   (error) => {
@@ -27,23 +28,20 @@ request.interceptors.response.use(
     return res
   },
   async (error) => {
-    // 토큰이 이상할 때!
-    const {
-      // config,
-      response: { status }
-    } = error
-    if (status === 403) {
-      // console.log('토큰이 만료된거같아요!')
-      // const newAccessToken = await refreshApi()
-      // if (newAccessToken.appToken) {
-      //   config.headers.Authorization = `Bearer ${newAccessToken.appToken}`
-      // }
+    if (error.response.status === 403) {
+      try {
+        const getRefreshToken = await refreshApi()
+        const prevRequest = error.config
+        prevRequest.headers.Authorization = `Bearer ${getRefreshToken.appToken}`
+        return request(prevRequest)
+      } catch {
+        alert('로그인이 풀리셨습니다... 로그인을 다시 진행해주세요😁')
+        await logoutApi()
+        throw new Error('failed to request refresh token')
+      }
     } else {
-      console.log('토큰 만료 안 됐어~!')
+      console.log('다른 예외처리 진행!')
     }
-    // async (error) => {
-    //   throw error
-    // }
   }
 )
 
