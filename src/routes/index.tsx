@@ -114,6 +114,7 @@ export const router = createBrowserRouter(
             <>
               <Header headerType={'Logo'} pageTitle={'내 아이 시간표'} />
               <Schedule />
+              <NavigationBar selectIcon={'Timetable'} />
             </>
           ),
           errorElement: <ErrorPage />
