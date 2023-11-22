@@ -41,10 +41,10 @@ const ListRowSelect = forwardRef<HTMLSelectElement, ListRowSelectProps<string>>(
                     {placeholder}
                   </option>
                 )}
-                {options?.map((option, index) => (
+                {options?.map((option, idx) => (
                   <option
-                    value={values?.find((_, index) => index === index)}
-                    key={index}>
+                    value={values?.find((_, index) => index === idx)}
+                    key={idx}>
                     {option}
                   </option>
                 ))}

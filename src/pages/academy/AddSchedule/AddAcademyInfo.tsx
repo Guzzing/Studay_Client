@@ -27,6 +27,28 @@ const AddAcademyInfo = ({
     fetchAcademyInfo(academyInfo.academyId)
   }, [academyInfo.academyId])
 
+  useEffect(() => {
+    if (academyInfo.childId && childrenSelectRef.current) {
+      const optionArray = [...childrenSelectRef.current.options]
+      const indexAry = optionArray.map((option, index) => {
+        return option.value === String(academyInfo.childId) ? index : 0
+      })
+      const idx = indexAry.find((data) => data > 0)
+      if (idx) childrenSelectRef.current.selectedIndex = idx
+    }
+  }, [academyInfo.childId, childrenSelectRef])
+
+  useEffect(() => {
+    if (academyInfo.lessonId && classSelectRef.current) {
+      const optionArray = [...classSelectRef.current.options]
+      const indexAry = optionArray.map((option, index) => {
+        return option.value == String(academyInfo.lessonId) ? index : 0
+      })
+      const idx = indexAry.find((data) => data > 0)
+      if (idx) classSelectRef.current.selectedIndex = idx
+    } else return
+  }, [academyInfo.lessonId, classSelectRef])
+
   return (
     <div className={'w-full flex flex-col items-center gap-[11px] border-b '}>
       <div className={'w-full px-[20px] flex flex-col items-center gap-[11px]'}>

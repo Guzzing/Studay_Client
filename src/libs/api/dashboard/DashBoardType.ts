@@ -28,6 +28,7 @@ export interface GetAllDashBoardResponse {
 }
 
 interface AcademyInfoType {
+  academyId: number
   academyName: string
   contact: string
   fullAddress: string

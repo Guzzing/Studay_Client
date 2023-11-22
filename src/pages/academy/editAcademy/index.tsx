@@ -1,38 +1,76 @@
-import { useEffect } from 'react'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import Button from '@/components/common/button/Button'
 import Spacing from '@/components/common/spacing/Spacing'
-import { postDashboardInfo } from '@/libs/api/academy/AcademyApi'
+import { editAcademyInfo } from '@/libs/api/academy/AcademyApi'
+import { AcademyInfoRequest } from '@/libs/api/academy/AcademyType'
+import { getDetailDashboard } from '@/libs/api/dashboard/DashBoardApi'
+import { GetAllDashBoardResponse } from '@/libs/api/dashboard/DashBoardType'
 import { initialAcademyInfoAtom } from '@/libs/store/academyInfo'
-
 import { academyInfoAtom } from '@/libs/store/academyInfo'
 import AddAcademyInfo from '@/pages/academy/addSchedule/AddAcademyInfo'
 import AddAcademyName from '@/pages/academy/addSchedule/AddAcademyName'
 import AddMemo from '@/pages/academy/addSchedule/AddMemo'
 import AddPayment from '@/pages/academy/addSchedule/AddPayment'
 import AddSchedule from '@/pages/academy/addSchedule/AddSchedule'
-const AddAcademy = () => {
+
+const EditAcademy = () => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
+  const [academyName, setAcademyName] = useState<string>('')
+  // eslint-disable-next-line unicorn/no-null
+  const [data, setData] = useState<GetAllDashBoardResponse | null>(null)
   const childrenSelectRef = useRef<HTMLSelectElement>(null)
   const classSelectRef = useRef<HTMLSelectElement>(null)
   const navigate = useNavigate()
-  const dashboardMutation = useMutation({
-    mutationFn: postDashboardInfo,
+  const dashboardId = useLocation().state as number
+  const fetchDashboardData = async (dashboardId: number) => {
+    if (dashboardId) {
+      const res = await getDetailDashboard(dashboardId)
+      setData(res)
+    } else return
+  }
+  const dashBoardEditMutation = useMutation({
+    mutationFn: ({
+      dashboardId,
+      academyInfo
+    }: {
+      dashboardId: number
+      academyInfo: AcademyInfoRequest
+    }) => editAcademyInfo(dashboardId, academyInfo),
     onSuccess: () => {
       if (childrenSelectRef.current) childrenSelectRef.current.selectedIndex = 0
       if (classSelectRef.current) classSelectRef.current.selectedIndex = 0
       navigate('/academies')
-      alert('성공적으로 업로드!')
+      // alert('성공적으로 업로드!')
     }
   })
+  useEffect(() => {
+    if (data) {
+      setAcademyInfo({
+        academyId: data.academyInfo.academyId,
+        childId: data?.childInfo.childId,
+        lessonId: data.lessonInfo.lessonId,
+        schedules: data?.schedules,
+        paymentInfo: data?.paymentInfo,
+        simpleMemo: data?.simpleMemo
+      })
+      setAcademyName(data.academyInfo.academyName)
+    } else {
+      return
+    }
+  }, [data])
+
+  useEffect(() => {
+    fetchDashboardData(dashboardId)
+  }, [dashboardId])
 
   return (
     <div className={'w-full overflow-scroll relative scrollbar-hide'}>
       <Spacing size={100} />
-      <AddAcademyName />
+      <AddAcademyName fixedAcademyName={academyName} />
       <h2 className={'body-16 text-black-800 px-[24px] mb-[14px]'}>
         {'요일 선택하기'}
       </h2>
@@ -58,7 +96,7 @@ const AddAcademy = () => {
         label={'저장 완료'}
         fullWidth={true}
         onClick={() => {
-          dashboardMutation.mutate(academyInfo)
+          dashBoardEditMutation.mutate({ dashboardId, academyInfo })
           setAcademyInfo({ ...initialAcademyInfoAtom })
         }}
       />
@@ -66,4 +104,4 @@ const AddAcademy = () => {
   )
 }
 
-export default AddAcademy
+export default EditAcademy

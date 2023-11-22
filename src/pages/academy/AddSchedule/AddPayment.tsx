@@ -13,8 +13,13 @@ import { getFormattingDate } from '@/libs/utils/dateParse'
 const AddPayment = () => {
   const selectRef = useRef<HTMLSelectElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [paymentDate, setPaymentDate] = useState(new Date(2023, 11, 10))
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
+  const [paymentDate, setPaymentDate] = useState(
+    academyInfo.paymentInfo.paymentDay
+      ? new Date(academyInfo.paymentInfo.paymentDay)
+      : new Date(2023, 11, 10)
+  )
+
   const [paymentInfo, setPaymentInfo] = useState({
     paymentName: '',
     paymentFee: 0

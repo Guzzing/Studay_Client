@@ -112,6 +112,11 @@ const AcademyDashboard = () => {
                           color={data.isActive ? 'default' : 'disabled'}
                         />
                       }
+                      handleEdit={() => {
+                        navigate(`${data.dashboardId}/edit`, {
+                          state: data.dashboardId
+                        })
+                      }}
                       handleToggle={() =>
                         fetchToggleDashboard(data.dashboardId)
                       }

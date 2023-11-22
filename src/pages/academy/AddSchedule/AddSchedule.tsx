@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useAtom, useSetAtom } from 'jotai'
 import SelectTime from '@/components/academy/SelectTime'
 import Button from '@/components/common/button/Button'
 import Icon from '@/components/common/icon/Icon'
 import SelectWeek from '@/components/common/selectweek/SelectWeek'
 import Spacing from '@/components/common/spacing/Spacing'
-
 import { ClientWeekData, WeekData } from '@/libs/api/academy/AcademyType'
 import { schedulesAtom } from '@/libs/store/academyInfo'
 import { academyInfoAtom, academyTimeFamily } from '@/libs/store/academyInfo'
@@ -14,7 +12,9 @@ import { academyInfoAtom, academyTimeFamily } from '@/libs/store/academyInfo'
 const AddSchedule = () => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
   const [scheduleInfo, setScheduleInfo] = useAtom(schedulesAtom)
-  const [fixedDate, setFixedDate] = useState<number[]>([])
+  const [fixedDate, setFixedDate] = useState<number[]>(
+    academyInfo.schedules.map((data) => data.dayOfWeek)
+  )
   const setTimeInfo = useSetAtom(academyTimeFamily('schedules'))
   const selectRef = useRef<HTMLSelectElement>(null)
 
