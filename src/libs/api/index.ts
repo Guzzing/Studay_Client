@@ -14,7 +14,9 @@ request.interceptors.request.use(
     const curAccessToken = localStorage.getItem('token')
     if (curAccessToken) {
       config.headers['Authorization'] = `Bearer ${curAccessToken}`
-    } else window.location.href = `/login`
+    } else if (!window.location.href.includes('/login')) {
+      window.location.href = '/login'
+    }
     return config
   },
   (error) => {
