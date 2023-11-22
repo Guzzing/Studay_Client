@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BUTTON_IMG_LINK, LOGIN_LINK } from '.'
 import Button from '@/components/common/button/Button'
+import Icon from '@/components/common/icon/Icon'
 import {
   getAccessToken,
   getCode,
@@ -30,7 +31,9 @@ const LoginPage = () => {
   return (
     <div className={'w-full h-full border flex-col flex'}>
       <div className={'h-[80%] w-full flex justify-center items-center'}>
-        <div className={'border'}>{'Logo'}</div>
+        <div>
+          <Icon icon={'Logo'} />
+        </div>
       </div>
       <div className={`h-[20%] flex flex-col justify-around items-center`}>
         <Button
