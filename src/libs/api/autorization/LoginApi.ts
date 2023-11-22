@@ -19,7 +19,6 @@ export const getCode = () => {
   } else return
 }
 
-// 카카오만!
 export const pushData = () => {
   const data = new URLSearchParams()
   data.append('grant_type', 'authorization_code')

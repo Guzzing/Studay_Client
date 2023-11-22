@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '@/components/common/header/Header'
 import Icon from '@/components/common/icon/Icon'
