@@ -26,23 +26,23 @@ const useSearch = () => {
 
   useEffect(() => {
     if (searchData && page === 0) {
+      // 검색어만 바뀌었을때
       setSearchList([...searchData.content])
     } else if (searchData && page > 0) {
+      // 페이지가 바뀌었을때
       setSearchList((prevList) => [...prevList, ...searchData.content])
     } else {
+      // debounceValue가 ''일때
       setSearchList([])
     }
   }, [searchData, page, debounceValue])
-
-  useEffect(() => {
-    console.log(searchList)
-  }, [searchList])
 
   const isLast = searchData?.last || false
   const updatePage = () => {
     setPage(page + 1)
   }
 
+  //검색어가 바뀔때마다 페이지도 0으로 맞춰 api를 호출
   const updateSearchValue = (value: string) => {
     setSearchValue(value)
     setPage(0)
