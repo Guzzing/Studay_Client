@@ -19,7 +19,7 @@ const Schedule = () => {
     toDay: days
   })
   const { data: monthSchedule } = useQuery({
-    queryKey: ['monthSchedule'],
+    queryKey: ['monthSchedule', calenderState.nowYear, calenderState.nowMonth],
     queryFn: () =>
       getMonthScheduleAll({
         year: calenderState.nowYear,
