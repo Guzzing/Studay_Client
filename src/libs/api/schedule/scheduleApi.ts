@@ -4,10 +4,10 @@ import {
   CalendarResponse
 } from '@/libs/api/schedule/scheduleType.ts'
 
-export const getCalendar = async ({
+export const getMonthScheduleAll = async ({
   year,
   month
 }: CalendarPropsType): Promise<CalendarResponse> => {
-  const res = await request.get(`/calendar/marker?year=${year}&month=${month}`)
+  const res = await request.get(`/calendar/mark?year=${year}&month=${month}`)
   return res.data
 }

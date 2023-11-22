@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import { CalenderType } from '../../types/date.ts'
 import Calender from '@/components/common/calender/Calender.tsx'
 import Icon from '@/components/common/icon/Icon.tsx'
 import ScheduleBox from '@/components/common/scheduleBox/ScheduleBox.tsx'
 import Spacing from '@/components/common/spacing/Spacing.tsx'
+import { getMonthScheduleAll } from '@/libs/api/schedule/scheduleApi.ts'
 import { defaultDate } from '@/libs/utils/date.ts'
 
 const Schedule = () => {
@@ -16,6 +18,19 @@ const Schedule = () => {
     nowDays: defaultDays,
     toDay: days
   })
+  const { data: monthSchedule } = useQuery({
+    queryKey: ['monthSchedule'],
+    queryFn: () =>
+      getMonthScheduleAll({
+        year: calenderState.nowYear,
+        month: calenderState.nowMonth
+      })
+  })
+
+  //지울코드
+  useEffect(() => {
+    console.log(calenderState)
+  }, [calenderState])
 
   return (
     <div className={'flex flex-col w-full h-full'}>
@@ -25,17 +40,8 @@ const Schedule = () => {
           onClick={() => console.log('asd')}
           calenderState={calenderState}
           setCalenderState={setCalenderState}
-          existenceDays={[1, 3, 5, 15, 21, 28]}
-          holidays={[
-            {
-              date: '2023-05-01',
-              names: ['Labor Day']
-            },
-            {
-              date: '2023-05-15',
-              names: ['National Holiday']
-            }
-          ]}
+          existenceDays={monthSchedule?.existenceDays || []}
+          holidays={monthSchedule?.holidays || []}
         />
       </div>
       <div className={'flex flex-col overflow-y-auto h-1/3'}>
