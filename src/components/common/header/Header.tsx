@@ -5,8 +5,7 @@ const Header = ({
   headerType,
   pageTitle = 'pageTitle',
   backUrl = '',
-  isSkip = false,
-  skip = '/',
+  skip = '',
   onClick
 }: HeaderProps) => {
   const navigate = useNavigate()
@@ -29,7 +28,7 @@ const Header = ({
             {pageTitle && (
               <span className={'ml-[30px] subHead-18'}>{pageTitle}</span>
             )}
-            {isSkip && (
+            {skip && (
               <span
                 className={'cursor-pointer w-full text-right'}
                 onClick={() => navigate(skip)}>

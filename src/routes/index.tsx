@@ -79,12 +79,7 @@ export const router = createBrowserRouter(
           path: 'selectcity',
           element: (
             <>
-              <Header
-                headerType={'BackPush'}
-                pageTitle={''}
-                isSkip={true}
-                skip={'/map'}
-              />
+              <Header headerType={'BackPush'} pageTitle={''} skip={'/map'} />
               <SelectCity />
             </>
           ),
