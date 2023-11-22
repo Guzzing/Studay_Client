@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback } from 'react'
 import { getDays } from '../../../libs/utils/date.ts'
 import { DaysInfo, DayType, MonthType } from '../../../types/date.ts'
 import CalenderProps from './CalenderType.ts'
@@ -19,9 +19,6 @@ const Calender = ({
 
   const handleDayClick = useCallback(
     (dayInfo: DaysInfo) => {
-      console.log(dayInfo.month, nowMonth)
-      console.log(dayInfo)
-
       if (dayInfo.month === nowMonth) {
         setCalenderState({
           ...calenderState,
@@ -80,10 +77,6 @@ const Calender = ({
       toDay: 1 as DayType
     })
   }
-
-  useEffect(() => {
-    console.log('여기서 api콜을 해주세요~')
-  }, [calenderState])
 
   return (
     <div
