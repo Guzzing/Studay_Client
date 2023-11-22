@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Icon from '../icon/Icon'
 const Header = ({
   headerType,
-  pageTitle = 'pageTitle',
+  pageTitle,
   backUrl = '',
   onClick
 }: HeaderProps) => {

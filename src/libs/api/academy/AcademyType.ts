@@ -17,11 +17,11 @@ export type AcademyInfoRequest = {
   }
   simpleMemo: {
     kindness: boolean
-    facility: boolean
-    price: boolean
-    management: boolean
-    love: boolean
-    shttule: boolean
+    goodFacility: boolean
+    cheapFee: boolean
+    goodManagement: boolean
+    lovelyTeaching: boolean
+    shuttleAvailability: boolean
   }
 }
 
@@ -33,14 +33,14 @@ export interface PostDashboardResponse {
 
 export const AcademyMemo = [
   { serverData: 'kindness', clientData: '선생님이 친절해요 👨‍🏫' },
-  { serverData: 'facility', clientData: '시설이 좋아요 🏫' },
+  { serverData: 'goodFacility', clientData: '시설이 좋아요 🏫' },
   {
-    serverData: 'price',
+    serverData: 'cheapFee',
     clientData: '교육비가 저렴해요 💰'
   },
-  { serverData: 'management', clientData: '교육 관리가 철저해요 📝' },
-  { serverData: 'love', clientData: '학생에 대한 애정 가득 💓' },
-  { serverData: 'shttule', clientData: '등하원이 편리해요 🚌' }
+  { serverData: 'goodManagement', clientData: '교육 관리가 철저해요 📝' },
+  { serverData: 'lovelyTeaching', clientData: '학생에 대한 애정 가득 💓' },
+  { serverData: 'shuttleAvailability', clientData: '등하원이 편리해요 🚌' }
 ] as const
 
 export type AcademyMemoType = (typeof AcademyMemo)[number]

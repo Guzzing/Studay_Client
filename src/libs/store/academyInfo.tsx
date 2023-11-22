@@ -6,7 +6,7 @@ import {
   AcademyScheduleType
 } from '@/libs/api/academy/AcademyType'
 
-const initialAcademyInfoAtom: AcademyInfoRequest = {
+export const initialAcademyInfoAtom: AcademyInfoRequest = {
   academyId: 0,
   childId: 0,
   lessonId: 0,
@@ -20,11 +20,11 @@ const initialAcademyInfoAtom: AcademyInfoRequest = {
   },
   simpleMemo: {
     kindness: false,
-    facility: false,
-    price: false,
-    management: false,
-    love: false,
-    shttule: false
+    goodFacility: false,
+    cheapFee: false,
+    goodManagement: false,
+    lovelyTeaching: false,
+    shuttleAvailability: false
   }
 }
 

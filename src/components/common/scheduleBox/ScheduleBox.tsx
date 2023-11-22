@@ -8,6 +8,8 @@ const ScheduleBox = ({
   subElement,
   rightBottomElement,
   handleToggle,
+  handleEdit,
+  handleDelete,
   ...props
 }: ScheduleBoxProps) => {
   return (
@@ -20,14 +22,13 @@ const ScheduleBox = ({
             ? 'w-[345px] h-[142px] bg-white-0'
             : 'w-[345px] h-[142px] bg-gray-200'
           : ''
-      } shadow-md pt-[22px] pb-[20px] px-[24px] rounded-[20px] font-nsk`}
-      {...props}>
-      <div className={'relative w-full h-full flex-col'}>
+      } shadow-md pt-[22px] pb-[20px] px-[24px] rounded-[20px] font-nsk`}>
+      <div className={'relative w-full h-full flex-col'} {...props}>
         <div className={'flex justify-between grow-4'}>
           <div className={'subHead-18'}>{mainTitle}</div>
           <div className={'flex cursor-pointer text-black-800 items-center'}>
-            <Icon icon={'Edit'} />
-            <Icon icon={'Close'} />
+            <Icon icon={'Edit'} onClick={handleEdit} />
+            <Icon icon={'Close'} onClick={handleDelete} />
           </div>
         </div>
         <div className={'grow-6'}>
@@ -54,7 +55,7 @@ const ScheduleBox = ({
               <div
                 className={`relative w-[42px] h-[20px] rounded-full ${
                   isRegister ? 'bg-blue-500' : 'bg-white-200'
-                } cursor-pointer`}
+                } cursor-pointer `}
                 onClick={handleToggle}>
                 <div
                   className={`absolute ${
