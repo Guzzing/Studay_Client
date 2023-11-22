@@ -12,20 +12,21 @@ export const getCode = () => {
     const params = new URLSearchParams(currentURL.split('#')[1])
     const accessToken = params.get('access_token')
     return { accessToken: accessToken as string, method: 'google' }
-  } else {
+  } else if (currentURL.includes('code')) {
     const params = new URLSearchParams(currentURL.split('?')[1])
     const code = params.get('code')
     return { code: code as string, method: 'kakao' }
-  }
+  } else return
 }
 
+// 카카오만!
 export const pushData = () => {
   const data = new URLSearchParams()
   data.append('grant_type', 'authorization_code')
   data.append('client_id', VITE_KAKAO_CLIENT_ID)
   data.append('redirect_uri', VITE_REDIRECT_URL)
 
-  data.append('code', getCode().code as string)
+  data.append('code', getCode()?.code as string)
   data.append('client_secret', VITE_KAKAO_CLIENT_SECRET_KEY)
 
   return data

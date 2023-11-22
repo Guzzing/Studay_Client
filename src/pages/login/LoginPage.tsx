@@ -12,21 +12,20 @@ import {
 const LoginPage = () => {
   const navigate = useNavigate()
   useEffect(() => {
-    if (getCode()) {
-      const req = async () => {
-        try {
-          if (getCode().method === 'kakao') {
-            const kakaoToken = await getKaKaoAccessToken(pushData())
-            kakaoToken && (await getAccessToken(kakaoToken, 'kakao'))
-          } else {
-            await getAccessToken(getCode().accessToken as string, 'google')
-          }
-        } catch (error) {
-          console.error('액세스 토큰 요청 실패:', error)
+    const req = async () => {
+      console.log('req실행!')
+      try {
+        if (getCode()?.method === 'kakao') {
+          const kakaoToken = await getKaKaoAccessToken(pushData())
+          kakaoToken && (await getAccessToken(kakaoToken, 'kakao'))
+        } else {
+          await getAccessToken(getCode()?.accessToken as string, 'google')
         }
+      } catch (error) {
+        console.error('액세스 토큰 요청 실패:', error)
       }
-      req()
     }
+    getCode() && req()
   }, [navigate])
   return (
     <div className={'w-full h-full border flex-col flex'}>
