@@ -1,5 +1,5 @@
 import type { SelectProps } from './SelectType'
-import { forwardRef, useState, ChangeEvent } from 'react'
+import { forwardRef, useState } from 'react'
 import Icon from '../../icon/Icon'
 const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
   (
@@ -14,7 +14,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
       placeholder,
       onChange,
       ...props
-    }: SelectProps,
+    }: SelectProps<string>,
     ref
   ) => {
     const [boxSelectedValue, setBoxSelectedValue] = useState<boolean>(false)
