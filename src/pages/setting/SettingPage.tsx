@@ -8,12 +8,6 @@ import { logoutApi } from '@/libs/api/autorization/logout/LogoutApi'
 
 const SettingPage = () => {
   const navigate = useNavigate()
-  useEffect(() => {
-    if (localStorage.getItem('token') === null) {
-      alert('로그인이 안 돼 있어서 로그인 페이지로 이동합니다!')
-      navigate('/login')
-    }
-  }, [])
   return (
     <>
       <Header
