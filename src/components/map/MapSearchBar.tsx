@@ -7,7 +7,7 @@ import useSearch from '@/libs/hooks/useSearch.ts'
 
 const MapSearchBar = () => {
   const navigate = useNavigate()
-  const [setSearchValue, isLast, updatePage, searchList] = useSearch()
+  const [updateSearchValue, isLast, updatePage, searchList] = useSearch()
 
   const { ref, inView } = useInView({
     threshold: 1
@@ -37,7 +37,7 @@ const MapSearchBar = () => {
           fullWidth={true}
           height={'53'}
           onChange={(e) => {
-            setSearchValue(e.target.value)
+            updateSearchValue(e.target.value)
           }}
         />
         <div
