@@ -28,7 +28,6 @@ const SelectTime = ({ isEdit }: { isEdit?: boolean }) => {
     setScheduleInfo({
       ...scheduleInfo,
       startTime: time.toTimeString(),
-      // eslint-disable-next-line unicorn/no-null
       endTime: null
     })
     setIsSelected(true)
@@ -38,7 +37,6 @@ const SelectTime = ({ isEdit }: { isEdit?: boolean }) => {
     if (scheduleInfo.endTime === '' && scheduleInfo.startTime === '') {
       setStartTime(setHours(new Date(0), 0))
       setIsSelected(false)
-      // eslint-disable-next-line unicorn/no-null
       setEndTime(null)
     }
   }, [scheduleInfo])

@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import ko from 'date-fns/locale/ko'
 import { useAtom } from 'jotai'

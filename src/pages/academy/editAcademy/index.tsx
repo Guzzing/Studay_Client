@@ -11,16 +11,16 @@ import { getDetailDashboard } from '@/libs/api/dashboard/DashBoardApi'
 import { GetAllDashBoardResponse } from '@/libs/api/dashboard/DashBoardType'
 import { initialAcademyInfoAtom } from '@/libs/store/academyInfo'
 import { academyInfoAtom } from '@/libs/store/academyInfo'
+import { childAtom } from '@/libs/store/childInfoAtom'
 import AddAcademyInfo from '@/pages/academy/addSchedule/AddAcademyInfo'
 import AddAcademyName from '@/pages/academy/addSchedule/AddAcademyName'
 import AddMemo from '@/pages/academy/addSchedule/AddMemo'
 import AddPayment from '@/pages/academy/addSchedule/AddPayment'
 import AddSchedule from '@/pages/academy/addSchedule/AddSchedule'
-
 const EditAcademy = () => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
+  const [childInfo, setChildrenInfo] = useAtom(childAtom)
   const [academyName, setAcademyName] = useState<string>('')
-  // eslint-disable-next-line unicorn/no-null
   const [data, setData] = useState<GetAllDashBoardResponse | null>(null)
   const childrenSelectRef = useRef<HTMLSelectElement>(null)
   const classSelectRef = useRef<HTMLSelectElement>(null)
@@ -44,7 +44,7 @@ const EditAcademy = () => {
       if (childrenSelectRef.current) childrenSelectRef.current.selectedIndex = 0
       if (classSelectRef.current) classSelectRef.current.selectedIndex = 0
       navigate('/academies')
-      // alert('성공적으로 업로드!')
+      alert('성공적으로 수정 완료!')
     }
   })
   useEffect(() => {
@@ -97,6 +97,10 @@ const EditAcademy = () => {
         fullWidth={true}
         onClick={() => {
           dashBoardEditMutation.mutate({ dashboardId, academyInfo })
+          setChildrenInfo({
+            ...childInfo,
+            childId: academyInfo.childId
+          })
           setAcademyInfo({ ...initialAcademyInfoAtom })
         }}
       />
