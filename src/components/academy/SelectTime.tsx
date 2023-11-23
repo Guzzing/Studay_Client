@@ -6,9 +6,19 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { useAtom } from 'jotai'
 import CustomTimePicker from '@/components/academy/CustomTimePicker'
 import { schedulesAtom } from '@/libs/store/academyInfo'
-const SelectTime = () => {
-  const [startTime, setStartTime] = useState(setHours(new Date(0), 0))
+const SelectTime = ({ isEdit }: { isEdit?: boolean }) => {
+  const [startTime, setStartTime] = useState(setHours(new Date(0), 6))
   const [endTime, setEndTime] = useState<Date | null>()
+
+  const autoCalculateTime = (date: Date) => {
+    const newDate = new Date(date)
+    newDate.setHours(newDate.getHours() + 2)
+    setEndTime(newDate)
+  }
+  useEffect(() => {
+    autoCalculateTime(startTime)
+  }, [startTime])
+
   const [isSelected, setIsSelected] = useState(false)
   const [scheduleInfo, setScheduleInfo] = useAtom(schedulesAtom)
 
@@ -18,7 +28,6 @@ const SelectTime = () => {
     setScheduleInfo({
       ...scheduleInfo,
       startTime: time.toTimeString(),
-      // eslint-disable-next-line unicorn/no-null
       endTime: null
     })
     setIsSelected(true)
@@ -28,7 +37,6 @@ const SelectTime = () => {
     if (scheduleInfo.endTime === '' && scheduleInfo.startTime === '') {
       setStartTime(setHours(new Date(0), 0))
       setIsSelected(false)
-      // eslint-disable-next-line unicorn/no-null
       setEndTime(null)
     }
   }, [scheduleInfo])
@@ -45,13 +53,16 @@ const SelectTime = () => {
             selected={startTime}
             locale={'ko'}
             onChange={onSelect}
+            disabled={isEdit ? true : false}
             showTimeSelect
             showTimeSelectOnly
             timeIntervals={30}
             minTime={setHours(new Date(0), 6)}
             maxTime={setHours(new Date(0), 22)}
             dateFormat={`aa h시 mm분`}
-            customInput={<CustomTimePicker value={''} />}
+            customInput={
+              <CustomTimePicker value={'선택해주세요'} disabled={isEdit} />
+            }
           />
         </div>
         <div className={'w-full h-[1px] bg-blue-350'}></div>
@@ -78,7 +89,12 @@ const SelectTime = () => {
               excludeTimes={[startTime]}
               dateFormat={'aa h시 mm분'}
               placeholderText={'종료 시간'}
-              customInput={<CustomTimePicker value={''} />}
+              customInput={
+                <CustomTimePicker
+                  disabled={isSelected}
+                  value={'종료 시간 선택'}
+                />
+              }
             />
           </div>
         </div>

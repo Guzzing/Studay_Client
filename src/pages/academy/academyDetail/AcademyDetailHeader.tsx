@@ -23,8 +23,8 @@ const AcademyDetailHeader = ({ data }: { data: GetAllDashBoardResponse }) => {
             </div>
           </div>
           <div className={'w-full mb-[20px]'}>
-            {data?.schedules.map((data) => (
-              <div className={'flex flex-row items-center gap-2'}>
+            {data?.schedules.map((data, index) => (
+              <div className={'flex flex-row items-center gap-2'} key={index}>
                 <div className={'body-14'}>
                   {'매주 '}
                   {getWeekday([data])}

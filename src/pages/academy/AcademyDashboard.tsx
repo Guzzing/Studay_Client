@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useAtom } from 'jotai'
 import Loading from '@/components/Loading/Loading'
 import SelectMyChild from '@/components/academy/SelectMyChlid'
 import Button from '@/components/common/button/Button'
@@ -10,14 +11,14 @@ import ScheduleBox from '@/components/common/scheduleBox/ScheduleBox'
 import Spacing from '@/components/common/spacing/Spacing'
 import { AcademyTypeData } from '@/libs/api/academy/AcademyType'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
-import { GetChildrenInfoResponse } from '@/libs/api/children/ChildrenType'
 import { deleteDashboard } from '@/libs/api/dashboard/DashBoardApi'
 import { patchToggleDashboardState } from '@/libs/api/dashboard/DashBoardApi'
 import { getAllDashboards } from '@/libs/api/dashboard/DashBoardApi'
 import { GetAllDashBoardResponse } from '@/libs/api/dashboard/DashBoardType'
+import { childAtom } from '@/libs/store/childInfoAtom'
 import { getWeekday } from '@/libs/utils/weekParse'
 const AcademyDashboard = () => {
-  const [child, setChild] = useState<GetChildrenInfoResponse>()
+  const [childInfo, setChildrenInfo] = useAtom(childAtom)
   const [dashboardData, setDashboardData] = useState<GetAllDashBoardResponse[]>(
     []
   )
@@ -27,8 +28,8 @@ const AcademyDashboard = () => {
     queryFn: () => getChildrenInfo()
   })
   const fetchAllDashboard = async () => {
-    if (child) {
-      const data = await getAllDashboards(child.childId)
+    if (childInfo) {
+      const data = await getAllDashboards(childInfo.childId)
       setDashboardData(data)
     }
   }
@@ -59,12 +60,12 @@ const AcademyDashboard = () => {
   }
 
   useEffect(() => {
-    if (isSuccess) setChild(data[0])
+    if (isSuccess) setChildrenInfo(data[0])
   }, [data])
 
   useEffect(() => {
     fetchAllDashboard()
-  }, [child])
+  }, [childInfo])
 
   if (isLoading) {
     return <Loading />
@@ -112,6 +113,11 @@ const AcademyDashboard = () => {
                           color={data.isActive ? 'default' : 'disabled'}
                         />
                       }
+                      handleEdit={() => {
+                        navigate(`${data.dashboardId}/edit`, {
+                          state: data.dashboardId
+                        })
+                      }}
                       handleToggle={() =>
                         fetchToggleDashboard(data.dashboardId)
                       }
@@ -139,7 +145,7 @@ const AcademyDashboard = () => {
               className={'absolute bottom-[95px] w-full flex justify-center'}>
               <Button
                 buttonType={'Plain-blue'}
-                label={`${child?.nickname} 교육비 보고서 보기`}
+                label={`${childInfo?.nickname} 교육비 보고서 보기`}
               />
             </div>
           </div>
