@@ -23,40 +23,25 @@ interface NaverMapProps {
   longitude: number
   academyList: Academy[]
   setLocation: ({ latitude, longitude }: SetLocationProps) => void
-  searchAcademy: number //나중에 제외해야합니다.
 }
 
 const NaverMap = ({
   latitude,
   longitude,
   academyList,
-  setLocation,
-  searchAcademy
+  setLocation
 }: NaverMapProps) => {
   const mapRef = useRef<naver.maps.Map | null>(null)
   const [selectAcademy, setSelectAcademy] = useAtom(selectAcademyAtom)
   const [isNewLocation, setIsNewLocation] = useState(false)
 
-  useEffect(() => {
-    if (searchAcademy > -1) {
-      setSelectAcademy((prev) => ({
-        ...prev,
-        isBottomSheet: true
-      }))
-      console.log(selectAcademy)
-    }
-  }, [searchAcademy])
-
   const { data: detailAcademy } = useQuery({
     queryKey: ['academy', selectAcademy],
     queryFn: () =>
       getAcademyDetail({
-        academyId:
-          selectAcademy.academy.academyId > -1
-            ? selectAcademy.academy.academyId
-            : searchAcademy
+        academyId: selectAcademy.academy.academyId
       }),
-    enabled: selectAcademy.academy.academyId > -1 || searchAcademy > -1
+    enabled: selectAcademy.academy.academyId > -1
   })
 
   const currentLocation = useCallback(() => {
