@@ -25,7 +25,6 @@ const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
   )
 
   useEffect(() => {
-    console.log(navigationState)
     setNavigationState((prevState) =>
       prevState.map((item) => ({
         ...item,

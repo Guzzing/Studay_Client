@@ -74,7 +74,7 @@ const EditAcademy = () => {
       <h2 className={'body-16 text-black-800 px-[24px] mb-[14px]'}>
         {'요일 선택하기'}
       </h2>
-      <AddSchedule />
+      <AddSchedule isEdit={true} />
       <h2 className={'body-16 text-black-800 px-[24px] my-[14px]'}>
         {'학원 정보 입력'}
       </h2>
