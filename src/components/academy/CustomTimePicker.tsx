@@ -3,14 +3,30 @@ import cn from '@/libs/utils/cn'
 
 type CustomTimePickerProps = {
   onClick?: () => void
+  disabled?: boolean
   value: string
 }
 
 const CustomTimePicker = forwardRef<HTMLButtonElement, CustomTimePickerProps>(
-  ({ onClick, value }, ref) => {
+  ({ onClick, value, disabled }, ref) => {
     return (
       <label className={'w-[66px]'}>
-        {value.length > 0 ? (
+        {disabled ? (
+          <button
+            onClick={onClick}
+            ref={ref}
+            className={cn(
+              'rounded-[10px] w-fit h-[28px] px-[5px] bg-gray-500',
+              'example-custom-input'
+            )}>
+            <div
+              className={
+                'caption-13 text-white-0 flex justify-center items-baseline text-center'
+              }>
+              {'선택 불가'}
+            </div>
+          </button>
+        ) : (
           <button
             onClick={onClick}
             ref={ref}
@@ -23,21 +39,6 @@ const CustomTimePicker = forwardRef<HTMLButtonElement, CustomTimePickerProps>(
                 'caption-13 text-white-0 flex justify-center items-baseline text-center'
               }>
               {value}
-            </div>
-          </button>
-        ) : (
-          <button
-            onClick={onClick}
-            ref={ref}
-            className={cn(
-              'rounded-[10px] w-fit h-[28px] px-[5px] bg-gray-500',
-              'example-custom-input'
-            )}>
-            <div
-              className={
-                'caption-13 text-white-0 flex justify-center items-baseline text-center'
-              }>
-              {'종료 시간 선택'}
             </div>
           </button>
         )}

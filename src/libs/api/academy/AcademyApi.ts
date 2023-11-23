@@ -29,3 +29,11 @@ export const getAcademyClass = async (
   const res = await request.get(`/academies/${academyId}/lessons`)
   return res.data.lessonInfos
 }
+
+export const editAcademyInfo = async (
+  dashboardId: number,
+  dashboardInfo: AcademyInfoRequest
+): Promise<PostDashboardResponse> => {
+  const res = await request.put(`/dashboards/${dashboardId}`, dashboardInfo)
+  return res.data
+}

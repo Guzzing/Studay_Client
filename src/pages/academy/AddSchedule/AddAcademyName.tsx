@@ -9,12 +9,16 @@ import { SearchAcademiesResponse } from '@/libs/api/mapapi/mapApiType.ts'
 import { useDebounce } from '@/libs/hooks/useDebounce'
 import { academyInfoAtom } from '@/libs/store/academyInfo'
 
-const AddAcademyName = () => {
+const AddAcademyName = ({
+  fixedAcademyName
+}: {
+  fixedAcademyName?: string
+}) => {
   const { ref, inView } = useInView({
     threshold: 1
   })
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
-  const [academyName, setAcademyName] = useState('학원 등록하기')
+  const [academyName, setAcademyName] = useState<string>('학원 등록하기')
   const [searchValue, setSearchValue] = useState('')
   const [isModalOpen, setModalOpen] = useState(false)
   const [page, setPage] = useState(0)
@@ -72,11 +76,12 @@ const AddAcademyName = () => {
   return (
     <div className={'flex flex-col items-center px-[20px]'}>
       <button
+        disabled={academyInfo.academyId ? true : false}
         className={
           'w-full h-[52px] rounded-[10px] text-left px-[20px] border border-blue-350 font-nsk text-gray-600 bg-white-200 body-18 placeholder:text-gray-600 outline-none'
         }
         onClick={() => setModalOpen(!isModalOpen)}>
-        {academyName}
+        {fixedAcademyName ? fixedAcademyName : academyName}
       </button>
       <div
         className={
