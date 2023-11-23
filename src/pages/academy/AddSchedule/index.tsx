@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
@@ -28,6 +27,9 @@ const AddAcademy = () => {
       alert('성공적으로 업로드!')
     }
   })
+  useEffect(() => {
+    setAcademyInfo({ ...initialAcademyInfoAtom })
+  }, [])
 
   return (
     <div className={'w-full overflow-scroll relative scrollbar-hide'}>
