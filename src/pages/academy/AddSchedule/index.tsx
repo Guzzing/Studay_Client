@@ -3,16 +3,17 @@ import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
-import AddSchedule from './AddSchedule'
 import Button from '@/components/common/button/Button'
 import Spacing from '@/components/common/spacing/Spacing'
 import { postDashboardInfo } from '@/libs/api/academy/AcademyApi'
+import { initialAcademyInfoAtom } from '@/libs/store/academyInfo'
 
 import { academyInfoAtom } from '@/libs/store/academyInfo'
-import AddAcademyInfo from '@/pages/academy/AddSchedule/AddAcademyInfo'
-import AddAcademyName from '@/pages/academy/AddSchedule/AddAcademyName'
-import AddMemo from '@/pages/academy/AddSchedule/AddMemo'
-import AddPayment from '@/pages/academy/AddSchedule/AddPayment'
+import AddAcademyInfo from '@/pages/academy/addSchedule/AddAcademyInfo'
+import AddAcademyName from '@/pages/academy/addSchedule/AddAcademyName'
+import AddMemo from '@/pages/academy/addSchedule/AddMemo'
+import AddPayment from '@/pages/academy/addSchedule/AddPayment'
+import AddSchedule from '@/pages/academy/addSchedule/AddSchedule'
 const AddAcademy = () => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
   const childrenSelectRef = useRef<HTMLSelectElement>(null)
@@ -59,7 +60,10 @@ const AddAcademy = () => {
         buttonType={'Square'}
         label={'저장 완료'}
         fullWidth={true}
-        onClick={() => dashboardMutation.mutate(academyInfo)}
+        onClick={() => {
+          dashboardMutation.mutate(academyInfo)
+          setAcademyInfo({ ...initialAcademyInfoAtom })
+        }}
       />
     </div>
   )

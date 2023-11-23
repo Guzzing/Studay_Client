@@ -17,11 +17,11 @@ export type AcademyInfoRequest = {
   }
   simpleMemo: {
     kindness: boolean
-    facility: boolean
-    price: boolean
-    management: boolean
-    love: boolean
-    shttule: boolean
+    goodFacility: boolean
+    cheapFee: boolean
+    goodManagement: boolean
+    lovelyTeaching: boolean
+    shuttleAvailability: boolean
   }
 }
 
@@ -33,14 +33,14 @@ export interface PostDashboardResponse {
 
 export const AcademyMemo = [
   { serverData: 'kindness', clientData: '선생님이 친절해요 👨‍🏫' },
-  { serverData: 'facility', clientData: '시설이 좋아요 🏫' },
+  { serverData: 'goodFacility', clientData: '시설이 좋아요 🏫' },
   {
-    serverData: 'price',
+    serverData: 'cheapFee',
     clientData: '교육비가 저렴해요 💰'
   },
-  { serverData: 'management', clientData: '교육 관리가 철저해요 📝' },
-  { serverData: 'love', clientData: '학생에 대한 애정 가득 💓' },
-  { serverData: 'shttule', clientData: '등하원이 편리해요 🚌' }
+  { serverData: 'goodManagement', clientData: '교육 관리가 철저해요 📝' },
+  { serverData: 'lovelyTeaching', clientData: '학생에 대한 애정 가득 💓' },
+  { serverData: 'shuttleAvailability', clientData: '등하원이 편리해요 🚌' }
 ] as const
 
 export type AcademyMemoType = (typeof AcademyMemo)[number]
@@ -113,4 +113,48 @@ export interface SearchAcademiesInfiniteScroll {
   last: boolean
   numberOfElements: number
   empty: boolean
+}
+
+export interface AcademyClassResponse {
+  lessonId: 746
+  subject: string
+}
+
+export type ServerAcademyType =
+  | '예능(대)'
+  | '국제화'
+  | '입시, 검정 및 보습'
+  | '직업기술'
+  | '종합(대)'
+  | '독서실'
+  | '기예(대)'
+  | '기타(대)'
+  | '인문사회(대)'
+  | '정보'
+
+export type ClientAcademyType =
+  | '예능'
+  | '국제화'
+  | '입시'
+  | '직업기술'
+  | '종합'
+  | '독서실'
+  | '기예'
+  | '기타'
+  | '인문사회'
+  | '정보'
+
+export type AcademyType = Record<ServerAcademyType, ClientAcademyType>
+
+export const AcademyTypeData: AcademyType = {
+  '예능(대)': '예능',
+  국제화: '국제화',
+  '입시, 검정 및 보습': '입시',
+  직업기술: '직업기술',
+  '종합(대)': '종합',
+  독서실: '독서실',
+  '기예(대)': '기예',
+  '기타(대)': '기타',
+  '인문사회(대)': '인문사회',
+  정보: '정보'
 }

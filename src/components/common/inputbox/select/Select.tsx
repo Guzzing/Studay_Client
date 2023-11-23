@@ -1,5 +1,5 @@
 import type { SelectProps } from './SelectType'
-import { forwardRef, useState, ChangeEvent } from 'react'
+import { forwardRef, useState } from 'react'
 import Icon from '../../icon/Icon'
 const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
   (
@@ -14,7 +14,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
       placeholder,
       onChange,
       ...props
-    }: SelectProps,
+    }: SelectProps<string>,
     ref
   ) => {
     const [boxSelectedValue, setBoxSelectedValue] = useState<boolean>(false)
@@ -22,9 +22,6 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
       options?.[0] || ''
     )
 
-    const handleChangeEvent = (e: ChangeEvent<HTMLSelectElement>) => {
-      setSelectedOption(e.target.value)
-    }
     return selecttype === 'Single' ? (
       <div
         className={`relative ${
@@ -37,7 +34,12 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
           className={`w-full h-full font-nsk body-18 px-[20px] border border-blue-350 rounded-[10px] outline-none bg-white-200
       text-gray-800 appearance-none cursor-pointer`}
           value={selectedOption as string}
-          onChange={handleChangeEvent}
+          onChange={(e) => {
+            setSelectedOption(e.target.value)
+            if (onChange) {
+              onChange(e)
+            }
+          }}
           {...props}>
           {placeholder && (
             <option value={''} key={'default'}>

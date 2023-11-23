@@ -1,6 +1,5 @@
 import type { InputProps } from './InputType'
 import { forwardRef, useState } from 'react'
-import { ChangeEvent } from 'react'
 import Icon from '../../icon/Icon'
 import { validate } from '@/pages/onboarding/validate'
 
@@ -33,7 +32,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               ? 'border border-red-600'
               : field === 'nickname' && !validate('nickname', inputValue)
               ? 'border border-red-600'
-              : 'border border-blue-500'
+              : 'border border-blue-350'
           }  px-[20px] font-nsk text-black-800 bg-white-200 body-18 placeholder:text-gray-600 outline-none`}
           value={inputValue}
           style={{ width: width, height: height }}
