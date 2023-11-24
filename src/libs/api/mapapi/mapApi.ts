@@ -1,42 +1,46 @@
 import request from '@/libs/api'
 import {
   AcademyResponse,
-  BeopjungdongResponse,
+  CityResponse,
   DetailAcademyResponse,
-  DongneResponse,
   GetAcademyDetailProps,
   GetAcademysParams,
-  GetDongneParam,
   GetLocationParam,
+  GetTownParam,
   LocationResponse,
-  SigunguResponse
+  ProvinceResponse,
+  TownResponse
 } from '@/libs/api/mapapi/mapApiType.ts'
 
-export const getBeopjungdong = async (): Promise<BeopjungdongResponse> => {
+export const getProvince = async (): Promise<ProvinceResponse> => {
   const res = await request.get('/regions/beopjungdong')
   return res.data
 }
 
-export const getSigungu = async (sido: string): Promise<SigunguResponse> => {
-  const res = await request.get(`/regions/beopjungdong/${sido}`)
+export const getCity = async ({
+  province
+}: {
+  province: string
+}): Promise<CityResponse> => {
+  const res = await request.get(`/regions/beopjungdong/${province}`)
   return res.data
 }
 
-export const getDongne = async ({
-  sido,
-  sigungu
-}: GetDongneParam): Promise<DongneResponse> => {
-  const res = await request.get(`/regions/beopjungdong/${sido}/${sigungu}`)
+export const getTown = async ({
+  province,
+  city
+}: GetTownParam): Promise<TownResponse> => {
+  const res = await request.get(`/regions/beopjungdong/${province}/${city}`)
   return res.data
 }
 
 export const getLocation = async ({
-  sido,
-  sigungu,
-  dongne
+  province,
+  city,
+  town
 }: GetLocationParam): Promise<LocationResponse> => {
   const res = await request.get(
-    `/regions/location?sido=${sido}&sigungu=${sigungu}&upmyeondong=${dongne}`
+    `/regions/location?sido=${province}&sigungu=${city}&upmyeondong=${town}`
   )
 
   return res.data

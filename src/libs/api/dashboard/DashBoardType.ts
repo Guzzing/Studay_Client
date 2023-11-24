@@ -10,9 +10,9 @@ export interface GetAllDashBoardResponse {
   lessonInfo: AcademyLessonType
   schedules: AcademyScheduleType[]
   paymentInfo: {
-    edudationFee: number
+    educationFee: number
     bookFee: number
-    suttleFee: number
+    shuttleFee: number
     etcFee: number
     paymentDay: string
   }
@@ -28,6 +28,7 @@ export interface GetAllDashBoardResponse {
 }
 
 interface AcademyInfoType {
+  academyId: number
   academyName: string
   contact: string
   fullAddress: string
@@ -46,7 +47,7 @@ export interface AcademyScheduleType {
 interface AcademyLessonType {
   lessonId: number
   subject: ServerAcademyType
-  capacitys: number
+  capacity: number
   duration: string
   totalFee: number
 }

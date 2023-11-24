@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import Icon from '../icon/Icon'
 const Header = ({
   headerType,
-  pageTitle = 'pageTitle',
+  pageTitle,
   backUrl = '',
+  skip = '',
   onClick
 }: HeaderProps) => {
   const navigate = useNavigate()
@@ -26,6 +27,13 @@ const Header = ({
             </span>
             {pageTitle && (
               <span className={'ml-[30px] subHead-18'}>{pageTitle}</span>
+            )}
+            {skip && (
+              <span
+                className={'cursor-pointer w-full text-right'}
+                onClick={() => navigate(skip)}>
+                {'건너뛰기'}
+              </span>
             )}
           </>
         ) : headerType === 'Logo' ? (

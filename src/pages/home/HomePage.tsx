@@ -7,6 +7,7 @@ import Spacing from '@/components/common/spacing/Spacing'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 const HomePage = () => {
   const navigate = useNavigate()
+
   const { data, isLoading } = useQuery({
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()

@@ -51,7 +51,7 @@ export const Accordion = forwardRef<HTMLButtonElement, AccordionProps>(
           className={'flex flex-column justify-center w-full'}>
           <ListRow
             hasBorder={true}
-            leftElement={title}
+            leftElement={<div className={'body-16'}>{title}</div>}
             rightElement={rightElement}
           />
         </button>

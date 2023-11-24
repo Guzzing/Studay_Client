@@ -61,7 +61,7 @@ const FilterPage = () => {
           {'지역'}
         </span>
         <span className={'font-nsk headline-25 ml-[35px] mt-[19px]'}>
-          {`${mapInfo.selectSido} ${mapInfo.selectSigungu} ${mapInfo.selectDongne}`}
+          {`${mapInfo.selectProvince} ${mapInfo.selectCity} ${mapInfo.selectTown}`}
         </span>
         <div className={'mt-[25px] ml-[32px]'}>
           <Button

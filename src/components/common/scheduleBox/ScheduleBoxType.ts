@@ -9,4 +9,6 @@ export interface ScheduleBoxProps extends ComponentProps<'div'> {
   isRegister?: boolean
   cntOfChild?: number
   handleToggle?: () => void
+  handleEdit?: () => void
+  handleDelete?: () => void
 }
