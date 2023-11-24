@@ -52,7 +52,7 @@ const Header = ({
               <div className={'mx-[7px]'} onClick={() => alert('알림보기!')}>
                 <Icon icon={'Alarm'} classStyle={'cursor-pointer'} />
               </div>
-              <span onClick={() => alert('사이드 바 열기')}>
+              <span onClick={() => onClick && onClick()}>
                 <Icon icon={'SideBar'} classStyle={'cursor-pointer'} />
               </span>
             </div>
