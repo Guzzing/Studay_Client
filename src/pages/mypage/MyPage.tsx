@@ -22,6 +22,7 @@ const MyPage = () => {
     }
     const response = async () => {
       const res = await myPageApi()
+      console.log('받은 data >>', res) // 아직 myPage에서 프로필 이미지 url반영 x
       setMyPageData(res)
     }
     response()
@@ -55,7 +56,9 @@ const MyPage = () => {
                   imageSize={'M'}
                   imageLabel={childName}
                   canEdit={true}
-                  onClick={() => navigate(`/edit/${childId}`)}
+                  onClick={() =>
+                    navigate(`/edit/${childId}`, { state: childId })
+                  }
                 />
               </li>
             )
