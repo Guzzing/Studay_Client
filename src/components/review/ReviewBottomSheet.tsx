@@ -1,14 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import Button from '@/components/common/button/Button'
 import Label from '@/components/common/label/Label'
 import Spacing from '@/components/common/spacing/Spacing'
+import { postReview } from '@/libs/api/review/reviewApi'
 import { AcademyReview } from '@/libs/api/review/reviewType'
 import { ReviewRequestType } from '@/libs/api/review/reviewType'
 const ReviewBottomSheet = ({
   academyTitle,
-  academyId
+  academyId,
+  setBottomSheetClose
 }: {
   academyTitle: string
   academyId: number
+  setBottomSheetClose: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
   const [reviewState, setReviewState] = useState<ReviewRequestType>({
     academyId: academyId,
@@ -19,60 +24,82 @@ const ReviewBottomSheet = ({
     LOVELY_TEACHING: false,
     SHUTTLE_AVAILABILITY: false
   })
-  // const handleMemo = (value) => {
-  //   if (reviewState[value]) {
-  //       setReviewState({
-
-  //       })
-  //     }
-  //   } else {
-  //     setAcademyInfo({
-  //       ...academyInfo,
-  //       simpleMemo: {
-  //         ...academyInfo.simpleMemo,
-  //         [AcademyMemo[index].serverData]: true
-  //       }
-  //     })
-  //   }
-  // }
+  const reviewMutation = useMutation({
+    mutationFn: (reviewState: ReviewRequestType) => postReview(reviewState),
+    onSuccess: () => {
+      setBottomSheetClose(false)
+      alert('리뷰 남기기 성공!')
+    }
+  })
+  const handleMemo = (value: keyof ReviewRequestType) => {
+    if (reviewState[value]) {
+      setReviewState({
+        ...reviewState,
+        [value]: false
+      })
+    } else {
+      setReviewState({
+        ...reviewState,
+        [value]: true
+      })
+    }
+  }
+  useEffect(() => {
+    const valueAry = Object.values(reviewState)
+    const count = valueAry.filter(Boolean).length
+    if (count >= 4) alert('안돼')
+  }, [reviewState])
   return (
     <>
       <div
-        className={`box-border absolute left-0 bottom-0 w-full transition-all duration-500 h-[300px] z-10 flex flex-col items-center pt-[13px] px-[30px] bg-white-0 stroke-amber-100 text-gray-600 rounded-t-[20px] shadow-inner `}>
+        className={`box-border absolute left-0 bottom-0 w-full transition-all duration-500 h-[350px] z-10 flex flex-col items-center pt-[13px]  bg-white-0 stroke-amber-100 text-gray-600 rounded-t-[20px] shadow-inner `}>
         <Spacing size={20}></Spacing>
-        <header className={'w-full flex justify-center '}>
+        <div className={'w-full h-full relative'}>
+          <header className={'w-full flex justify-center '}>
+            <div
+              className={
+                'box-border w-[93px] h-[6px] bg-gray-100 rounded-full mb-[23px] cursor-pointer '
+              }></div>
+          </header>
+          <div className={'flex flex-col items-between w-full px-[30px]'}>
+            <div
+              className={
+                'flex flex-col justify-between w-full mb-[17px] gap-3'
+              }>
+              <h1 className={'font-nsk headline-25 text-black-800'}>
+                {academyTitle}
+                {'에 대한'}
+              </h1>
+              <h1 className={'font-nsk headline-25 text-black-800'}>
+                {'리뷰를 남겨요'}
+              </h1>
+            </div>
+          </div>
           <div
             className={
-              'box-border w-[93px] h-[6px] bg-gray-100 rounded-full mb-[23px] cursor-pointer'
-            }></div>
-        </header>
-        <div className={'flex flex-col items-between w-full'}>
-          <div
-            className={'flex flex-col justify-between w-full mb-[17px] gap-3'}>
-            <h1 className={'font-nsk headline-25 text-black-800'}>
-              {academyTitle}
-              {'에 대한'}
-            </h1>
-            <h1 className={'font-nsk headline-25 text-black-800'}>
-              {'리뷰를 남겨요'}
-            </h1>
+              'grid grid-rows-3 grid-cols-2 justify-items-stretch px-[25px] gap-2'
+            }>
+            {AcademyReview.map((data, index) => {
+              return (
+                <Label
+                  key={index}
+                  color={reviewState[data.serverData] ? 'selected' : 'default'}
+                  variant={'medium'}
+                  label={data.clientData}
+                  onClick={() => handleMemo(data.serverData)}
+                />
+              )
+            })}
           </div>
-        </div>
-        <div
-          className={
-            'grid grid-rows-3 grid-cols-2 justify-items-stretch px-[20px] gap-2'
-          }>
-          {AcademyReview.map((data, index) => {
-            return (
-              <Label
-                key={index}
-                color={AcademyReview[index].serverData ? 'selected' : 'default'}
-                variant={'medium'}
-                label={data.clientData}
-                onClick={() => handleMemo(index)}
-              />
-            )
-          })}
+          <Button
+            buttonType={'Square'}
+            label={'작성 완료'}
+            fullWidth={true}
+            style={{ position: 'absolute', bottom: '0px' }}
+            onClick={() => {
+              reviewMutation.mutate(reviewState)
+            }}
+          />
         </div>
       </div>
     </>

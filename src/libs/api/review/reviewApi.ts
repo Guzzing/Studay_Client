@@ -1,9 +1,8 @@
 import request from '@/libs/api'
+import { ReviewRequestType } from '@/libs/api/review/reviewType'
 export const postReview = async (
-  childId: number
-): Promise<GetAllDashBoardResponse[]> => {
-  const res = await request.get(
-    `/dashboards?childId=${childId}&active-only=${false}`
-  )
-  return res.data.responses
+  review: ReviewRequestType
+): Promise<{ reviewId: number; academyId: number }> => {
+  const res = await request.post(`/reviews`, review)
+  return res.data
 }

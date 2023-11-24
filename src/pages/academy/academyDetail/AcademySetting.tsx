@@ -21,7 +21,11 @@ const AcademySetting = ({ data }: { data: GetAllDashBoardResponse }) => {
   return (
     <>
       {isbottomSheetOpen && (
-        <ReviewBottomSheet academyTitle={data.academyInfo.academyName} />
+        <ReviewBottomSheet
+          academyTitle={data.academyInfo.academyName}
+          academyId={data.academyInfo.academyId}
+          setBottomSheetClose={setBottomSheetOpen}
+        />
       )}
       <div className={'w-full mt-[37px] px-[20px]'}>
         {data.isActive ? (
