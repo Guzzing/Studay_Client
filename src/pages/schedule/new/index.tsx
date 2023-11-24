@@ -15,9 +15,9 @@ const NewSchedule = () => {
   const navigate = useNavigate()
   const [scheduleInfo, setScheduleInfo] = useAtom(scheduleAtom)
   const postNewScheduleMutation = useMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
       alert('일정 생성 완료!')
-      navigate('/schedule')
+      navigate(`/schedule/${data.academyTimeTemplateIds}`)
     },
     mutationFn: (scheduleInfo: PostScheduleType) =>
       postScheduleApi(scheduleInfo)
