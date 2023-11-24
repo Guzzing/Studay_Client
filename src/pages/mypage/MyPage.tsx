@@ -49,9 +49,10 @@ const MyPage = () => {
         </div>
         <div className={'flex overflow-x-scroll'}>
           {myPageData.childInformationResponses.map(
-            ({ childId, childName }) => (
+            ({ childId, childName, childProfileImageUrl }) => (
               <li key={childId} className={`list-none px-[10px] flex-shrink-0`}>
                 <Profile
+                  imageUrl={childProfileImageUrl}
                   imageSize={'M'}
                   imageLabel={childName}
                   canEdit={true}

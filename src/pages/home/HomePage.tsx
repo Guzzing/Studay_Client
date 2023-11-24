@@ -12,6 +12,7 @@ const HomePage = () => {
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
   })
+  console.log(data)
   if (isLoading) {
     return <Loading />
   }
@@ -28,6 +29,7 @@ const HomePage = () => {
                 mainTitle={data.nickname}
                 subTitle={data.grade}
                 description={data.schedule}
+                imageUrl={data.profileImageUrl}
                 onClick={() =>
                   navigate(`edit/${data.childId}`, {
                     state: {
