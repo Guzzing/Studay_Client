@@ -4,16 +4,17 @@ import Icon from '@/components/common/icon/Icon'
 import ListRow from '@/components/common/listRow/ListRow'
 import Spacing from '@/components/common/spacing/Spacing'
 import { logoutApi } from '@/libs/api/autorization/logout/LogoutApi'
-
-const SettingPage = () => {
+interface SettingPage {
+  isOpen: boolean
+}
+const SettingPage = ({ isOpen }: SettingPage) => {
   const navigate = useNavigate()
   return (
-    <>
-      <Header
-        headerType={'BackPush'}
-        pageTitle={'settings'}
-        onClick={() => navigate('/')}
-      />
+    <div
+      style={{
+        display: isOpen ? 'block' : 'none',
+        width: '100%'
+      }}>
       <Spacing size={120} />
       <ListRow
         leftElement={
@@ -54,10 +55,8 @@ const SettingPage = () => {
         onClick={() => logoutApi()}
         className={'cursor-pointer'}
       />
-    </>
+    </div>
   )
 }
 
 export default SettingPage
-
-// 로그아웃 시 모달 컴포넌트 띄우기
