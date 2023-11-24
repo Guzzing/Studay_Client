@@ -47,7 +47,7 @@ const SelectAttendanceDate = () => {
   }
 
   return (
-    <div className={'w-full px-[20px] my-[14px] '}>
+    <div className={'w-full  my-[14px] '}>
       <div
         className={
           'flex flex-col gap-[5px] w-full border rounded-[10px] border-blue-350 px-[12px] py-[8px]'
