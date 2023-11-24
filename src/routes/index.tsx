@@ -164,11 +164,6 @@ export const router = createBrowserRouter(
           errorElement: <ErrorPage />
         },
         {
-          path: 'settings',
-          element: <SettingPage />,
-          errorElement: <ErrorPage />
-        },
-        {
           path: 'myPages',
           element: <MyPage />,
           errorElement: <ErrorPage />
