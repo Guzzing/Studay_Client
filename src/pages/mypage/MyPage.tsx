@@ -22,7 +22,6 @@ const MyPage = () => {
     }
     const response = async () => {
       const res = await myPageApi()
-      console.log('받은 data >>', res) // 아직 myPage에서 프로필 이미지 url반영 x
       setMyPageData(res)
     }
     response()
