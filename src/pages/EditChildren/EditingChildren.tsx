@@ -79,7 +79,7 @@ const EditingChildren = () => {
               grade: e.target.value
             })
           }}
-          selectType={'Single'}
+          selecttype={'Single'}
           options={[
             '초등학교 1학년',
             '중학교 1학년',
