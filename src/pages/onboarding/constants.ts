@@ -16,7 +16,7 @@ export const PAGE_CONTENT = [
     buttonType: ['입력완료', '']
   },
   {
-    type: 'first-child',
+    type: 'child',
     mainTitle: ['자녀에 대해서', '알려주세요'],
     subTitle: ['자녀별로 시간표를 관리하고', '맞춤 정보를 관리할 수 있어요'],
     step: [3, 4],
@@ -30,7 +30,7 @@ export const PAGE_CONTENT = [
     ]
   },
   {
-    type: 'first-child',
+    type: 'child',
     mainTitle: ['둘째는 어떤', '아이인가요?'],
     subTitle: ['자녀별로 시간표를 관리하고', '맞춤 정보를 관리할 수 있어요'],
     step: [3, 4],
@@ -44,7 +44,7 @@ export const PAGE_CONTENT = [
     ]
   },
   {
-    type: 'first-child',
+    type: 'child',
     mainTitle: ['귀염둥이 셋째!', '정보를 입력해주세요'],
     subTitle: ['자녀별로 시간표를 관리하고', '맞춤 정보를 관리할 수 있어요'],
     step: [3, 4],
@@ -58,7 +58,7 @@ export const PAGE_CONTENT = [
     ]
   },
   {
-    type: 'first-child',
+    type: 'child',
     mainTitle: ['우와,', '벌써 넷째에요'],
     subTitle: ['자녀별로 시간표를 관리하고', '맞춤 정보를 관리할 수 있어요'],
     step: [3, 4],
@@ -72,7 +72,7 @@ export const PAGE_CONTENT = [
     ]
   },
   {
-    type: 'first-child',
+    type: 'child',
     mainTitle: ['마지막이에요!', '다섯째는요?'],
     subTitle: ['자녀별로 시간표를 관리하고', '맞춤 정보를 관리할 수 있어요'],
     step: [3, 4],
@@ -99,3 +99,13 @@ export const CHILD_GRADE = [
   '고등학교 2학년',
   '고등학교 3학년'
 ]
+
+// 버튼 타입이 child가 아니라면, 위에,
+// child면 set을 하는데....
+// index가 0이면 currentPage증가
+// 1이면 제출!
+
+// 첫 번째 버튼인데,
+// - 01 vs 23456버튼
+
+// 두 번째 버튼!
