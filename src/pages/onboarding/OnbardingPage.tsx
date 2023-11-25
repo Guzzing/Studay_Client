@@ -77,6 +77,13 @@ const Onboarding = () => {
     if (getItem('onboarding').length > 0) {
       cntOfChild()
     }
+    if (!Array.isArray(getItem('onboarding'))) {
+      const getMyChildren = async () => {
+        const numbers = await getChildrenInfo()
+        setCurrentPage(numbers.length + 2)
+      }
+      getMyChildren()
+    }
   }, [])
 
   useEffect(() => {
@@ -90,15 +97,6 @@ const Onboarding = () => {
     }
   }, [currentPage])
 
-  useEffect(() => {
-    if (!Array.isArray(getItem('onboarding'))) {
-      const getMyChildren = async () => {
-        const numbers = await getChildrenInfo()
-        setCurrentPage(numbers.length + 2)
-      }
-      getMyChildren()
-    }
-  }, [])
   return (
     <div className={'px-[36px]'}>
       <Header
@@ -170,78 +168,51 @@ const Onboarding = () => {
                         : 'Round-blue-500'
                     }
                     onClick={() => {
+                      // 아무것도 입력을 하지 않았을 때!
                       if (
                         inputRef.current?.value === '' ||
                         selectRef.current?.value === ''
-                      )
-                        alert('값을 입력해주세요!')
-                      else {
-                        if (i === 0) {
-                          if (currentPage <= 1) {
-                            setStoreStorage([
-                              ...storeStorage,
-                              inputValue as string
-                            ])
-                            if (currentPage === 0) {
-                              setPageData({
-                                ...pageData,
-                                nickname: inputValue as string
-                              })
-                            } else {
-                              setPageData({
-                                ...pageData,
-                                email: inputValue as string
-                              })
-                            }
-                            setCurrentPage(currentPage + 1)
-                          } else {
-                            setPageData({
-                              ...pageData,
-                              children: [
-                                {
-                                  ...pageData.children[0],
-                                  nickname:
-                                    currentPage === 2
-                                      ? inputRef.current?.value ||
-                                        pageData.children[0].nickname
-                                      : (inputRef.current?.value as string),
-                                  grade:
-                                    currentPage === 2
-                                      ? selectRef.current?.value ||
-                                        pageData.children[0].grade
-                                      : (selectRef.current?.value as string)
-                                },
-                                ...pageData.children.slice(
-                                  currentPage === 2 ? 1 : 0
-                                )
-                              ]
-                            })
-                            setCurrentPage(currentPage + 1)
-                          }
-                        } else {
-                          setPageData({
-                            ...pageData,
-                            children: [
-                              {
-                                ...pageData.children[0],
-                                nickname:
-                                  currentPage === 2
-                                    ? inputRef.current?.value ||
-                                      pageData.children[0].nickname
-                                    : (inputRef.current?.value as string),
-                                grade:
-                                  currentPage === 2
-                                    ? selectRef.current?.value ||
-                                      pageData.children[0].grade
-                                    : (selectRef.current?.value as string)
-                              },
-                              ...pageData.children.slice(
-                                currentPage === 2 ? 1 : 0
-                              )
-                            ]
-                          })
-                          setIsDone(true)
-                        }
+                      ) {
+                        alert('값을 입력해주세요😁👍')
+                        return
+                      }
+                      // ❗️ 값을 입력하고, child버튼일 때(자식입력 필드에서 존재하는 버튼 2개
+                      if (PAGE_CONTENT[currentPage].type === 'child') {
+                        setPageData({
+                          ...pageData,
+                          children: [
+                            {
+                              ...pageData.children[0],
+                              nickname:
+                                currentPage === 2
+                                  ? inputRef.current?.value ||
+                                    pageData.children[0].nickname
+                                  : (inputRef.current?.value as string),
+                              grade:
+                                currentPage === 2
+                                  ? selectRef.current?.value ||
+                                    pageData.children[0].grade
+                                  : (selectRef.current?.value as string)
+                            },
+                            ...pageData.children.slice(
+                              currentPage === 2 ? 1 : 0
+                            )
+                          ]
+                        })
+                        // 자식버튼 2개중 첫 번째 버튼이면, 다음 페이지로 넘어감
+                        // 2개중 마지막 제출 버튼이면 제출!
+                        i === 0
+                          ? setCurrentPage(currentPage + 1)
+                          : setIsDone(true)
+                      } else {
+                        // child버튼이 아닐 때!
+                        // nickname, email버튼일 때!
+                        setStoreStorage([...storeStorage, inputValue as string])
+                        setPageData({
+                          ...pageData,
+                          [PAGE_CONTENT[currentPage].type]: inputValue as string
+                        })
+                        setCurrentPage(currentPage + 1)
                       }
                     }}
                   />
