@@ -10,7 +10,7 @@ import AcademyDetailPayment from '@/pages/academy/academyDetail/AcademyDetailPay
 import AcademySetting from '@/pages/academy/academyDetail/AcademySetting'
 const AcademyDetail = () => {
   const { state } = useLocation()
-  const { data, isSuccess, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ['dashboard', state],
     queryFn: () => getDetailDashboard(state)
   })

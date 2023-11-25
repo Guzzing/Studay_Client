@@ -10,6 +10,7 @@ import ErrorPage from '@/pages/ErrorPage'
 import AcademyDashboard from '@/pages/academy/AcademyDashboard'
 import AcademyDetail from '@/pages/academy/academyDetail'
 import AddAcademy from '@/pages/academy/addSchedule'
+import EditAcademy from '@/pages/academy/editAcademy'
 import FilterPage from '@/pages/filter/FilterPage.tsx'
 import HomePage from '@/pages/home/HomePage'
 import LikeAcademy from '@/pages/likeAcademy/LikeAcademy'
@@ -79,7 +80,7 @@ export const router = createBrowserRouter(
           path: 'selectcity',
           element: (
             <>
-              <Header headerType={'BackPush'} />
+              <Header headerType={'BackPush'} pageTitle={''} skip={'/map'} />
               <SelectCity />
             </>
           ),
@@ -143,6 +144,16 @@ export const router = createBrowserRouter(
                 pageTitle={'학원 등록하기'}
               />
               <AddAcademy />
+            </>
+          ),
+          errorElement: <ErrorPage />
+        },
+        {
+          path: 'academies/:dashboardId/edit',
+          element: (
+            <>
+              <Header headerType={'Close'} pageTitle={'학원 정보 수정하기'} />
+              <EditAcademy />
             </>
           ),
           errorElement: <ErrorPage />

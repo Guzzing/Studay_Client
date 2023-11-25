@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useAtom, useSetAtom } from 'jotai'
 import SelectTime from '@/components/academy/SelectTime'
 import Button from '@/components/common/button/Button'
 import Icon from '@/components/common/icon/Icon'
 import SelectWeek from '@/components/common/selectweek/SelectWeek'
 import Spacing from '@/components/common/spacing/Spacing'
-
 import { ClientWeekData, WeekData } from '@/libs/api/academy/AcademyType'
 import { schedulesAtom } from '@/libs/store/academyInfo'
 import { academyInfoAtom, academyTimeFamily } from '@/libs/store/academyInfo'
 
-const AddSchedule = () => {
+const AddSchedule = ({ isEdit }: { isEdit?: boolean }) => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
   const [scheduleInfo, setScheduleInfo] = useAtom(schedulesAtom)
-  const [fixedDate, setFixedDate] = useState<number[]>([])
+  const [fixedDate, setFixedDate] = useState<number[]>(
+    isEdit ? [0, 1, 2, 3, 4, 5, 6] : []
+  )
   const setTimeInfo = useSetAtom(academyTimeFamily('schedules'))
   const selectRef = useRef<HTMLSelectElement>(null)
 
@@ -61,7 +61,7 @@ const AddSchedule = () => {
   return (
     <div className={'flex flex-col items-center w-full border-b'}>
       <SelectWeek fixedDate={fixedDate} />
-      <SelectTime />
+      <SelectTime isEdit={isEdit} />
       <Button
         buttonType={
           scheduleInfo.weekArray.length > 0 &&
@@ -97,13 +97,17 @@ const AddSchedule = () => {
                   {' ~ '}
                   {data.endTime}
                 </div>
-                <Icon
-                  icon={'Delete'}
-                  classStyle={'cursor-pointer'}
-                  onClick={() => {
-                    deleteTimeSchedule(data.dayOfWeek)
-                  }}
-                />
+                {isEdit ? (
+                  ''
+                ) : (
+                  <Icon
+                    icon={'Delete'}
+                    classStyle={'cursor-pointer'}
+                    onClick={() => {
+                      deleteTimeSchedule(data.dayOfWeek)
+                    }}
+                  />
+                )}
               </div>
             </div>
           </div>

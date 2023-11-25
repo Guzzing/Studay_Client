@@ -55,7 +55,9 @@ const MyPage = () => {
                   imageSize={'M'}
                   imageLabel={childName}
                   canEdit={true}
-                  onClick={() => navigate(`/edit/${childId}`)}
+                  onClick={() =>
+                    navigate(`/edit/${childId}`, { state: childId })
+                  }
                 />
               </li>
             )
