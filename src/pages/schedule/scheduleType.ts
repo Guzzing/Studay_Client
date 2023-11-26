@@ -6,6 +6,8 @@ export interface ScheduleModalType {
 export interface HandlerScheduleProps extends ScheduleModalType {
   childSchedule: OverlappingScheduleType[]
   mainTitle: string
+  date: string
+  lessonId: number | null
 }
 
 export interface ScheduleModalProps extends HandlerScheduleProps {

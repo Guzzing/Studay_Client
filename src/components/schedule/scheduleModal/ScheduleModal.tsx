@@ -10,6 +10,8 @@ const ScheduleModal = ({
   childSchedule,
   mainTitle,
   modalType,
+  date,
+  lessonId,
   close
 }: ScheduleModalProps) => {
   const navigate = useNavigate()
@@ -30,7 +32,9 @@ const ScheduleModal = ({
     } else if (modalType === 'delete') {
       mutate(childInfo.scheduleId)
     } else {
-      navigate(`/schedule/${childInfo.scheduleId}`)
+      navigate(
+        `/schedule?date=${date}&scheduleId=${childInfo.scheduleId}&lessonId=${lessonId}&child=${childInfo.childId}`
+      )
     }
   }
 

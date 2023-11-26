@@ -31,7 +31,9 @@ const Schedule = () => {
   const [modalState, setModalState] = useState<HandlerScheduleProps>({
     childSchedule: [],
     modalType: '',
-    mainTitle: ''
+    mainTitle: '',
+    date: '',
+    lessonId: null
   })
   // const [eventType, setEvenetType] = useState<string>('')
   const { Modal, open } = useModal()
@@ -57,12 +59,16 @@ const Schedule = () => {
   const handlerScheduleProfileClick = ({
     childSchedule,
     modalType,
-    mainTitle
+    mainTitle,
+    date,
+    lessonId
   }: HandlerScheduleProps) => {
     setModalState(() => ({
       childSchedule: childSchedule,
       modalType: modalType,
-      mainTitle: mainTitle
+      mainTitle: mainTitle,
+      date: date,
+      lessonId: lessonId
     }))
     open()
   }
@@ -104,21 +110,27 @@ const Schedule = () => {
                       handlerScheduleProfileClick({
                         childSchedule: schedule.overlappingSchedules,
                         modalType: 'edit',
-                        mainTitle: '어떤 아이의 스케줄을 수정하시겠습니까?'
+                        mainTitle: '어떤 아이의 스케줄을 수정하시겠습니까?',
+                        date: data.startTime,
+                        lessonId: schedule.lessonId
                       })
                     }
                     handleDelete={() =>
                       handlerScheduleProfileClick({
                         childSchedule: schedule.overlappingSchedules,
                         modalType: 'delete',
-                        mainTitle: '어떤 아이의 스케줄을 삭제하시겠습니까?'
+                        mainTitle: '어떤 아이의 스케줄을 삭제하시겠습니까?',
+                        date: data.startTime,
+                        lessonId: schedule.lessonId
                       })
                     }
                     handleDetail={() =>
                       handlerScheduleProfileClick({
                         childSchedule: schedule.overlappingSchedules,
                         modalType: 'detail',
-                        mainTitle: '어떤 아이의 스케줄 정보를 확인할까요?'
+                        mainTitle: '어떤 아이의 스케줄 정보를 확인할까요?',
+                        date: data.startTime,
+                        lessonId: schedule.lessonId
                       })
                     }
                     subTitle={`${convertTo12HourFormat(
