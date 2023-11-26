@@ -8,8 +8,9 @@ import EditChildren from '@/pages/EditChildren/EditChildren'
 import EditingChildren from '@/pages/EditChildren/EditingChildren'
 import ErrorPage from '@/pages/ErrorPage'
 import AcademyDashboard from '@/pages/academy/AcademyDashboard'
+import AddAcademy from '@/pages/academy/AddSchedule'
 import AcademyDetail from '@/pages/academy/academyDetail'
-import AddAcademy from '@/pages/academy/addSchedule'
+import DetailSchedulePage from '@/pages/academy/detailSchedule/DetailSchedulePage'
 import EditAcademy from '@/pages/academy/editAcademy'
 import FilterPage from '@/pages/filter/FilterPage.tsx'
 import HomePage from '@/pages/home/HomePage'
@@ -110,11 +111,6 @@ export const router = createBrowserRouter(
           errorElement: <ErrorPage />
         },
         {
-          path: 'schedule',
-          element: <p>{'시간표 보기'}</p>,
-          errorElement: <ErrorPage />
-        },
-        {
           path: 'academies',
           element: (
             <div className={'h-full'}>
@@ -182,6 +178,18 @@ export const router = createBrowserRouter(
             </>
           ),
           errorElement: <ErrorPage />
+        },
+        {
+          path: 'schedule',
+          element: (
+            <>
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'시간표 상세보기'}
+              />
+              <DetailSchedulePage />
+            </>
+          )
         }
       ]
     }
