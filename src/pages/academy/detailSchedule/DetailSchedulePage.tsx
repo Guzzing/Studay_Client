@@ -48,10 +48,9 @@ const DetailSchedulePage = () => {
     })
   }
 
-  if (isLoading) {
-    return <Loading />
-  }
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <div className={'border h-full relative'}>
       <Spacing size={110} />
       <div className={'pl-[20px] h-[194px] relative'}>
