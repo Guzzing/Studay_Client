@@ -6,7 +6,6 @@ import { DECEMBER, JANUARY, WEEK, WeekStyle } from './constants.ts'
 import Icon from '@/components/common/icon/Icon.tsx'
 
 const Calender = ({
-  onClick,
   calenderState,
   setCalenderState,
   existenceDays,
@@ -34,8 +33,6 @@ const Calender = ({
           toDay: day
         })
       }
-
-      onClick(dayInfo)
     },
     [calenderState]
   )
