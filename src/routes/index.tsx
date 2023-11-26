@@ -19,7 +19,6 @@ import MapPage from '@/pages/map/MapPage.tsx'
 import MyPage from '@/pages/mypage/MyPage'
 import OnboardingPage from '@/pages/onboarding/OnbardingPage'
 import SelectCity from '@/pages/selectcity/SelectCity.tsx'
-import SettingPage from '@/pages/setting/SettingPage'
 
 export const router = createBrowserRouter(
   [
@@ -58,7 +57,6 @@ export const router = createBrowserRouter(
         },
         {
           path: 'edit/:childId',
-
           element: (
             <>
               <Header headerType={'Close'} backUrl={'/'} />
@@ -165,7 +163,12 @@ export const router = createBrowserRouter(
         },
         {
           path: 'myPages',
-          element: <MyPage />,
+          element: (
+            <>
+              <Header headerType={'Logo'} pageTitle={'마이페이지'} />
+              <MyPage />
+            </>
+          ),
           errorElement: <ErrorPage />
         },
         {
