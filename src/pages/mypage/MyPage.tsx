@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { useAtom } from 'jotai'
 import SettingPage from '../setting/SettingPage'
 import Button from '@/components/common/button/Button'
-import Header from '@/components/common/header/Header'
 import Icon from '@/components/common/icon/Icon'
 import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
@@ -16,7 +15,7 @@ import { myPageAtom } from '@/libs/store/myPageAtom'
 const MyPage = () => {
   const navigate = useNavigate()
   const [myPageData, setMyPageData] = useAtom(myPageAtom)
-  const { toggleOpen, toggleSidebar } = useSidebar()
+  const { toggleOpen } = useSidebar()
   useEffect(() => {
     if (localStorage.getItem('token') === null) {
       alert('로그인 페이지로 이동합니다!')
@@ -32,11 +31,6 @@ const MyPage = () => {
 
   return (
     <div className={'relative h-full overflow-hidden'}>
-      <Header
-        headerType={'Logo'}
-        pageTitle={'마이페이지'}
-        onClick={toggleSidebar}
-      />
       <SettingPage isOpen={toggleOpen} />
       <div>
         <Spacing size={80} />
