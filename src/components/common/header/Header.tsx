@@ -1,6 +1,8 @@
 import type { HeaderProps } from './HeaderType'
 import { useNavigate } from 'react-router-dom'
 import Icon from '../icon/Icon'
+import useSidebar from '@/libs/hooks/useSidebar'
+
 const Header = ({
   headerType,
   pageTitle,
@@ -9,6 +11,8 @@ const Header = ({
   onClick
 }: HeaderProps) => {
   const navigate = useNavigate()
+  const { toggleSidebar } = useSidebar()
+
   return (
     <header
       className={`fixed left-[50%] z-50 top-0 translate-x-[-50%] w-[390px] h-[80px] bg-white-0 text-black-800 px-[22px] border-b-[1px] border-gray-100`}>
@@ -22,7 +26,7 @@ const Header = ({
         }`}>
         {headerType === 'BackPush' ? (
           <>
-            <span onClick={onClick}>
+            <span onClick={onClick || (() => navigate(-1))}>
               <Icon icon={'BackPush'} classStyle={'cursor-pointer'} />
             </span>
             {pageTitle && (
@@ -52,7 +56,7 @@ const Header = ({
               <div className={'mx-[7px]'} onClick={() => alert('알림보기!')}>
                 <Icon icon={'Alarm'} classStyle={'cursor-pointer'} />
               </div>
-              <span onClick={() => onClick && onClick()}>
+              <span onClick={toggleSidebar}>
                 <Icon icon={'SideBar'} classStyle={'cursor-pointer'} />
               </span>
             </div>
