@@ -13,9 +13,7 @@ import {
   deleteAcademySchedule
 } from '@/libs/api/academy/scheduleDetail/ScheduleDetailApi'
 import useModal from '@/libs/hooks/useModal'
-interface Type {
-  all: boolean
-}
+
 // 오는 URL
 // /schedule?date=2023-11-06&scheduleId=17&lessonId=1134&child=1
 const DetailSchedulePage = () => {
@@ -39,7 +37,7 @@ const DetailSchedulePage = () => {
         scheduleId: Number(scheduleId as string)
       })
   })
-  const deleteSchedule = async (all: Type) => {
+  const deleteSchedule = async (all: boolean) => {
     await deleteAcademySchedule({
       dashboardId: data?.childrenInfos[0].dashBoardId as number,
       academyScheduleId: Number(scheduleId as string),
@@ -152,14 +150,14 @@ const DetailSchedulePage = () => {
                 buttonType={'Plain-red'}
                 label={'오늘 일정만 삭제'}
                 onClick={() => {
-                  deleteSchedule({ all: false })
+                  deleteSchedule(false)
                 }}
               />
               <Button
                 buttonType={'Plain-red'}
                 label={'이후 모든일정 삭제'}
                 onClick={() => {
-                  deleteSchedule({ all: true })
+                  deleteSchedule(true)
                 }}
               />
               <Button
