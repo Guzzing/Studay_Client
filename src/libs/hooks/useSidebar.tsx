@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useAtom } from 'jotai'
 import { hamburgerToggle } from '../store/hamburgerToggleAtom'
 
@@ -8,6 +8,9 @@ const useSidebar = () => {
     setToggleOpen((prev) => !prev)
   }, [])
 
+  useEffect(() => {
+    setToggleOpen(false)
+  }, [])
   return {
     toggleOpen,
     toggleSidebar
