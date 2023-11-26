@@ -2,7 +2,9 @@ import { ReactNode } from 'react'
 
 export interface ScheduleProfileBoxProps {
   mainTitle: string
+  subTitle: string
   handleEdit: () => void
   handleDelete: () => void
-  profileNode?: ReactNode
+  handleDetail: () => void
+  children?: ReactNode
 }
