@@ -7,20 +7,15 @@ import Icon from '@/components/common/icon/Icon'
 import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
-
 import {
   getAcademiesScheduleDetail,
   deleteAcademySchedule
 } from '@/libs/api/academy/scheduleDetail/ScheduleDetailApi'
 import useModal from '@/libs/hooks/useModal'
-
-// 오는 URL
-// /schedule?date=2023-11-06&scheduleId=17&lessonId=1134&child=1
 const DetailSchedulePage = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
-
   const date = queryParams.get('date')
   const scheduleId = queryParams.get('scheduleId')
   const lessonId = queryParams.get('lessonId')
@@ -28,7 +23,7 @@ const DetailSchedulePage = () => {
   const { open, close, Modal } = useModal()
 
   const { data, isLoading } = useQuery({
-    queryKey: ['schedule'],
+    queryKey: ['schedule', scheduleId],
     queryFn: () =>
       getAcademiesScheduleDetail({
         requestedDate: date as string,
@@ -37,18 +32,24 @@ const DetailSchedulePage = () => {
         scheduleId: Number(scheduleId as string)
       })
   })
+
   const deleteSchedule = async (all: boolean) => {
-    await deleteAcademySchedule({
-      dashboardId: data?.childrenInfos[0].dashBoardId as number,
-      academyScheduleId: Number(scheduleId as string),
-      isAllDeleted: all ? true : false,
-      requestDate: data?.date.slice(0, -4).trim() as string
-    })
+    try {
+      await deleteAcademySchedule({
+        academyScheduleId: Number(scheduleId as string),
+        isAllDeleted: all ? true : false,
+        requestDate: data?.date.slice(0, -4).trim() as string
+      })
+      navigate('/schedule')
+    } catch {
+      throw new Error('error!')
+    }
   }
 
-  return isLoading ? (
-    <Loading />
-  ) : (
+  if (isLoading) {
+    return <Loading />
+  }
+  return (
     <div className={'border h-full relative'}>
       <Spacing size={110} />
       <div className={'pl-[20px] h-[194px] relative'}>
