@@ -11,7 +11,6 @@ const SelectChild = ({
   childrenSelectRef: React.RefObject<HTMLSelectElement>
 }) => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
-  console.log(academyInfo)
   const { data } = useQuery({
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
