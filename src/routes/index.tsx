@@ -204,7 +204,7 @@ export const router = createBrowserRouter(
           errorElement: <ErrorPage />
         },
         {
-          path: 'schedule',
+          path: 'schedule/detail',
           element: (
             <>
               <Header
