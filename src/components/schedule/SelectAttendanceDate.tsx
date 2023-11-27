@@ -25,10 +25,6 @@ const SelectAttendanceDate = () => {
     })
   }
 
-  useEffect(() => {
-    console.log(scheduleInfo)
-  }, [scheduleInfo])
-
   registerLocale('ko', ko)
   useEffect(() => {
     autoCalculateDate(startTime)

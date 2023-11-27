@@ -33,11 +33,9 @@ const NewSchedule = () => {
         values={[0, 1]}
         selecttype={'Single'}
         onChange={(e) => {
-          if (Number.parseInt(e.target.value, 10) === 0) {
-            setScheduleInfo({ ...scheduleInfo, isAlarmed: false })
-          } else {
-            setScheduleInfo({ ...scheduleInfo, isAlarmed: true })
-          }
+          Number.parseInt(e.target.value, 10) === 0
+            ? setScheduleInfo({ ...scheduleInfo, isAlarmed: false })
+            : setScheduleInfo({ ...scheduleInfo, isAlarmed: true })
         }}
       />
       <Spacing size={20} />
