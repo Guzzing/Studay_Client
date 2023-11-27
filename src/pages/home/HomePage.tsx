@@ -24,7 +24,7 @@ const HomePage = () => {
   return (
     <div
       className={
-        'relative bg-white-100 w-full h-[750px] overflow-x-hidden overflow-y-scroll'
+        'relative bg-white-100 w-full h-[750px] overflow-x-hidden overflow-y-scroll z-20'
       }>
       <SettingPage isOpen={toggleOpen} />
       <>
@@ -54,7 +54,7 @@ const HomePage = () => {
             </div>
           )}
         </div>
-        <div className={'absolute right-[10px] bottom-[90px] cursor-pointer'}>
+        <div className={'fixed right-[38%] bottom-[90px] cursor-pointer'}>
           <Icon
             icon={'Add'}
             classStyle={'h-[60px] w-[60px]'}
