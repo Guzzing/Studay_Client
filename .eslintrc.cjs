@@ -120,6 +120,8 @@ module.exports = {
       }
     ],
     'unicorn/prevent-abbreviations': ['off'],
-    'unicorn/prefer-logical-operator-over-ternary': ['off']
+    'unicorn/prefer-logical-operator-over-ternary': ['off'],
+    'unicorn/consistent-function-scoping': ['off'],
+    "unicorn/no-null": ['off'],
   }
 }

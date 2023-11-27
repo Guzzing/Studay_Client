@@ -8,6 +8,7 @@ const InformationBox = ({
   mainTitle,
   subTitle,
   description,
+  imageUrl,
   onClick // CHECK : description은 글자 수 설정을 해놓으면 좋을 것 같습니다!
 }: InformationBoxProps) => {
   return (
@@ -16,7 +17,7 @@ const InformationBox = ({
         'p-[14px] w-[345px] h-[120px] font-nsk overflow-hidden rounded-[10px] bg-white-0'
       }>
       <div className={'w-full h-full flex items-center'}>
-        <Profile imageSize={'M'} canEdit={true} />
+        <Profile imageSize={'M'} canEdit={true} imageUrl={imageUrl} />
         <div
           className={
             'relative w-[240px] h-full pl-[17px] flex flex-col justify-center gap-[5px]'

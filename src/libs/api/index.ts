@@ -41,8 +41,6 @@ request.interceptors.response.use(
         await logoutApi()
         throw new Error('failed to request refresh token')
       }
-    } else {
-      console.log('다른 예외처리 진행!')
     }
   }
 )

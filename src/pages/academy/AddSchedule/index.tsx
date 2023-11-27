@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
@@ -9,12 +8,15 @@ import { postDashboardInfo } from '@/libs/api/academy/AcademyApi'
 import { initialAcademyInfoAtom } from '@/libs/store/academyInfo'
 
 import { academyInfoAtom } from '@/libs/store/academyInfo'
+import { childAtom } from '@/libs/store/childInfoAtom'
+import { getFormattingDate } from '@/libs/utils/dateParse'
 import AddAcademyInfo from '@/pages/academy/addSchedule/AddAcademyInfo'
 import AddAcademyName from '@/pages/academy/addSchedule/AddAcademyName'
 import AddMemo from '@/pages/academy/addSchedule/AddMemo'
 import AddPayment from '@/pages/academy/addSchedule/AddPayment'
 import AddSchedule from '@/pages/academy/addSchedule/AddSchedule'
 const AddAcademy = () => {
+  const [childInfo, setChildrenInfo] = useAtom(childAtom)
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
   const childrenSelectRef = useRef<HTMLSelectElement>(null)
   const classSelectRef = useRef<HTMLSelectElement>(null)
@@ -29,8 +31,8 @@ const AddAcademy = () => {
     }
   })
   useEffect(() => {
-    console.log(academyInfo)
-  }, [academyInfo])
+    setAcademyInfo({ ...initialAcademyInfoAtom })
+  }, [])
 
   return (
     <div className={'w-full overflow-scroll relative scrollbar-hide'}>
@@ -62,6 +64,10 @@ const AddAcademy = () => {
         fullWidth={true}
         onClick={() => {
           dashboardMutation.mutate(academyInfo)
+          setChildrenInfo({
+            ...childInfo,
+            childId: academyInfo.childId
+          })
           setAcademyInfo({ ...initialAcademyInfoAtom })
         }}
       />

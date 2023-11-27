@@ -10,6 +10,7 @@ import ErrorPage from '@/pages/ErrorPage'
 import AcademyDashboard from '@/pages/academy/AcademyDashboard'
 import AcademyDetail from '@/pages/academy/academyDetail'
 import AddAcademy from '@/pages/academy/addSchedule'
+import EditAcademy from '@/pages/academy/editAcademy'
 import FilterPage from '@/pages/filter/FilterPage.tsx'
 import HomePage from '@/pages/home/HomePage'
 import LikeAcademy from '@/pages/likeAcademy/LikeAcademy'
@@ -18,8 +19,8 @@ import MapPage from '@/pages/map/MapPage.tsx'
 import MyPage from '@/pages/mypage/MyPage'
 import OnboardingPage from '@/pages/onboarding/OnbardingPage'
 import Schedule from '@/pages/schedule/Schedule.tsx'
+import NewSchedule from '@/pages/schedule/new'
 import SelectCity from '@/pages/selectcity/SelectCity.tsx'
-import SettingPage from '@/pages/setting/SettingPage'
 
 export const router = createBrowserRouter(
   [
@@ -58,7 +59,6 @@ export const router = createBrowserRouter(
         },
         {
           path: 'edit/:childId',
-
           element: (
             <>
               <Header headerType={'Close'} backUrl={'/'} />
@@ -121,6 +121,19 @@ export const router = createBrowserRouter(
           errorElement: <ErrorPage />
         },
         {
+          path: 'schedule/new',
+          element: (
+            <>
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'시간표 등록하기'}
+              />
+              <NewSchedule />
+            </>
+          ),
+          errorElement: <ErrorPage />
+        },
+        {
           path: 'academies',
           element: (
             <div className={'h-full'}>
@@ -155,18 +168,28 @@ export const router = createBrowserRouter(
           errorElement: <ErrorPage />
         },
         {
+          path: 'academies/:dashboardId/edit',
+          element: (
+            <>
+              <Header headerType={'Close'} pageTitle={'학원 정보 수정하기'} />
+              <EditAcademy />
+            </>
+          ),
+          errorElement: <ErrorPage />
+        },
+        {
           path: 'reports',
           element: <p>{'reports'}</p>,
           errorElement: <ErrorPage />
         },
         {
-          path: 'settings',
-          element: <SettingPage />,
-          errorElement: <ErrorPage />
-        },
-        {
           path: 'myPages',
-          element: <MyPage />,
+          element: (
+            <>
+              <Header headerType={'Logo'} pageTitle={'마이페이지'} />
+              <MyPage />
+            </>
+          ),
           errorElement: <ErrorPage />
         },
         {

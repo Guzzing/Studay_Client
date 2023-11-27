@@ -3,7 +3,8 @@ import {
   CalendarDayPropsType,
   CalendarPropsType,
   CalendarResponse,
-  DayScheduleResponse
+  DayScheduleResponse,
+  PostScheduleType
 } from '@/libs/api/schedule/scheduleType.ts'
 
 export const getMonthScheduleAll = async ({
@@ -32,5 +33,10 @@ export const deleteSchedule = async ({
   scheduleId: number
 }) => {
   const res = await request.delete(`/academy-schedules/${scheduleId}`)
+
+export const postScheduleApi = async (
+  schedule: PostScheduleType
+): Promise<{ academyTimeTemplateIds: number[] }> => {
+  const res = await request.post('/academy-schedules', schedule)
   return res.data
 }

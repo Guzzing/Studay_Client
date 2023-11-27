@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
 import ko from 'date-fns/locale/ko'
 import { useAtom } from 'jotai'
@@ -13,8 +12,13 @@ import { getFormattingDate } from '@/libs/utils/dateParse'
 const AddPayment = () => {
   const selectRef = useRef<HTMLSelectElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [paymentDate, setPaymentDate] = useState(new Date(2023, 11, 10))
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
+  const [paymentDate, setPaymentDate] = useState(
+    academyInfo.paymentInfo.paymentDay
+      ? new Date(academyInfo.paymentInfo.paymentDay)
+      : new Date()
+  )
+
   const [paymentInfo, setPaymentInfo] = useState({
     paymentName: '',
     paymentFee: 0
@@ -28,6 +32,18 @@ const AddPayment = () => {
       }
     })
   }
+
+  useEffect(() => {
+    if (!academyInfo.paymentInfo.paymentDay)
+      setAcademyInfo({
+        ...academyInfo,
+        paymentInfo: {
+          ...academyInfo.paymentInfo,
+          paymentDay: getFormattingDate(new Date())
+        }
+      })
+  }, [academyInfo, setAcademyInfo])
+
   const onSelect = (time: Date) => {
     setAcademyInfo({
       ...academyInfo,
@@ -38,12 +54,14 @@ const AddPayment = () => {
     })
     setPaymentDate(time)
   }
+
   const paymentTypeKeys = Object.keys(academyInfo.paymentInfo).slice(
     0,
     length - 1
   ) as unknown as Array<
     keyof Omit<typeof academyInfo.paymentInfo, 'paymentDay'>
   >
+
   const parseAcademyName = (name: keyof typeof academyInfo.paymentInfo) => {
     switch (name) {
       case 'educationFee': {
@@ -60,6 +78,7 @@ const AddPayment = () => {
       }
     }
   }
+
   const handlePayment = () => {
     switch (paymentInfo.paymentName) {
       case '교육비': {
