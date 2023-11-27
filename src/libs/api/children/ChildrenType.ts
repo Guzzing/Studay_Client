@@ -3,6 +3,7 @@ export interface GetChildrenInfoResponse {
   grade: string
   nickname: string
   schedule: string
+  profileImageUrl: string
 }
 
 export interface EditChildInfoRequest {

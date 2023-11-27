@@ -16,6 +16,7 @@ const HomePage = () => {
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
   })
+  console.log(data)
   if (isLoading) {
     return <Loading />
   }
