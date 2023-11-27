@@ -23,38 +23,7 @@ export const getDaySchedule = async ({
   const res = await request.get(
     `/calendar/date?date=${year}-${month}-${dayData}`
   )
-  console.log(res)
-  // return res.data
-  return {
-    date: '2023-11-01',
-    dateResponses: [
-      {
-        startTime: '08:00',
-        schedules: [
-          {
-            lessonId: 101,
-            academyName: 'Academy A',
-            lessonName: 'Math',
-            endTime: '09:00',
-            overlappingSchedules: [
-              {
-                scheduleId: 1001,
-                childId: 161,
-                childImageUrl: 'https://chanwookim.me/agumon-dday/agumon.png',
-                isRepeatable: true
-              },
-              {
-                scheduleId: 1002,
-                childId: 162,
-                childImageUrl: 'https://chanwookim.me/agumon-dday/agumon.png',
-                isRepeatable: false
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+  return res.data
 }
 
 export const deleteSchedule = async ({

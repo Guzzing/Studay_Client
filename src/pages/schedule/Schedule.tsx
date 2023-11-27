@@ -35,7 +35,6 @@ const Schedule = () => {
     date: '',
     lessonId: null
   })
-  // const [eventType, setEvenetType] = useState<string>('')
   const { Modal, open } = useModal()
   const { data: monthSchedule } = useQuery({
     queryKey: ['monthSchedule', calenderState.nowYear, calenderState.nowMonth],
