@@ -6,7 +6,8 @@ const Profile = ({
   imageUrl = 'https://chanwookim.me/agumon-dday/agumon.png',
   imageLabel = '',
   canEdit = false,
-  onClick
+  onClick,
+  profileSize
 }: ProfileImageProps) => {
   return (
     <div
@@ -17,6 +18,11 @@ const Profile = ({
         onClick={canEdit ? onClick : undefined}
         src={imageUrl}
         alt={'profile photo'}
+        style={
+          profileSize
+            ? { width: `${profileSize}px`, height: `${profileSize}px` }
+            : {}
+        }
         className={`border rounded-full ${
           imageSize === 'S'
             ? PROFILE_SIZE['S']

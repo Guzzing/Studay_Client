@@ -19,6 +19,7 @@ import LoginPage from '@/pages/login/LoginPage'
 import MapPage from '@/pages/map/MapPage.tsx'
 import MyPage from '@/pages/mypage/MyPage'
 import OnboardingPage from '@/pages/onboarding/OnbardingPage'
+import Schedule from '@/pages/schedule/Schedule.tsx'
 import NewSchedule from '@/pages/schedule/new'
 import SelectCity from '@/pages/selectcity/SelectCity.tsx'
 
@@ -110,6 +111,17 @@ export const router = createBrowserRouter(
           errorElement: <ErrorPage />
         },
         {
+          path: 'schedule',
+          element: (
+            <>
+              <Header headerType={'Logo'} pageTitle={'내 아이 시간표'} />
+              <Schedule />
+              <NavigationBar selectIcon={'Timetable'} />
+            </>
+          ),
+          errorElement: <ErrorPage />
+        },
+        {
           path: 'schedule/new',
           element: (
             <>
@@ -182,7 +194,7 @@ export const router = createBrowserRouter(
           errorElement: <ErrorPage />
         },
         {
-          path: '/likeacademy',
+          path: 'likeacademy',
           element: (
             <>
               <Header headerType={'Logo'} pageTitle={'찜한 학원 모아보기'} />
