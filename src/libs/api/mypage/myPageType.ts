@@ -2,7 +2,7 @@ interface Children {
   childId: number
   childName: string
   schedule: string
-  profileImageUrl: string
+  childProfileImageUrl: string
 }
 export interface GetMyPageResponse {
   nickname: string
