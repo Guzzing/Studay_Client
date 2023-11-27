@@ -162,6 +162,8 @@ const Schedule = () => {
           mainTitle={modalState.mainTitle}
           childSchedule={modalState.childSchedule}
           modalType={modalState.modalType}
+          date={modalState.date}
+          lessonId={modalState.lessonId}
           close={close}
         />
       </Modal>

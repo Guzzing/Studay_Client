@@ -26,9 +26,7 @@ const ScheduleModal = ({
 
   const selectChild = (childInfo: OverlappingScheduleType) => {
     if (modalType === 'edit') {
-      console.log(childInfo)
-
-      // navigate(`/schedule/${childInfo.scheduleId}/edit`)
+      navigate(`/schedule/${childInfo.scheduleId}/edit`)
     } else if (modalType === 'delete') {
       mutate(childInfo.scheduleId)
     } else {

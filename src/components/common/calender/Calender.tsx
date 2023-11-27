@@ -84,7 +84,8 @@ const Calender = ({
         <Icon
           classStyle={'cursor-pointer rotate-90'}
           icon={'ArrowDown'}
-          onClick={previousMonth}></Icon>
+          onClick={previousMonth}
+        />
         <div className={'headline-20'}>{`${nowYear}년 ${nowMonth}월`}</div>
         <Icon
           icon={'ArrowDown'}
