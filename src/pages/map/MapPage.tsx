@@ -107,7 +107,7 @@ const MapPage = () => {
   }
 
   return (
-    <div className={'relative bg-white-100 w-full h-full overflow-hidden'}>
+    <div className={'relative bg-white-100 w-full h-full overflow-hidden z-20'}>
       <SettingPage isOpen={toggleOpen} />
       <div>
         <Spacing size={80} />

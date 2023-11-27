@@ -12,7 +12,6 @@ const SettingPage = ({ isOpen }: SettingPage) => {
   const navigate = useNavigate()
   return (
     <CSSTransition in={isOpen} timeout={300} classNames={'slide'} unmountOnExit>
-      {/* CHECK: unmountOnExit: 애니메이션 후 display: none역할 해서 dom에서 사라짐❗️ */}
       {() => (
         <div
           className={
