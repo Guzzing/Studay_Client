@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import Select from '@/components/common/inputbox/select/Select.tsx'
 import StepQuestion from '@/components/common/stepquestion/StepQuestion.tsx'
 import TextBox from '@/components/common/textBox/TextBox.tsx'
@@ -13,6 +13,7 @@ const CityStep = ({
   selectCity = '',
   onClick
 }: SelectCityProps) => {
+  const selectRef = useRef<HTMLSelectElement>(null)
   const MainTitle = useMemo(() => {
     const {
       DEFAULT_TITLE,
@@ -39,6 +40,12 @@ const CityStep = ({
     const { PROVINCE_TEXT, CITY_TEXT, TOWN_TEXT } = SELECT_CITY.PLACE_HOLDER
     return [PROVINCE_TEXT, CITY_TEXT, TOWN_TEXT]
   }, [])
+
+  useEffect(()=>{
+    if(selectRef.current){
+      selectRef.current.selectedIndex = 0
+    }
+  },[currentStep])
 
   return (
     <>
@@ -85,6 +92,7 @@ const CityStep = ({
             options={selectList}
             placeholder={SelectPlaceHolder[currentStep - 1]}
             onChange={(e) => onChange(e.target.value)}
+            ref={selectRef}
           />
         </div>
       </div>
