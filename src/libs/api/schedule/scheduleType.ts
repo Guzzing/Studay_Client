@@ -40,6 +40,7 @@ interface DateResponseType {
 export interface DayScheduleResponse {
   date: string
   dateResponses: DateResponseType[]
+}
 export interface PostScheduleType {
   lessonScheduleCreateRequests: LessonScheduleType[]
   attendanceDate: {
