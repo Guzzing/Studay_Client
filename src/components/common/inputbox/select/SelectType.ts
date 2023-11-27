@@ -3,7 +3,7 @@ import { ComponentProps } from 'react'
 type SelectType = 'Single' | 'Box'
 export interface SelectProps<T> extends ComponentProps<'select'> {
   selecttype: SelectType
-  value?: string
+  values?: number[]
   options: T[]
   fullWidth?: boolean
   width?: number

@@ -11,6 +11,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
       height,
       errorMessage,
       options,
+      values,
       placeholder,
       onChange,
       ...props
@@ -25,7 +26,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
     return selecttype === 'Single' ? (
       <div
         className={`relative ${
-          fullWidth ? 'w-[324px] h-[52px]' : `w-[${width}px] h-[${height}px]`
+          fullWidth ? 'w-full h-[52px]' : `w-[${width}px] h-[${height}px]`
         } mt-[10px]`}>
         <select
           ref={ref}
@@ -46,8 +47,12 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
               {placeholder}
             </option>
           )}
-          {options?.map((option, index) => (
-            <option value={option} key={index}>
+          {options?.map((option, idx) => (
+            <option
+              value={
+                values ? values?.find((_, index) => index === idx) : option
+              }
+              key={idx}>
               {option}
             </option>
           ))}
@@ -87,7 +92,14 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
               </option>
             )}
             {options &&
-              options.map((option) => <option value={option}>{option}</option>)}
+              options.map((option, idx) => (
+                <option
+                  value={
+                    values ? values?.find((_, index) => index === idx) : option
+                  }>
+                  {option}
+                </option>
+              ))}
           </select>
           <div
             className={
