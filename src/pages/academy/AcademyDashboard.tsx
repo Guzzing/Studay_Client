@@ -28,14 +28,13 @@ const AcademyDashboard = () => {
     queryFn: () => getChildrenInfo()
   })
   const fetchAllDashboard = async () => {
-    if (childInfo) {
+    if (childInfo.childId) {
       const data = await getAllDashboards(childInfo.childId)
       setDashboardData(data)
     }
   }
   const deleteDashboardInfo = async (dashboardId: number) => {
     const data = await deleteDashboard(dashboardId)
-    console.log(dashboardId)
     const newData = dashboardData.filter(
       (data) => data.dashboardId !== dashboardId
     )

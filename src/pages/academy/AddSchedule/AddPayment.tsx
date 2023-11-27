@@ -34,7 +34,7 @@ const AddPayment = () => {
   }
 
   useEffect(() => {
-    if (academyInfo.paymentInfo.paymentDay.length === 0)
+    if (!academyInfo.paymentInfo.paymentDay)
       setAcademyInfo({
         ...academyInfo,
         paymentInfo: {
