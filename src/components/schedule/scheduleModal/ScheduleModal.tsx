@@ -31,7 +31,7 @@ const ScheduleModal = ({
       mutate(childInfo.scheduleId)
     } else {
       navigate(
-        `/schedule?date=${date}&scheduleId=${childInfo.scheduleId}&lessonId=${lessonId}&child=${childInfo.childId}`
+        `/schedule/detail?date=${date}&scheduleId=${childInfo.scheduleId}&lessonId=${lessonId}&child=${childInfo.childId}`
       )
     }
   }

@@ -19,18 +19,27 @@ const ScheduleProfileBox = ({
         e.stopPropagation()
       }}>
       <div className={'flex flex-row w-full mb-[2px]'}>
-        <span className={'w-full subHead-18'}>{mainTitle}</span>
+        <span
+          className={
+            'w-full subHead-18 text-ellipsis overflow-hidden whitespace-nowrap'
+          }>
+          {mainTitle}
+        </span>
         <div className={'flex flex-row  w-[20%]'}>
-          <Icon
-            icon={'Edit'}
-            onClick={handleEdit}
-            classStyle={'cursor-pointer'}
-          />
-          <Icon
-            icon={'Close'}
-            onClick={handleDelete}
-            classStyle={'cursor-pointer'}
-          />
+          <div
+            onClick={(e) => {
+              handleEdit()
+              e.stopPropagation()
+            }}>
+            <Icon icon={'Edit'} classStyle={'cursor-pointer'} />
+          </div>
+          <div
+            onClick={(e) => {
+              handleDelete()
+              e.stopPropagation()
+            }}>
+            <Icon icon={'Close'} classStyle={'cursor-pointer'} />
+          </div>
         </div>
       </div>
       <div className={'flex flex-row '}>

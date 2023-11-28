@@ -110,7 +110,7 @@ const Schedule = () => {
                         childSchedule: schedule.overlappingSchedules,
                         modalType: 'edit',
                         mainTitle: '어떤 아이의 스케줄을 수정하시겠습니까?',
-                        date: data.startTime,
+                        date: scheduleData.date,
                         lessonId: schedule.lessonId
                       })
                     }
@@ -119,7 +119,7 @@ const Schedule = () => {
                         childSchedule: schedule.overlappingSchedules,
                         modalType: 'delete',
                         mainTitle: '어떤 아이의 스케줄을 삭제하시겠습니까?',
-                        date: data.startTime,
+                        date: scheduleData.date,
                         lessonId: schedule.lessonId
                       })
                     }
@@ -128,12 +128,12 @@ const Schedule = () => {
                         childSchedule: schedule.overlappingSchedules,
                         modalType: 'detail',
                         mainTitle: '어떤 아이의 스케줄 정보를 확인할까요?',
-                        date: data.startTime,
+                        date: scheduleData.date,
                         lessonId: schedule.lessonId
                       })
                     }
                     subTitle={`${convertTo12HourFormat(
-                      schedule.endTime
+                      schedule.endTIme
                     )} 에 종료`}>
                     {schedule.overlappingSchedules.map((child, index) => (
                       <div className={'mx-[3px]'} key={`${index}-profile`}>
