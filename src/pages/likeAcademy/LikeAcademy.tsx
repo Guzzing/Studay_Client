@@ -49,7 +49,7 @@ const LikeAcademy = () => {
   return (
     <div className={'relative w-full h-full'}>
       <Spacing size={90} />
-      <div className={'overflow-auto h-[550px]'}>
+      <div className={'overflow-auto h-[600px]'}>
         {likeAcademies.likeAcademyInfos.length > 0
           ? likeAcademies.likeAcademyInfos.map(
               ({ academyId, academyName, expectedFee }, index) => (
