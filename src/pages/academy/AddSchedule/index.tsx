@@ -9,7 +9,6 @@ import { initialAcademyInfoAtom } from '@/libs/store/academyInfo'
 
 import { academyInfoAtom } from '@/libs/store/academyInfo'
 import { childAtom } from '@/libs/store/childInfoAtom'
-import { getFormattingDate } from '@/libs/utils/dateParse'
 import AddAcademyInfo from '@/pages/academy/addSchedule/AddAcademyInfo'
 import AddAcademyName from '@/pages/academy/addSchedule/AddAcademyName'
 import AddMemo from '@/pages/academy/addSchedule/AddMemo'
