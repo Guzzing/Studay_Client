@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 
 interface ModalProperties {
   children: ReactNode
-  onClose: () => void
+  onClose?: () => void
 }
 
 const Modal = ({ children, onClose }: ModalProperties) => {
