@@ -1,11 +1,13 @@
 import { useEffect } from 'react'
 import { useAtom } from 'jotai'
+import SettingPage from '../setting/SettingPage'
 import Icon from '@/components/common/icon/Icon'
 import Spacing from '@/components/common/spacing/Spacing'
 import {
   getLikeAcademyApi,
   deleteLikeAcademyApi
 } from '@/libs/api/likeacademy/LikeAcademyApi'
+import useSidebar from '@/libs/hooks/useSidebar'
 import {
   totalAtom,
   checkGroupAtom,
@@ -16,7 +18,7 @@ const LikeAcademy = () => {
   const [total, setTotal] = useAtom(totalAtom)
   const [likeAcademies, setLikeAcademy] = useAtom(likeAcademyAtom)
   const [checkGroup, setCheckGroup] = useAtom(checkGroupAtom)
-
+  const { toggleOpen, toggleSidebar } = useSidebar()
   const onClick = (index: number) => {
     setCheckGroup((prevCheckGroup) => {
       const newCheckGroup = [...prevCheckGroup]
@@ -47,9 +49,10 @@ const LikeAcademy = () => {
     }
   }, [checkGroup])
   return (
-    <div className={'relative w-full h-full'}>
+    <div className={'relative w-full h-full overflow-hidden'}>
       <Spacing size={90} />
-      <div className={'overflow-auto h-[550px]'}>
+      <SettingPage isOpen={toggleOpen} />
+      <div className={'overflow-auto h-[600px]'}>
         {likeAcademies?.likeAcademyInfos &&
           likeAcademies.likeAcademyInfos?.map(
             ({ likeId, academyId, academyName, expectedFee }, index) => (
@@ -73,14 +76,17 @@ const LikeAcademy = () => {
                   <p>
                     {'예상 교육비'}
                     <span className={'p-[10px]'}>
-                      {expectedFee}
-                      {'원'}
+                      {expectedFee === 0
+                        ? '알 수 없습니다'
+                        : expectedFee + '원'}
                     </span>
                   </p>
                 </div>
                 <Icon
                   icon={'Close'}
-                  classStyle={'absolute right-[20px] top-[14px] cursor-pointer'}
+                  classStyle={
+                    'absolute right-[20px] top-[50%] translate-y-[-50%] cursor-pointer'
+                  }
                   onClick={() => {
                     deleteLikeAcademyApi(likeId)
                     setLikeAcademy((prev) => ({
@@ -105,8 +111,7 @@ const LikeAcademy = () => {
           }>
           <span>{'예상 교육금액'}</span>
           <span className={'headline-25'}>
-            {total}
-            {'원'}
+            {total === 0 ? '알 수 없습니다' : total + '원'}
           </span>
         </div>
       </div>
