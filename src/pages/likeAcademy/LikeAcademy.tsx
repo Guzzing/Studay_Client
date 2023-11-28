@@ -103,7 +103,7 @@ const LikeAcademy = () => {
                 />
               </li>
             )
-          )}
+          : ''}
 
         <div
           className={
