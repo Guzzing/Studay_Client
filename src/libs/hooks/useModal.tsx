@@ -21,7 +21,9 @@ const useModal = () => {
   // isOpen이 true라면 modal 컴포넌트를 반환, false라면 null을 반환
   return {
     Modal: isOpen
-      ? ({ children }: ModalProperties) => <Modal>{children}</Modal>
+      ? ({ children }: ModalProperties) => (
+          <Modal onClose={close}>{children}</Modal>
+        )
       : () => <></>,
     open,
     close
