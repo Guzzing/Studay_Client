@@ -9,10 +9,6 @@ const ProgressBar = ({
   fullStepNum: number
   step: number
 }) => {
-  if (step > fullStepNum) {
-    alert(`스텝은 전체 스텝 개수인 ${fullStepNum}보다 클 수 없습니다.`)
-    return <></>
-  }
   const progressBarWidth = (step / fullStepNum) * 100
   return (
     <div className={'w-full h-[3px] bg-gray-200 relative'}>
