@@ -54,6 +54,17 @@ export interface PostScheduleType {
   memo: string
 }
 
+export interface BeforeEditInfoResponseType {
+  childName: string
+  academyName: string
+  lessonName: string
+  lessonScheduleLoadToUpdateResponses: LessonScheduleType[]
+  startDateOfAttendance: string
+  endDateOfAttendance: string
+  isAlarmed: true
+  memo: string
+}
+
 export interface LessonScheduleType {
   dayOfWeek: WeekStringType
   lessonTime: {
