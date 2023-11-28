@@ -33,6 +33,7 @@ export const deleteSchedule = async ({
   scheduleId: number
 }) => {
   const res = await request.delete(`/academy-schedules/${scheduleId}`)
+  return res.data
 }
 export const postScheduleApi = async (
   schedule: PostScheduleType

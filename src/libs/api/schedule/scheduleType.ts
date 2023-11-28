@@ -28,7 +28,7 @@ interface ScheduleType {
   lessonId: number
   academyName: string
   lessonName: string
-  endTime: string
+  endTIme: string
   overlappingSchedules: OverlappingScheduleType[]
 }
 

@@ -112,6 +112,7 @@ function getLastWeeksOfMonth(year: number, month: MonthType) {
 }
 
 export const convertTo12HourFormat = (time: string) => {
+  if (!time) return
   const [hours] = time.split(':').map(Number)
 
   // 24시간 형식의 시간을 12시간 형식으로 변환합니다.
