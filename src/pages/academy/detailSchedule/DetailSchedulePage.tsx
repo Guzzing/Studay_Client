@@ -70,8 +70,8 @@ const DetailSchedulePage = () => {
           </span>
         </div>
         <div className={'flex items-center relative w-[350px] h-[30px]'}>
-          <Icon icon={'MapPin'} classStyle={'mr-[10px] w-[20px] ml-[-4px]'} />
-          <div className={'w-[full] h-full overflow-scroll grow'}>
+          <Icon icon={'MapPin'} classStyle={'w-[30px] ml-[-4px]'} />
+          <div className={'w-full h-full grow'}>
             <span className={'body-14'}>{data?.academyInfo.address}</span>
           </div>
         </div>
