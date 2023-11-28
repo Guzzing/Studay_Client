@@ -10,15 +10,17 @@ import Spacing from '@/components/common/spacing/Spacing'
 import { logoutApi } from '@/libs/api/autorization/logout/LogoutApi'
 import { myPageApi } from '@/libs/api/mypage/myPageApi'
 import useSidebar from '@/libs/hooks/useSidebar'
+import useToastify from '@/libs/hooks/useToastify'
 import { myPageAtom } from '@/libs/store/myPageAtom'
 
 const MyPage = () => {
   const navigate = useNavigate()
+  const { setToast } = useToastify()
   const [myPageData, setMyPageData] = useAtom(myPageAtom)
   const { toggleOpen } = useSidebar()
   useEffect(() => {
     if (localStorage.getItem('token') === null) {
-      alert('로그인 페이지로 이동합니다!')
+      setToast({ comment: '로그인 페이지로 이동합니다.', type: 'info' })
       navigate('/login')
       return
     }
@@ -46,7 +48,10 @@ const MyPage = () => {
               classStyle={'w-[30px] h-[30px] cursor-pointer'}
               onClick={() =>
                 myPageData.childInformationResponses.length === 5
-                  ? alert('아이가 꽉 찼습니다!')
+                  ? setToast({
+                      comment: '아이는 최대 5명까지만 입력할 수 있어요.',
+                      type: 'warning'
+                    })
                   : navigate('/onboarding')
               }
             />
@@ -83,12 +88,23 @@ const MyPage = () => {
             buttonType={'Plain-blue'}
             label={'로그아웃 하기'}
             className={'mb-[20px]'}
-            onClick={() => logoutApi()}
+            onClick={() => {
+              logoutApi()
+              setToast({
+                comment: '로그아웃이 완료되었어요.',
+                type: 'success'
+              })
+            }}
           />
           <Button
             buttonType={'Plain-red'}
             label={'회원탈퇴 하기'}
-            onClick={() => alert('회원 탈퇴하기!')}
+            onClick={() =>
+              setToast({
+                comment: '회원 탈퇴가 완료되었어요.',
+                type: 'success'
+              })
+            }
           />
         </div>
       </div>

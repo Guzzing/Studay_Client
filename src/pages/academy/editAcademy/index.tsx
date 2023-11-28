@@ -9,6 +9,7 @@ import { editAcademyInfo } from '@/libs/api/academy/AcademyApi'
 import { AcademyInfoRequest } from '@/libs/api/academy/AcademyType'
 import { getDetailDashboard } from '@/libs/api/dashboard/DashBoardApi'
 import { GetAllDashBoardResponse } from '@/libs/api/dashboard/DashBoardType'
+import useToastify from '@/libs/hooks/useToastify'
 import { initialAcademyInfoAtom } from '@/libs/store/academyInfo'
 import { academyInfoAtom } from '@/libs/store/academyInfo'
 import { childAtom } from '@/libs/store/childInfoAtom'
@@ -17,6 +18,7 @@ import AddAcademyName from '@/pages/academy/addSchedule/AddAcademyName'
 import AddMemo from '@/pages/academy/addSchedule/AddMemo'
 import AddPayment from '@/pages/academy/addSchedule/AddPayment'
 import AddSchedule from '@/pages/academy/addSchedule/AddSchedule'
+
 const EditAcademy = () => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
   const [childInfo, setChildrenInfo] = useAtom(childAtom)
@@ -25,6 +27,7 @@ const EditAcademy = () => {
   const childrenSelectRef = useRef<HTMLSelectElement>(null)
   const classSelectRef = useRef<HTMLSelectElement>(null)
   const navigate = useNavigate()
+  const { setToast } = useToastify()
   const dashboardId = useLocation().state as number
   const fetchDashboardData = async (dashboardId: number) => {
     if (dashboardId) {
@@ -44,7 +47,7 @@ const EditAcademy = () => {
       if (childrenSelectRef.current) childrenSelectRef.current.selectedIndex = 0
       if (classSelectRef.current) classSelectRef.current.selectedIndex = 0
       navigate('/academies')
-      alert('성공적으로 수정 완료!')
+      setToast({ comment: '학원 정보를 수정했어요.', type: 'success' })
     }
   })
   useEffect(() => {

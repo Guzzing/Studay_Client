@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import Button from '@/components/common/button/Button'
@@ -5,17 +6,20 @@ import ListRowSelect from '@/components/common/listRowSelect/ListRowSelect'
 import Spacing from '@/components/common/spacing/Spacing'
 import { postScheduleApi } from '@/libs/api/schedule/scheduleApi'
 import { PostScheduleType } from '@/libs/api/schedule/scheduleType'
+import useToastify from '@/libs/hooks/useToastify'
 import { scheduleAtom } from '@/libs/store/scheduleInfo'
 import AddScheduleAcademy from '@/pages/schedule/new/AddScheduleAcademy'
 import AddScheduleMemo from '@/pages/schedule/new/AddScheduleMemo'
 import AddScheduleTime from '@/pages/schedule/new/AddScheduleTime'
-
 const NewSchedule = () => {
+  const navigate = useNavigate()
   const [scheduleInfo, setScheduleInfo] = useAtom(scheduleAtom)
+  const { setToast } = useToastify()
+
   const postNewScheduleMutation = useMutation({
-    onSuccess: () => {
-      alert('일정 생성 완료!')
-      // navigate(`/schedule/${data.academyTimeTemplateIds}`)
+    onSuccess: (data) => {
+      setToast({ comment: '일정이 생성되었어요.', type: 'success' })
+      navigate(`/schedule/${data.academyTimeTemplateIds[0]}`)
     },
     mutationFn: (scheduleInfo: PostScheduleType) =>
       postScheduleApi(scheduleInfo)

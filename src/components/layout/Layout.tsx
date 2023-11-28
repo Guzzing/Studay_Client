@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
+import useToastify from '@/libs/hooks/useToastify'
 
 const Layout = () => {
+  const { Toast } = useToastify()
   useEffect(() => {
     const vh = window.innerHeight * 0.01
     document.documentElement.style.setProperty('--vh', `${vh}px`)
@@ -17,6 +19,7 @@ const Layout = () => {
       <div
         className={'flex flex-col mx-auto max-w-475 w-full h-screen'}
         style={{ height: 'calc(var(--vh, 1vh) * 100)' }}>
+        <Toast />
         <Outlet />
       </div>
     </>
