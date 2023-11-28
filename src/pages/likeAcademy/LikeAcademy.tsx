@@ -18,7 +18,7 @@ const LikeAcademy = () => {
   const [total, setTotal] = useAtom(totalAtom)
   const [likeAcademies, setLikeAcademy] = useAtom(likeAcademyAtom)
   const [checkGroup, setCheckGroup] = useAtom(checkGroupAtom)
-  const { toggleOpen, toggleSidebar } = useSidebar()
+  const { toggleOpen } = useSidebar()
   const onClick = (index: number) => {
     setCheckGroup((prevCheckGroup) => {
       const newCheckGroup = [...prevCheckGroup]
