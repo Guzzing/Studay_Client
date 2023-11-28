@@ -1,7 +1,12 @@
-import { DaysInfo } from '../../../types/date.ts'
+import React from 'react'
+import { CalenderType } from '../../../types/date.ts'
+import { Holidays } from '@/libs/api/schedule/scheduleType.ts'
 
 interface CalenderProps {
-  onClick: (daysInfo: DaysInfo) => void
+  calenderState: CalenderType
+  setCalenderState: React.Dispatch<React.SetStateAction<CalenderType>>
+  existenceDays: number[]
+  holidays: Holidays[] | []
 }
 
 export default CalenderProps

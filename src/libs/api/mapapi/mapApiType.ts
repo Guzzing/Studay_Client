@@ -1,26 +1,26 @@
 export interface GetLocationParam {
-  sido: string
-  sigungu: string
-  dongne: string
+  province: string
+  city: string
+  town: string
 }
-export interface BeopjungdongResponse {
+export interface ProvinceResponse {
   subRegion: string[]
   subRegionCount: number
   targetRegion: string
 }
 
-export interface SigunguResponse {
+export interface CityResponse {
   targetRegion: string
   subRegion: string[]
   subRegionCount: number
 }
 
-export interface GetDongneParam {
-  sido: string
-  sigungu: string
+export interface GetTownParam {
+  province: string
+  city: string
 }
 
-export interface DongneResponse {
+export interface TownResponse {
   targetRegion: string
   subRegion: string[]
   subRegionCount: number
@@ -76,7 +76,7 @@ interface ReviewPercent {
 export interface DetailAcademyResponse {
   academyName: string
   contact: string
-  fullAddress: string
+  address: string
   shuttleAvailability: string
   expectedFee: number
   updatedDate: string

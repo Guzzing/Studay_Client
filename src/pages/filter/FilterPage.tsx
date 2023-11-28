@@ -1,30 +1,54 @@
-import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAtom } from 'jotai'
 import Button from '@/components/common/button/Button.tsx'
 import Label from '@/components/common/label/Label.tsx'
 import { LabelColorType } from '@/components/common/label/LabelType.ts'
 import Spacing from '@/components/common/spacing/Spacing.tsx'
+import { mapFilterState } from '@/libs/store/mapFilterAtom.ts'
+import { mapInfoAtom } from '@/libs/store/mapInfoAtom.ts'
 const FilterPage = () => {
   const navigate = useNavigate()
-  const subjects = useMemo(
-    () => [
-      { title: '예능', filter: '예능(대)', color: 'default' },
-      { title: '국제화', filter: '국제화', color: 'default' },
-      { title: '입시', filter: '입시, 검정 및 보습', color: 'default' },
-      { title: '직업기술', filter: '직업기술', color: 'default' },
-      { title: '종합', filter: '종합(대)', color: 'default' },
-      { title: '독서실', filter: '독서실', color: 'default' },
-      { title: '기예', filter: '기예(대)', color: 'default' },
-      { title: '기타', filter: '기타(대)', color: 'default' },
-      { title: '인문사회', filter: '인문사회(대)', color: 'default' },
-      { title: '정보', filter: '정보', color: 'default' }
-    ],
-    []
-  )
+  const [mapInfo, _] = useAtom(mapInfoAtom)
+  const [mapFilter, setMapFilter] = useAtom(mapFilterState)
 
   const moveSelectCity = () => {
     navigate('/selectcity')
   }
+
+  const moveMap = () => {
+    const subjectList = mapFilter.subjectList
+      .filter((subject) => subject.color === 'selected')
+      .map((subject) => subject.filter)
+
+    console.log(subjectList)
+    let url = `/map?lat=${mapInfo.latitude}&lng=${
+      mapInfo.longitude
+    }&areaOfExpertises=${subjectList.join(',')}`
+    console.log(url)
+
+    if (mapFilter.minMoney > 1) {
+      url += `&desiredMinAmount=${mapFilter.minMoney}&desiredMaxAmount=${mapFilter.maxMoney}`
+    }
+    navigate(url)
+  }
+
+  const selectSubjec = (index: number) => {
+    const updatedSubjectList = [...mapFilter.subjectList]
+    const color =
+      updatedSubjectList[index].color === 'default' ? 'selected' : 'default'
+
+    updatedSubjectList[index] = {
+      title: updatedSubjectList[index].title,
+      filter: updatedSubjectList[index].filter,
+      color: color
+    }
+
+    setMapFilter((prev) => ({
+      ...prev,
+      subjectList: updatedSubjectList
+    }))
+  }
+
   return (
     <div className={'flex flex-col w-[390px] h-full bg-white-100'}>
       <Spacing size={80} />
@@ -37,7 +61,7 @@ const FilterPage = () => {
           {'지역'}
         </span>
         <span className={'font-nsk headline-25 ml-[35px] mt-[19px]'}>
-          {'서울, 강남구 대치동'}
+          {`${mapInfo.selectProvince} ${mapInfo.selectCity} ${mapInfo.selectTown}`}
         </span>
         <div className={'mt-[25px] ml-[32px]'}>
           <Button
@@ -62,7 +86,7 @@ const FilterPage = () => {
           className={
             'w-[324px] h-full grid grid-cols-4 justify-center justify-items-center mt-[37px] mb-[46px] gap-4'
           }>
-          {subjects.map((subject, index) => (
+          {mapFilter.subjectList.map((subject, index) => (
             <div
               key={index}
               className={`w-full h-full`}
@@ -71,6 +95,8 @@ const FilterPage = () => {
                 variant={'medium'}
                 label={subject.title}
                 color={subject.color as LabelColorType}
+                isFullWidth={true}
+                onClick={() => selectSubjec(index)}
               />
             </div>
           ))}
@@ -94,6 +120,7 @@ const FilterPage = () => {
         buttonType={'Square'}
         label={'입력 완료! 학원을 찾아볼까요?'}
         fullWidth={true}
+        onClick={moveMap}
       />
     </div>
   )

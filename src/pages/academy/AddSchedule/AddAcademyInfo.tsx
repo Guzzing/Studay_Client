@@ -1,28 +1,23 @@
-import { useQuery } from '@tanstack/react-query'
-import ListRowSelect from '@/components/common/listRowSelect/ListRowSelect'
-import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
-const AddAcademyInfo = () => {
-  const { data } = useQuery({
-    queryKey: ['children'],
-    queryFn: () => getChildrenInfo()
-  })
+import SelectChild from '@/components/dashboard/SelectChild'
+import SelectLesson from '@/components/dashboard/SelectLesson'
+const AddAcademyInfo = ({
+  childrenSelectRef,
+  classSelectRef
+}: {
+  childrenSelectRef: React.RefObject<HTMLSelectElement>
+  classSelectRef: React.RefObject<HTMLSelectElement>
+}) => {
   return (
     <div className={'w-full flex flex-col items-center gap-[11px] border-b '}>
       <div className={'w-full px-[20px] flex flex-col items-center gap-[11px]'}>
-        <ListRowSelect
-          title={'아이 선택하기'}
-          options={data?.map((data) => data.nickname)}
-        />
-        <ListRowSelect
-          title={'우리 아이 반'}
-          options={data?.map((data) => data.nickname)}
-        />
+        <SelectChild childrenSelectRef={childrenSelectRef} />
+        <SelectLesson classSelectRef={classSelectRef} />
       </div>
       <div
         className={
           'w-full text-right caption-13 py-[4px] px-[20px] mb-[10px] text-gray-600 underline underline-offset-2 cursor-pointer'
         }>
-        {'찾는 학원이 없나요?'}
+        {'찾는 반이 없나요?'}
       </div>
     </div>
   )

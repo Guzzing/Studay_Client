@@ -9,11 +9,11 @@ export type AcademyInfoRequest = {
   lessonId: number
   schedules: AcademyScheduleType[]
   paymentInfo: {
-    educationFee: number | null
-    bookFee: number | null
-    shuttleFee: number | null
-    etcFee: number | null
-    paymentDay: number | null
+    educationFee: number
+    bookFee: number
+    shuttleFee: number
+    etcFee: number
+    paymentDay: string
   }
   simpleMemo: {
     kindness: boolean
@@ -25,13 +25,22 @@ export type AcademyInfoRequest = {
   }
 }
 
+export interface PostDashboardResponse {
+  dashboardId: number
+  childId: number
+  lessonId: number
+}
+
 export const AcademyMemo = [
-  '선생님이 친절해요 👨‍🏫',
-  '시설이 좋아요 🏫',
-  '교육 관리가 철저해요 📝',
-  '학생에 대한 애정 가득 💓',
-  '등하원이 편리해요 🚌',
-  '교육비가 저렴해요 💰'
+  { serverData: 'kindness', clientData: '선생님이 친절해요 👨‍🏫' },
+  { serverData: 'goodFacility', clientData: '시설이 좋아요 🏫' },
+  {
+    serverData: 'cheapFee',
+    clientData: '교육비가 저렴해요 💰'
+  },
+  { serverData: 'goodManagement', clientData: '교육 관리가 철저해요 📝' },
+  { serverData: 'lovelyTeaching', clientData: '학생에 대한 애정 가득 💓' },
+  { serverData: 'shuttleAvailability', clientData: '등하원이 편리해요 🚌' }
 ] as const
 
 export type AcademyMemoType = (typeof AcademyMemo)[number]
@@ -54,67 +63,40 @@ export type ClientWeekType =
   | '토요일'
   | '일요일'
 
-export type RepeatanceType =
-  | 'NONE'
-  | 'DAILY'
-  | 'WEEKLY'
-  | 'BIWEEKLY'
-  | 'MONTHLY'
-  | 'YEARLY'
-
-export type RepeatOptionType =
-  | '안 함'
-  | '매주'
-  | '격주'
-  | '한달마다'
-  | '매일'
-  | '매년'
-
 export type AcademyScheduleType = {
-  dayOfWeek: ServerWeekType
-  startTime: string
-  endTime: string
-  repeatance: RepeatanceType
+  dayOfWeek: number
+  startTime: string | undefined
+  endTime: string | undefined
 }
 
 export type TempAcademyScheduleType = {
   weekArray: number[]
   startTime: string
   endTime: string | null
-  repeatance: RepeatanceType
 }
 
-export type SelectRepeatanceType = Record<RepeatOptionType, RepeatanceType>
-export type SelectWeekType = Record<number, ServerWeekType>
+export type SelectWeekType = Record<number, number>
 
-export type ClientSelectWeekType = Record<ServerWeekType, ClientWeekType>
-export const RepeatanceData: SelectRepeatanceType = {
-  '안 함': 'NONE',
-  매일: 'DAILY',
-  매주: 'WEEKLY',
-  격주: 'BIWEEKLY',
-  한달마다: 'MONTHLY',
-  매년: 'YEARLY'
-}
+export type ClientSelectWeekType = Record<number, ClientWeekType>
 
 export const WeekData: SelectWeekType = {
-  1: 'MONDAY',
-  2: 'TUESDAY',
-  3: 'WEDNESDAY',
-  4: 'THURSDAY',
-  5: 'FRIDAY',
-  6: 'SATURDAY',
-  0: 'SUNDAY'
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  5: 5,
+  6: 6,
+  0: 7
 }
 
 export const ClientWeekData: ClientSelectWeekType = {
-  MONDAY: '월요일',
-  TUESDAY: '화요일',
-  WEDNESDAY: '수요일',
-  THURSDAY: '목요일',
-  FRIDAY: '금요일',
-  SATURDAY: '토요일',
-  SUNDAY: '일요일'
+  1: '월요일',
+  2: '화요일',
+  3: '수요일',
+  4: '목요일',
+  5: '금요일',
+  6: '토요일',
+  7: '일요일'
 }
 
 export interface SearchAcademiesInfiniteScroll {
@@ -131,4 +113,48 @@ export interface SearchAcademiesInfiniteScroll {
   last: boolean
   numberOfElements: number
   empty: boolean
+}
+
+export interface AcademyClassResponse {
+  lessonId: 746
+  subject: string
+}
+
+export type ServerAcademyType =
+  | '예능(대)'
+  | '국제화'
+  | '입시, 검정 및 보습'
+  | '직업기술'
+  | '종합(대)'
+  | '독서실'
+  | '기예(대)'
+  | '기타(대)'
+  | '인문사회(대)'
+  | '정보'
+
+export type ClientAcademyType =
+  | '예능'
+  | '국제화'
+  | '입시'
+  | '직업기술'
+  | '종합'
+  | '독서실'
+  | '기예'
+  | '기타'
+  | '인문사회'
+  | '정보'
+
+export type AcademyType = Record<ServerAcademyType, ClientAcademyType>
+
+export const AcademyTypeData: AcademyType = {
+  '예능(대)': '예능',
+  국제화: '국제화',
+  '입시, 검정 및 보습': '입시',
+  직업기술: '직업기술',
+  '종합(대)': '종합',
+  독서실: '독서실',
+  '기예(대)': '기예',
+  '기타(대)': '기타',
+  '인문사회(대)': '인문사회',
+  정보: '정보'
 }

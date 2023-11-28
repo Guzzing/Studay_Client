@@ -1,13 +1,17 @@
 import type { HeaderProps } from './HeaderType'
 import { useNavigate } from 'react-router-dom'
 import Icon from '../icon/Icon'
+import useSidebar from '@/libs/hooks/useSidebar'
+
 const Header = ({
   headerType,
-  pageTitle = 'pageTitle',
+  pageTitle,
   backUrl = '',
+  skip = '',
   onClick
 }: HeaderProps) => {
   const navigate = useNavigate()
+  const { toggleSidebar } = useSidebar()
   return (
     <header
       className={`fixed left-[50%] z-50 top-0 translate-x-[-50%] w-[390px] h-[80px] bg-white-0 text-black-800 px-[22px] border-b-[1px] border-gray-100`}>
@@ -20,9 +24,21 @@ const Header = ({
             : 'flex items-center justify-between'
         }`}>
         {headerType === 'BackPush' ? (
-          <span onClick={() => alert('뒤로가기')}>
-            <Icon icon={'BackPush'} classStyle={'cursor-pointer'} />
-          </span>
+          <>
+            <span onClick={onClick || (() => navigate(-1))}>
+              <Icon icon={'BackPush'} classStyle={'cursor-pointer'} />
+            </span>
+            {pageTitle && (
+              <span className={'ml-[30px] subHead-18'}>{pageTitle}</span>
+            )}
+            {skip && (
+              <span
+                className={'cursor-pointer w-full text-right'}
+                onClick={() => navigate(skip)}>
+                {'건너뛰기'}
+              </span>
+            )}
+          </>
         ) : headerType === 'Logo' ? (
           <>
             <div className={'flex flex-row items-center'}>
@@ -39,7 +55,7 @@ const Header = ({
               <div className={'mx-[7px]'} onClick={() => alert('알림보기!')}>
                 <Icon icon={'Alarm'} classStyle={'cursor-pointer'} />
               </div>
-              <span onClick={() => alert('사이드 바 열기')}>
+              <span onClick={toggleSidebar}>
                 <Icon icon={'SideBar'} classStyle={'cursor-pointer'} />
               </span>
             </div>

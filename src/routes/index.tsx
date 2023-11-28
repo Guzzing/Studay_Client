@@ -9,11 +9,18 @@ import EditingChildren from '@/pages/EditChildren/EditingChildren'
 import ErrorPage from '@/pages/ErrorPage'
 import AcademyDashboard from '@/pages/academy/AcademyDashboard'
 import AddAcademy from '@/pages/academy/AddSchedule'
+import AcademyDetail from '@/pages/academy/academyDetail'
+import DetailSchedulePage from '@/pages/academy/detailSchedule/DetailSchedulePage'
+import EditAcademy from '@/pages/academy/editAcademy'
 import FilterPage from '@/pages/filter/FilterPage.tsx'
 import HomePage from '@/pages/home/HomePage'
+import LikeAcademy from '@/pages/likeAcademy/LikeAcademy'
 import LoginPage from '@/pages/login/LoginPage'
 import MapPage from '@/pages/map/MapPage.tsx'
+import MyPage from '@/pages/mypage/MyPage'
 import OnboardingPage from '@/pages/onboarding/OnbardingPage'
+import Schedule from '@/pages/schedule/Schedule.tsx'
+import NewSchedule from '@/pages/schedule/new'
 import SelectCity from '@/pages/selectcity/SelectCity.tsx'
 
 export const router = createBrowserRouter(
@@ -46,7 +53,6 @@ export const router = createBrowserRouter(
           path: 'onboarding',
           element: (
             <>
-              <Header headerType={'BackPush'} />
               <OnboardingPage />
             </>
           ),
@@ -54,7 +60,6 @@ export const router = createBrowserRouter(
         },
         {
           path: 'edit/:childId',
-
           element: (
             <>
               <Header headerType={'Close'} backUrl={'/'} />
@@ -76,7 +81,7 @@ export const router = createBrowserRouter(
           path: 'selectcity',
           element: (
             <>
-              <Header headerType={'BackPush'} />
+              <Header headerType={'BackPush'} pageTitle={''} skip={'/map'} />
               <SelectCity />
             </>
           ),
@@ -107,31 +112,48 @@ export const router = createBrowserRouter(
         },
         {
           path: 'schedule',
-          element: <p>{'시간표 보기'}</p>,
+          element: (
+            <>
+              <Header headerType={'Logo'} pageTitle={'내 아이 시간표'} />
+              <Schedule />
+              <NavigationBar selectIcon={'Timetable'} />
+            </>
+          ),
+          errorElement: <ErrorPage />
+        },
+        {
+          path: 'schedule/new',
+          element: (
+            <>
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'시간표 등록하기'}
+              />
+              <NewSchedule />
+            </>
+          ),
           errorElement: <ErrorPage />
         },
         {
           path: 'academies',
           element: (
-            <div>
+            <div className={'h-full'}>
               <Header headerType={'Logo'} pageTitle={'학원 관리하기'} />
               <AcademyDashboard />
               <NavigationBar selectIcon={'Info'} />
             </div>
           ),
-          errorElement: <ErrorPage />,
-          children: [
-            {
-              index: true,
-              element: <p>{'학원 리스트 body'}</p>,
-              errorElement: <ErrorPage />
-            },
-            {
-              path: ':academiesId',
-              element: <p>{'학원 상세보기'}</p>,
-              errorElement: <ErrorPage />
-            }
-          ]
+          errorElement: <ErrorPage />
+        },
+        {
+          path: 'academies/:dashboardId/',
+          element: (
+            <>
+              <Header headerType={'Close'} pageTitle={'학원 상세보기'} />
+              <AcademyDetail />
+            </>
+          ),
+          errorElement: <ErrorPage />
         },
         {
           path: 'academies/register',
@@ -147,19 +169,51 @@ export const router = createBrowserRouter(
           errorElement: <ErrorPage />
         },
         {
+          path: 'academies/:dashboardId/edit',
+          element: (
+            <>
+              <Header headerType={'Close'} pageTitle={'학원 정보 수정하기'} />
+              <EditAcademy />
+            </>
+          ),
+          errorElement: <ErrorPage />
+        },
+        {
           path: 'reports',
           element: <p>{'reports'}</p>,
           errorElement: <ErrorPage />
         },
         {
-          path: 'settings',
-          element: <p>{'setting page'}</p>,
+          path: 'myPages',
+          element: (
+            <>
+              <Header headerType={'Logo'} pageTitle={'마이페이지'} />
+              <MyPage />
+            </>
+          ),
           errorElement: <ErrorPage />
         },
         {
-          path: 'myPages',
-          element: <p>{'my page'}</p>,
+          path: 'likeacademy',
+          element: (
+            <>
+              <Header headerType={'Logo'} pageTitle={'찜한 학원 모아보기'} />
+              <LikeAcademy />
+            </>
+          ),
           errorElement: <ErrorPage />
+        },
+        {
+          path: 'schedule/detail',
+          element: (
+            <>
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'시간표 상세보기'}
+              />
+              <DetailSchedulePage />
+            </>
+          )
         }
       ]
     }

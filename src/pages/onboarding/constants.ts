@@ -1,21 +1,24 @@
-export const DATA = [
+export const PAGE_CONTENT = [
   {
-    mainTitle: '안녕하세요 :) 스터데이에요',
-    subTitle: '스터데이의 커뮤니티 문화를 위해 매너있는 이름을 써주세요',
+    type: 'nickname',
+    mainTitle: ['안녕하세요 :)', '스터데이에요'],
+    subTitle: ['스터데이의 커뮤니티 문화를 위해', '매너있는 이름을 써주세요'],
     step: [1],
     inputTitle: ['사용할 닉네임을 입력해주세요'],
-    buttonType: ['입력완료']
+    buttonType: ['입력완료', '']
   },
   {
-    mainTitle: '스터데이의 최근 소식을 알려드리고 싶어요.',
-    subTitle: '작성해주신 이메일로 최신 정보를 보내드려요',
+    type: 'email',
+    mainTitle: ['스터데이의 최근 소식을', '알려드리고 싶어요.'],
+    subTitle: ['작성해주신 이메일로 최신 정보를 보내드려요'],
     step: [2],
     inputTitle: ['이메일을 입력해주세요'],
-    buttonType: ['입력완료']
+    buttonType: ['입력완료', '']
   },
   {
-    mainTitle: '자녀에 대해서 알려주세요',
-    subTitle: '자녀별로 시간표를 관리하고 맞춤 정보를 관리할 수 있어요',
+    type: 'child',
+    mainTitle: ['자녀에 대해서', '알려주세요'],
+    subTitle: ['자녀별로 시간표를 관리하고', '맞춤 정보를 관리할 수 있어요'],
     step: [3, 4],
     inputTitle: [
       '아이의 이름(애칭)을 알려주세요',
@@ -27,8 +30,9 @@ export const DATA = [
     ]
   },
   {
-    mainTitle: '둘째는 어떤 아이인가요?',
-    subTitle: '자녀별로 시간표를 관리하고 맞춤 정보를 관리할 수 있어요',
+    type: 'child',
+    mainTitle: ['둘째는 어떤', '아이인가요?'],
+    subTitle: ['자녀별로 시간표를 관리하고', '맞춤 정보를 관리할 수 있어요'],
     step: [3, 4],
     inputTitle: [
       '아이의 이름(애칭)을 알려주세요',
@@ -40,8 +44,9 @@ export const DATA = [
     ]
   },
   {
-    mainTitle: '귀염둥이 셋째! 정보를 입력해주세요',
-    subTitle: '자녀별로 시간표를 관리하고 맞춤 정보를 관리할 수 있어요',
+    type: 'child',
+    mainTitle: ['귀염둥이 셋째!', '정보를 입력해주세요'],
+    subTitle: ['자녀별로 시간표를 관리하고', '맞춤 정보를 관리할 수 있어요'],
     step: [3, 4],
     inputTitle: [
       '아이의 이름(애칭)을 알려주세요',
@@ -53,8 +58,9 @@ export const DATA = [
     ]
   },
   {
-    mainTitle: '우와, 벌써 넷째에요',
-    subTitle: '자녀별로 시간표를 관리하고 맞춤 정보를 관리할 수 있어요',
+    type: 'child',
+    mainTitle: ['우와,', '벌써 넷째에요'],
+    subTitle: ['자녀별로 시간표를 관리하고', '맞춤 정보를 관리할 수 있어요'],
     step: [3, 4],
     inputTitle: [
       '아이의 이름(애칭)을 알려주세요',
@@ -66,18 +72,20 @@ export const DATA = [
     ]
   },
   {
-    mainTitle: '마지막이에요! 다섯째는요?',
-    subTitle: '자녀별로 시간표를 관리하고 맞춤 정보를 관리할 수 있어요',
+    type: 'child',
+    mainTitle: ['마지막이에요!', '다섯째는요?'],
+    subTitle: ['자녀별로 시간표를 관리하고', '맞춤 정보를 관리할 수 있어요'],
     step: [3, 4],
     inputTitle: [
       '아이의 이름(애칭)을 알려주세요',
       '현재 재학중인 학년을 알려주세요'
     ],
-    buttonType: ['입력완료! 스터데이를 시작해볼까요?']
+    buttonType: ['', '입력완료! 스터데이를 시작해볼까요?']
   }
 ]
 
-export const grade = [
+export const CHILD_GRADE = [
+  '',
   '초등학교 1학년',
   '초등학교 2학년',
   '초등학교 3학년',
@@ -91,3 +99,13 @@ export const grade = [
   '고등학교 2학년',
   '고등학교 3학년'
 ]
+
+// 버튼 타입이 child가 아니라면, 위에,
+// child면 set을 하는데....
+// index가 0이면 currentPage증가
+// 1이면 제출!
+
+// 첫 번째 버튼인데,
+// - 01 vs 23456버튼
+
+// 두 번째 버튼!

@@ -39,6 +39,12 @@ const Button = ({
         } ${height ? 'h-[43px]' : BUTTON_HEIGHT[height]} ${
           BUTTON_BG_COLOR['white0']
         } ${BUTTON_TEXT_COLOR['blue500']} ${BUTTON_BORDER_COLOR['blue500']}`
+      : buttonType === 'Plain-disabled'
+      ? `${BUTTON_RADIUS['middle']} ${
+          fullWidth ? 'w-full' : width ? 'w-[343px]' : BUTTON_WIDTH[width]
+        } ${height ? 'h-[56px]' : BUTTON_HEIGHT[height]} ${
+          BUTTON_BG_COLOR['white0']
+        } ${BUTTON_TEXT_COLOR['gray500']} ${BUTTON_BORDER_COLOR['gray500']}`
       : buttonType === 'Plain-red'
       ? `${BUTTON_RADIUS['middle']} ${
           fullWidth ? 'w-full' : width ? 'w-[317px]' : BUTTON_WIDTH[width]
@@ -62,7 +68,10 @@ const Button = ({
   ${FONT_STYLE['NSK']}
   `
   return (
-    <button {...props} className={cn(btnClass, className)}>
+    <button
+      {...props}
+      className={cn(btnClass, className)}
+      disabled={buttonType === 'Plain-disabled' ? true : false}>
       {label}
     </button>
   )

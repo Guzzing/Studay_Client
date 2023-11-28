@@ -5,7 +5,7 @@ export type LabelColorType = 'default' | 'selected' | 'disabled'
 
 export const LabelColorVariant = {
   default: {
-    medium: 'bg-white border border-blue-500 ',
+    medium: 'bg-white border border-blue-500 bg-white-0',
     small: 'bg-blue-400'
   },
   selected: {
@@ -13,7 +13,7 @@ export const LabelColorVariant = {
     small: 'bg-blue-700'
   },
   disabled: {
-    medium: 'bg-white border border-gray-500',
+    medium: 'bg-white border border-gray-500 bg-white-0',
     small: 'bg-gray-500'
   }
 }
@@ -38,8 +38,8 @@ export const LabelVariant = cva(
   {
     variants: {
       variant: {
-        medium: 'rounded-[10px] font-nsk body-14 w-fit h-[32px]',
-        small: 'font-nsk caption-13 rounded-[10px]  w-fit h-[28px] text-white'
+        medium: 'rounded-[10px] font-nsk body-14 h-[32px]',
+        small: 'font-nsk caption-13 rounded-[10px] h-[28px] text-white'
       },
       defaultVariants: {
         variant: 'medium'

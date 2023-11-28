@@ -5,7 +5,12 @@ const ScheduleBox = ({
   isRegister = false,
   scheduleType,
   mainTitle,
-  subElement
+  subElement,
+  rightBottomElement,
+  handleToggle,
+  handleEdit,
+  handleDelete,
+  ...props
 }: ScheduleBoxProps) => {
   return (
     <div
@@ -17,21 +22,24 @@ const ScheduleBox = ({
             ? 'w-[345px] h-[142px] bg-white-0'
             : 'w-[345px] h-[142px] bg-gray-200'
           : ''
-      } shadow-md pt-[16px] pb-[6px] px-[24px] rounded-[20px] font-nsk`}>
-      <div className={'relative w-full h-full flex-col'}>
+      } shadow-md pt-[22px] pb-[20px] px-[24px] rounded-[20px] font-nsk`}>
+      <div className={'relative w-full h-full flex-col'} {...props}>
         <div className={'flex justify-between grow-4'}>
           <div className={'subHead-18'}>{mainTitle}</div>
           <div className={'flex cursor-pointer text-black-800 items-center'}>
-            <Icon icon={'Edit'} />
-            <Icon icon={'Close'} />
+            <Icon icon={'Edit'} onClick={handleEdit} />
+            <Icon icon={'Close'} onClick={handleDelete} />
           </div>
         </div>
         <div className={'grow-6'}>
           <div
             className={`${
               scheduleType === 'profile' ? 'flex' : 'caption-13-gray'
-            } justify-start items-center body-14 py-[5px]`}>
+            } justify-start items-center body-14 py-[10px]`}>
             {subElement}
+          </div>
+          <div className={'absolute bottom-[3px] left-0 flex justify-end'}>
+            {rightBottomElement && rightBottomElement}
           </div>
           <div className={'absolute bottom-[3px] right-0 flex justify-end'}>
             {scheduleType === 'profile' ? (
@@ -47,7 +55,8 @@ const ScheduleBox = ({
               <div
                 className={`relative w-[42px] h-[20px] rounded-full ${
                   isRegister ? 'bg-blue-500' : 'bg-white-200'
-                } cursor-pointer`}>
+                } cursor-pointer `}
+                onClick={handleToggle}>
                 <div
                   className={`absolute ${
                     isRegister
