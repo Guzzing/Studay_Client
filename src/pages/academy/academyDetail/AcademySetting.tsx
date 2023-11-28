@@ -16,7 +16,7 @@ const AcademySetting = ({ data }: { data: GetAllDashBoardResponse }) => {
   }
 
   const fetchToggleDashboard = async (dashboardId: number) => {
-    const res = await patchToggleDashboardState(dashboardId)
+    await patchToggleDashboardState(dashboardId)
   }
   return (
     <>

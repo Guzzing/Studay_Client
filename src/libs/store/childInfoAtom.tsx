@@ -5,7 +5,8 @@ const initialChildAtom: GetChildrenInfoResponse = {
   childId: 0,
   nickname: '',
   grade: '',
-  schedule: ''
+  schedule: '',
+  profileImageUrl: ''
 }
 
 export const childAtom = atom(initialChildAtom)

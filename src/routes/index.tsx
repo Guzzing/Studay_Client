@@ -10,6 +10,7 @@ import ErrorPage from '@/pages/ErrorPage'
 import AcademyDashboard from '@/pages/academy/AcademyDashboard'
 import AcademyDetail from '@/pages/academy/academyDetail'
 import AddAcademy from '@/pages/academy/addSchedule'
+import DetailSchedulePage from '@/pages/academy/detailSchedule/DetailSchedulePage'
 import EditAcademy from '@/pages/academy/editAcademy'
 import FilterPage from '@/pages/filter/FilterPage.tsx'
 import HomePage from '@/pages/home/HomePage'
@@ -18,6 +19,7 @@ import LoginPage from '@/pages/login/LoginPage'
 import MapPage from '@/pages/map/MapPage.tsx'
 import MyPage from '@/pages/mypage/MyPage'
 import OnboardingPage from '@/pages/onboarding/OnbardingPage'
+import Schedule from '@/pages/schedule/Schedule.tsx'
 import NewSchedule from '@/pages/schedule/new'
 import SelectCity from '@/pages/selectcity/SelectCity.tsx'
 
@@ -110,7 +112,13 @@ export const router = createBrowserRouter(
         },
         {
           path: 'schedule',
-          element: <p>{'시간표 보기'}</p>,
+          element: (
+            <>
+              <Header headerType={'Logo'} pageTitle={'내 아이 시간표'} />
+              <Schedule />
+              <NavigationBar selectIcon={'Timetable'} />
+            </>
+          ),
           errorElement: <ErrorPage />
         },
         {
@@ -186,7 +194,7 @@ export const router = createBrowserRouter(
           errorElement: <ErrorPage />
         },
         {
-          path: '/likeacademy',
+          path: 'likeacademy',
           element: (
             <>
               <Header headerType={'Logo'} pageTitle={'찜한 학원 모아보기'} />
@@ -194,6 +202,18 @@ export const router = createBrowserRouter(
             </>
           ),
           errorElement: <ErrorPage />
+        },
+        {
+          path: 'schedule/detail',
+          element: (
+            <>
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'시간표 상세보기'}
+              />
+              <DetailSchedulePage />
+            </>
+          )
         }
       ]
     }

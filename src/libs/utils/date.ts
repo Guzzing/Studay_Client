@@ -40,6 +40,7 @@ export const getDays = (year: number, month: MonthType) => {
     )
 
   const firstDay = new Date(year, nowMonth, 1).getDay()
+  console.log(firstDay)
   //이번달
   for (let day = 1; day <= lastDay; day++) {
     const currentDate = new Date(year, nowMonth, day)
@@ -65,7 +66,9 @@ export const getDays = (year: number, month: MonthType) => {
       year: prevYear,
       month: prevMonth,
       day: (prevMonthLastDay - firstDay + i + 1) as DayType,
-      style: `${WeekStyle.WEEKDAY} ${WeekStyle.OPACITY}`
+      style: `${WeekStyle.WEEKDAY} ${WeekStyle.OPACITY} ${
+        i === 0 ? WeekStyle.SUN : ''
+      }`
     }
   }
 
@@ -106,4 +109,17 @@ function getLastWeeksOfMonth(year: number, month: MonthType) {
   const weeks = Math.ceil((lastDate.getDate() + firstDay) / 7)
 
   return weeks
+}
+
+export const convertTo12HourFormat = (time: string) => {
+  if (!time) return
+  const [hours] = time.split(':').map(Number)
+
+  // 24시간 형식의 시간을 12시간 형식으로 변환합니다.
+  const ampm = hours >= 12 ? '오후' : '오전'
+  const convertHours = hours === 0 ? 12 : hours % 12
+  const timeFormat = `${ampm} ${convertHours}시`
+
+  // 변환된 시간을 "오후 2시 30분" 형식으로 반환합니다.
+  return timeFormat
 }

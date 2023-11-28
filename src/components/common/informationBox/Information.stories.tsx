@@ -9,7 +9,7 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    image: {
+    imageUrl: {
       control: 'text'
     },
     mainTitle: {
@@ -37,7 +37,7 @@ export const defaultInformationBox: Story = {
 
 export const profileInformationBox: Story = {
   args: {
-    image:
+    imageUrl:
       'https://static.vecteezy.com/system/resources/thumbnails/005/545/335/small/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg',
     mainTitle: '홍길동',
     subTitle: '고등학교 1학년',
