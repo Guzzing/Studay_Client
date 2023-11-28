@@ -7,6 +7,7 @@ import Button from '@/components/common/button/Button'
 import Header from '@/components/common/header/Header'
 import Input from '@/components/common/inputbox/input/Input'
 import Select from '@/components/common/inputbox/select/Select'
+import ProgressBar from '@/components/common/progressBar/ProgressBar'
 import Spacing from '@/components/common/spacing/Spacing'
 import StepQuestion from '@/components/common/stepquestion/StepQuestion'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
@@ -98,7 +99,7 @@ const Onboarding = () => {
   }, [currentPage])
 
   return (
-    <div className={'px-[36px]'}>
+    <div>
       <Header
         headerType={'BackPush'}
         pageTitle={'onboarding'}
@@ -113,44 +114,48 @@ const Onboarding = () => {
           } else navigate(-1)
         }}
       />
-      <Spacing size={124} />
-      {PAGE_CONTENT[currentPage].mainTitle.map((mainTitle) => (
-        <h2 className={'headline-25 leading-[40px]'}>{mainTitle}</h2>
-      ))}
-      {PAGE_CONTENT[currentPage].subTitle.map((subTitle) => (
-        <p className={'body-15-gray leading-[20px]'}>{subTitle}</p>
-      ))}
-      <Spacing size={30} />
-      {PAGE_CONTENT[currentPage].inputTitle.map((v, i) => (
-        <div>
-          <StepQuestion step={PAGE_CONTENT[currentPage].step[i]} text={v} />
-          {i === 1 ? (
-            <Select
-              selecttype={'Single'}
-              options={CHILD_GRADE}
-              ref={selectRef}
-              onChange={handleSelectChange}
-              value={selectValue}
-            />
-          ) : (
-            <Input
-              inputType={'Default'}
-              ref={inputRef}
-              onChange={handleInputChange}
-              value={inputValue}
-              field={
-                currentPage === 0
-                  ? 'nickname'
-                  : currentPage === 1
-                  ? 'email'
-                  : 'childname'
-              }
-            />
-          )}
-          <Spacing size={20} />
-        </div>
-      ))}
-      <ul className={'absolute bottom-[15px]'}>
+      <Spacing size={80} />
+      <ProgressBar step={currentPage + 1} fullStepNum={3} />
+      <Spacing size={45} />
+      <div className={'px-[36px]'}>
+        {PAGE_CONTENT[currentPage].mainTitle.map((mainTitle) => (
+          <h2 className={'headline-25 leading-[40px]'}>{mainTitle}</h2>
+        ))}
+        {PAGE_CONTENT[currentPage].subTitle.map((subTitle) => (
+          <p className={'body-15-gray leading-[20px]'}>{subTitle}</p>
+        ))}
+        <Spacing size={30} />
+        {PAGE_CONTENT[currentPage].inputTitle.map((v, i) => (
+          <div>
+            <StepQuestion step={PAGE_CONTENT[currentPage].step[i]} text={v} />
+            {i === 1 ? (
+              <Select
+                selecttype={'Single'}
+                options={CHILD_GRADE}
+                ref={selectRef}
+                onChange={handleSelectChange}
+                value={selectValue}
+              />
+            ) : (
+              <Input
+                inputType={'Default'}
+                ref={inputRef}
+                onChange={handleInputChange}
+                value={inputValue}
+                field={
+                  currentPage === 0
+                    ? 'nickname'
+                    : currentPage === 1
+                    ? 'email'
+                    : 'childname'
+                }
+              />
+            )}
+            <Spacing size={20} />
+          </div>
+        ))}
+      </div>
+      <ul className={'absolute bottom-[15px] w-full text-center'}>
         {PAGE_CONTENT[currentPage].buttonType.map(
           (buttonLabel, i) =>
             buttonLabel && (

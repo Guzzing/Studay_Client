@@ -12,7 +12,6 @@ import ScheduleBox from '@/components/common/scheduleBox/ScheduleBox'
 import Spacing from '@/components/common/spacing/Spacing'
 import { AcademyTypeData } from '@/libs/api/academy/AcademyType'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
-import { deleteDashboard } from '@/libs/api/dashboard/DashBoardApi'
 import { patchToggleDashboardState } from '@/libs/api/dashboard/DashBoardApi'
 import { getAllDashboards } from '@/libs/api/dashboard/DashBoardApi'
 import { GetAllDashBoardResponse } from '@/libs/api/dashboard/DashBoardType'
@@ -39,7 +38,6 @@ const AcademyDashboard = () => {
     }
   }
   const deleteDashboardInfo = async (dashboardId: number) => {
-    const data = await deleteDashboard(dashboardId)
     const newData = dashboardData.filter(
       (data) => data.dashboardId !== dashboardId
     )
