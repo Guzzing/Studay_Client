@@ -129,7 +129,7 @@ const DetailSchedulePage = () => {
         <h2 className={'subHead-18 mb-[10px]'}>{'메모'}</h2>
         <ul className={'h-[50px]'}>
           {data?.childrenInfos.map(({ memo, childId }) => (
-            <li key={childId} className={'flex border h-[50px] overflow-auto'}>
+            <li key={childId} className={'flex h-[50px] overflow-auto'}>
               <span>{memo}</span>
             </li>
           ))}
