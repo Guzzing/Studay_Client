@@ -76,32 +76,35 @@ const DetailSchedulePage = () => {
           </div>
         </div>
       </div>
-      <div className={'pl-[20px] h-[150px]'}>
-        <Accordion
-          title={data?.lessonInfo.lessonName as string}
-          rightElement={<Icon icon={'ArrowDown'} />}
-          contentHeight={100}
-          content={
-            <>
-              <ListRow
-                leftElement={<span>{'정원'}</span>}
-                rightElement={
-                  <span className={'body-18'}>
-                    {data?.lessonInfo.capacity + '명 정원'}
-                  </span>
-                }
-              />
-              <ListRow
-                leftElement={<span>{'금액'}</span>}
-                rightElement={
-                  <span className={'body-18'}>
-                    {data?.lessonInfo.totalFee + '원'}
-                  </span>
-                }
-              />
-            </>
-          }
-        />
+      <div className={'pl-[20px] h-[150px] relative'}>
+        <div className={'absolute left-[50%] h-full w-full translate-x-[-50%]'}>
+          <Accordion
+            initialState={true}
+            title={data?.lessonInfo.lessonName as string}
+            rightElement={<Icon icon={'ArrowDown'} />}
+            contentHeight={100}
+            content={
+              <>
+                <ListRow
+                  leftElement={<span>{'정원'}</span>}
+                  rightElement={
+                    <span className={'body-18'}>
+                      {data?.lessonInfo.capacity + '명 정원'}
+                    </span>
+                  }
+                />
+                <ListRow
+                  leftElement={<span>{'금액'}</span>}
+                  rightElement={
+                    <span className={'body-18'}>
+                      {data?.lessonInfo.totalFee + '원'}
+                    </span>
+                  }
+                />
+              </>
+            }
+          />
+        </div>
       </div>
       <div className={'pl-[20px] pt-[10px] h-[165px]'}>
         <h2 className={'subHead-18 mb-[10px]'}>{'일정 수행중인 아이'}</h2>
@@ -126,13 +129,12 @@ const DetailSchedulePage = () => {
         <h2 className={'subHead-18 mb-[10px]'}>{'메모'}</h2>
         <ul className={'h-[50px]'}>
           {data?.childrenInfos.map(({ memo, childId }) => (
-            <li className={'flex'} key={childId}>
-              <Icon icon={'Write'} />
+            <li key={childId} className={'flex border h-[50px] overflow-auto'}>
               <span>{memo}</span>
             </li>
           ))}
         </ul>
-        <div className={'h-[190px] flex flex-col items-center'}>
+        <div className={'h-[190px] flex flex-col items-center mt-[20px]'}>
           <Button
             buttonType={'Plain-red'}
             label={'일정 삭제하기'}
