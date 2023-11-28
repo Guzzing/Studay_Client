@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import SelectWeek from '@/components/common/selectweek/SelectWeek'
-import Spacing from '@/components/common/spacing/Spacing'
 import SelectAttendanceDate from '@/components/schedule/SelectAttendanceDate'
 import { getDetailDashboard } from '@/libs/api/dashboard/DashBoardApi'
 import {

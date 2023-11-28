@@ -6,7 +6,7 @@ const meta: Meta<typeof Select> = {
   tags: ['autodocs'],
   title: 'components/Select',
   argTypes: {
-    selectType: {
+    selecttype: {
       control: 'select',
       options: ['Box', 'Single']
     },
@@ -22,7 +22,7 @@ type Story = StoryObj<typeof Select>
 
 export const SingleSelect: Story = {
   args: {
-    selectType: 'Single',
+    selecttype: 'Single',
     fullWidth: true
   }
 }

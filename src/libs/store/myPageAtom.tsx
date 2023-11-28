@@ -8,7 +8,8 @@ const initialMyPagesAtom: GetMyPageResponse = {
     {
       childId: 0,
       childName: '',
-      schedule: '휴식중입니다'
+      schedule: '휴식중입니다',
+      childProfileImageUrl: ''
     }
   ]
 }

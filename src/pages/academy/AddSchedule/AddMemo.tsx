@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useAtom } from 'jotai'
 import Label from '@/components/common/label/Label'
 import { AcademyMemo } from '@/libs/api/academy/AcademyType'

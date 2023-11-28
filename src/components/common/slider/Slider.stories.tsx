@@ -9,7 +9,7 @@ const meta: Meta<typeof Silder> = {
   },
   tags: ['autodocs'],
   argTypes: {},
-  render: function Render(args) {
+  render: function Render() {
     return (
       <div className={'w-full h-full'}>
         <Silder minNum={0} maxNum={10_000} />

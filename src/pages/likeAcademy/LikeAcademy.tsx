@@ -27,7 +27,7 @@ const LikeAcademy = () => {
   useEffect(() => {
     const res = async () => {
       const api = await getLikeAcademyApi()
-      api && setCheckGroup(api.likeAcademyInfos.map((v) => true))
+      api && setCheckGroup(api.likeAcademyInfos.map(() => true))
       setLikeAcademy(api)
     }
     res()
