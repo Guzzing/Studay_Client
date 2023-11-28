@@ -38,7 +38,6 @@ export interface ScheduleDetailRequest {
 }
 
 export interface DeleteScheduleRequest {
-  dashboardId: number
   academyScheduleId: number
   isAllDeleted: boolean
   requestDate: string

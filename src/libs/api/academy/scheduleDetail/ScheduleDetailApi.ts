@@ -5,6 +5,7 @@ import {
 } from './ScheduleDetailType'
 import request from '@/libs/api'
 
+// /academy-schedules/detail?requestedDate=2023-11-06&lessonId=109347&childId=208&scheduleId=117
 export const getAcademiesScheduleDetail = async ({
   requestedDate,
   lessonId,
@@ -18,14 +19,12 @@ export const getAcademiesScheduleDetail = async ({
 }
 
 export const deleteAcademySchedule = async ({
-  dashboardId,
   academyScheduleId,
   isAllDeleted,
   requestDate
 }: DeleteScheduleRequest) => {
-  await request.delete(`/academy-schedules/${academyScheduleId}`, {
+  await request.delete('/academy-schedules', {
     data: {
-      dashboardId,
       academyScheduleId,
       isAllDeleted,
       requestDate
