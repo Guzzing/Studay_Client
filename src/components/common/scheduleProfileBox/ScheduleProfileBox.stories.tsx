@@ -19,10 +19,6 @@ const meta: Meta<typeof ScheduleProfileBox> = {
       description: '삭제 함수를 입력해주세요',
       control: { type: 'function' },
       required: true
-    },
-    profileNode: {
-      description: '프로필을 보여줄꺼면 외부에서 리엑트 노드를 입력해주세요',
-      required: false
     }
   }
 }
