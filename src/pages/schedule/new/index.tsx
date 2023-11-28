@@ -17,7 +17,7 @@ const NewSchedule = () => {
   const postNewScheduleMutation = useMutation({
     onSuccess: (data) => {
       alert('일정 생성 완료!')
-      navigate(`/schedule/${data.academyTimeTemplateIds}`)
+      // navigate(`/schedule/${data.academyTimeTemplateIds}`)
     },
     mutationFn: (scheduleInfo: PostScheduleType) =>
       postScheduleApi(scheduleInfo)
