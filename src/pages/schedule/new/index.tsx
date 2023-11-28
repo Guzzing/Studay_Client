@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import Button from '@/components/common/button/Button'
@@ -12,10 +11,9 @@ import AddScheduleMemo from '@/pages/schedule/new/AddScheduleMemo'
 import AddScheduleTime from '@/pages/schedule/new/AddScheduleTime'
 
 const NewSchedule = () => {
-  const navigate = useNavigate()
   const [scheduleInfo, setScheduleInfo] = useAtom(scheduleAtom)
   const postNewScheduleMutation = useMutation({
-    onSuccess: (data) => {
+    onSuccess: () => {
       alert('일정 생성 완료!')
       // navigate(`/schedule/${data.academyTimeTemplateIds}`)
     },

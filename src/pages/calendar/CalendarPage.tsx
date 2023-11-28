@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useState } from 'react'
 import { Accordion } from '@/components/common/accordion/Accordion'
 import Button from '@/components/common/button/Button'
 import Icon from '@/components/common/icon/Icon'
@@ -79,7 +78,7 @@ const CalendarPage = () => {
       <div className={'py-[12px]'}>
         <h2 className={'subhead-18'}>{'일정 수행중인 아이'}</h2>
         <div className={'flex items-center justify-start pt-[10px]'}>
-          {DATA.childrenInfos.map(({ childId, childName, memo }) => (
+          {DATA.childrenInfos.map(({ childId, childName }) => (
             <li key={childId} className={'list-none'}>
               <Profile imageSize={'M'} imageLabel={childName} />
             </li>
@@ -122,7 +121,7 @@ const CalendarPage = () => {
             }>
             <p className={'subHead-18'}>{'어떤 아이의 정보를 확인할까요?'}</p>
             <div className={'flex items-center justify-start pt-[10px]'}>
-              {DATA.childrenInfos.map(({ childId, childName, memo }) => (
+              {DATA.childrenInfos.map(({ childId }) => (
                 <li key={childId} className={'list-none'}>
                   <Profile imageSize={'M'} />
                 </li>

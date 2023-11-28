@@ -26,7 +26,7 @@ export const Default: Story = {
       detailInfo={{
         academyName: 'test',
         contact: 'test',
-        fullAddress: 'test',
+        address: 'test',
         shuttleAvailability: 'test',
         expectedFee: 0,
         updatedDate: '2023-11-16',
