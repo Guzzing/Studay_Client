@@ -8,7 +8,11 @@ import {
   Marker
 } from '@/components/map/constants.ts'
 import { Academy } from '@/libs/api/mapapi/mapApiType.ts'
-import { mapInfoAtom, selectAcademyAtom } from '@/libs/store/mapInfoAtom.ts'
+import {
+  mapInfoAtom,
+  selectAcademyAtom,
+  selectSearchAcademyAtom
+} from '@/libs/store/mapInfoAtom.ts'
 import throttle from '@/libs/utils/throttle.ts'
 
 /**
@@ -24,6 +28,7 @@ const NaverMap = ({ academyList }: NaverMapProps) => {
   const markerRef = useRef<naver.maps.Marker[]>([])
   const [mapInfo, setMapInfo] = useAtom(mapInfoAtom)
   const [selectAcademy, setSelectAcademy] = useAtom(selectAcademyAtom)
+  const [selectValue, _] = useAtom(selectSearchAcademyAtom)
   const [isNewLocation, setIsNewLocation] = useState(false)
   const navigate = useNavigate()
 
@@ -124,7 +129,57 @@ const NaverMap = ({ academyList }: NaverMapProps) => {
   useEffect(() => {
     const { latitude, longitude } = mapInfo
     createMap({ latitude: latitude, longitude: longitude })
-  }, [])
+    if (selectValue.academyId > -1) {
+      const marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(
+          selectValue.latitude,
+          selectValue.longitude
+        ),
+        map: mapRef.current as naver.maps.Map,
+        icon: {
+          content: Marker({ value: selectValue.academyName, select: true })
+        }
+      })
+      markerRef.current = [marker]
+      naver.maps.Event.addListener(marker, 'click', () => {
+        setSelectAcademy(() => ({
+          isBottomSheet: true,
+          academy: {
+            academyId: selectValue.academyId,
+            academyName: selectValue.academyName,
+            address: selectValue.address,
+            contact: '',
+            areaOfExpertise: '',
+            latitude: selectValue.latitude,
+            longitude: selectValue.longitude
+          }
+        }))
+      })
+
+      setSelectAcademy(() => ({
+        isBottomSheet: true,
+        academy: {
+          academyId: selectValue.academyId,
+          academyName: selectValue.academyName,
+          address: selectValue.address,
+          contact: '',
+          areaOfExpertise: '',
+          latitude: selectValue.latitude,
+          longitude: selectValue.longitude
+        }
+      }))
+    }
+  }, [mapInfo])
+
+  useEffect(() => {
+    if (selectValue.academyId > -1) {
+      setMapInfo((prev) => ({
+        ...prev,
+        longitude: selectValue.longitude,
+        latitude: selectValue.latitude
+      }))
+    }
+  }, [selectValue])
 
   return (
     <div className={'flex h-full w-full '}>

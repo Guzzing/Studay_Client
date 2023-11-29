@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { useAtom } from 'jotai/index'
@@ -7,11 +8,16 @@ import MapSearchBar from '@/components/map/MapSearchBar.tsx'
 import NaverMap from '@/components/map/NaverMap.tsx'
 import { getAcademyFilter } from '@/libs/api/filter/filterApi.ts'
 import { getAcademyList } from '@/libs/api/mapapi/mapApi.ts'
-import { mapInfoAtom, selectAcademyAtom } from '@/libs/store/mapInfoAtom.ts'
+import {
+  mapInfoAtom,
+  selectAcademyAtom,
+  selectSearchAcademyAtom
+} from '@/libs/store/mapInfoAtom.ts'
 
 const MapPage = () => {
   const [mapInfo] = useAtom(mapInfoAtom)
   const [selectAcademy] = useAtom(selectAcademyAtom)
+  const [selectValue] = useAtom(selectSearchAcademyAtom)
   const location = useLocation()
   const queryString = location.search
 
@@ -22,7 +28,7 @@ const MapPage = () => {
         latitude: mapInfo.latitude,
         longitude: mapInfo.longitude
       }),
-    enabled: !queryString
+    enabled: !queryString && selectValue.academyId === -1
   })
 
   const { data: academyFilterList } = useQuery({
@@ -30,6 +36,10 @@ const MapPage = () => {
     queryFn: () => getAcademyFilter({ queryString: queryString }),
     enabled: queryString.length > 0
   })
+
+  useEffect(() => {
+    console.log(selectAcademy)
+  }, [selectAcademy])
 
   return (
     <div className={'bg-white-100 w-full h-full overflow-hidden'}>

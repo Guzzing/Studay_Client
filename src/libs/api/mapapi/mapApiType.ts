@@ -49,6 +49,15 @@ export interface Academy {
   longitude: number
 }
 
+export interface SearchAcademy {
+  academyId: number
+  academyName: string
+  address: string
+  areaOfExpertise: string
+  latitude: number
+  longitude: number
+}
+
 export interface AcademyResponse {
   academiesByLocationResponse: Academy[]
 }

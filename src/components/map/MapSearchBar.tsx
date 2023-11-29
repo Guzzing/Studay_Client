@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { useAtom } from 'jotai'
 import Icon from '@/components/common/icon/Icon.tsx'
 import Input from '@/components/common/inputbox/input/Input.tsx'
 import { getAcademiesSearchResult } from '@/libs/api/academy/AcademyApi.ts'
 import { SearchAcademiesResponse } from '@/libs/api/mapapi/mapApiType.ts'
 import { useDebounce } from '@/libs/hooks/useDebounce.ts'
+import { selectSearchAcademyAtom } from '@/libs/store/mapInfoAtom.ts'
 
 const MapSearchBar = () => {
   const navigate = useNavigate()
@@ -14,6 +16,8 @@ const MapSearchBar = () => {
   const [page, setPage] = useState(0)
   const debounceValue = useDebounce<string>(searchValue, 300)
   const [searchList, setSearchList] = useState<SearchAcademiesResponse[]>([])
+  const [_, setSelectValue] = useAtom(selectSearchAcademyAtom)
+  const [isHidden, setHidden] = useState(false)
 
   const { ref, inView } = useInView({
     threshold: 1
@@ -46,6 +50,7 @@ const MapSearchBar = () => {
   //검색어가 바뀔때마다 페이지도 0으로 맞춰 api를 호출
   const updateSearchValue = (value: string) => {
     setSearchValue(value)
+    setHidden(true)
     setPage(0)
   }
 
@@ -78,11 +83,11 @@ const MapSearchBar = () => {
         />
         <div
           className={`w-full bg-white-100 ${
-            searchList.length > 0
+            searchList.length > 0 && isHidden
               ? 'rounded-lg border-blue-350 border mb-4 mt-2'
               : ''
           }`}>
-          {searchList.length > 0 && (
+          {isHidden && searchList.length > 0 && (
             <div className={'max-h-[300px] overflow-scroll scrollbar-hide'}>
               {searchList.map((data, index) => (
                 <div
@@ -91,7 +96,8 @@ const MapSearchBar = () => {
                   }
                   key={index}
                   onClick={() => {
-                    console.log(data)
+                    setSelectValue(data)
+                    setHidden(false)
                   }}>
                   <Icon icon={'Marker'} classStyle={'ml-[20px] mr-[8px]'} />
                   <div
