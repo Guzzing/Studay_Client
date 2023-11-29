@@ -17,21 +17,20 @@ const HomePage = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
-  })
 
   if (isLoading) {
     return <Loading />
   }
 
   return (
-    <div
-      className={
-        'relative bg-white-100 w-full h-[750px] overflow-x-hidden overflow-y-scroll'
-      }>
+    <div className={'relative bg-white-100 h-[750px] overflow-hidden'}>
       <SettingPage isOpen={toggleOpen} />
-      <>
-        <Spacing size={100} />
-        <div className={'flex flex-col items-center gap-[20px] pb-[20px]'}>
+      <div className={'h-[670px] overflow-y-scroll'}>
+        <Spacing size={80} />
+        <div
+          className={
+            'flex flex-col items-center gap-[20px] pb-[20px] pt-[20px] overflow-y-scroll h-[700px]'
+          }>
           {data && data?.length > 0 ? (
             data.map((data) => {
               return (
@@ -70,7 +69,7 @@ const HomePage = () => {
             }
           />
         </div>
-      </>
+      </div>
     </div>
   )
 }
