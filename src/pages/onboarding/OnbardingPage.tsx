@@ -10,8 +10,7 @@ import Select from '@/components/common/inputbox/select/Select'
 import ProgressBar from '@/components/common/progressBar/ProgressBar'
 import Spacing from '@/components/common/spacing/Spacing'
 import StepQuestion from '@/components/common/stepquestion/StepQuestion'
-import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
-import { myPageApi } from '@/libs/api/mypage/myPageApi'
+import { getAllUserInfo } from '@/libs/api/mypage/myPageApi'
 import { GetMyPageResponse } from '@/libs/api/mypage/myPageType'
 import {
   createChildApi,
@@ -20,7 +19,7 @@ import {
 import { PostOnboardingRequest } from '@/libs/api/onboarding/onboardingType'
 import useToastify from '@/libs/hooks/useToastify'
 import { onboardingPageDataAtom } from '@/libs/store/onboardingAtom'
-import { getItem, setItem } from '@/libs/utils/storage'
+import { setItem } from '@/libs/utils/storage'
 
 const Onboarding = () => {
   const navigate = useNavigate()
@@ -67,16 +66,18 @@ const Onboarding = () => {
           type: 'warning'
         })
         navigate('/')
-      } else setCurrentPage(currentPage + 2)
+      } else setCurrentPage(childInformationResponses.length + 2)
     }
   }, [myPageData])
+
   useEffect(() => {
     const user = async () => {
-      const myPage = await myPageApi()
+      const myPage = await getAllUserInfo()
       setMyPageData(myPage)
     }
     user()
   }, [])
+
   useEffect(() => {
     const req = async (pageData: PostOnboardingRequest) => {
       setItem('onboarding', JSON.stringify(storeStorage))
@@ -91,40 +92,11 @@ const Onboarding = () => {
       data && navigate('/')
     }
     if (isDone) {
-      if (getItem('onboarding').length === 0) req(pageData)
+      const { nickname, email } = myPageData as GetMyPageResponse
+      if (!nickname || !email) req(pageData)
       else makeChild()
     }
   }, [isDone])
-
-  // useEffect(() => {
-  //   const cntOfChild = async () => {
-  //     const children = await getChildrenInfo()
-  //     if (children.length === 5) {
-  //       setToast({
-  //         comment: '아이는 최대 5명까지만 등록이 가능해요.',
-  //         type: 'warning'
-  //       })
-  //       navigate('/')
-  //     }
-  //     setCurrentPage(children.length + 2)
-  //   }
-  //   if (getItem('onboarding').length > 0) {
-  //     // 저장된 애가 있다면!
-  //     console.log('hello~~')
-  //     cntOfChild()
-  //   } else {
-  //     setCurrentPage(0)
-  //   }
-  //   // if (!Array.isArray(getItem('onboarding'))) {
-  //   //   // 저장된 애가 없다면!
-  //   //   console.log(Array.isArray(getItem('onboarding')))
-  //   //   const getMyChildren = async () => {
-  //   //     const numbers = await getChildrenInfo()
-  //   //     setCurrentPage(numbers.length + 2)
-  //   //   }
-  //   //   getMyChildren()
-  //   // }
-  // }, [])
 
   useEffect(() => {
     if (inputRef.current) {
@@ -142,16 +114,7 @@ const Onboarding = () => {
       <Header
         headerType={'BackPush'}
         pageTitle={'onboarding'}
-        onClick={() => {
-          if (getItem('onboarding').length === 0) {
-            setCurrentPage(0)
-            setPageData({
-              children: [{ nickname: '', grade: '' }],
-              email: '',
-              nickname: ''
-            })
-          } else navigate(-1)
-        }}
+        onClick={() => navigate(-1)}
       />
       <Spacing size={80} />
       <ProgressBar
@@ -202,7 +165,8 @@ const Onboarding = () => {
           (buttonLabel, i) =>
             buttonLabel && (
               <li key={i}>
-                {i === 0 && getItem('onboarding').length > 0 ? (
+                {i === 0 &&
+                (myPageData?.email !== '' || myPageData?.nickname !== '') ? (
                   ''
                 ) : (
                   <Button
@@ -249,8 +213,6 @@ const Onboarding = () => {
                             )
                           ]
                         })
-                        // 자식버튼 2개중 첫 번째 버튼이면, 다음 페이지로 넘어감
-                        // 2개중 마지막 제출 버튼이면 제출!
                         i === 0
                           ? setCurrentPage(currentPage + 1)
                           : setIsDone(true)
