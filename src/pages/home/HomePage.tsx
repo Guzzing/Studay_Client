@@ -39,6 +39,7 @@ const HomePage = () => {
                 <InformationBox
                   key={data.childId}
                   mainTitle={data.nickname}
+                  imageUrl={data.profileImageUrl}
                   subTitle={data.grade}
                   description={data.schedule}
                   onClick={() =>
