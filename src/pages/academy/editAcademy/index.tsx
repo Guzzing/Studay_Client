@@ -29,6 +29,7 @@ const EditAcademy = () => {
   const navigate = useNavigate()
   const { setToast } = useToastify()
   const dashboardId = useLocation().state as number
+
   const fetchDashboardData = async (dashboardId: number) => {
     if (dashboardId) {
       const res = await getDetailDashboard(dashboardId)
@@ -50,6 +51,7 @@ const EditAcademy = () => {
       setToast({ comment: '학원 정보를 수정했어요.', type: 'success' })
     }
   })
+
   useEffect(() => {
     if (data) {
       setAcademyInfo({

@@ -1,3 +1,4 @@
+import exp from 'node:constants'
 import { ClientWeekType } from '@/libs/api/academy/AcademyType'
 
 export interface CalendarPropsType {
@@ -54,11 +55,25 @@ export interface PostScheduleType {
   memo: string
 }
 
+export interface UpdateScheduleType {
+  lessonScheduleUpdateRequests: LessonScheduleType[]
+  attendanceDate: {
+    startDateOfAttendance: string
+    endDateOfAttendance: string
+  }
+  isAlarmed: boolean
+  periodicity: PeriodicityType
+  childId: number
+  dashboardId: number
+  memo: string
+}
+
 export interface BeforeEditInfoResponseType {
-  childName: string
-  academyName: string
-  lessonName: string
-  lessonScheduleLoadToUpdateResponses: LessonScheduleType[]
+  dashboardId: number
+  childId: number
+  academyId: number
+  lessonId: number
+  lessonSchedule: LessonScheduleType[]
   startDateOfAttendance: string
   endDateOfAttendance: string
   isAlarmed: true
@@ -104,4 +119,14 @@ export const ScheduleServerWeekData: ScheduleServerWeekDataType = {
   5: 'FRIDAY',
   6: 'SATURDAY',
   7: 'SUNDAY'
+}
+
+export const ScheduleServerWeekDataString = {
+  MONDAY: 1,
+  TUESDAY: 2,
+  WEDNESDAY: 3,
+  THURSDAY: 4,
+  FRIDAY: 5,
+  SATURDAY: 6,
+  SUNDAY: 7
 }
