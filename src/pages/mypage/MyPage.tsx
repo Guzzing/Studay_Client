@@ -8,7 +8,7 @@ import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
 import { logoutApi } from '@/libs/api/autorization/logout/LogoutApi'
-import { myPageApi } from '@/libs/api/mypage/myPageApi'
+import { getAllUserInfo } from '@/libs/api/mypage/myPageApi'
 import useSidebar from '@/libs/hooks/useSidebar'
 import useToastify from '@/libs/hooks/useToastify'
 import { myPageAtom } from '@/libs/store/myPageAtom'
@@ -25,7 +25,7 @@ const MyPage = () => {
       return
     }
     const response = async () => {
-      const res = await myPageApi()
+      const res = await getAllUserInfo()
       setMyPageData(res)
     }
     response()
