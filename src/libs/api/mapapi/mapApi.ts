@@ -7,6 +7,7 @@ import {
   GetAcademysParams,
   GetLocationParam,
   GetTownParam,
+  LikeResponse,
   LocationResponse,
   ProvinceResponse,
   TownResponse
@@ -62,5 +63,16 @@ export const getAcademyDetail = async ({
 }: GetAcademyDetailProps): Promise<DetailAcademyResponse> => {
   const res = await request.get(`/academies/${academyId}`)
 
+  return res.data
+}
+
+export const postLike = async ({
+  academyId
+}: {
+  academyId: number
+}): Promise<LikeResponse> => {
+  const res = await request.post(`/likes`, {
+    academyId: academyId
+  })
   return res.data
 }
