@@ -13,7 +13,8 @@ const BottomSheetHeader = ({
 }) => {
   const likeMutation = useMutation({
     mutationFn: (academyId: number) => postLike({ academyId: academyId }),
-    onSuccess: () => {
+    onSuccess: () => {},
+    onSettled: () => {
       setLiked(!liked)
     }
   })
