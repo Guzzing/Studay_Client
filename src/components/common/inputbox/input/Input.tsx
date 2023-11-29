@@ -28,9 +28,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={`${
             fullWidth ? 'w-full h-[52px]' : 'w-[323px] h-[52px]'
           } rounded-[10px] ${
-            field === 'email' && !validate('email', inputValue)
+            field === 'email' &&
+            !validate('email', inputValue) &&
+            inputValue !== ''
               ? 'border border-red-600'
-              : field === 'nickname' && !validate('nickname', inputValue)
+              : field === 'nickname' &&
+                !validate('nickname', inputValue) &&
+                inputValue !== ''
               ? 'border border-red-600'
               : 'border border-blue-350'
           }  px-[20px] font-nsk text-black-800 bg-white-200 body-18 placeholder:text-gray-600 outline-none`}
@@ -48,11 +52,17 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         <p className={'font-nsk caption-13 text-red-600 px-3 mt-1'}>
-          {field === 'email' && !validate('email', inputValue)
+          {field === 'email' &&
+          !validate('email', inputValue) &&
+          inputValue !== ''
             ? (errorMessage = '잘못된 이메일입니다')
-            : field === 'nickname' && !validate('nickname', inputValue)
+            : field === 'nickname' &&
+              !validate('nickname', inputValue) &&
+              inputValue !== ''
             ? (errorMessage = '한글과 영어만 사용가능합니다')
-            : field === 'childname' && !validate('childname', inputValue)
+            : field === 'childname' &&
+              !validate('childname', inputValue) &&
+              inputValue !== ''
             ? (errorMessage = '아이의 이름은 1글자에서 10글자여야 합니다!')
             : ''}
         </p>
