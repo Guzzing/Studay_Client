@@ -22,14 +22,9 @@ export const getAcademiesScheduleDetail = async ({
 
 export const deleteAcademySchedule = async ({
   academyScheduleId,
-  isAllDeleted,
-  requestDate
+  isAllDeleted
 }: DeleteScheduleRequest) => {
-  await request.delete('/academy-schedules', {
-    data: {
-      academyScheduleId,
-      isAllDeleted,
-      requestDate
-    }
-  })
+  await request.delete(
+    `/academy-schedules/${academyScheduleId}?isAllDeleted=${isAllDeleted}`
+  )
 }

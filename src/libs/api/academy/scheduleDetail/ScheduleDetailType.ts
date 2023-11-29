@@ -40,5 +40,4 @@ export interface ScheduleDetailRequest {
 export interface DeleteScheduleRequest {
   academyScheduleId: number
   isAllDeleted: boolean
-  requestDate: string
 }

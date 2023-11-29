@@ -35,8 +35,7 @@ const DetailSchedulePage = () => {
     try {
       await deleteAcademySchedule({
         academyScheduleId: Number(scheduleId as string),
-        isAllDeleted: all ? true : false,
-        requestDate: data?.date.slice(0, -4).trim() as string
+        isAllDeleted: all ? true : false
       })
       navigate('/schedule')
     } catch {
