@@ -23,9 +23,11 @@ const HomePage = () => {
   }
 
   return (
-    <div className={'relative bg-white-100 h-[750px] overflow-hidden'}>
+    <div
+      className={'relative bg-white-100 overflow-hidden border'}
+      style={{ height: 'calc(100% - 80px)' }}>
       <SettingPage isOpen={toggleOpen} />
-      <div className={'h-[670px] overflow-y-scroll'}>
+      <div className={'h-[750px] overflow-y-scroll border'}>
         <Spacing size={80} />
         <div
           className={
@@ -55,7 +57,7 @@ const HomePage = () => {
             </div>
           )}
         </div>
-        <div className={'absolute right-[10px] bottom-[90px] cursor-pointer'}>
+        <div className={'absolute right-[10px] bottom-[30px] cursor-pointer'}>
           <Icon
             icon={'Add'}
             classStyle={'h-[60px] w-[60px]'}
