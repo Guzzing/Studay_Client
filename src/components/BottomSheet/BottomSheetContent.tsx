@@ -19,7 +19,6 @@ const BottomSheetContent = ({
 }: BottomSheetContentProps) => {
   const { lessonGetResponses, reviewPercentGetResponse, categories } =
     detailInfo
-  console.log(detailInfo)
   return (
     <div>
       <div className={'font-nsk body-15 text-black-900 mb-[20px]'}>

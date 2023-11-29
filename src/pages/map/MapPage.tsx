@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { useAtom } from 'jotai/index'
@@ -36,10 +35,6 @@ const MapPage = () => {
     queryFn: () => getAcademyFilter({ queryString: queryString }),
     enabled: queryString.length > 0
   })
-
-  useEffect(() => {
-    console.log(selectAcademy)
-  }, [selectAcademy])
 
   return (
     <div className={'bg-white-100 w-full h-full overflow-hidden'}>

@@ -122,7 +122,7 @@ const MapSearchBar = () => {
           'flex flex-col cursor-pointer bg-white-0 rounded-full w-[50px] h-[50px] justify-center items-center ml-[10px]'
         }
         onClick={() => navigate('/map/filter')}>
-        <Icon icon={'Filter'}></Icon>
+        <Icon icon={'Filter'} />
         <span className={'font-nsk body-10'}>{'필터'}</span>
       </div>
     </div>
