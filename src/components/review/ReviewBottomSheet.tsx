@@ -6,6 +6,8 @@ import Spacing from '@/components/common/spacing/Spacing'
 import { postReview } from '@/libs/api/review/reviewApi'
 import { AcademyReview } from '@/libs/api/review/reviewType'
 import { ReviewRequestType } from '@/libs/api/review/reviewType'
+import useToastify from '@/libs/hooks/useToastify'
+
 const ReviewBottomSheet = ({
   academyTitle,
   academyId,
@@ -15,6 +17,7 @@ const ReviewBottomSheet = ({
   academyId: number
   setBottomSheetClose: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
+  const { setToast } = useToastify()
   const [reviewState, setReviewState] = useState<ReviewRequestType>({
     academyId: academyId,
     KINDNESS: false,
@@ -28,7 +31,7 @@ const ReviewBottomSheet = ({
     mutationFn: (reviewState: ReviewRequestType) => postReview(reviewState),
     onSuccess: () => {
       setBottomSheetClose(false)
-      alert('리뷰 남기기 성공!')
+      setToast({ comment: '리뷰를 성공적으로 남겼어요.', type: 'success' })
     }
   })
   const handleMemo = (value: keyof ReviewRequestType) => {
@@ -47,7 +50,8 @@ const ReviewBottomSheet = ({
   useEffect(() => {
     const valueAry = Object.values(reviewState)
     const count = valueAry.filter(Boolean).length
-    if (count >= 4) alert('안돼')
+    if (count >= 4)
+      setToast({ comment: '리뷰는 4개 이상 남길 수 없어요.', type: 'warning' })
   }, [reviewState])
   return (
     <>
