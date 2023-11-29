@@ -6,8 +6,10 @@ import { deleteDashboard } from '@/libs/api/dashboard/DashBoardApi'
 import { patchToggleDashboardState } from '@/libs/api/dashboard/DashBoardApi'
 import { GetAllDashBoardResponse } from '@/libs/api/dashboard/DashBoardType'
 import { queryClient } from '@/libs/api/queryClient'
+import useToastify from '@/libs/hooks/useToastify'
 const AcademySetting = ({ data }: { data: GetAllDashBoardResponse }) => {
   const navigate = useNavigate()
+  const { setToast } = useToastify()
   const [isbottomSheetOpen, setBottomSheetOpen] = useState(false)
   // eslint-disable-next-line unicorn/consistent-function-scoping
   const deleteDashboardInfo = async (dashboardId: number) => {
@@ -45,7 +47,10 @@ const AcademySetting = ({ data }: { data: GetAllDashBoardResponse }) => {
                 queryClient.invalidateQueries({
                   queryKey: ['dashboard', data.dashboardId]
                 })
-                alert('성공적으로 처리했음.')
+                setToast({
+                  comment: '학원 정보를 삭제했어요.',
+                  type: 'success'
+                })
               }}
             />
           </div>
@@ -60,7 +65,10 @@ const AcademySetting = ({ data }: { data: GetAllDashBoardResponse }) => {
                 queryClient.invalidateQueries({
                   queryKey: ['dashboard', data.dashboardId]
                 })
-                alert('성공적으로 처리했음.')
+                setToast({
+                  comment: '학원을 등록했어요.',
+                  type: 'success'
+                })
               }}
             />
             <Button
@@ -69,10 +77,17 @@ const AcademySetting = ({ data }: { data: GetAllDashBoardResponse }) => {
               fullWidth={true}
               onClick={() => {
                 if (data.isActive) {
-                  alert('다니고 있는 학원은 삭제가 불가능합니다!')
+                  setToast({
+                    comment:
+                      '다니고 있는 학원은 삭제가 불가해요. 먼저 미등록 상태로 만들어주세요',
+                    type: 'warning'
+                  })
                 } else {
                   deleteDashboardInfo(data.dashboardId)
-                  alert('삭제 완료!')
+                  setToast({
+                    comment: '학원 정보를 삭제했어요.',
+                    type: 'success'
+                  })
                   navigate('/academies')
                 }
               }}

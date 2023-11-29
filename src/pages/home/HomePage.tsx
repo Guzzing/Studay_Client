@@ -7,29 +7,30 @@ import InformationBox from '@/components/common/informationBox/InformationBox'
 import Spacing from '@/components/common/spacing/Spacing'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 import useSidebar from '@/libs/hooks/useSidebar'
+import useToastify from '@/libs/hooks/useToastify'
 
 const HomePage = () => {
   const navigate = useNavigate()
+  const { setToast } = useToastify()
   const { toggleOpen } = useSidebar()
 
   const { data, isLoading } = useQuery({
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
-  })
-  console.log(data)
+
   if (isLoading) {
     return <Loading />
   }
 
   return (
-    <div
-      className={
-        'relative bg-white-100 w-full h-[750px] overflow-x-hidden overflow-y-scroll'
-      }>
+    <div className={'relative bg-white-100 h-[750px] overflow-hidden'}>
       <SettingPage isOpen={toggleOpen} />
-      <>
-        <Spacing size={100} />
-        <div className={'flex flex-col items-center gap-[20px] pb-[20px]'}>
+      <div className={'h-[670px] overflow-y-scroll'}>
+        <Spacing size={80} />
+        <div
+          className={
+            'flex flex-col items-center gap-[20px] pb-[20px] pt-[20px] overflow-y-scroll h-[700px]'
+          }>
           {data && data?.length > 0 ? (
             data.map((data) => {
               return (
@@ -61,11 +62,14 @@ const HomePage = () => {
             onClick={() =>
               (data?.length as number) < 5
                 ? navigate('/onboarding')
-                : alert('5명이상 등록할 수 없습니다!')
+                : setToast({
+                    comment: '아이는 5명 이상 등록할 수 없어요.',
+                    type: 'warning'
+                  })
             }
           />
         </div>
-      </>
+      </div>
     </div>
   )
 }

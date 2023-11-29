@@ -10,11 +10,13 @@ import AddSchedule from './AddSchedule'
 import Button from '@/components/common/button/Button'
 import Spacing from '@/components/common/spacing/Spacing'
 import { postDashboardInfo } from '@/libs/api/academy/AcademyApi'
+import useToastify from '@/libs/hooks/useToastify'
 import { initialAcademyInfoAtom } from '@/libs/store/academyInfo'
 import { academyInfoAtom } from '@/libs/store/academyInfo'
 import { childAtom } from '@/libs/store/childInfoAtom'
 
 const AddAcademy = () => {
+  const { setToast } = useToastify()
   const [childInfo, setChildrenInfo] = useAtom(childAtom)
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
   const childrenSelectRef = useRef<HTMLSelectElement>(null)
@@ -26,9 +28,10 @@ const AddAcademy = () => {
       if (childrenSelectRef.current) childrenSelectRef.current.selectedIndex = 0
       if (classSelectRef.current) classSelectRef.current.selectedIndex = 0
       navigate('/academies')
-      alert('성공적으로 업로드!')
+      setToast({ comment: '학원 정보를 등록했어요.', type: 'success' })
     }
   })
+
   useEffect(() => {
     setAcademyInfo({ ...initialAcademyInfoAtom })
   }, [])

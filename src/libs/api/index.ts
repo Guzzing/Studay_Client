@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { logoutApi } from './autorization/logout/LogoutApi'
 import { refreshApi } from './autorization/refresh/refreshApi'
+import useToastify from '@/libs/hooks/useToastify'
 
 const request = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT,
@@ -31,13 +32,17 @@ request.interceptors.response.use(
   },
   async (error) => {
     if (error.response.status === 403) {
+      const { setToast } = useToastify()
       try {
         const getRefreshToken = await refreshApi()
         const prevRequest = error.config
         prevRequest.headers.Authorization = `Bearer ${getRefreshToken.appToken}`
         return request(prevRequest)
       } catch {
-        alert('로그인이 풀리셨습니다... 로그인을 다시 진행해주세요😁')
+        setToast({
+          comment: '로그인을 다시 진행해주세요.',
+          type: 'info'
+        })
         await logoutApi()
         throw new Error('failed to request refresh token')
       }
