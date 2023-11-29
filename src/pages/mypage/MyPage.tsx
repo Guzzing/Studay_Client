@@ -1,44 +1,37 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAtom } from 'jotai'
+import { useQuery } from '@tanstack/react-query'
 import SettingPage from '../setting/SettingPage'
+import Loading from '@/components/Loading/Loading'
 import Button from '@/components/common/button/Button'
 import Icon from '@/components/common/icon/Icon'
 import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
 import { logoutApi } from '@/libs/api/autorization/logout/LogoutApi'
-import { myPageApi } from '@/libs/api/mypage/myPageApi'
+import { getAllUserInfo } from '@/libs/api/mypage/myPageApi'
 import useSidebar from '@/libs/hooks/useSidebar'
 import useToastify from '@/libs/hooks/useToastify'
-import { myPageAtom } from '@/libs/store/myPageAtom'
 
 const MyPage = () => {
   const navigate = useNavigate()
   const { setToast } = useToastify()
-  const [myPageData, setMyPageData] = useAtom(myPageAtom)
   const { toggleOpen } = useSidebar()
-  useEffect(() => {
-    if (localStorage.getItem('token') === null) {
-      setToast({ comment: '로그인 페이지로 이동합니다.', type: 'info' })
-      navigate('/login')
-      return
-    }
-    const response = async () => {
-      const res = await myPageApi()
-      setMyPageData(res)
-    }
-    response()
-  }, [])
+  const { data, isLoading } = useQuery({
+    queryKey: ['members'],
+    queryFn: () => getAllUserInfo()
+  })
 
+  if (isLoading) {
+    return <Loading />
+  }
   return (
     <div className={'relative h-full overflow-hidden'}>
       <SettingPage isOpen={toggleOpen} />
       <div>
         <Spacing size={80} />
         <div className={'h-[110px] pl-[25px] py-[30px] headline-20'}>
-          <h2>{`${myPageData?.nickname}님 안녕하세요!`}</h2>
-          <p className={'body-15-gray py-[5px]'}>{myPageData?.email}</p>
+          <h2>{`${data?.nickname}님 안녕하세요!`}</h2>
+          <p className={'body-15-gray py-[5px]'}>{data?.email}</p>
         </div>
         <div className={'h-[175px] p-[20px]'}>
           <div className={'flex items-center mb-[5px]'}>
@@ -47,7 +40,7 @@ const MyPage = () => {
               icon={'Add'}
               classStyle={'w-[30px] h-[30px] cursor-pointer'}
               onClick={() =>
-                myPageData.childInformationResponses.length === 5
+                data?.childInformationResponses.length === 5
                   ? setToast({
                       comment: '아이는 최대 5명까지만 입력할 수 있어요.',
                       type: 'warning'
@@ -57,22 +50,18 @@ const MyPage = () => {
             />
           </div>
           <div className={'flex overflow-x-scroll'}>
-            {myPageData.childInformationResponses.map(
-              ({ childId, childName }) => (
-                <li
-                  key={childId}
-                  className={`list-none px-[10px] flex-shrink-0`}>
-                  <Profile
-                    imageSize={'M'}
-                    imageLabel={childName}
-                    canEdit={true}
-                    onClick={() =>
-                      navigate(`/edit/${childId}`, { state: childId })
-                    }
-                  />
-                </li>
-              )
-            )}
+            {data?.childInformationResponses.map(({ childId, childName }) => (
+              <li key={childId} className={`list-none px-[10px] flex-shrink-0`}>
+                <Profile
+                  imageSize={'M'}
+                  imageLabel={childName}
+                  canEdit={true}
+                  onClick={() =>
+                    navigate(`/edit/${childId}`, { state: childId })
+                  }
+                />
+              </li>
+            ))}
           </div>
         </div>
         <ListRow
