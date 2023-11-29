@@ -3,7 +3,7 @@ interface AcademyInfo {
   address: string
 }
 
-interface LessonTimes {
+interface LessonTime {
   startTime: string
   endTime: string
 }
@@ -11,7 +11,7 @@ interface LessonInfo {
   lessonName: string
   capacity: number
   totalFee: number
-  lessonTimes: LessonTimes[]
+  lessonTimes: LessonTime
   periodicity: string
 }
 
@@ -27,11 +27,11 @@ export interface ScheduleDetailResponse {
   date: string
   academyInfo: AcademyInfo
   lessonInfo: LessonInfo
-  childrenInfos: ChildrenInfo[]
+  childrenInfo: ChildrenInfo
+  categories: string[]
 }
 
 export interface ScheduleDetailRequest {
-  requestedDate: string
   lessonId: number
   childId: number
   scheduleId: number
