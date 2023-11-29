@@ -17,11 +17,11 @@ const HomePage = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
+  })
 
   if (isLoading) {
     return <Loading />
   }
-
   return (
     <div className={'relative bg-white-100 h-[750px] overflow-hidden'}>
       <SettingPage isOpen={toggleOpen} />
