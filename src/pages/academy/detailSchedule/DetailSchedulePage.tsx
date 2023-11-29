@@ -16,7 +16,6 @@ const DetailSchedulePage = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
-  const date = queryParams.get('date')
   const scheduleId = queryParams.get('scheduleId')
   const lessonId = queryParams.get('lessonId')
   const child = queryParams.get('child')
@@ -26,7 +25,6 @@ const DetailSchedulePage = () => {
     queryKey: ['schedule', scheduleId],
     queryFn: () =>
       getAcademiesScheduleDetail({
-        requestedDate: date as string,
         lessonId: Number(lessonId as string),
         childId: Number(child as string),
         scheduleId: Number(scheduleId as string)
@@ -64,9 +62,9 @@ const DetailSchedulePage = () => {
         <div className={'flex items-center pb-[10px]'}>
           <Icon icon={'Time'} classStyle={'mr-[5px]'} />
           <span>
-            {data?.lessonInfo.lessonTimes[0].startTime +
+            {data?.lessonInfo.lessonTimes.startTime +
               ' ~ ' +
-              data?.lessonInfo.lessonTimes[0].endTime}
+              data?.lessonInfo.lessonTimes.endTime}
           </span>
         </div>
         <div className={'flex items-center relative w-[350px] h-[30px]'}>
@@ -76,8 +74,11 @@ const DetailSchedulePage = () => {
           </div>
         </div>
       </div>
-      <div className={'pl-[20px] h-[150px] relative'}>
-        <div className={'absolute left-[50%] h-full w-full translate-x-[-50%]'}>
+      <div className={'h-[150px] relative'}>
+        <div
+          className={
+            'absolute top-[-20px] left-[50%] h-full w-full translate-x-[-50%]'
+          }>
           <Accordion
             initialState={true}
             title={data?.lessonInfo.lessonName as string}
@@ -109,30 +110,28 @@ const DetailSchedulePage = () => {
       <div className={'pl-[20px] pt-[10px] h-[165px]'}>
         <h2 className={'subHead-18 mb-[10px]'}>{'일정 수행중인 아이'}</h2>
         <div className={'flex'}>
-          {data?.childrenInfos.map(
-            ({ childId, childName, imageUrl, dashBoardId }) => (
-              <li
-                key={childId}
-                className={'list-none'}
-                onClick={() => navigate(`academies/${dashBoardId}/edit`)}>
-                <Profile
-                  imageSize={'M'}
-                  imageUrl={imageUrl}
-                  imageLabel={childName}
-                />
-              </li>
-            )
-          )}
+          <div
+            key={data?.childrenInfo.childId}
+            className={'list-none'}
+            onClick={() =>
+              navigate(`academies/${data?.childrenInfo.dashBoardId}/edit`)
+            }>
+            <Profile
+              imageSize={'M'}
+              imageUrl={data?.childrenInfo.imageUrl}
+              imageLabel={data?.childrenInfo.childName}
+            />
+          </div>
         </div>
       </div>
       <div className={'px-[20px] h-[265px] pt-[10px]'}>
         <h2 className={'subHead-18 mb-[10px]'}>{'메모'}</h2>
         <ul className={'h-[50px]'}>
-          {data?.childrenInfos.map(({ memo, childId }) => (
-            <li key={childId} className={'flex h-[50px] overflow-auto'}>
-              <span>{memo}</span>
-            </li>
-          ))}
+          <div
+            key={data?.childrenInfo.childId}
+            className={'flex h-[50px] overflow-auto'}>
+            <span>{data?.childrenInfo.memo}</span>
+          </div>
         </ul>
         <div className={'h-[190px] flex flex-col items-center mt-[20px]'}>
           <Button
