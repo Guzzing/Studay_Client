@@ -52,9 +52,6 @@ const Header = ({
               </span>
             </div>
             <div className={'flex items-center justify-between'}>
-              <div className={'mx-[7px]'} onClick={() => alert('알림보기!')}>
-                <Icon icon={'Alarm'} classStyle={'cursor-pointer'} />
-              </div>
               <span onClick={toggleSidebar}>
                 <Icon icon={'SideBar'} classStyle={'cursor-pointer'} />
               </span>

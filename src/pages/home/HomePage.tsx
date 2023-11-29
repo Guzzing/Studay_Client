@@ -7,15 +7,17 @@ import InformationBox from '@/components/common/informationBox/InformationBox'
 import Spacing from '@/components/common/spacing/Spacing'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 import useSidebar from '@/libs/hooks/useSidebar'
+import useToastify from '@/libs/hooks/useToastify'
 
 const HomePage = () => {
   const navigate = useNavigate()
+  const { setToast } = useToastify()
   const { toggleOpen } = useSidebar()
 
   const { data, isLoading } = useQuery({
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
-  })
+
   if (isLoading) {
     return <Loading />
   }
@@ -60,7 +62,10 @@ const HomePage = () => {
             onClick={() =>
               (data?.length as number) < 5
                 ? navigate('/onboarding')
-                : alert('5명이상 등록할 수 없습니다!')
+                : setToast({
+                    comment: '아이는 5명 이상 등록할 수 없어요.',
+                    type: 'warning'
+                  })
             }
           />
         </div>

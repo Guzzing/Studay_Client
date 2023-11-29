@@ -16,6 +16,7 @@ import { patchToggleDashboardState } from '@/libs/api/dashboard/DashBoardApi'
 import { getAllDashboards } from '@/libs/api/dashboard/DashBoardApi'
 import { GetAllDashBoardResponse } from '@/libs/api/dashboard/DashBoardType'
 import useSidebar from '@/libs/hooks/useSidebar'
+import useToastify from '@/libs/hooks/useToastify'
 import { childAtom } from '@/libs/store/childInfoAtom'
 import { getWeekday } from '@/libs/utils/weekParse'
 
@@ -24,6 +25,7 @@ const AcademyDashboard = () => {
   const [dashboardData, setDashboardData] = useState<GetAllDashBoardResponse[]>(
     []
   )
+  const { setToast } = useToastify()
   const navigate = useNavigate()
   const { toggleOpen } = useSidebar()
 
@@ -127,10 +129,17 @@ const AcademyDashboard = () => {
                         }
                         handleDelete={() => {
                           if (data.isActive) {
-                            alert('다니고 있는 학원은 삭제가 불가능합니다!')
+                            setToast({
+                              comment:
+                                '다니고 있는 학원은 삭제가 불가능해요. 먼저 미등록 상태로 변경해주세요.',
+                              type: 'warning'
+                            })
                           } else {
                             deleteDashboardInfo(data.dashboardId)
-                            alert('삭제 완료!')
+                            setToast({
+                              comment: '삭제가 완료되었어요.',
+                              type: 'success'
+                            })
                           }
                         }}
                         onClick={(e) => {

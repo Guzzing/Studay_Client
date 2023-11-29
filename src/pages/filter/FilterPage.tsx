@@ -3,6 +3,7 @@ import { useAtom } from 'jotai'
 import Button from '@/components/common/button/Button.tsx'
 import Label from '@/components/common/label/Label.tsx'
 import { LabelColorType } from '@/components/common/label/LabelType.ts'
+import Slider from '@/components/common/slider/Slider.tsx'
 import Spacing from '@/components/common/spacing/Spacing.tsx'
 import { mapFilterState } from '@/libs/store/mapFilterAtom.ts'
 import { mapInfoAtom } from '@/libs/store/mapInfoAtom.ts'
@@ -23,7 +24,7 @@ const FilterPage = () => {
     console.log(subjectList)
     let url = `/map?lat=${mapInfo.latitude}&lng=${
       mapInfo.longitude
-    }&areaOfExpertises=${subjectList.join(',')}`
+    }&categories=${subjectList.join(',')}`
     console.log(url)
 
     if (mapFilter.minMoney > 1) {
@@ -106,15 +107,21 @@ const FilterPage = () => {
         className={
           'flex flex-col w-full h-[260px] bg-white-0 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] mb-[10px] justify-center items-center'
         }>
-        <span className={'w-full text-left font-nsk body-18-black ml-[14px]'}>
+        <span
+          className={
+            'w-full text-left font-nsk body-18-black ml-[14px] mb-[10px]'
+          }>
           {'희망 금액(추정치)'}
         </span>
-        <Button
-          label={'금액은 상관없어요'}
-          buttonType={'Plain-blue'}
-          width={'LW'}
-          height={'SH'}
-        />
+        <Slider onChange={() => console.log('a')} />
+        <div className={'mt-[10px]'}>
+          <Button
+            label={'금액은 상관없어요'}
+            buttonType={'Plain-blue'}
+            width={'LW'}
+            height={'SH'}
+          />
+        </div>
       </div>
       <Button
         buttonType={'Square'}

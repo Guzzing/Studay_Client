@@ -49,6 +49,15 @@ export interface Academy {
   longitude: number
 }
 
+export interface SearchAcademy {
+  academyId: number
+  academyName: string
+  address: string
+  areaOfExpertise: string
+  latitude: number
+  longitude: number
+}
+
 export interface AcademyResponse {
   academiesByLocationResponse: Academy[]
 }
@@ -71,6 +80,7 @@ interface ReviewPercent {
   cheapFeePercent: number
   goodManagementPercent: number
   lovelyTeachingPercent: number
+  shuttleAvailabilityCount: number
 }
 
 export interface DetailAcademyResponse {
@@ -80,7 +90,7 @@ export interface DetailAcademyResponse {
   shuttleAvailability: string
   expectedFee: number
   updatedDate: string
-  areaOfExpertise: string
+  categories: string[]
   lessonGetResponses: {
     lessons: Lesson[]
   }
@@ -107,4 +117,10 @@ export interface InfiniteScrollPage {
   offset: number
   paged: boolean
   unpaged: boolean
+}
+
+export interface LikeResponse {
+  likeId: number
+  memberId: number
+  academyId: number
 }
