@@ -1,6 +1,7 @@
 import { atom } from 'jotai'
 import { MapInfoAtomType } from '../../types/selectcity.ts'
 import { InitSelectAcademyType } from '@/components/map/naverMapType.ts'
+import { SearchAcademiesResponse } from '@/libs/api/mapapi/mapApiType.ts'
 
 export const mapInfoAtom = atom<MapInfoAtomType>({
   selectProvince: '',
@@ -21,4 +22,12 @@ export const selectAcademyAtom = atom<InitSelectAcademyType>({
     latitude: -1,
     longitude: -1
   }
+})
+
+export const selectSearchAcademyAtom = atom<SearchAcademiesResponse>({
+  academyId: -1,
+  academyName: '',
+  address: '',
+  latitude: -1,
+  longitude: -1
 })

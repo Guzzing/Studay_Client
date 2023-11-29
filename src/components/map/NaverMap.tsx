@@ -1,17 +1,18 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import { useAtom } from 'jotai/index'
-import { SetLocationProps } from '../../types/mapPage.ts'
-import BottomSheet from '@/components/common/bottomsheet/BottomSheet.tsx'
 import Icon from '@/components/common/icon/Icon.tsx'
 import {
   DefaultMapOption,
   initSelectAcademy,
   Marker
 } from '@/components/map/constants.ts'
-import { getAcademyDetail } from '@/libs/api/mapapi/mapApi.ts'
 import { Academy } from '@/libs/api/mapapi/mapApiType.ts'
-import { selectAcademyAtom } from '@/libs/store/mapInfoAtom.ts'
+import {
+  mapInfoAtom,
+  selectAcademyAtom,
+  selectSearchAcademyAtom
+} from '@/libs/store/mapInfoAtom.ts'
 import throttle from '@/libs/utils/throttle.ts'
 
 /**
@@ -19,45 +20,17 @@ import throttle from '@/libs/utils/throttle.ts'
  *    <script type="text/javascript" src=></script>
  * **/
 interface NaverMapProps {
-  latitude: number
-  longitude: number
   academyList: Academy[]
-  setLocation: ({ latitude, longitude }: SetLocationProps) => void
-  searchAcademy: number //나중에 제외해야합니다.
 }
 
-const NaverMap = ({
-  latitude,
-  longitude,
-  academyList,
-  setLocation,
-  searchAcademy
-}: NaverMapProps) => {
+const NaverMap = ({ academyList }: NaverMapProps) => {
   const mapRef = useRef<naver.maps.Map | null>(null)
+  const markerRef = useRef<naver.maps.Marker[]>([])
+  const [mapInfo, setMapInfo] = useAtom(mapInfoAtom)
   const [selectAcademy, setSelectAcademy] = useAtom(selectAcademyAtom)
+  const [selectValue, _] = useAtom(selectSearchAcademyAtom)
   const [isNewLocation, setIsNewLocation] = useState(false)
-
-  useEffect(() => {
-    if (searchAcademy > -1) {
-      setSelectAcademy((prev) => ({
-        ...prev,
-        isBottomSheet: true
-      }))
-      console.log(selectAcademy)
-    }
-  }, [searchAcademy])
-
-  const { data: detailAcademy } = useQuery({
-    queryKey: ['academy', selectAcademy],
-    queryFn: () =>
-      getAcademyDetail({
-        academyId:
-          selectAcademy.academy.academyId > -1
-            ? selectAcademy.academy.academyId
-            : searchAcademy
-      }),
-    enabled: selectAcademy.academy.academyId > -1 || searchAcademy > -1
-  })
+  const navigate = useNavigate()
 
   const currentLocation = useCallback(() => {
     if (!navigator.geolocation || !mapRef.current) {
@@ -68,13 +41,12 @@ const NaverMap = ({
       (position) => {
         const { latitude, longitude } = position.coords
         const center = new naver.maps.LatLng(latitude, longitude)
-        console.log(center)
         mapRef.current?.panTo(center, {
           duration: 500,
           easing: 'easeOutCubic'
         })
       },
-      () => console.log('test'),
+      () => navigate('/'),
       {
         enableHighAccuracy: false,
         timeout: 1000
@@ -84,49 +56,34 @@ const NaverMap = ({
 
   const updateLocation = useCallback(() => {
     const location = mapRef.current?.getCenter()
-    setLocation({
+    createMap({
       latitude: location?.y as number,
       longitude: location?.x as number
     })
+
+    setMapInfo((prev) => ({
+      ...prev,
+      latitude: location?.y as number,
+      longitude: location?.x as number
+    }))
+
     setIsNewLocation(false)
   }, [])
 
-  useEffect(() => {
-    if (mapRef.current) {
-      academyList.map((data) => {
-        // console.log(Marker({ value: data.academyName, select: false }))
-        const isSelected = data.academyId === selectAcademy.academy.academyId
-        const marker = new naver.maps.Marker({
-          position: new naver.maps.LatLng(data.latitude, data.longitude),
-          map: mapRef.current as naver.maps.Map,
-          icon: {
-            content: Marker({ value: data.academyName, select: isSelected })
-          }
-        })
-
-        naver.maps.Event.addListener(marker, 'click', () => {
-          setSelectAcademy((prev) => ({
-            isBottomSheet: !isSelected,
-            academy:
-              prev.academy.academyId === data.academyId
-                ? initSelectAcademy.academy
-                : data
-          }))
-        })
-      })
-    }
-  }, [academyList, selectAcademy])
-
-  useEffect(() => {
+  const createMap = ({
+    latitude,
+    longitude
+  }: {
+    latitude: number
+    longitude: number
+  }) => {
     const center: naver.maps.LatLng = new naver.maps.LatLng(latitude, longitude)
     const naverMapOption = {
       center: center,
       ...DefaultMapOption
     }
 
-    if (!mapRef.current) {
-      mapRef.current = new naver.maps.Map('map', naverMapOption)
-    }
+    mapRef.current = new naver.maps.Map('map', naverMapOption)
 
     naver.maps.Event.addListener(mapRef.current, 'click', () =>
       setSelectAcademy({
@@ -142,7 +99,87 @@ const NaverMap = ({
         setIsNewLocation(true)
       }, 100)
     )
-  }, [])
+  }
+
+  useEffect(() => {
+    if (mapRef.current) {
+      academyList.map((data) => {
+        const isSelected = data.academyId === selectAcademy.academy.academyId
+        const marker = new naver.maps.Marker({
+          position: new naver.maps.LatLng(data.latitude, data.longitude),
+          map: mapRef.current as naver.maps.Map,
+          icon: {
+            content: Marker({ value: data.academyName, select: isSelected })
+          }
+        })
+        markerRef.current.push(marker)
+        naver.maps.Event.addListener(marker, 'click', () => {
+          setSelectAcademy((prev) => ({
+            isBottomSheet: !isSelected,
+            academy:
+              prev.academy.academyId === data.academyId
+                ? initSelectAcademy.academy
+                : data
+          }))
+        })
+      })
+    }
+  }, [academyList, selectAcademy])
+
+  useEffect(() => {
+    const { latitude, longitude } = mapInfo
+    createMap({ latitude: latitude, longitude: longitude })
+    if (selectValue.academyId > -1) {
+      const marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(
+          selectValue.latitude,
+          selectValue.longitude
+        ),
+        map: mapRef.current as naver.maps.Map,
+        icon: {
+          content: Marker({ value: selectValue.academyName, select: true })
+        }
+      })
+      markerRef.current = [marker]
+      naver.maps.Event.addListener(marker, 'click', () => {
+        setSelectAcademy(() => ({
+          isBottomSheet: true,
+          academy: {
+            academyId: selectValue.academyId,
+            academyName: selectValue.academyName,
+            address: selectValue.address,
+            contact: '',
+            areaOfExpertise: '',
+            latitude: selectValue.latitude,
+            longitude: selectValue.longitude
+          }
+        }))
+      })
+
+      setSelectAcademy(() => ({
+        isBottomSheet: true,
+        academy: {
+          academyId: selectValue.academyId,
+          academyName: selectValue.academyName,
+          address: selectValue.address,
+          contact: '',
+          areaOfExpertise: '',
+          latitude: selectValue.latitude,
+          longitude: selectValue.longitude
+        }
+      }))
+    }
+  }, [mapInfo])
+
+  useEffect(() => {
+    if (selectValue.academyId > -1) {
+      setMapInfo((prev) => ({
+        ...prev,
+        longitude: selectValue.longitude,
+        latitude: selectValue.latitude
+      }))
+    }
+  }, [selectValue])
 
   return (
     <div className={'flex h-full w-full '}>
@@ -163,14 +200,6 @@ const NaverMap = ({
             {'현재 지도에서 검색'}
           </span>
         </button>
-      )}
-      {selectAcademy.isBottomSheet && detailAcademy && (
-        <BottomSheet
-          title={detailAcademy.academyName}
-          address={detailAcademy.address}
-          number={detailAcademy.contact}
-          detailInfo={detailAcademy}
-        />
       )}
     </div>
   )
