@@ -17,7 +17,7 @@ const HomePage = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
-
+  })
   if (isLoading) {
     return <Loading />
   }
