@@ -17,7 +17,7 @@ const BottomSheetContent = ({
   address,
   detailInfo
 }: BottomSheetContentProps) => {
-  const { lessonGetResponses, reviewPercentGetResponse, areaOfExpertise } =
+  const { lessonGetResponses, reviewPercentGetResponse, categories } =
     detailInfo
   console.log(detailInfo)
   return (
@@ -27,7 +27,7 @@ const BottomSheetContent = ({
         <br />
         {`☎ ${number}`}
         <div className={'mb-[11px]'} />
-        <Label variant={'medium'} label={areaOfExpertise}></Label>
+        <Label variant={'medium'} label={categories[0]}></Label>
       </div>
       {expanded && (
         <div className={'flex flex-col'}>
@@ -116,7 +116,7 @@ const BottomSheetContent = ({
                   className={
                     'absolute text-center subHead-18 z-50 ml-[13px] mt-[7px]'
                   }>
-                  {'상담사 선생님이 친절해요'}
+                  {'선생님이 친절해요 👨‍🏫'}
                 </div>
               </div>
               <div
@@ -137,7 +137,7 @@ const BottomSheetContent = ({
                   className={
                     'absolute text-center subHead-18 z-50 ml-[13px] mt-[7px]'
                   }>
-                  {'시설이 좋아요'}
+                  {'시설이 좋아요 🏫'}
                 </div>
               </div>
               <div
@@ -158,7 +158,7 @@ const BottomSheetContent = ({
                   className={
                     'absolute text-center subHead-18 z-50 ml-[13px] mt-[7px]'
                   }>
-                  {'가격이 착해요'}
+                  {'교육비가 저렴해요 💰'}
                 </div>
               </div>
               <div
@@ -181,7 +181,7 @@ const BottomSheetContent = ({
                   className={
                     'absolute text-center subHead-18 z-50 ml-[13px] mt-[7px]'
                   }>
-                  {'학습 관리가 꼼꼼해요'}
+                  {'교육 관리가 철저해요 📝'}
                 </div>
               </div>
               <div
@@ -204,7 +204,30 @@ const BottomSheetContent = ({
                   className={
                     'absolute text-center subHead-18 z-50 ml-[13px] mt-[7px]'
                   }>
-                  {'선생님이 좋아요'}
+                  {'학생에 대한 애정 가득 💓'}
+                </div>
+              </div>
+              <div
+                className={
+                  'relative flex flex-row h-[37px] w-[323px] ml-[7px] mb-[7px]'
+                }>
+                <div
+                  className={'h-full bg-blue-200'}
+                  style={{
+                    width: reviewPercentGetResponse.lovelyTeachingPercent + '%'
+                  }}></div>
+                <div
+                  className={'h-full bg-gray-200'}
+                  style={{
+                    width: `${
+                      100 - reviewPercentGetResponse.shuttleAvailabilityCount
+                    }%`
+                  }}></div>
+                <div
+                  className={
+                    'absolute text-center subHead-18 z-50 ml-[13px] mt-[7px]'
+                  }>
+                  {'등하원이 편리해요 🚌'}
                 </div>
               </div>
             </div>
