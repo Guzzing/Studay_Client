@@ -16,11 +16,13 @@ import {
   onboardingApi
 } from '@/libs/api/onboarding/onboardingApi'
 import { PostOnboardingRequest } from '@/libs/api/onboarding/onboardingType'
+import useToastify from '@/libs/hooks/useToastify'
 import { onboardingPageDataAtom } from '@/libs/store/onboardingAtom'
 import { getItem, setItem } from '@/libs/utils/storage'
 
 const Onboarding = () => {
   const navigate = useNavigate()
+  const { setToast } = useToastify()
   const [currentPage, setCurrentPage] = useState(0)
   const [isError, setIsError] = useState(false)
   const inputRef = useRef<HTMLInputElement | null>(null)
@@ -70,7 +72,10 @@ const Onboarding = () => {
     const cntOfChild = async () => {
       const children = await getChildrenInfo()
       if (children.length === 5) {
-        alert('5명이 다 차있습니다!')
+        setToast({
+          comment: '아이는 최대 5명까지만 등록이 가능해요.',
+          type: 'warning'
+        })
         navigate('/')
       }
       setCurrentPage(children.length + 2)
@@ -178,7 +183,10 @@ const Onboarding = () => {
                         inputRef.current?.value === '' ||
                         selectRef.current?.value === ''
                       ) {
-                        alert('값을 입력해주세요😁👍')
+                        setToast({
+                          comment: '값을 빠짐없이 입력해주세요.',
+                          type: 'warning'
+                        })
                         return
                       }
                       // ❗️ 값을 입력하고, child버튼일 때(자식입력 필드에서 존재하는 버튼 2개

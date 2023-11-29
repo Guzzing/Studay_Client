@@ -16,7 +16,7 @@ const SettingPage = ({ isOpen }: SettingPage) => {
       {() => (
         <div
           className={
-            'setting-page absolute top-[80px] left-0 z-30 w-full h-full bg-white-0'
+            'setting-page absolute top-[80px] left-0 w-full h-full z-30 bg-white-0'
           }>
           <Spacing size={40} />
           <ListRow
