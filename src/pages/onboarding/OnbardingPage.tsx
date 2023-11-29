@@ -12,6 +12,7 @@ import Spacing from '@/components/common/spacing/Spacing'
 import StepQuestion from '@/components/common/stepquestion/StepQuestion'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 import { myPageApi } from '@/libs/api/mypage/myPageApi'
+import { GetMyPageResponse } from '@/libs/api/mypage/myPageType'
 import {
   createChildApi,
   onboardingApi
@@ -33,6 +34,7 @@ const Onboarding = () => {
   const [storeStorage, setStoreStorage] = useState<string[]>([])
   const [pageData, setPageData] = useAtom(onboardingPageDataAtom)
   const [isDone, setIsDone] = useState(false)
+  const [myPageData, setMyPageData] = useState<GetMyPageResponse>()
 
   const handleInputChange = () => {
     setInputValue(inputRef.current?.value)
@@ -50,10 +52,28 @@ const Onboarding = () => {
   const handleSelectChange = () => {
     setSelectValue(selectRef.current?.value)
   }
+  // =========================================== << ❗️ 여기서 시작 ❗️>> ===========================================
+  useEffect(() => {
+    if (myPageData) {
+      // 값이 들어왔을 때!
+      const { nickname, email, childInformationResponses } = myPageData
+      if (!nickname || !email) {
+        setCurrentPage(0)
+        return
+      }
+      if (childInformationResponses.length === 5) {
+        setToast({
+          comment: '아이는 최대 5명까지만 등록이 가능해요.',
+          type: 'warning'
+        })
+        navigate('/')
+      } else setCurrentPage(currentPage + 2)
+    }
+  }, [myPageData])
   useEffect(() => {
     const user = async () => {
       const myPage = await myPageApi()
-      console.log('myPage >>', myPage)
+      setMyPageData(myPage)
     }
     user()
   }, [])
@@ -76,39 +96,35 @@ const Onboarding = () => {
     }
   }, [isDone])
 
-  useEffect(() => {
-    const cntOfChild = async () => {
-      const children = await getChildrenInfo()
-      if (children.length === 5) {
-        setToast({
-          comment: '아이는 최대 5명까지만 등록이 가능해요.',
-          type: 'warning'
-        })
-        navigate('/')
-      }
-      setCurrentPage(children.length + 2)
-    }
-    if (getItem('onboarding').length > 0) {
-      cntOfChild()
-    } else {
-      setCurrentPage(0)
-      // const getMyChildren = async () => {
-      //   const numbers = await getChildrenInfo()
-      //   console.log('numbers >>', numbers)
-      //   setCurrentPage(numbers.length + 2)
-      // }
-      // getMyChildren()
-    }
-    // if (!Array.isArray(getItem('onboarding'))) {
-    //   // 저장된 애가 없다면!
-    //   console.log(Array.isArray(getItem('onboarding')))
-    //   const getMyChildren = async () => {
-    //     const numbers = await getChildrenInfo()
-    //     setCurrentPage(numbers.length + 2)
-    //   }
-    //   getMyChildren()
-    // }
-  }, [])
+  // useEffect(() => {
+  //   const cntOfChild = async () => {
+  //     const children = await getChildrenInfo()
+  //     if (children.length === 5) {
+  //       setToast({
+  //         comment: '아이는 최대 5명까지만 등록이 가능해요.',
+  //         type: 'warning'
+  //       })
+  //       navigate('/')
+  //     }
+  //     setCurrentPage(children.length + 2)
+  //   }
+  //   if (getItem('onboarding').length > 0) {
+  //     // 저장된 애가 있다면!
+  //     console.log('hello~~')
+  //     cntOfChild()
+  //   } else {
+  //     setCurrentPage(0)
+  //   }
+  //   // if (!Array.isArray(getItem('onboarding'))) {
+  //   //   // 저장된 애가 없다면!
+  //   //   console.log(Array.isArray(getItem('onboarding')))
+  //   //   const getMyChildren = async () => {
+  //   //     const numbers = await getChildrenInfo()
+  //   //     setCurrentPage(numbers.length + 2)
+  //   //   }
+  //   //   getMyChildren()
+  //   // }
+  // }, [])
 
   useEffect(() => {
     if (inputRef.current) {
@@ -138,7 +154,10 @@ const Onboarding = () => {
         }}
       />
       <Spacing size={80} />
-      <ProgressBar step={currentPage + 1} fullStepNum={3} />
+      <ProgressBar
+        step={currentPage <= 2 ? currentPage + 1 : 3}
+        fullStepNum={3}
+      />
       <Spacing size={45} />
       <div className={'px-[36px]'}>
         {PAGE_CONTENT[currentPage].mainTitle.map((mainTitle) => (
