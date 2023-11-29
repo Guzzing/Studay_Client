@@ -11,6 +11,7 @@ import ProgressBar from '@/components/common/progressBar/ProgressBar'
 import Spacing from '@/components/common/spacing/Spacing'
 import StepQuestion from '@/components/common/stepquestion/StepQuestion'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
+import { myPageApi } from '@/libs/api/mypage/myPageApi'
 import {
   createChildApi,
   onboardingApi
@@ -32,6 +33,7 @@ const Onboarding = () => {
   const [storeStorage, setStoreStorage] = useState<string[]>([])
   const [pageData, setPageData] = useAtom(onboardingPageDataAtom)
   const [isDone, setIsDone] = useState(false)
+
   const handleInputChange = () => {
     setInputValue(inputRef.current?.value)
     validate(
@@ -40,7 +42,7 @@ const Onboarding = () => {
         : currentPage === 1
         ? 'email'
         : 'childname',
-      inputValue as string
+      inputRef.current?.value || ''
     )
       ? setIsError(false)
       : setIsError(true)
@@ -48,7 +50,13 @@ const Onboarding = () => {
   const handleSelectChange = () => {
     setSelectValue(selectRef.current?.value)
   }
-
+  useEffect(() => {
+    const user = async () => {
+      const myPage = await myPageApi()
+      console.log('myPage >>', myPage)
+    }
+    user()
+  }, [])
   useEffect(() => {
     const req = async (pageData: PostOnboardingRequest) => {
       setItem('onboarding', JSON.stringify(storeStorage))
@@ -82,14 +90,24 @@ const Onboarding = () => {
     }
     if (getItem('onboarding').length > 0) {
       cntOfChild()
+    } else {
+      setCurrentPage(0)
+      // const getMyChildren = async () => {
+      //   const numbers = await getChildrenInfo()
+      //   console.log('numbers >>', numbers)
+      //   setCurrentPage(numbers.length + 2)
+      // }
+      // getMyChildren()
     }
-    if (!Array.isArray(getItem('onboarding'))) {
-      const getMyChildren = async () => {
-        const numbers = await getChildrenInfo()
-        setCurrentPage(numbers.length + 2)
-      }
-      getMyChildren()
-    }
+    // if (!Array.isArray(getItem('onboarding'))) {
+    //   // 저장된 애가 없다면!
+    //   console.log(Array.isArray(getItem('onboarding')))
+    //   const getMyChildren = async () => {
+    //     const numbers = await getChildrenInfo()
+    //     setCurrentPage(numbers.length + 2)
+    //   }
+    //   getMyChildren()
+    // }
   }, [])
 
   useEffect(() => {
