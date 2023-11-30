@@ -186,7 +186,10 @@ export const router = createBrowserRouter(
           path: 'academies/:dashboardId/edit',
           element: (
             <>
-              <Header headerType={'Close'} pageTitle={'학원 정보 수정하기'} />
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'학원 정보 수정하기'}
+              />
               <EditAcademy />
             </>
           ),

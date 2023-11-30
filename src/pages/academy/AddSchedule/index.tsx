@@ -65,6 +65,13 @@ const AddAcademy = () => {
         label={'저장 완료'}
         fullWidth={true}
         onClick={() => {
+          if (academyInfo.schedules.length === 0) {
+            setToast({
+              comment: '학원 스케쥴 정보를 채워주세요',
+              type: 'warning'
+            })
+            return
+          }
           dashboardMutation.mutate(academyInfo)
           setChildrenInfo({
             ...childInfo,

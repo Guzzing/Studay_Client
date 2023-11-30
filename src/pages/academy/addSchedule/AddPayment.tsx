@@ -13,12 +13,8 @@ const AddPayment = () => {
   const selectRef = useRef<HTMLSelectElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
-  const [paymentDate, setPaymentDate] = useState(
-    academyInfo.paymentInfo.paymentDay
-      ? new Date(academyInfo.paymentInfo.paymentDay)
-      : new Date()
-  )
-
+  const [paymentDate, setPaymentDate] = useState(new Date())
+  console.log(academyInfo)
   const [paymentInfo, setPaymentInfo] = useState({
     paymentName: '',
     paymentFee: 0
@@ -34,15 +30,10 @@ const AddPayment = () => {
   }
 
   useEffect(() => {
-    if (!academyInfo.paymentInfo.paymentDay)
-      setAcademyInfo({
-        ...academyInfo,
-        paymentInfo: {
-          ...academyInfo.paymentInfo,
-          paymentDay: getFormattingDate(new Date())
-        }
-      })
-  }, [academyInfo, setAcademyInfo])
+    if (academyInfo.paymentInfo.paymentDay) {
+      setPaymentDate(new Date(academyInfo.paymentInfo.paymentDay))
+    }
+  }, [academyInfo.paymentInfo.paymentDay])
 
   const onSelect = (time: Date) => {
     setAcademyInfo({
@@ -162,11 +153,23 @@ const AddPayment = () => {
             inputType={'Default'}
             fullWidth={true}
             ref={inputRef}
+            value={inputRef.current ? inputRef.current.value : ''}
+            style={{ textAlign: 'right' }}
             onChange={(e) => {
-              console.log(e.target.value)
+              const value = e.target.value
+              const numCheck = /^[\d,]/.test(value)
+              if (!numCheck && value) return
+              if (numCheck) {
+                const commaValue = value.replace(',', '')
+                const numValue = commaValue
+                  .toString()
+                  .replaceAll(/\B(?=(\d{3})+(?!\d))/g, ',')
+                if (inputRef.current) inputRef.current.value = numValue
+              }
+              const removedCommaValue = Number(value.replaceAll(',', ''))
               setPaymentInfo({
                 ...paymentInfo,
-                paymentFee: Number.parseInt(e.target.value, 10)
+                paymentFee: removedCommaValue
               })
             }}
           />

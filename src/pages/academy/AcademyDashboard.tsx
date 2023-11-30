@@ -40,7 +40,6 @@ const AcademyDashboard = () => {
   const fetchAllDashboard = async () => {
     if (childInfo.childId) {
       const data = await getAllDashboards(childInfo.childId)
-      console.log(data)
       setDashboardData(data)
     }
   }

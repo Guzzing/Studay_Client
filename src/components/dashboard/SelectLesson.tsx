@@ -7,9 +7,11 @@ import useToastify from '@/libs/hooks/useToastify'
 import { academyInfoAtom } from '@/libs/store/academyInfo'
 
 const SelectLesson = ({
-  classSelectRef
+  classSelectRef,
+  isEdit
 }: {
   classSelectRef: React.RefObject<HTMLSelectElement>
+  isEdit: boolean
 }) => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
   const { setToast } = useToastify()
@@ -35,6 +37,7 @@ const SelectLesson = ({
       <ListRowSelect
         ref={classSelectRef}
         title={'우리 아이 반'}
+        disabled={isEdit ? true : false}
         selecttype={'Single'}
         values={data ? data?.map((data) => data.lessonId) : []}
         options={data ? data?.map((data) => data.subject) : []}
