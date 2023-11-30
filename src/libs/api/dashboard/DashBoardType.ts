@@ -46,7 +46,7 @@ export interface AcademyScheduleType {
 
 interface AcademyLessonType {
   lessonId: number
-  subject: ServerAcademyType
+  curriculum: string
   capacity: number
   duration: string
   totalFee: number

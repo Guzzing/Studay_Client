@@ -5,7 +5,7 @@ export const validate = (field: string, content: string) => {
       return validCharacters.test(content)
     }
     case 'nickname': {
-      const validCharacters = /^[A-Za-z가-힣]+$/ // 영어와 숫자만 허용
+      const validCharacters = /^[A-Za-z가-힣]{1,10}$/ // 영어와 숫자만 허용 => 10글자 이내
       return validCharacters.test(content)
     }
     case 'childname': {

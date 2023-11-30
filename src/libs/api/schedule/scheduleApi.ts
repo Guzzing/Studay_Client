@@ -4,7 +4,9 @@ import {
   CalendarPropsType,
   CalendarResponse,
   DayScheduleResponse,
-  PostScheduleType
+  PostScheduleType,
+  BeforeEditInfoResponseType,
+  UpdateScheduleType
 } from '@/libs/api/schedule/scheduleType.ts'
 
 export const getMonthScheduleAll = async ({
@@ -39,5 +41,23 @@ export const postScheduleApi = async (
   schedule: PostScheduleType
 ): Promise<{ academyTimeTemplateIds: number[] }> => {
   const res = await request.post('/academy-schedules', schedule)
+  return res.data
+}
+
+export const beforeEditInfoScheduleApi = async ({
+  scheduleId
+}: {
+  scheduleId: number
+}): Promise<BeforeEditInfoResponseType> => {
+  const res = await request.get(`/academy-schedules/${scheduleId}`)
+  return res.data
+}
+
+export const editScheduleApi = async ({
+  payload
+}: {
+  payload: UpdateScheduleType | { isAllUpdated: true }
+}) => {
+  const res = await request.put(`/academy-schedules`, payload)
   return res.data
 }

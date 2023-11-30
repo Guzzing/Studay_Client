@@ -6,7 +6,7 @@ import CustomTimePicker from '@/components/academy/CustomTimePicker'
 import { scheduleAtom } from '@/libs/store/scheduleInfo'
 import { getFormattingDate } from '@/libs/utils/dateParse'
 
-const SelectAttendanceDate = () => {
+const SelectAttendanceDate = ({ isEdit = false }: { isEdit?: boolean }) => {
   const [startTime, setStartTime] = useState(new Date())
   const [endTime, setEndTime] = useState<Date | null>()
   const [isSelected, setIsSelected] = useState(false)
@@ -41,6 +41,12 @@ const SelectAttendanceDate = () => {
     })
     setIsSelected(true)
   }
+
+  useEffect(() => {
+    if (isEdit) {
+      setIsSelected(true)
+    }
+  }, [])
 
   return (
     <div className={'w-full  my-[14px] '}>

@@ -6,10 +6,11 @@ import SelectAttendanceDate from '@/components/schedule/SelectAttendanceDate'
 import { getDetailDashboard } from '@/libs/api/dashboard/DashBoardApi'
 import {
   ScheduleServerWeekData,
-  ScheduleClientWeekData
+  ScheduleClientWeekData,
+  ScheduleServerWeekDataString
 } from '@/libs/api/schedule/scheduleType'
 import { scheduleAtom } from '@/libs/store/scheduleInfo'
-const AddScheduleTime = () => {
+const AddScheduleTime = ({ isEdit }: { isEdit?: boolean }) => {
   const [academySchedule, setAcademySchedule] = useAtom(scheduleAtom)
   const [fixedDate, setFixedDate] = useState<number[]>([])
   const { data } = useQuery({
@@ -34,15 +35,22 @@ const AddScheduleTime = () => {
       setFixedDate(data.schedules.map((data) => data.dayOfWeek))
     }
   }
-
   useEffect(() => {
     addTimeSchedule()
   }, [data])
 
+  useEffect(() => {
+    setFixedDate(
+      academySchedule.lessonScheduleCreateRequests.map(
+        (data) => ScheduleServerWeekDataString[data.dayOfWeek]
+      )
+    )
+  }, [academySchedule])
+
   return (
     <div className={'flex flex-col items-center w-full '}>
       <SelectWeek fixedDate={fixedDate} />
-      <SelectAttendanceDate />
+      <SelectAttendanceDate isEdit={isEdit} />
       {academySchedule.lessonScheduleCreateRequests.map((data, index) => {
         return (
           <div key={index} className={'w-full px-[20px] py-[10px]'}>
