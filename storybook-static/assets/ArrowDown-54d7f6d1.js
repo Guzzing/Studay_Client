@@ -1,2 +1,0 @@
-import{r as a}from"./index-c013ead5.js";var s;function o(){return o=Object.assign?Object.assign.bind():function(t){for(var r=1;r<arguments.length;r++){var n=arguments[r];for(var e in n)Object.prototype.hasOwnProperty.call(n,e)&&(t[e]=n[e])}return t},o.apply(this,arguments)}var p=function(r){return a.createElement("svg",o({xmlns:"http://www.w3.org/2000/svg",width:24,height:24,fill:"none",stroke:"currentColor"},r),s||(s=a.createElement("path",{strokeLinecap:"round",strokeWidth:2,d:"m18 9-6 6-6-6"})))};export{p as S};
-//# sourceMappingURL=ArrowDown-54d7f6d1.js.map
