@@ -76,14 +76,11 @@ const AcademyDashboard = () => {
   }
 
   return (
-    <div className={'h-full relative overflow-hidden'}>
+    <div className={'h-full relative'}>
       <SettingPage isOpen={toggleOpen} />
       <div>
         <Spacing size={100} />
-        <div
-          className={
-            'flex flex-col items-center w-full h-full overflow-scroll scrollbar-hide'
-          }>
+        <div className={'flex flex-col items-center w-full h-full'}>
           {data && data?.length > 0 ? (
             <div className={'w-full h-full'}>
               <SelectMyChild data={data} />
@@ -97,8 +94,9 @@ const AcademyDashboard = () => {
                 </div>
               ) : (
                 <div
+                  style={{ height: `calc(100vh - 240px)` }}
                   className={
-                    'flex flex-col items-center w-full gap-[16px] px-[20px]'
+                    'flex flex-col items-center w-full gap-[16px] px-[20px] overflow-y-scroll scrollbar-hide'
                   }>
                   {dashboardData.map((data, index) => {
                     return (
@@ -107,7 +105,7 @@ const AcademyDashboard = () => {
                         scheduleType={'toggle'}
                         mainTitle={data.academyInfo.academyName}
                         subElement={`매주 ${getWeekday(data.schedules)}요일 / ${
-                          data.lessonInfo.subject
+                          data.lessonInfo.curriculum
                         }`}
                         isRegister={data.isActive}
                         rightBottomElement={
@@ -151,16 +149,9 @@ const AcademyDashboard = () => {
                       />
                     )
                   })}
-                  <Spacing size={250} />
                 </div>
               )}
-              <div
-                className={'absolute bottom-[95px] w-full flex justify-center'}>
-                <Button
-                  buttonType={'Plain-blue'}
-                  label={`${childInfo?.nickname} 교육비 보고서 보기`}
-                />
-              </div>
+              <div className={'w-full h-[500px]'} />
             </div>
           ) : (
             <div className={'absolute top-1/2 font-nsk body-15 text-gray-600'}>
