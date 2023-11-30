@@ -9,6 +9,7 @@ import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
 import { logoutApi } from '@/libs/api/autorization/logout/LogoutApi'
+import { withdrawUserApi } from '@/libs/api/autorization/withdrawUser/withdrawUserApi'
 import { getAllUserInfo } from '@/libs/api/mypage/myPageApi'
 import useSidebar from '@/libs/hooks/useSidebar'
 import useToastify from '@/libs/hooks/useToastify'
@@ -93,12 +94,13 @@ const MyPage = () => {
           <Button
             buttonType={'Plain-red'}
             label={'회원탈퇴 하기'}
-            onClick={() =>
+            onClick={() => {
+              withdrawUserApi()
               setToast({
                 comment: '회원 탈퇴가 완료되었어요.',
                 type: 'success'
               })
-            }
+            }}
           />
         </div>
       </div>
