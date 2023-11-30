@@ -1,8 +1,8 @@
+import { useEffect } from 'react'
 import { cva } from 'class-variance-authority'
 import { useAtom } from 'jotai'
 import cn from '../../../libs/utils/cn'
 import { schedulesAtom } from '@/libs/store/academyInfo'
-
 export const SelectWeekVariant = cva(
   `flex justify-center items-center w-[39px] h-[39px]`,
   {
@@ -33,6 +33,9 @@ interface SelectWeekProperties {
 const SelectWeek = ({ fixedDate }: SelectWeekProperties) => {
   const [scheduleInfo, setScheduleInfo] = useAtom(schedulesAtom)
   const week = ['일', '월', '화', '수', '목', '금', '토']
+  useEffect(() => {
+    console.log(scheduleInfo)
+  }, [scheduleInfo])
   return (
     <div className={'flex flex-row gap-2.5 w-full justify-center items-center'}>
       {week.map((day, index) => (
@@ -48,6 +51,7 @@ const SelectWeek = ({ fixedDate }: SelectWeekProperties) => {
             })
           )}
           onClick={() => {
+            if (fixedDate?.includes(index)) return
             if (scheduleInfo.weekArray.includes(index)) {
               const filteredDate = scheduleInfo.weekArray.filter(
                 (data) => data !== index
