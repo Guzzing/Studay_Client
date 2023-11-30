@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import SettingPage from '../setting/SettingPage'
@@ -16,10 +17,14 @@ const MyPage = () => {
   const navigate = useNavigate()
   const { setToast } = useToastify()
   const { toggleOpen } = useSidebar()
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isSuccess } = useQuery({
     queryKey: ['members'],
     queryFn: () => getAllUserInfo()
   })
+
+  useEffect(() => {
+    navigate('/myPages')
+  }, [isSuccess])
 
   if (isLoading) {
     return <Loading />
