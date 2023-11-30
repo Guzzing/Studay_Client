@@ -113,7 +113,7 @@ const FilterPage = () => {
           }>
           {'희망 금액(추정치)'}
         </span>
-        <Slider onChange={() => console.log('a')} />
+        <Slider />
         <div className={'mt-[10px]'}>
           <Button
             label={'금액은 상관없어요'}

@@ -12,7 +12,7 @@ const meta: Meta<typeof Silder> = {
   render: function Render() {
     return (
       <div className={'w-full h-full'}>
-        <Silder onChange={() => console.log('슬라이드')} />
+        <Silder />
       </div>
     )
   }
