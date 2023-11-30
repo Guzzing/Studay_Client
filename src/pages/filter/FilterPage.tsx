@@ -20,8 +20,6 @@ const FilterPage = () => {
     const subjectList = mapFilter.subjectList
       .filter((subject) => subject.color === 'selected')
       .map((subject) => subject.filter)
-
-    console.log(subjectList)
     let url = `/map?lat=${mapInfo.latitude}&lng=${
       mapInfo.longitude
     }&categories=${subjectList.join(',')}`
