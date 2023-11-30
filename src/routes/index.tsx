@@ -20,6 +20,7 @@ import MapPage from '@/pages/map/MapPage.tsx'
 import MyPage from '@/pages/mypage/MyPage'
 import OnboardingPage from '@/pages/onboarding/OnbardingPage'
 import Schedule from '@/pages/schedule/Schedule.tsx'
+import EditSchedule from '@/pages/schedule/edit'
 import NewSchedule from '@/pages/schedule/new'
 import SelectCity from '@/pages/selectcity/SelectCity.tsx'
 
@@ -130,6 +131,19 @@ export const router = createBrowserRouter(
                 pageTitle={'시간표 등록하기'}
               />
               <NewSchedule />
+            </>
+          ),
+          errorElement: <ErrorPage />
+        },
+        {
+          path: 'schedule/:scheduleId/edit',
+          element: (
+            <>
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'시간표 수정하기'}
+              />
+              <EditSchedule />
             </>
           ),
           errorElement: <ErrorPage />

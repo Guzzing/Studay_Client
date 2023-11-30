@@ -2,7 +2,7 @@ import { atom } from 'jotai'
 import { PostScheduleType } from '@/libs/api/schedule/scheduleType'
 import { getFormattingDate } from '@/libs/utils/dateParse'
 
-const initialChildAtom: PostScheduleType = {
+export const initialScheduleAtom: PostScheduleType = {
   lessonScheduleCreateRequests: [],
   attendanceDate: {
     startDateOfAttendance: getFormattingDate(new Date()),
@@ -15,4 +15,4 @@ const initialChildAtom: PostScheduleType = {
   memo: ''
 }
 
-export const scheduleAtom = atom(initialChildAtom)
+export const scheduleAtom = atom(initialScheduleAtom)

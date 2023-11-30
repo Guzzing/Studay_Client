@@ -10,6 +10,7 @@ const AddScheduleMemo = () => {
         className={
           'flex flex-row w-full border rounded-[10px] h-4/5 bg-white-200 border-blue-350 justify-between items-center resize-none px-[20px] py-[20px]'
         }
+        value={scheduleInfo.memo}
         onChange={(e) => {
           setScheduleInfo({
             ...scheduleInfo,
