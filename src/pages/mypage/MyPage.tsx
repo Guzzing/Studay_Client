@@ -55,18 +55,23 @@ const MyPage = () => {
             />
           </div>
           <div className={'flex overflow-x-scroll'}>
-            {data?.childInformationResponses.map(({ childId, childName }) => (
-              <li key={childId} className={`list-none px-[10px] flex-shrink-0`}>
-                <Profile
-                  imageSize={'M'}
-                  imageLabel={childName}
-                  canEdit={true}
-                  onClick={() =>
-                    navigate(`/edit/${childId}`, { state: childId })
-                  }
-                />
-              </li>
-            ))}
+            {data?.childInformationResponses.map(
+              ({ childId, childName, childProfileImageUrl }) => (
+                <li
+                  key={childId}
+                  className={`list-none px-[10px] flex-shrink-0`}>
+                  <Profile
+                    imageSize={'M'}
+                    imageLabel={childName}
+                    imageUrl={childProfileImageUrl}
+                    canEdit={true}
+                    onClick={() =>
+                      navigate(`/edit/${childId}`, { state: childId })
+                    }
+                  />
+                </li>
+              )
+            )}
           </div>
         </div>
         <ListRow
