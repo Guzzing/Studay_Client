@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useRef } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import Select from '@/components/common/inputbox/select/Select'
@@ -13,7 +14,14 @@ type AcademyListType = {
   academyName: string
 }
 
-const AddScheduleAcademy = () => {
+const AddScheduleAcademy = ({
+  isEdit
+}: {
+  isEdit?: boolean
+  lessonId?: number
+}) => {
+  const childrenSelectRef = useRef<HTMLSelectElement>(null)
+  const lessonSelectRef = useRef<HTMLSelectElement>(null)
   const [scheduleInfo, setScheduleInfo] = useAtom(scheduleAtom)
   const [academyList, setAcademyList] = useState<AcademyListType[]>([])
   const { data } = useQuery({
@@ -25,19 +33,38 @@ const AddScheduleAcademy = () => {
     const academyList = res.map((data) => {
       return {
         dashBoardId: data.dashboardId,
-        academyName: data.academyInfo.academyName
+        academyName: `${data.academyInfo.academyName} - ${data.lessonInfo.curriculum}`
       }
     })
     setAcademyList([...academyList])
   }
+
   useEffect(() => {
-    if (scheduleInfo.childId) fetchChildrenDashboard(scheduleInfo.childId)
+    if (isEdit && lessonSelectRef.current) {
+      const idx = academyList?.findIndex(
+        (data) => data.dashBoardId === scheduleInfo.dashboardId
+      )
+      lessonSelectRef.current.selectedIndex = idx + 1
+    }
+  }, [academyList])
+
+  useEffect(() => {
+    if (scheduleInfo.childId) {
+      fetchChildrenDashboard(scheduleInfo.childId)
+      if (isEdit && childrenSelectRef.current) {
+        const idx = data?.findIndex(
+          (data) => data.childId === scheduleInfo.childId
+        ) as number
+        childrenSelectRef.current.selectedIndex = idx + 1
+      }
+    }
   }, [scheduleInfo.childId])
 
   return (
     <div className={'w-full mb-[20px]'}>
       <Spacing size={120} />
       <ListRowSelect
+        ref={childrenSelectRef}
         title={'아이 선택하기'}
         selecttype={'Single'}
         placeholder={'아이를 선택해주세요'}
@@ -51,6 +78,7 @@ const AddScheduleAcademy = () => {
         }}
       />
       <Select
+        ref={lessonSelectRef}
         selecttype={'Single'}
         fullWidth={true}
         placeholder={'반을 선택해주세요'}

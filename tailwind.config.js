@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  mode: 'jit',
   theme: {
     fontFamily: {
       // TODO : font-nsk로 바로 폰트 사용가능합니다!

@@ -19,13 +19,17 @@ const ScheduleBox = ({
           ? 'w-[360px] h-[88px]'
           : scheduleType === 'toggle'
           ? isRegister
-            ? 'w-[345px] h-[142px] bg-white-0'
-            : 'w-[345px] h-[142px] bg-gray-200'
+            ? 'w-[345px] h-[142px] min-h-[142px] bg-white-0'
+            : 'w-[345px] h-[142px] min-h-[142px] bg-gray-200'
           : ''
       } shadow-md pt-[22px] pb-[20px] px-[24px] rounded-[20px] font-nsk`}>
       <div className={'relative w-full h-full flex-col'} {...props}>
         <div className={'flex justify-between grow-4'}>
-          <div className={'subHead-18'}>{mainTitle}</div>
+          {mainTitle.length > 15 ? (
+            <div className={'body-16'}>{mainTitle}</div>
+          ) : (
+            <div className={'subHead-18'}>{mainTitle}</div>
+          )}
           <div className={'flex cursor-pointer text-black-800 items-center'}>
             <Icon icon={'Edit'} onClick={handleEdit} />
             <Icon icon={'Close'} onClick={handleDelete} />
