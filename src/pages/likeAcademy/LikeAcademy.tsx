@@ -76,9 +76,7 @@ const LikeAcademy = () => {
                   <p>
                     {'예상 교육비'}
                     <span className={'p-[10px]'}>
-                      {expectedFee === 0
-                        ? '알 수 없습니다'
-                        : expectedFee + '원'}
+                      {expectedFee === 0 ? '문의필요😁' : expectedFee + '원'}
                     </span>
                   </p>
                 </div>
@@ -111,7 +109,7 @@ const LikeAcademy = () => {
           }>
           <span>{'예상 교육금액'}</span>
           <span className={'headline-25'}>
-            {total === 0 ? '알 수 없습니다' : total + '원'}
+            {total === 0 ? '0' : total + '원'}
           </span>
         </div>
       </div>
