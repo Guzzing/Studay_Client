@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Silder = ({ onChange }: { onChange: () => void }) => {
+const Silder = () => {
   const [value, setValue] = useState(0)
   const parseAcademyFee = (value: number) => {
     switch (value) {
