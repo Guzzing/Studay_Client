@@ -26,7 +26,12 @@ const ScheduleBox = ({
       <div className={'relative w-full h-full flex-col'} {...props}>
         <div className={'flex justify-between grow-4'}>
           {mainTitle.length > 15 ? (
-            <div className={'body-16'}>{mainTitle}</div>
+            <div
+              className={
+                'body-16 text-ellipsis truncate overflow-hidden w-[230px]'
+              }>
+              {mainTitle}
+            </div>
           ) : (
             <div className={'subHead-18'}>{mainTitle}</div>
           )}
