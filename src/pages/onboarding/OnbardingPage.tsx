@@ -19,7 +19,6 @@ import {
 import { PostOnboardingRequest } from '@/libs/api/onboarding/onboardingType'
 import useToastify from '@/libs/hooks/useToastify'
 import { onboardingPageDataAtom } from '@/libs/store/onboardingAtom'
-import { setItem } from '@/libs/utils/storage'
 
 const Onboarding = () => {
   const navigate = useNavigate()
@@ -51,10 +50,8 @@ const Onboarding = () => {
   const handleSelectChange = () => {
     setSelectValue(selectRef.current?.value)
   }
-  // =========================================== << ❗️ 여기서 시작 ❗️>> ===========================================
   useEffect(() => {
     if (myPageData) {
-      // 값이 들어왔을 때!
       const { nickname, email, childInformationResponses } = myPageData
       if (!nickname || !email) {
         setCurrentPage(0)
@@ -80,7 +77,6 @@ const Onboarding = () => {
 
   useEffect(() => {
     const req = async (pageData: PostOnboardingRequest) => {
-      setItem('onboarding', JSON.stringify(storeStorage))
       const onboardingData = await onboardingApi(pageData)
       onboardingData && navigate('/')
     }
@@ -166,7 +162,8 @@ const Onboarding = () => {
             buttonLabel && (
               <li key={i}>
                 {i === 0 &&
-                (myPageData?.email !== '' || myPageData?.nickname !== '') ? (
+                myPageData?.email !== '' &&
+                myPageData?.nickname !== '' ? (
                   ''
                 ) : (
                   <Button
@@ -190,7 +187,6 @@ const Onboarding = () => {
                         })
                         return
                       }
-                      // ❗️ 값을 입력하고, child버튼일 때(자식입력 필드에서 존재하는 버튼 2개
                       if (PAGE_CONTENT[currentPage].type === 'child') {
                         setPageData({
                           ...pageData,
@@ -217,8 +213,6 @@ const Onboarding = () => {
                           ? setCurrentPage(currentPage + 1)
                           : setIsDone(true)
                       } else {
-                        // child버튼이 아닐 때!
-                        // nickname, email버튼일 때!
                         setStoreStorage([...storeStorage, inputValue as string])
                         setPageData({
                           ...pageData,
