@@ -10,7 +10,7 @@ const AcademyDetailClass = ({ data }: { data: GetAllDashBoardResponse }) => {
       <h3 className={'subHead-18'}>{'우리 아이 반 정보'}</h3>
       <Spacing size={7} />
       <Accordion
-        title={data.lessonInfo.subject}
+        title={data.lessonInfo.curriculum}
         contentHeight={200}
         rightElement={<Icon icon={'ArrowDown'} />}
         content={
