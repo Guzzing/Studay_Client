@@ -42,7 +42,11 @@ const EditChildren = () => {
   return (
     <div className={'flex flex-col items-center relative h-full'}>
       <Spacing size={150} />
-      <Profile imageSize={'XL'} canEdit={true} />
+      <Profile
+        imageSize={'XL'}
+        canEdit={true}
+        imageUrl={childInfo?.profileImageUrl}
+      />
       <div className={'mt-[30px]'}></div>
       <ListRow
         leftElement={<div className={'font-nsk subHead-18'}>{'이름'}</div>}
