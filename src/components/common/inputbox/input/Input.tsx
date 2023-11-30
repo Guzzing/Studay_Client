@@ -21,6 +21,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [inputValue, setInputValue] = useState('')
     const [searchInputValue, setSearchInputValue] = useState('')
+
     return inputType === 'Default' ? (
       <div className={'my-[10px]'}>
         <input
@@ -59,7 +60,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             : field === 'nickname' &&
               !validate('nickname', inputValue) &&
               inputValue !== ''
-            ? (errorMessage = '한글과 영어만 사용가능합니다')
+            ? (errorMessage =
+                '한글과 영어만 사용가능합니다(1 - 10글자 미만입니다)')
             : field === 'childname' &&
               !validate('childname', inputValue) &&
               inputValue !== ''
