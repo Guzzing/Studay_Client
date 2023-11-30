@@ -1,6 +1,6 @@
 import { atom } from 'jotai'
 
-const initMapFilter: SubjectList = {
+export const initMapFilter: SubjectList = {
   subjectList: [
     { title: '수학', filter: '수학', color: 'default' },
     { title: '과학', filter: '과학', color: 'default' },
@@ -12,8 +12,8 @@ const initMapFilter: SubjectList = {
     { title: '보습', filter: '보습', color: 'default' },
     { title: '기타', filter: '기타', color: 'default' }
   ],
-  maxMoney: 500_000,
-  minMoney: 1
+  maxMoney: 0,
+  minMoney: 0
 }
 
 export const mapFilterState = atom(initMapFilter)
