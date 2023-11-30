@@ -53,7 +53,11 @@ const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
 
               break
             }
-            // No default
+            case 'Timetable': {
+              navigate('/schedule')
+
+              break
+            }
           }
           return { ...item, select: true }
         }
