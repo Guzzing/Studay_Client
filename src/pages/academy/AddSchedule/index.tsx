@@ -51,7 +51,7 @@ const AddAcademy = () => {
         childrenSelectRef={childrenSelectRef}
         classSelectRef={classSelectRef}
       />
-      <h2 className={'body-16 text-black-800 px-[24px] my-[14px]'}>
+      <h2 className={'body-16 text-black-800 px-[24px] mt-[14px]'}>
         {'학원비 입력하기'}
       </h2>
       <AddPayment />

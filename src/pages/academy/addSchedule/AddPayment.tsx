@@ -157,7 +157,7 @@ const AddPayment = () => {
             setPaymentInfo({ ...paymentInfo, paymentName: e.target.value })
           }
         />
-        <div className={'flex flex-row w-full items-center gap-[7px]'}>
+        <div className={'flex flex-row w-full items-center mt-[3px] gap-[7px]'}>
           <Input
             inputType={'Default'}
             fullWidth={true}
