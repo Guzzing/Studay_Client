@@ -76,7 +76,7 @@ const AddAcademyName = ({
   return (
     <div className={'flex flex-col items-center px-[20px]'}>
       <button
-        disabled={academyInfo.academyId ? true : false}
+        disabled={fixedAcademyName ? true : false}
         className={
           'w-full h-[52px] rounded-[10px] text-left px-[20px] border border-blue-350 font-nsk text-gray-600 bg-white-200 body-18 placeholder:text-gray-600 outline-none'
         }
