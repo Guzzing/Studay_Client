@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import BottomSheetContent from '@/components/BottomSheet/BottomSheetContent'
 import BottomSheetHeader from '@/components/BottomSheet/BottomSheetHeader'
+import Loading from '@/components/Loading/Loading.tsx'
 import Spacing from '@/components/common/spacing/Spacing.tsx'
-import { DetailAcademyResponse } from '@/libs/api/mapapi/mapApiType.ts'
+import { getAcademyDetail } from '@/libs/api/mapapi/mapApi.ts'
 
 /**
  * @param title BottomSheet에 들어갈 Title을 입력합니다.
@@ -13,15 +15,24 @@ interface BottomSheetProps {
   title: string
   address: string
   number: string
-  detailInfo: DetailAcademyResponse
+  academyId: number
 }
 const BottomSheet = ({
   title = '학원명 입력',
   address,
   number,
-  detailInfo
+  academyId
 }: BottomSheetProps) => {
   const [expanded, setExpanded] = useState(false)
+  const { data: detailAcademy, isLoading } = useQuery({
+    queryKey: ['academy', academyId],
+    queryFn: () =>
+      getAcademyDetail({
+        academyId: academyId
+      }),
+    enabled: academyId > -1
+  })
+
   return (
     <>
       <div
@@ -37,15 +48,22 @@ const BottomSheet = ({
               'box-border w-[93px] h-[6px] bg-gray-100 rounded-full mb-[23px] cursor-pointer'
             }></div>
         </header>
-        <div className={'flex flex-col items-between w-full'}>
-          <BottomSheetHeader title={title} isLike={detailInfo.isLiked} />
-          <BottomSheetContent
-            expanded={expanded}
-            address={address}
-            number={number}
-            detailInfo={detailInfo}
-          />
-        </div>
+        {isLoading && <Loading />}
+        {detailAcademy && (
+          <div className={'flex flex-col items-between w-full'}>
+            <BottomSheetHeader
+              title={title}
+              isLike={detailAcademy.isLiked || false}
+              academyId={academyId}
+            />
+            <BottomSheetContent
+              expanded={expanded}
+              address={address}
+              number={number}
+              detailInfo={detailAcademy}
+            />
+          </div>
+        )}
       </div>
     </>
   )

@@ -10,7 +10,8 @@ import Select from '@/components/common/inputbox/select/Select'
 import ProgressBar from '@/components/common/progressBar/ProgressBar'
 import Spacing from '@/components/common/spacing/Spacing'
 import StepQuestion from '@/components/common/stepquestion/StepQuestion'
-import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
+import { getAllUserInfo } from '@/libs/api/mypage/myPageApi'
+import { GetMyPageResponse } from '@/libs/api/mypage/myPageType'
 import {
   createChildApi,
   onboardingApi
@@ -18,7 +19,6 @@ import {
 import { PostOnboardingRequest } from '@/libs/api/onboarding/onboardingType'
 import useToastify from '@/libs/hooks/useToastify'
 import { onboardingPageDataAtom } from '@/libs/store/onboardingAtom'
-import { getItem, setItem } from '@/libs/utils/storage'
 
 const Onboarding = () => {
   const navigate = useNavigate()
@@ -32,6 +32,8 @@ const Onboarding = () => {
   const [storeStorage, setStoreStorage] = useState<string[]>([])
   const [pageData, setPageData] = useAtom(onboardingPageDataAtom)
   const [isDone, setIsDone] = useState(false)
+  const [myPageData, setMyPageData] = useState<GetMyPageResponse>()
+
   const handleInputChange = () => {
     setInputValue(inputRef.current?.value)
     validate(
@@ -40,7 +42,7 @@ const Onboarding = () => {
         : currentPage === 1
         ? 'email'
         : 'childname',
-      inputValue as string
+      inputRef.current?.value || ''
     )
       ? setIsError(false)
       : setIsError(true)
@@ -48,10 +50,33 @@ const Onboarding = () => {
   const handleSelectChange = () => {
     setSelectValue(selectRef.current?.value)
   }
+  useEffect(() => {
+    if (myPageData) {
+      const { nickname, email, childInformationResponses } = myPageData
+      if (!nickname || !email) {
+        setCurrentPage(0)
+        return
+      }
+      if (childInformationResponses.length === 5) {
+        setToast({
+          comment: '아이는 최대 5명까지만 등록이 가능해요.',
+          type: 'warning'
+        })
+        navigate('/')
+      } else setCurrentPage(childInformationResponses.length + 2)
+    }
+  }, [myPageData])
+
+  useEffect(() => {
+    const user = async () => {
+      const myPage = await getAllUserInfo()
+      setMyPageData(myPage)
+    }
+    user()
+  }, [])
 
   useEffect(() => {
     const req = async (pageData: PostOnboardingRequest) => {
-      setItem('onboarding', JSON.stringify(storeStorage))
       const onboardingData = await onboardingApi(pageData)
       onboardingData && navigate('/')
     }
@@ -63,34 +88,11 @@ const Onboarding = () => {
       data && navigate('/')
     }
     if (isDone) {
-      if (getItem('onboarding').length === 0) req(pageData)
+      const { nickname, email } = myPageData as GetMyPageResponse
+      if (!nickname || !email) req(pageData)
       else makeChild()
     }
   }, [isDone])
-
-  useEffect(() => {
-    const cntOfChild = async () => {
-      const children = await getChildrenInfo()
-      if (children.length === 5) {
-        setToast({
-          comment: '아이는 최대 5명까지만 등록이 가능해요.',
-          type: 'warning'
-        })
-        navigate('/')
-      }
-      setCurrentPage(children.length + 2)
-    }
-    if (getItem('onboarding').length > 0) {
-      cntOfChild()
-    }
-    if (!Array.isArray(getItem('onboarding'))) {
-      const getMyChildren = async () => {
-        const numbers = await getChildrenInfo()
-        setCurrentPage(numbers.length + 2)
-      }
-      getMyChildren()
-    }
-  }, [])
 
   useEffect(() => {
     if (inputRef.current) {
@@ -108,19 +110,13 @@ const Onboarding = () => {
       <Header
         headerType={'BackPush'}
         pageTitle={'onboarding'}
-        onClick={() => {
-          if (getItem('onboarding').length === 0) {
-            setCurrentPage(0)
-            setPageData({
-              children: [{ nickname: '', grade: '' }],
-              email: '',
-              nickname: ''
-            })
-          } else navigate(-1)
-        }}
+        onClick={() => navigate(-1)}
       />
       <Spacing size={80} />
-      <ProgressBar step={currentPage + 1} fullStepNum={3} />
+      <ProgressBar
+        step={currentPage <= 2 ? currentPage + 1 : 3}
+        fullStepNum={3}
+      />
       <Spacing size={45} />
       <div className={'px-[36px]'}>
         {PAGE_CONTENT[currentPage].mainTitle.map((mainTitle) => (
@@ -165,7 +161,9 @@ const Onboarding = () => {
           (buttonLabel, i) =>
             buttonLabel && (
               <li key={i}>
-                {i === 0 && getItem('onboarding').length > 0 ? (
+                {i === 0 &&
+                myPageData?.email !== '' &&
+                myPageData?.nickname !== '' ? (
                   ''
                 ) : (
                   <Button
@@ -189,7 +187,6 @@ const Onboarding = () => {
                         })
                         return
                       }
-                      // ❗️ 값을 입력하고, child버튼일 때(자식입력 필드에서 존재하는 버튼 2개
                       if (PAGE_CONTENT[currentPage].type === 'child') {
                         setPageData({
                           ...pageData,
@@ -212,14 +209,10 @@ const Onboarding = () => {
                             )
                           ]
                         })
-                        // 자식버튼 2개중 첫 번째 버튼이면, 다음 페이지로 넘어감
-                        // 2개중 마지막 제출 버튼이면 제출!
                         i === 0
                           ? setCurrentPage(currentPage + 1)
                           : setIsDone(true)
                       } else {
-                        // child버튼이 아닐 때!
-                        // nickname, email버튼일 때!
                         setStoreStorage([...storeStorage, inputValue as string])
                         setPageData({
                           ...pageData,

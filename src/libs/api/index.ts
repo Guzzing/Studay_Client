@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { setItem } from '../utils/storage'
 import { logoutApi } from './autorization/logout/LogoutApi'
 import { refreshApi } from './autorization/refresh/refreshApi'
 import useToastify from '@/libs/hooks/useToastify'
@@ -37,6 +38,7 @@ request.interceptors.response.use(
         const getRefreshToken = await refreshApi()
         const prevRequest = error.config
         prevRequest.headers.Authorization = `Bearer ${getRefreshToken.appToken}`
+        setItem('token', getRefreshToken.appToken)
         return request(prevRequest)
       } catch {
         setToast({

@@ -31,7 +31,7 @@ const Silder = () => {
     }
   }
   return (
-    <div className={'w-full'}>
+    <div className={'flex flex-col w-full justify-center items-center'}>
       <div className={'headline-20 mb-6 text-center'}>
         {parseAcademyFee(value)}
       </div>
@@ -107,6 +107,7 @@ const Silder = () => {
           }
           onChange={(e) => {
             const newValue = Number.parseInt(e.target.value, 10)
+            onChange()
             setValue(newValue * 1000)
           }}
         />

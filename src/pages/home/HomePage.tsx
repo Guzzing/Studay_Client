@@ -18,26 +18,28 @@ const HomePage = () => {
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
   })
-
   if (isLoading) {
     return <Loading />
   }
 
   return (
     <div
-      className={
-        'relative bg-white-100 w-full h-[750px] overflow-x-hidden overflow-y-scroll'
-      }>
+      className={'relative bg-white-100 overflow-hidden border'}
+      style={{ height: 'calc(100% - 80px)' }}>
       <SettingPage isOpen={toggleOpen} />
-      <>
-        <Spacing size={100} />
-        <div className={'flex flex-col items-center gap-[20px] pb-[20px]'}>
+      <div className={'h-[750px] overflow-y-scroll border'}>
+        <Spacing size={80} />
+        <div
+          className={
+            'flex flex-col items-center gap-[20px] pb-[20px] pt-[20px] overflow-y-scroll h-[700px]'
+          }>
           {data && data?.length > 0 ? (
             data.map((data) => {
               return (
                 <InformationBox
                   key={data.childId}
                   mainTitle={data.nickname}
+                  imageUrl={data.profileImageUrl}
                   subTitle={data.grade}
                   description={data.schedule}
                   onClick={() =>
@@ -56,7 +58,7 @@ const HomePage = () => {
             </div>
           )}
         </div>
-        <div className={'absolute right-[10px] bottom-[90px] cursor-pointer'}>
+        <div className={'absolute right-[10px] bottom-[30px] cursor-pointer'}>
           <Icon
             icon={'Add'}
             classStyle={'h-[60px] w-[60px]'}
@@ -70,7 +72,7 @@ const HomePage = () => {
             }
           />
         </div>
-      </>
+      </div>
     </div>
   )
 }
