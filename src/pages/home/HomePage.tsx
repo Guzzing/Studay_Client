@@ -24,14 +24,14 @@ const HomePage = () => {
 
   return (
     <div
-      className={'relative bg-white-100 overflow-hidden border'}
+      className={'relative bg-white-100 overflow-hidden'}
       style={{ height: 'calc(100% - 80px)' }}>
       <SettingPage isOpen={toggleOpen} />
-      <div className={'h-[750px] overflow-y-scroll border'}>
+      <div className={'h-full overflow-y-scroll'}>
         <Spacing size={80} />
         <div
           className={
-            'flex flex-col items-center gap-[20px] pb-[20px] pt-[20px] overflow-y-scroll h-[700px]'
+            'flex flex-col items-center gap-[20px] pb-[20px] pt-[20px] overflow-y-scroll'
           }>
           {data && data?.length > 0 ? (
             data.map((data) => {
