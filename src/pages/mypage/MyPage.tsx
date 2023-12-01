@@ -62,20 +62,22 @@ const MyPage = () => {
             {data?.childInformationResponses.length === 0 ? (
               <p>{'🥲아직 아이를 등록하지 않으셨습니다...'}</p>
             ) : (
-                <li
-                  key={childId}
-                  className={`list-none px-[10px] flex-shrink-0`}>
-                  <Profile
-                    imageSize={'M'}
-                    imageUrl={childProfileImageUrl}
-                    canEdit={true}
-                    onClick={() =>
-                      navigate(`/edit/${childId}`, { state: childId })
-                    }
-                  />
-                </li>
-              ))
-              )
+              <ul className={'list-none flex-shrink-0'}>
+                {data?.childInformationResponses.map((childInfo) => (
+                  <li key={childInfo.childId} className={'px-10'}>
+                    <Profile
+                      imageSize={'M'}
+                      imageUrl={childInfo.childProfileImageUrl}
+                      canEdit={true}
+                      onClick={() =>
+                        navigate(`/edit/${childInfo.childId}`, {
+                          state: childInfo.childId
+                        })
+                      }
+                    />
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
         </div>
