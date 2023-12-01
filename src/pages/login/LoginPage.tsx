@@ -14,7 +14,6 @@ const LoginPage = () => {
   const navigate = useNavigate()
   useEffect(() => {
     const req = async () => {
-      console.log('req실행!')
       try {
         if (getCode()?.method === 'kakao') {
           const kakaoToken = await getKaKaoAccessToken(pushData())
