@@ -26,6 +26,8 @@ const SelectChild = ({
       })
       const idx = indexAry.find((data) => data > 0)
       if (idx) childrenSelectRef.current.selectedIndex = idx
+    } else {
+      if (childrenSelectRef.current) childrenSelectRef.current.selectedIndex = 0
     }
   }, [academyInfo.childId, childrenSelectRef])
 
