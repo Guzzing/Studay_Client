@@ -1,5 +1,5 @@
 import type { ProfileImageProps } from './ProfileType'
-import { useRef, useState, RefObject, useEffect } from 'react'
+import { useRef, useState, RefObject } from 'react'
 import { PROFILE_SIZE, PROFILE_BORDER_COLOR } from './constants'
 import request from '@/libs/api'
 import useToastify from '@/libs/hooks/useToastify'
