@@ -3,13 +3,18 @@ import { useQuery } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import ListRowSelect from '@/components/common/listRowSelect/ListRowSelect'
 import { getAcademyClass } from '@/libs/api/academy/AcademyApi'
+import useToastify from '@/libs/hooks/useToastify'
 import { academyInfoAtom } from '@/libs/store/academyInfo'
+
 const SelectLesson = ({
-  classSelectRef
+  classSelectRef,
+  isEdit
 }: {
   classSelectRef: React.RefObject<HTMLSelectElement>
+  isEdit: boolean
 }) => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
+  const { setToast } = useToastify()
   const { data } = useQuery({
     queryKey: ['lessons', academyInfo.academyId],
     queryFn: () => getAcademyClass(academyInfo.academyId),
@@ -32,10 +37,19 @@ const SelectLesson = ({
       <ListRowSelect
         ref={classSelectRef}
         title={'우리 아이 반'}
+        disabled={isEdit ? true : false}
         selecttype={'Single'}
         values={data ? data?.map((data) => data.lessonId) : []}
         options={data ? data?.map((data) => data.subject) : []}
         placeholder={'반을 선택해주세요'}
+        onClick={() => {
+          if (academyInfo.academyId === 0) {
+            setToast({
+              comment: '학원과 아이를 먼저 선택해주세요!',
+              type: 'warning'
+            })
+          }
+        }}
         onChange={(e) =>
           setAcademyInfo({
             ...academyInfo,

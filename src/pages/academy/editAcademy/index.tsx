@@ -69,6 +69,10 @@ const EditAcademy = () => {
   }, [data])
 
   useEffect(() => {
+    console.log(academyInfo)
+  }, [academyInfo])
+
+  useEffect(() => {
     fetchDashboardData(dashboardId)
   }, [dashboardId])
 
@@ -86,6 +90,7 @@ const EditAcademy = () => {
       <AddAcademyInfo
         childrenSelectRef={childrenSelectRef}
         classSelectRef={classSelectRef}
+        isEdit={true}
       />
       <h2 className={'body-16 text-black-800 px-[24px] my-[14px]'}>
         {'학원비 입력하기'}

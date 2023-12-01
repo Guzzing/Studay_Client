@@ -62,13 +62,12 @@ const MyPage = () => {
             {data?.childInformationResponses.length === 0 ? (
               <p>{'🥲아직 아이를 등록하지 않으셨습니다...'}</p>
             ) : (
-              data?.childInformationResponses.map(({ childId, childName }) => (
                 <li
                   key={childId}
                   className={`list-none px-[10px] flex-shrink-0`}>
                   <Profile
                     imageSize={'M'}
-                    imageLabel={childName}
+                    imageUrl={childProfileImageUrl}
                     canEdit={true}
                     onClick={() =>
                       navigate(`/edit/${childId}`, { state: childId })
@@ -76,6 +75,7 @@ const MyPage = () => {
                   />
                 </li>
               ))
+              )
             )}
           </div>
         </div>

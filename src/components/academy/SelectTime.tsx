@@ -7,13 +7,17 @@ import { useAtom } from 'jotai'
 import CustomTimePicker from '@/components/academy/CustomTimePicker'
 import { schedulesAtom } from '@/libs/store/academyInfo'
 const SelectTime = ({ isEdit }: { isEdit?: boolean }) => {
-  const [startTime, setStartTime] = useState(setHours(new Date(0), 6))
+  const [startTime, setStartTime] = useState(setHours(new Date(0), 8))
   const [endTime, setEndTime] = useState<Date | null>()
 
   const autoCalculateTime = (date: Date) => {
     const newDate = new Date(date)
     newDate.setHours(newDate.getHours() + 2)
     setEndTime(newDate)
+    setScheduleInfo({
+      ...scheduleInfo,
+      endTime: newDate.toTimeString()
+    })
   }
   useEffect(() => {
     autoCalculateTime(startTime)
@@ -35,7 +39,7 @@ const SelectTime = ({ isEdit }: { isEdit?: boolean }) => {
 
   useEffect(() => {
     if (scheduleInfo.endTime === '' && scheduleInfo.startTime === '') {
-      setStartTime(setHours(new Date(0), 0))
+      setStartTime(setHours(new Date(0), 8))
       setIsSelected(false)
       setEndTime(null)
     }
@@ -57,7 +61,7 @@ const SelectTime = ({ isEdit }: { isEdit?: boolean }) => {
             showTimeSelect
             showTimeSelectOnly
             timeIntervals={30}
-            minTime={setHours(new Date(0), 6)}
+            minTime={setHours(new Date(0), 8)}
             maxTime={setHours(new Date(0), 22)}
             dateFormat={`aa h시 mm분`}
             customInput={

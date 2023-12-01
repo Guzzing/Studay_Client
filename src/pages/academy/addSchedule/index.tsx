@@ -51,7 +51,7 @@ const AddAcademy = () => {
         childrenSelectRef={childrenSelectRef}
         classSelectRef={classSelectRef}
       />
-      <h2 className={'body-16 text-black-800 px-[24px] my-[14px]'}>
+      <h2 className={'body-16 text-black-800 px-[24px] mt-[14px]'}>
         {'학원비 입력하기'}
       </h2>
       <AddPayment />
@@ -65,6 +65,13 @@ const AddAcademy = () => {
         label={'저장 완료'}
         fullWidth={true}
         onClick={() => {
+          if (academyInfo.schedules.length === 0) {
+            setToast({
+              comment: '학원 스케쥴 정보를 채워주세요',
+              type: 'warning'
+            })
+            return
+          }
           dashboardMutation.mutate(academyInfo)
           setChildrenInfo({
             ...childInfo,

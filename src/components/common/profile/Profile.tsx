@@ -33,7 +33,14 @@ const Profile = ({
             : PROFILE_SIZE['XL']
         } rounded-full`}
       />
-      {imageLabel && <p className={'relative text-center'}>{imageLabel}</p>}
+      {imageLabel && (
+        <p
+          className={
+            'relative text-center text-ellipsis overflow-hidden whitespace-nowrap w-[70px] text-center'
+          }>
+          {imageLabel}
+        </p>
+      )}
     </div>
   )
 }

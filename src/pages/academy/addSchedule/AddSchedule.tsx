@@ -23,6 +23,7 @@ const AddSchedule = ({ isEdit }: { isEdit?: boolean }) => {
       ...academyInfo,
       schedules: academyInfo.schedules.filter((data) => data.dayOfWeek !== week)
     })
+    setFixedDate(fixedDate.filter((data) => data !== week))
   }
   const addTimeSchedule = () => {
     if (scheduleInfo.weekArray.length === 1) {
