@@ -72,7 +72,12 @@ const LikeAcademy = () => {
                   }
                 />
                 <div className={'ml-[50px] my-[5px]'}>
-                  <p className={'subHead-18'}>{academyName}</p>
+                  <p
+                    className={
+                      'subHead-18 w-[80%] text-ellipsis overflow-hidden whitespace-nowrap'
+                    }>
+                    {academyName}
+                  </p>
                   <p>
                     {'예상 교육비'}
                     <span
