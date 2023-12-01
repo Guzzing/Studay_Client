@@ -5,6 +5,7 @@ export interface ProfileImageProps {
   imageUrl?: string
   imageLabel?: string
   canEdit?: boolean
+  editId?: number
   onClick?: () => void
   profileSize?: number
 }
