@@ -14,7 +14,8 @@ const ScheduleBox = ({
 }: ScheduleBoxProps) => {
   return (
     <div
-      className={`${
+      style={{ cursor: 'pointer' }}
+      className={` ${
         scheduleType === 'profile'
           ? 'w-[360px] h-[88px]'
           : scheduleType === 'toggle'
@@ -22,7 +23,7 @@ const ScheduleBox = ({
             ? 'w-[345px] h-[142px] min-h-[142px] bg-white-0'
             : 'w-[345px] h-[142px] min-h-[142px] bg-gray-200'
           : ''
-      } shadow-md pt-[22px] pb-[20px] px-[24px] rounded-[20px] font-nsk`}>
+      } shadow-md pt-[22px] pb-[20px] px-[24px] rounded-[20px]`}>
       <div className={'relative w-full h-full flex-col'} {...props}>
         <div className={'flex justify-between grow-4'}>
           {mainTitle.length > 15 ? (

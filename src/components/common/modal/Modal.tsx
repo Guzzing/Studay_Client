@@ -10,7 +10,7 @@ const Modal = ({ children, onClose }: ModalProperties) => {
     <div
       id={'background'}
       className={
-        'fixed absolute left-0 top-0 w-full h-screen bg-[rgba(0,0,0,0.2)]'
+        'fixed absolute z-40 left-0 top-0 w-full h-screen bg-[rgba(0,0,0,0.2)]'
       }
       onClick={onClose}>
       <div

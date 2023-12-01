@@ -9,7 +9,9 @@ import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
 import { logoutApi } from '@/libs/api/autorization/logout/LogoutApi'
+import { withdrawUserApi } from '@/libs/api/autorization/withdrawUser/withdrawUserApi'
 import { getAllUserInfo } from '@/libs/api/mypage/myPageApi'
+import useModal from '@/libs/hooks/useModal'
 import useSidebar from '@/libs/hooks/useSidebar'
 import useToastify from '@/libs/hooks/useToastify'
 
@@ -17,6 +19,8 @@ const MyPage = () => {
   const navigate = useNavigate()
   const { setToast } = useToastify()
   const { toggleOpen } = useSidebar()
+  const { open, close, Modal } = useModal()
+
   const { data, isLoading, isSuccess } = useQuery({
     queryKey: ['members'],
     queryFn: () => getAllUserInfo()
@@ -55,14 +59,14 @@ const MyPage = () => {
             />
           </div>
           <div className={'flex overflow-x-scroll'}>
-            {data?.childInformationResponses.map(
-              ({ childId, childName, childProfileImageUrl }) => (
+            {data?.childInformationResponses.length === 0 ? (
+              <p>{'🥲아직 아이를 등록하지 않으셨습니다...'}</p>
+            ) : (
                 <li
                   key={childId}
                   className={`list-none px-[10px] flex-shrink-0`}>
                   <Profile
                     imageSize={'M'}
-                    imageLabel={childName}
                     imageUrl={childProfileImageUrl}
                     canEdit={true}
                     onClick={() =>
@@ -70,6 +74,7 @@ const MyPage = () => {
                     }
                   />
                 </li>
+              ))
               )
             )}
           </div>
@@ -98,15 +103,36 @@ const MyPage = () => {
           <Button
             buttonType={'Plain-red'}
             label={'회원탈퇴 하기'}
-            onClick={() =>
-              setToast({
-                comment: '회원 탈퇴가 완료되었어요.',
-                type: 'success'
-              })
-            }
+            onClick={open}
           />
         </div>
       </div>
+      <Modal
+        children={
+          <div
+            className={
+              'h-[200px] w-[360px] bg-white-0 p-[24px] px-[50px] flex flex-col items-center justify-between rounded-[15px]'
+            }>
+            <p>{'정말 회원탈퇴를 하시나요?'}</p>
+            <Button
+              label={'아니오'}
+              onClick={close}
+              buttonType={'Plain-blue'}
+            />
+            <Button
+              label={'예'}
+              onClick={() => {
+                withdrawUserApi()
+                setToast({
+                  comment: '회원 탈퇴가 완료되었어요.',
+                  type: 'success'
+                })
+              }}
+              buttonType={'Plain-red'}
+            />
+          </div>
+        }
+      />
     </div>
   )
 }

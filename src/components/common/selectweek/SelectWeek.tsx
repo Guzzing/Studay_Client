@@ -2,7 +2,6 @@ import { cva } from 'class-variance-authority'
 import { useAtom } from 'jotai'
 import cn from '../../../libs/utils/cn'
 import { schedulesAtom } from '@/libs/store/academyInfo'
-
 export const SelectWeekVariant = cva(
   `flex justify-center items-center w-[39px] h-[39px]`,
   {
@@ -48,6 +47,7 @@ const SelectWeek = ({ fixedDate }: SelectWeekProperties) => {
             })
           )}
           onClick={() => {
+            if (fixedDate?.includes(index)) return
             if (scheduleInfo.weekArray.includes(index)) {
               const filteredDate = scheduleInfo.weekArray.filter(
                 (data) => data !== index

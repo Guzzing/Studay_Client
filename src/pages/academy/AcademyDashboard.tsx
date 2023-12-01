@@ -5,6 +5,7 @@ import { useAtom } from 'jotai'
 import SettingPage from '../setting/SettingPage'
 import Loading from '@/components/Loading/Loading'
 import SelectMyChild from '@/components/academy/SelectMyChlid'
+import Button from '@/components/common/button/Button'
 import Icon from '@/components/common/icon/Icon'
 import Label from '@/components/common/label/Label'
 import ScheduleBox from '@/components/common/scheduleBox/ScheduleBox'
@@ -13,7 +14,9 @@ import { AcademyTypeData } from '@/libs/api/academy/AcademyType'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 import { patchToggleDashboardState } from '@/libs/api/dashboard/DashBoardApi'
 import { getAllDashboards } from '@/libs/api/dashboard/DashBoardApi'
+import { deleteDashboard } from '@/libs/api/dashboard/DashBoardApi'
 import { GetAllDashBoardResponse } from '@/libs/api/dashboard/DashBoardType'
+import useModal from '@/libs/hooks/useModal'
 import useSidebar from '@/libs/hooks/useSidebar'
 import useToastify from '@/libs/hooks/useToastify'
 import { childAtom } from '@/libs/store/childInfoAtom'
@@ -24,7 +27,9 @@ const AcademyDashboard = () => {
   const [dashboardData, setDashboardData] = useState<GetAllDashBoardResponse[]>(
     []
   )
+  const [dashboardId, setDashboardId] = useState(0)
   const { setToast } = useToastify()
+  const { open, close, Modal } = useModal()
   const navigate = useNavigate()
   const { toggleOpen } = useSidebar()
 
@@ -39,6 +44,7 @@ const AcademyDashboard = () => {
     }
   }
   const deleteDashboardInfo = async (dashboardId: number) => {
+    await deleteDashboard(dashboardId)
     const newData = dashboardData.filter(
       (data) => data.dashboardId !== dashboardId
     )
@@ -75,7 +81,7 @@ const AcademyDashboard = () => {
   }
 
   return (
-    <div className={'h-full relative'}>
+    <div className={'h-full relative overflow-hidden'}>
       <SettingPage isOpen={toggleOpen} />
       <div>
         <Spacing size={100} />
@@ -132,11 +138,8 @@ const AcademyDashboard = () => {
                               type: 'warning'
                             })
                           } else {
-                            deleteDashboardInfo(data.dashboardId)
-                            setToast({
-                              comment: '삭제가 완료되었어요.',
-                              type: 'success'
-                            })
+                            open()
+                            setDashboardId(data.dashboardId)
                           }
                         }}
                         onClick={(e) => {
@@ -150,7 +153,6 @@ const AcademyDashboard = () => {
                   })}
                 </div>
               )}
-              <div className={'w-full h-[500px]'} />
             </div>
           ) : (
             <div className={'absolute top-1/2 font-nsk body-15 text-gray-600'}>
@@ -163,6 +165,33 @@ const AcademyDashboard = () => {
           onClick={() => navigate('register')}>
           <Icon icon={'Add'} classStyle={'h-[60px] w-[60px]'} />
         </div>
+        <Modal
+          children={
+            <div
+              className={
+                'h-[200px] w-[370px] bg-white-0 p-[24px] px-[50px] flex flex-col items-center justify-between rounded-[15px]'
+              }>
+              <h2 className={'subHead-18 pb-3'}>{'일정을 삭제할까요?'}</h2>
+              <Button
+                buttonType={'Plain-red'}
+                label={'대시보드를 삭제할게요'}
+                onClick={() => {
+                  deleteDashboardInfo(dashboardId)
+                  close()
+                  setToast({
+                    comment: '삭제가 완료되었어요.',
+                    type: 'success'
+                  })
+                }}
+              />
+              <Button
+                buttonType={'Plain-blue'}
+                label={'취소하기'}
+                onClick={close}
+              />
+            </div>
+          }
+        />
       </div>
     </div>
   )
