@@ -81,7 +81,7 @@ const AcademyDashboard = () => {
   }
 
   return (
-    <div className={'h-full relative'}>
+    <div className={'h-full relative overflow-hidden'}>
       <SettingPage isOpen={toggleOpen} />
       <div>
         <Spacing size={100} />

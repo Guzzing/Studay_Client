@@ -9,12 +9,15 @@ import {
   getKaKaoAccessToken,
   pushData
 } from '@/libs/api/autorization'
+import { getItem } from '@/libs/utils/storage'
 
 const LoginPage = () => {
   const navigate = useNavigate()
   useEffect(() => {
+    if (getItem('token')) navigate('/')
+  }, [])
+  useEffect(() => {
     const req = async () => {
-      console.log('req실행!')
       try {
         if (getCode()?.method === 'kakao') {
           const kakaoToken = await getKaKaoAccessToken(pushData())

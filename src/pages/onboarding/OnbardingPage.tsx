@@ -110,7 +110,11 @@ const Onboarding = () => {
       <Header
         headerType={'BackPush'}
         pageTitle={'onboarding'}
-        onClick={() => navigate(-1)}
+        onClick={() => {
+          myPageData?.email === '' || myPageData?.nickname === ''
+            ? navigate('/')
+            : navigate(-1)
+        }}
       />
       <Spacing size={80} />
       <ProgressBar
