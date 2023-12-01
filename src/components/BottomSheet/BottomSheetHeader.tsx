@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { LikeBlank, LikeFilled } from '@/assets/icon'
-import { postLike } from '@/libs/api/mapapi/mapApi.ts'
+import { deleteLike, postLike } from '@/libs/api/mapapi/mapApi.ts'
 const BottomSheetHeader = ({
   title,
   isLike,
@@ -11,15 +11,24 @@ const BottomSheetHeader = ({
   isLike: boolean
   academyId: number
 }) => {
+  const [liked, setLiked] = useState<boolean>(isLike)
+
   const likeMutation = useMutation({
     mutationFn: (academyId: number) => postLike({ academyId: academyId }),
     onSuccess: () => {},
     onSettled: () => {
-      setLiked(!liked)
+      setLiked(true)
     }
   })
 
-  const [liked, setLiked] = useState<boolean>(isLike)
+  const deleteLikeMutation = useMutation({
+    mutationFn: (academyId: number) => deleteLike({ academyId: academyId }),
+    onSuccess: () => {},
+    onSettled: () => {
+      setLiked(false)
+    }
+  })
+
   //TODO: 좋아요 API 로직 추가
 
   return (
@@ -28,7 +37,7 @@ const BottomSheetHeader = ({
       {liked ? (
         <LikeFilled
           className={'cursor-pointer'}
-          onClick={() => likeMutation.mutate(academyId)}
+          onClick={() => deleteLikeMutation.mutate(academyId)}
         />
       ) : (
         <LikeBlank
