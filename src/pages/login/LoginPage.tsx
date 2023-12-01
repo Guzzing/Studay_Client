@@ -14,9 +14,6 @@ import { getItem } from '@/libs/utils/storage'
 const LoginPage = () => {
   const navigate = useNavigate()
   useEffect(() => {
-    if (getItem('token')) navigate('/')
-  }, [])
-  useEffect(() => {
     const req = async () => {
       try {
         if (getCode()?.method === 'kakao') {
