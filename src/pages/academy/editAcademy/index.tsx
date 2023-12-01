@@ -69,10 +69,6 @@ const EditAcademy = () => {
   }, [data])
 
   useEffect(() => {
-    console.log(academyInfo)
-  }, [academyInfo])
-
-  useEffect(() => {
     fetchDashboardData(dashboardId)
   }, [dashboardId])
 
