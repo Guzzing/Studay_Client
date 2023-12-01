@@ -30,8 +30,6 @@ const Schedule = () => {
   })
   const [modalState, setModalState] = useState<HandlerScheduleProps>({
     childSchedule: [],
-    modalType: '',
-    mainTitle: '',
     date: '',
     lessonId: null
   })
@@ -57,15 +55,11 @@ const Schedule = () => {
 
   const handlerScheduleProfileClick = ({
     childSchedule,
-    modalType,
-    mainTitle,
     date,
     lessonId
   }: HandlerScheduleProps) => {
     setModalState(() => ({
       childSchedule: childSchedule,
-      modalType: modalType,
-      mainTitle: mainTitle,
       date: date,
       lessonId: lessonId
     }))
@@ -108,7 +102,6 @@ const Schedule = () => {
                     handleDetail={() =>
                       handlerScheduleProfileClick({
                         childSchedule: schedule.overlappingSchedules,
-                        mainTitle: '어떤 아이의 스케줄 정보를 확인할까요?',
                         date: scheduleData.date,
                         lessonId: schedule.lessonId
                       })
@@ -139,7 +132,6 @@ const Schedule = () => {
       />
       <Modal>
         <ScheduleModal
-          mainTitle={modalState.mainTitle}
           childSchedule={modalState.childSchedule}
           date={modalState.date}
           lessonId={modalState.lessonId}

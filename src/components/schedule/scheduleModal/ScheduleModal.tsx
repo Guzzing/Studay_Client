@@ -5,7 +5,6 @@ import { HandlerScheduleProps } from '@/pages/schedule/scheduleType.ts'
 
 const ScheduleModal = ({
   childSchedule,
-  mainTitle,
   date,
   lessonId
 }: HandlerScheduleProps) => {
@@ -26,7 +25,7 @@ const ScheduleModal = ({
         className={
           'subHead-18 w-full h-[20%] mt-[26px] ml-[36px] text-left mb-[10px]'
         }>
-        {mainTitle}
+        {'어떤 아이의 스케줄 정보를 확인할까요?'}
       </span>
       <div
         className={
