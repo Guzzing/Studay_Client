@@ -148,6 +148,11 @@ const Schedule = () => {
               ))}
             </>
           ))}
+        {!scheduleData && (
+          <span className={'mt-[20px] body-16 text-gray-600 text-center'}>
+            {'생성된 스케줄이 없습니다. 스케줄을 생성해주세요!'}
+          </span>
+        )}
       </div>
       <Icon
         icon={'Add'}
