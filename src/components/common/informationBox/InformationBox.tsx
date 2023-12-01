@@ -17,7 +17,7 @@ const InformationBox = ({
         'p-[14px] w-[345px] h-[120px] font-nsk overflow-hidden rounded-[10px] bg-white-0'
       }>
       <div className={'w-full h-full flex items-center'}>
-        <Profile imageSize={'M'} canEdit={true} imageUrl={imageUrl} />
+        <Profile imageSize={'M'} canEdit={false} imageUrl={imageUrl} />
         <div
           className={
             'relative w-[240px] h-full pl-[17px] flex flex-col justify-center gap-[5px]'
