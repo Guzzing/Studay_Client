@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Silder = () => {
+const Silder = ({ onChange }: { onChange: (e: number) => void }) => {
   const [value, setValue] = useState(0)
   const parseAcademyFee = (value: number) => {
     switch (value) {
@@ -108,6 +108,7 @@ const Silder = () => {
           onChange={(e) => {
             const newValue = Number.parseInt(e.target.value, 10)
             setValue(newValue * 1000)
+            onChange(newValue * 1000)
           }}
         />
       </div>

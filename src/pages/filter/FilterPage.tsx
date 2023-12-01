@@ -5,12 +5,14 @@ import Label from '@/components/common/label/Label.tsx'
 import { LabelColorType } from '@/components/common/label/LabelType.ts'
 import Slider from '@/components/common/slider/Slider.tsx'
 import Spacing from '@/components/common/spacing/Spacing.tsx'
-import { mapFilterState } from '@/libs/store/mapFilterAtom.ts'
+import useModal from '@/libs/hooks/useModal.tsx'
+import { initMapFilter, mapFilterState } from '@/libs/store/mapFilterAtom.ts'
 import { mapInfoAtom } from '@/libs/store/mapInfoAtom.ts'
 const FilterPage = () => {
   const navigate = useNavigate()
   const [mapInfo, _] = useAtom(mapInfoAtom)
   const [mapFilter, setMapFilter] = useAtom(mapFilterState)
+  const { Modal, open, close } = useModal()
 
   const moveSelectCity = () => {
     navigate('/selectcity')
@@ -20,15 +22,20 @@ const FilterPage = () => {
     const subjectList = mapFilter.subjectList
       .filter((subject) => subject.color === 'selected')
       .map((subject) => subject.filter)
+
+    if (subjectList.length === 0) {
+      return open()
+    }
+
     let url = `/map?lat=${mapInfo.latitude}&lng=${
       mapInfo.longitude
     }&categories=${subjectList.join(',')}`
-    console.log(url)
 
     if (mapFilter.minMoney > 1) {
       url += `&desiredMinAmount=${mapFilter.minMoney}&desiredMaxAmount=${mapFilter.maxMoney}`
     }
     navigate(url)
+    setMapFilter(initMapFilter)
   }
 
   const selectSubjec = (index: number) => {
@@ -45,6 +52,14 @@ const FilterPage = () => {
     setMapFilter((prev) => ({
       ...prev,
       subjectList: updatedSubjectList
+    }))
+  }
+
+  const updateMoney = (money: number) => {
+    setMapFilter((prev) => ({
+      ...prev,
+      maxMoney: money + 100_000,
+      minMoney: money
     }))
   }
 
@@ -111,7 +126,7 @@ const FilterPage = () => {
           }>
           {'희망 금액(추정치)'}
         </span>
-        <Slider />
+        <Slider onChange={(e) => updateMoney(e)} />
         <div className={'mt-[10px]'}>
           <Button
             label={'금액은 상관없어요'}
@@ -127,6 +142,23 @@ const FilterPage = () => {
         fullWidth={true}
         onClick={moveMap}
       />
+      <Modal>
+        <div
+          className={
+            'w-[339px] h-[207px] flex flex-col justify-center items-center bg-white-0 rounded-[15px]'
+          }>
+          <span
+            className={
+              'subHead-18 w-full h-[20%] mt-[26px] ml-[36px] text-left mb-[10px]'
+            }>
+            {'과목은 최소 한개 선택해 주세요!'}
+          </span>
+          <Button
+            label={'확인'}
+            buttonType={'Plain-blue'}
+            onClick={close}></Button>
+        </div>
+      </Modal>
     </div>
   )
 }
