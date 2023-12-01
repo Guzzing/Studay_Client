@@ -6,9 +6,11 @@ import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 import { academyInfoAtom } from '@/libs/store/academyInfo'
 
 const SelectChild = ({
-  childrenSelectRef
+  childrenSelectRef,
+  isEdit
 }: {
   childrenSelectRef: React.RefObject<HTMLSelectElement>
+  isEdit: boolean
 }) => {
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
   const { data } = useQuery({
@@ -31,6 +33,7 @@ const SelectChild = ({
     <ListRowSelect
       ref={childrenSelectRef}
       title={'아이 선택하기'}
+      disabled={isEdit ? true : false}
       selecttype={'Single'}
       placeholder={'아이를 선택해주세요'}
       values={data ? data?.map((data) => data.childId) : []}

@@ -6,7 +6,6 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
     {
       selecttype = 'Single',
       fullWidth = true,
-      name,
       width,
       height,
       errorMessage,
@@ -19,22 +18,18 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
     ref
   ) => {
     const [boxSelectedValue, setBoxSelectedValue] = useState<boolean>(false)
-    const [selectedOption, setSelectedOption] = useState<string | boolean>(
-      options?.[0] || ''
-    )
+    const [, setSelectedOption] = useState<string | boolean>(options?.[0] || '')
 
     return selecttype === 'Single' ? (
       <div
         className={`relative ${
           fullWidth ? 'w-full h-[52px]' : `w-[${width}px] h-[${height}px]`
-        } mt-[10px]`}>
+        }`}>
         <select
           ref={ref}
-          name={name}
-          id={''}
+          defaultValue={''}
           className={`w-full h-full font-nsk body-18 px-[20px] border border-blue-350 rounded-[10px] outline-none bg-white-200
       text-gray-800 appearance-none cursor-pointer`}
-          value={selectedOption as string}
           onChange={(e) => {
             setSelectedOption(e.target.value)
             if (onChange) {
@@ -103,7 +98,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
           </select>
           <div
             className={
-              'pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 right-[10px]'
+              'pointer-events-none absolute inset-y-0 flex items-center pr-2 right-[10px]'
             }>
             <Icon icon={'ArrowDown'} classStyle={'text-gray-500'} />
           </div>
