@@ -79,7 +79,6 @@ const MyPage = () => {
                       />
                     </li>
                   )
-                )}
               </ul>
             )}
           </div>

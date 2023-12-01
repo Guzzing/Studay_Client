@@ -133,7 +133,7 @@ const Schedule = () => {
                       })
                     }
                     subTitle={`${convertTo12HourFormat(
-                      schedule.endTIme
+                      schedule.endTime
                     )} 에 종료`}>
                     {schedule.overlappingSchedules.map((child, index) => (
                       <div className={'mx-[3px]'} key={`${index}-profile`}>
