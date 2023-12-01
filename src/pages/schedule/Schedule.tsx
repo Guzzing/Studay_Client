@@ -30,8 +30,6 @@ const Schedule = () => {
   })
   const [modalState, setModalState] = useState<HandlerScheduleProps>({
     childSchedule: [],
-    modalType: '',
-    mainTitle: '',
     date: '',
     lessonId: null
   })
@@ -57,15 +55,11 @@ const Schedule = () => {
 
   const handlerScheduleProfileClick = ({
     childSchedule,
-    modalType,
-    mainTitle,
     date,
     lessonId
   }: HandlerScheduleProps) => {
     setModalState(() => ({
       childSchedule: childSchedule,
-      modalType: modalType,
-      mainTitle: mainTitle,
       date: date,
       lessonId: lessonId
     }))
@@ -105,35 +99,15 @@ const Schedule = () => {
                   className={'flex mb-[16px] justify-center items-center'}>
                   <ScheduleProfileBox
                     mainTitle={`${schedule.academyName} - ${schedule.lessonName}`}
-                    handleEdit={() =>
-                      handlerScheduleProfileClick({
-                        childSchedule: schedule.overlappingSchedules,
-                        modalType: 'edit',
-                        mainTitle: '어떤 아이의 스케줄을 수정하시겠습니까?',
-                        date: scheduleData.date,
-                        lessonId: schedule.lessonId
-                      })
-                    }
-                    handleDelete={() =>
-                      handlerScheduleProfileClick({
-                        childSchedule: schedule.overlappingSchedules,
-                        modalType: 'delete',
-                        mainTitle: '어떤 아이의 스케줄을 삭제하시겠습니까?',
-                        date: scheduleData.date,
-                        lessonId: schedule.lessonId
-                      })
-                    }
                     handleDetail={() =>
                       handlerScheduleProfileClick({
                         childSchedule: schedule.overlappingSchedules,
-                        modalType: 'detail',
-                        mainTitle: '어떤 아이의 스케줄 정보를 확인할까요?',
                         date: scheduleData.date,
                         lessonId: schedule.lessonId
                       })
                     }
                     subTitle={`${convertTo12HourFormat(
-                      schedule.endTIme
+                      schedule.endTime
                     )} 에 종료`}>
                     {schedule.overlappingSchedules.map((child, index) => (
                       <div className={'mx-[3px]'} key={`${index}-profile`}>
@@ -148,6 +122,11 @@ const Schedule = () => {
               ))}
             </>
           ))}
+        {!scheduleData && (
+          <span className={'mt-[20px] body-16 text-gray-600 text-center'}>
+            {'생성된 스케줄이 없습니다. 스케줄을 생성해주세요!'}
+          </span>
+        )}
       </div>
       <Icon
         icon={'Add'}
@@ -158,12 +137,9 @@ const Schedule = () => {
       />
       <Modal>
         <ScheduleModal
-          mainTitle={modalState.mainTitle}
           childSchedule={modalState.childSchedule}
-          modalType={modalState.modalType}
           date={modalState.date}
           lessonId={modalState.lessonId}
-          close={close}
         />
       </Modal>
     </div>

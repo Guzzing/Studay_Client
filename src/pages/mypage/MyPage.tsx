@@ -58,24 +58,27 @@ const MyPage = () => {
               }
             />
           </div>
-          <div className={'flex overflow-x-scroll'}>
+          <div className={'flex overflow-x-scroll flex-start'}>
             {data?.childInformationResponses.length === 0 ? (
               <p>{'🥲아직 아이를 등록하지 않으셨습니다...'}</p>
             ) : (
-                <li
-                  key={childId}
-                  className={`list-none px-[10px] flex-shrink-0`}>
-                  <Profile
-                    imageSize={'M'}
-                    imageUrl={childProfileImageUrl}
-                    canEdit={true}
-                    onClick={() =>
-                      navigate(`/edit/${childId}`, { state: childId })
-                    }
-                  />
-                </li>
-              ))
-              )
+              <ul className={'list-none flex-shrink-0 flex flex-start'}>
+                {data?.childInformationResponses.map(
+                  ({ childId, childName, childProfileImageUrl }) => (
+                    <li key={childId} className={'px-2'}>
+                      <Profile
+                        imageSize={'M'}
+                        imageUrl={childProfileImageUrl}
+                        imageLabel={childName}
+                        canEdit={true}
+                        onClick={() =>
+                          navigate(`/edit/${childId}`, {
+                            state: childId
+                          })
+                        }
+                      />
+                    </li>
+              </ul>
             )}
           </div>
         </div>
@@ -121,13 +124,7 @@ const MyPage = () => {
             />
             <Button
               label={'예'}
-              onClick={() => {
-                withdrawUserApi()
-                setToast({
-                  comment: '회원 탈퇴가 완료되었어요.',
-                  type: 'success'
-                })
-              }}
+              onClick={() => withdrawUserApi()}
               buttonType={'Plain-red'}
             />
           </div>

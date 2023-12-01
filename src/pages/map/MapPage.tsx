@@ -41,25 +41,23 @@ const MapPage = () => {
   return (
     <div className={'bg-white-100 w-full h-full relative overflow-hidden'}>
       <SettingPage isOpen={toggleOpen} />
-      <div>
-        <Spacing size={80} />
-        <MapSearchBar />
-        <NaverMap
-          academyList={
-            academyList?.academiesByLocationResponse ||
-            academyFilterList?.academyFilterResponses ||
-            []
-          }
+      <Spacing size={80} />
+      <MapSearchBar />
+      <NaverMap
+        academyList={
+          academyList?.academiesByLocationResponse ||
+          academyFilterList?.academyFilterResponses ||
+          []
+        }
+      />
+      {selectAcademy.isBottomSheet && (
+        <BottomSheet
+          title={selectAcademy.academy.academyName}
+          address={selectAcademy.academy.address}
+          number={selectAcademy.academy.contact}
+          academyId={selectAcademy.academy.academyId}
         />
-        {selectAcademy.isBottomSheet && (
-          <BottomSheet
-            title={selectAcademy.academy.academyName}
-            address={selectAcademy.academy.address}
-            number={selectAcademy.academy.contact}
-            academyId={selectAcademy.academy.academyId}
-          />
-        )}
-      </div>
+      )}
     </div>
   )
 }
