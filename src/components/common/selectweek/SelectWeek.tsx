@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { cva } from 'class-variance-authority'
 import { useAtom } from 'jotai'
 import cn from '../../../libs/utils/cn'

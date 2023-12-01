@@ -18,9 +18,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps<string>>(
     ref
   ) => {
     const [boxSelectedValue, setBoxSelectedValue] = useState<boolean>(false)
-    const [selectedOption, setSelectedOption] = useState<string | boolean>(
-      options?.[0] || ''
-    )
+    const [, setSelectedOption] = useState<string | boolean>(options?.[0] || '')
 
     return selecttype === 'Single' ? (
       <div
