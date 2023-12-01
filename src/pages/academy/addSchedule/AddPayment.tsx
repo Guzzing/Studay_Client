@@ -14,7 +14,6 @@ const AddPayment = () => {
   const inputRef = useRef<HTMLInputElement>(null)
   const [academyInfo, setAcademyInfo] = useAtom(academyInfoAtom)
   const [paymentDate, setPaymentDate] = useState(new Date())
-  console.log(academyInfo)
   const [paymentInfo, setPaymentInfo] = useState({
     paymentName: '',
     paymentFee: 0
