@@ -62,7 +62,10 @@ const MyPage = () => {
             {data?.childInformationResponses.length === 0 ? (
               <p>{'🥲아직 아이를 등록하지 않으셨습니다...'}</p>
             ) : (
-              <ul className={'list-none flex-shrink-0'}>
+              <ul
+                className={
+                  'list-none flex-shrink-0 flex justify-start items-center'
+                }>
                 {data?.childInformationResponses.map((childInfo) => (
                   <li key={childInfo.childId} className={'px-10'}>
                     <Profile
