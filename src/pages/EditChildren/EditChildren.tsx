@@ -38,13 +38,13 @@ const EditChildren = () => {
     }
   }, [data])
 
-  if (isLoading) return <Loading />
+  if (isLoading || childInfo === undefined) return <Loading />
   return (
     <div className={'flex flex-col items-center relative h-full'}>
       <Spacing size={150} />
       <Profile
         imageSize={'XL'}
-        canEdit={true}
+        canEdit={false}
         imageUrl={childInfo?.profileImageUrl}
       />
       <div className={'mt-[30px]'}></div>
@@ -73,6 +73,7 @@ const EditChildren = () => {
             navigate('editing', {
               state: {
                 childId: childInfo?.childId,
+                profileImageUrl: childInfo?.profileImageUrl,
                 nickname: childInfo?.nickname,
                 grade: childInfo?.grade
               }

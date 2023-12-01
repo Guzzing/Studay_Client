@@ -63,7 +63,11 @@ export const router = createBrowserRouter(
           path: 'edit/:childId',
           element: (
             <>
-              <Header headerType={'Close'} backUrl={'/'} />
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'아이 정보 상세보기'}
+                backUrl={'/'}
+              />
               <EditChildren />
             </>
           ),

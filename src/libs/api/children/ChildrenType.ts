@@ -8,6 +8,7 @@ export interface GetChildrenInfoResponse {
 
 export interface EditChildInfoRequest {
   childId: number
+  profileImageUrl: string
   nickname: string
   grade: string
 }

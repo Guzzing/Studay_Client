@@ -10,12 +10,16 @@ import StepQuestion from '@/components/common/stepquestion/StepQuestion'
 import { editChildInfo } from '@/libs/api/children/ChildrenApi'
 import { EditChildInfoRequest } from '@/libs/api/children/ChildrenType'
 import { queryClient } from '@/libs/api/queryClient'
+import useToastify from '@/libs/hooks/useToastify'
+import { CHILD_GRADE } from '@/pages/onboarding/constants'
 
 const EditingChildren = () => {
   const location = useLocation()
   const navigate = useNavigate()
+  const { setToast } = useToastify()
   const [childInfo, setChildInfo] = useState<EditChildInfoRequest>({
     childId: location.state.childId,
+    profileImageUrl: location.state.profileImageUrl,
     nickname: location.state.nickname,
     grade: location.state.grade
   })
@@ -46,17 +50,24 @@ const EditingChildren = () => {
   return (
     <div className={'flex flex-col items-center relative h-full px-[35px]'}>
       <Spacing size={150} />
-      <Profile imageSize={'XL'} canEdit={true} />
+      <Profile
+        imageSize={'XL'}
+        canEdit={true}
+        editId={childInfo.childId}
+        imageUrl={childInfo?.profileImageUrl}
+      />
       <Spacing size={10} />
       <div className={'flex flex-col w-full'}>
         <StepQuestion step={1} text={'이름'} />
         <Spacing size={10} />
         <Input
+          field={'childname'}
           fullWidth={true}
           value={childInfo.nickname}
           onChange={(e) => {
             setChildInfo({
               childId: childInfo.childId,
+              profileImageUrl: childInfo.profileImageUrl,
               nickname: e.target.value,
               grade: childInfo.grade
             })
@@ -64,9 +75,6 @@ const EditingChildren = () => {
           }}
           placeholder={'아이의 이름을 입력해주세요'}
           inputType={'Default'}
-          errorMessage={
-            valid ? undefined : '한글, 영어 10자 이내로 작성해주세요'
-          }
         />
         <Spacing size={25} />
         <StepQuestion step={2} text={'학년'} />
@@ -75,17 +83,13 @@ const EditingChildren = () => {
           onChange={(e) => {
             setChildInfo({
               childId: childInfo.childId,
+              profileImageUrl: childInfo.profileImageUrl,
               nickname: childInfo.nickname,
               grade: e.target.value
             })
           }}
           selecttype={'Single'}
-          options={[
-            '초등학교 1학년',
-            '중학교 1학년',
-            '중학교 2학년',
-            '중학교 3학년'
-          ]}
+          options={CHILD_GRADE.filter((data) => data.length > 0)}
           fullWidth={true}
           value={childInfo.grade}
         />
@@ -95,7 +99,14 @@ const EditingChildren = () => {
         buttonType={'Round-blue-500'}
         fullWidth={true}
         label={'수정 완료'}
-        onClick={() => childInfoMutation.mutate(childInfo)}
+        onClick={() => {
+          if (valid) {
+            childInfoMutation.mutate(childInfo)
+          } else {
+            setToast({ comment: '닉네임 규칙을 지켜주세요!', type: 'warning' })
+            return
+          }
+        }}
       />
     </div>
   )
