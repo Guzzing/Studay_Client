@@ -1,39 +1,20 @@
 import { useNavigate } from 'react-router-dom'
-import { useMutation } from '@tanstack/react-query'
 import Profile from '@/components/common/profile/Profile.tsx'
-import { queryClient } from '@/libs/api/queryClient.ts'
-import { deleteSchedule } from '@/libs/api/schedule/scheduleApi.ts'
 import { OverlappingScheduleType } from '@/libs/api/schedule/scheduleType.ts'
-import { ScheduleModalProps } from '@/pages/schedule/scheduleType.ts'
+import { HandlerScheduleProps } from '@/pages/schedule/scheduleType.ts'
 
 const ScheduleModal = ({
   childSchedule,
   mainTitle,
-  modalType,
   date,
-  lessonId,
-  close
-}: ScheduleModalProps) => {
+  lessonId
+}: HandlerScheduleProps) => {
   const navigate = useNavigate()
-  const { mutate } = useMutation({
-    mutationFn: (scheduleId: number) =>
-      deleteSchedule({ scheduleId: scheduleId }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['scheduleId'] })
-      close()
-    }
-  })
 
   const selectChild = (childInfo: OverlappingScheduleType) => {
-    if (modalType === 'edit') {
-      navigate(`/schedule/${childInfo.scheduleId}/edit`)
-    } else if (modalType === 'delete') {
-      mutate(childInfo.scheduleId)
-    } else {
-      navigate(
-        `/schedule/detail?date=${date}&scheduleId=${childInfo.scheduleId}&lessonId=${lessonId}&child=${childInfo.childId}`
-      )
-    }
+    navigate(
+      `/schedule/detail?date=${date}&scheduleId=${childInfo.scheduleId}&lessonId=${lessonId}&child=${childInfo.childId}`
+    )
   }
 
   return (
