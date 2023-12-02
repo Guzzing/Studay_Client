@@ -14,7 +14,6 @@ const AcademyDetail = () => {
     queryKey: ['dashboard', state],
     queryFn: () => getDetailDashboard(state)
   })
-  console.log(data)
   return (
     <div className={'w-full h-full overflow-scroll px-[25px] scrollbar-hide'}>
       {data === undefined ? (

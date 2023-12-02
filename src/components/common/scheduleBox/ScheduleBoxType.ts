@@ -8,7 +8,7 @@ export interface ScheduleBoxProps extends ComponentProps<'div'> {
   rightBottomElement?: ReactNode // HTML태그를 넣을 수 있음!
   isRegister?: boolean
   cntOfChild?: number
-  handleToggle?: () => void
-  handleEdit?: () => void
-  handleDelete?: () => void
+  handleToggle?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  handleEdit?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
+  handleDelete?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void
 }

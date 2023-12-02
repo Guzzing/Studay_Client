@@ -127,21 +127,25 @@ const AcademyDashboard = () => {
                         rightBottomElement={
                           <Label
                             variant={'medium'}
-                            label={
-                              AcademyTypeData[data.academyInfo.areaOfExpertise]
+                            label={data.academyInfo.categories[0]}
+                            icon={
+                              AcademyTypeData[data.academyInfo.categories[0]]
                             }
                             color={data.isActive ? 'default' : 'disabled'}
                           />
                         }
-                        handleEdit={() => {
+                        handleEdit={(e) => {
+                          e.stopPropagation()
                           navigate(`${data.dashboardId}/edit`, {
                             state: data.dashboardId
                           })
                         }}
-                        handleToggle={() =>
+                        handleToggle={(e) => {
+                          e.stopPropagation()
                           fetchToggleDashboard(data.dashboardId)
-                        }
-                        handleDelete={() => {
+                        }}
+                        handleDelete={(e) => {
+                          e.stopPropagation()
                           if (data.isActive) {
                             setToast({
                               comment:
@@ -154,7 +158,6 @@ const AcademyDashboard = () => {
                           }
                         }}
                         onClick={(e) => {
-                          if (e.target !== e.currentTarget) return
                           navigate(`/academies/${data.dashboardId}`, {
                             state: data.dashboardId
                           })
