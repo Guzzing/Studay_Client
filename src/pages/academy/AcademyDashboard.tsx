@@ -93,9 +93,9 @@ const AcademyDashboard = () => {
               {dashboardData.length === 0 ? (
                 <div
                   className={
-                    'w-full text-center absolute top-72 font-nsk body-15 text-gray-600'
+                    'w-full text-center absolute top-96 font-nsk body-15 text-gray-600'
                   }>
-                  {'학원을 먼저 생성해주세요'}
+                  {'아이가 다니는 학원 정보를 등록해주세요'}
                 </div>
               ) : (
                 <div
@@ -162,7 +162,13 @@ const AcademyDashboard = () => {
         </div>
         <div
           className={'absolute right-[10px] bottom-[90px] cursor-pointer'}
-          onClick={() => navigate('register')}>
+          onClick={() =>
+            navigate('register', {
+              state: {
+                childId: childInfo.childId
+              }
+            })
+          }>
           <Icon icon={'Add'} classStyle={'h-[60px] w-[60px]'} />
         </div>
         <Modal

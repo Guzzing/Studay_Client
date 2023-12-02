@@ -86,9 +86,7 @@ const AddAcademyName = ({
       <div
         className={
           'w-full py-[10px] text-right caption-13 text-gray-600 underline underline-offset-2 cursor-pointer'
-        }>
-        {'찾는 학원이 없나요?'}
-      </div>
+        }></div>
       {isModalOpen && (
         <Modal>
           <div

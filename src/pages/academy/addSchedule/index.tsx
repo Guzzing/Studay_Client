@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import AddAcademyInfo from './AddAcademyInfo'
@@ -14,6 +15,7 @@ import useToastify from '@/libs/hooks/useToastify'
 import { initialAcademyInfoAtom } from '@/libs/store/academyInfo'
 import { academyInfoAtom } from '@/libs/store/academyInfo'
 import { childAtom } from '@/libs/store/childInfoAtom'
+import { getFormattingDate } from '@/libs/utils/dateParse'
 
 const AddAcademy = () => {
   const { setToast } = useToastify()
@@ -22,6 +24,7 @@ const AddAcademy = () => {
   const childrenSelectRef = useRef<HTMLSelectElement>(null)
   const classSelectRef = useRef<HTMLSelectElement>(null)
   const navigate = useNavigate()
+  const { state } = useLocation()
   const dashboardMutation = useMutation({
     mutationFn: postDashboardInfo,
     onSuccess: () => {
@@ -33,7 +36,14 @@ const AddAcademy = () => {
   })
 
   useEffect(() => {
-    setAcademyInfo({ ...initialAcademyInfoAtom })
+    setAcademyInfo({
+      ...initialAcademyInfoAtom,
+      childId: state.childId,
+      paymentInfo: {
+        ...academyInfo.paymentInfo,
+        paymentDay: getFormattingDate(new Date())
+      }
+    })
   }, [])
 
   return (

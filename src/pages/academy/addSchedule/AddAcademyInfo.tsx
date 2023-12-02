@@ -18,9 +18,7 @@ const AddAcademyInfo = ({
       <div
         className={
           'w-full text-right caption-13 py-[4px] px-[20px] mb-[10px] text-gray-600 underline underline-offset-2 cursor-pointer'
-        }>
-        {'찾는 반이 없나요?'}
-      </div>
+        }></div>
     </div>
   )
 }
