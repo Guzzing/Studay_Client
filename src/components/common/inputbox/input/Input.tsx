@@ -21,7 +21,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [inputValue, setInputValue] = useState('')
     const [searchInputValue, setSearchInputValue] = useState('')
-
     return inputType === 'Default' ? (
       <div className={'my-[10px]'}>
         <input
@@ -29,13 +28,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={`${
             fullWidth ? 'w-full h-[52px]' : 'w-[323px] h-[52px]'
           } rounded-[10px] ${
-            field === 'email' &&
-            !validate('email', inputValue) &&
+            (field === 'email' ||
+              field === 'nickname' ||
+              field === 'childname') &&
+            !validate(field, inputValue) &&
             inputValue !== ''
-              ? 'border border-red-600'
-              : field === 'nickname' &&
-                !validate('nickname', inputValue) &&
-                inputValue !== ''
               ? 'border border-red-600'
               : 'border border-blue-350'
           }  px-[20px] font-nsk text-black-800 bg-white-200 body-18 placeholder:text-gray-600 outline-none`}
@@ -54,8 +51,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         />
         <p className={'font-nsk caption-13 text-red-600 px-3 mt-1'}>
           {field === 'email' &&
-          !validate('email', inputValue) &&
-          inputValue !== ''
+          inputValue !== '' &&
+          !validate('email', inputValue)
             ? (errorMessage = '잘못된 이메일입니다')
             : field === 'nickname' &&
               !validate('nickname', inputValue) &&

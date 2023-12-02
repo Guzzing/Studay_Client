@@ -181,7 +181,6 @@ const Onboarding = () => {
                         : 'Round-blue-500'
                     }
                     onClick={() => {
-                      // 아무것도 입력을 하지 않았을 때!
                       if (
                         inputRef.current?.value === '' ||
                         selectRef.current?.value === ''
