@@ -4,8 +4,6 @@ import { ScheduleProfileBoxProps } from '@/components/common/scheduleProfileBox/
 const ScheduleProfileBox = ({
   mainTitle,
   subTitle,
-  handleEdit,
-  handleDelete,
   handleDetail,
   children
 }: ScheduleProfileBoxProps) => {
@@ -14,9 +12,8 @@ const ScheduleProfileBox = ({
       className={
         'flex flex-col w-[360px] h-[88px] shadow-md pt-[22px] pb-[20px] px-[24px] rounded-[20px] font-nsk cursor-pointer'
       }
-      onClick={(e) => {
+      onClick={() => {
         handleDetail()
-        e.stopPropagation()
       }}>
       <div className={'flex flex-row w-full mb-[2px]'}>
         <span
@@ -25,22 +22,6 @@ const ScheduleProfileBox = ({
           }>
           {mainTitle}
         </span>
-        <div className={'flex flex-row  w-[20%]'}>
-          <div
-            onClick={(e) => {
-              handleEdit()
-              e.stopPropagation()
-            }}>
-            <Icon icon={'Edit'} classStyle={'cursor-pointer'} />
-          </div>
-          <div
-            onClick={(e) => {
-              handleDelete()
-              e.stopPropagation()
-            }}>
-            <Icon icon={'Close'} classStyle={'cursor-pointer'} />
-          </div>
-        </div>
       </div>
       <div className={'flex flex-row '}>
         <div className={'flex flex-row w-full items-center'}>

@@ -53,7 +53,7 @@ const LikeAcademy = () => {
       <Spacing size={90} />
       <SettingPage isOpen={toggleOpen} />
       <div className={'overflow-auto h-[600px]'}>
-        {likeAcademies?.likeAcademyInfos &&
+        {likeAcademies?.likeAcademyInfos.length ? (
           likeAcademies.likeAcademyInfos?.map(
             ({ likeId, academyId, academyName, expectedFee }, index) => (
               <li
@@ -72,7 +72,12 @@ const LikeAcademy = () => {
                   }
                 />
                 <div className={'ml-[50px] my-[5px]'}>
-                  <p className={'subHead-18'}>{academyName}</p>
+                  <p
+                    className={
+                      'subHead-18 w-[80%] text-ellipsis overflow-hidden whitespace-nowrap'
+                    }>
+                    {academyName}
+                  </p>
                   <p>
                     {'예상 교육비'}
                     <span
@@ -102,7 +107,13 @@ const LikeAcademy = () => {
                 />
               </li>
             )
-          )}
+          )
+        ) : (
+          <div className={'flex justify-center items-center'}>
+            <Spacing size={600} />
+            <p className={'body-18-gray'}>{'찜한 학원이 아직 없습니다'}</p>
+          </div>
+        )}
 
         <div
           className={
