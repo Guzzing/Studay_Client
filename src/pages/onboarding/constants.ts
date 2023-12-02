@@ -85,7 +85,6 @@ export const PAGE_CONTENT = [
 ]
 
 export const CHILD_GRADE = [
-  '',
   '초등학교 1학년',
   '초등학교 2학년',
   '초등학교 3학년',

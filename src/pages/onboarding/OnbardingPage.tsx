@@ -140,6 +140,7 @@ const Onboarding = () => {
                 ref={selectRef}
                 onChange={handleSelectChange}
                 value={selectValue}
+                placeholder={'아이 학년을 선택해주세요'}
               />
             ) : (
               <Input
