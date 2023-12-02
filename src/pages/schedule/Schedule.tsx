@@ -77,7 +77,7 @@ const Schedule = () => {
           holidays={monthSchedule?.holidays || []}
         />
       </div>
-      <div className={'flex flex-col overflow-y-auto h-1/3'}>
+      <div className={'flex flex-col overflow-y-auto h-[120px]'}>
         {scheduleData &&
           scheduleData.dateResponses.map((data, index) => (
             <>
