@@ -13,7 +13,10 @@ export const getMonthScheduleAll = async ({
   year,
   month
 }: CalendarPropsType): Promise<CalendarResponse> => {
-  const res = await request.get(`/calendar/mark?year=${year}&month=${month}`)
+  const monthData = month > 9 ? month : `0${month}`
+  const res = await request.get(
+    `/calendar/mark?year=${year}&month=${monthData}`
+  )
   return res.data
 }
 
@@ -23,8 +26,9 @@ export const getDaySchedule = async ({
   day
 }: CalendarDayPropsType): Promise<DayScheduleResponse> => {
   const dayData = day > 9 ? day : `0${day}`
+  const monthData = month > 9 ? month : `0${month}`
   const res = await request.get(
-    `/calendar/date?date=${year}-${month}-${dayData}`
+    `/calendar/date?date=${year}-${monthData}-${dayData}`
   )
   return res.data
 }
