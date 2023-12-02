@@ -56,6 +56,17 @@ const AcademyDashboard = () => {
     dashboardData.map((data) => {
       {
         if (data.dashboardId === res.dashboardId) {
+          if (data.isActive) {
+            setToast({
+              comment: '학원을 그만둔 상태로 설정했어요',
+              type: 'success'
+            })
+          } else {
+            setToast({
+              comment: '학원을 다니는 중으로 설정했어요',
+              type: 'success'
+            })
+          }
           const newData = dashboardData.map((data) => {
             if (data.dashboardId === res.dashboardId) {
               data.isActive = !data.isActive
@@ -177,10 +188,10 @@ const AcademyDashboard = () => {
               className={
                 'h-[200px] w-[370px] bg-white-0 p-[24px] px-[50px] flex flex-col items-center justify-between rounded-[15px]'
               }>
-              <h2 className={'subHead-18 pb-3'}>{'일정을 삭제할까요?'}</h2>
+              <h2 className={'subHead-18 pb-3'}>{'학원 정보를 삭제할까요?'}</h2>
               <Button
                 buttonType={'Plain-red'}
-                label={'대시보드를 삭제할게요'}
+                label={'학원 정보를 삭제할게요'}
                 onClick={() => {
                   deleteDashboardInfo(dashboardId)
                   close()
