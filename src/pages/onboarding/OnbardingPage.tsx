@@ -161,7 +161,8 @@ const Onboarding = () => {
           </div>
         ))}
       </div>
-      <ul className={'absolute bottom-[15px] w-full text-center'}>
+      <Spacing size={220} />
+      <ul className={'w-full text-center'}>
         {PAGE_CONTENT[currentPage].buttonType.map(
           (buttonLabel, i) =>
             buttonLabel && (
