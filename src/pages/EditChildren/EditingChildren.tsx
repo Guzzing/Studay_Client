@@ -36,15 +36,16 @@ const EditingChildren = () => {
           childId: data
         }
       })
+      window.location.reload()
+      setToast({ comment: '아이 정보를 수정했어요', type: 'success' })
     }
   })
 
-  const regex = /^[\sA-Za-z가-힣]{1,10}$/
   const handleChildrenName = (name: string) => {
-    if (regex.test(name)) {
-      setValid(true)
-    } else {
+    if (name.length > 10) {
       setValid(false)
+    } else {
+      setValid(true)
     }
   }
   return (

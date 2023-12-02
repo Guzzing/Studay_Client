@@ -66,7 +66,12 @@ const Header = ({
           </span>
         ) : headerType === 'CloseWithTitle' ? (
           <div className={'flex cursor-pointer items-center'}>
-            <span onClick={onClick ? onClick : () => navigate(-1)}>
+            <span
+              onClick={
+                backUrl.length > 0
+                  ? () => navigate(backUrl)
+                  : () => navigate(-1)
+              }>
               <Icon icon={'Close'} classStyle={'cursor-pointer'} />
             </span>
             <span className={'mx-[20px] font-nsk subHead-18'}>{pageTitle}</span>

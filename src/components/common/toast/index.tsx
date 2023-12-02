@@ -3,10 +3,11 @@ const Toast = () => {
   return (
     <ToastContainer
       position={'top-center'}
-      autoClose={3500}
+      autoClose={1500}
       closeButton={false}
       newestOnTop
-      limit={5}
+      hideProgressBar={true}
+      limit={1}
       toastStyle={{
         borderRadius: '12px',
         backgroundColor: 'white',

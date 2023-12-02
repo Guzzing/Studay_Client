@@ -21,6 +21,7 @@ const HomePage = () => {
   if (isLoading) {
     return <Loading />
   }
+  console.log(data)
 
   return (
     <div

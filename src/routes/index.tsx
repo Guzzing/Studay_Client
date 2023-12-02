@@ -77,7 +77,10 @@ export const router = createBrowserRouter(
           path: 'edit/:childId/editing',
           element: (
             <>
-              <Header headerType={'Close'} />
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'아이 정보 수정하기'}
+              />
               <EditingChildren />
             </>
           )
