@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
+import { useAtom } from 'jotai'
 import Loading from '@/components/Loading/Loading'
 import Button from '@/components/common/button/Button'
 import ListRow from '@/components/common/listRow/ListRow'
@@ -12,11 +13,12 @@ import Spacing from '@/components/common/spacing/Spacing'
 import { deleteChild, getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 import { GetChildrenInfoResponse } from '@/libs/api/children/ChildrenType'
 import { queryClient } from '@/libs/api/queryClient'
-
+import { childAtom } from '@/libs/store/childInfoAtom'
 const EditChildren = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const [childInfo, setChildInfo] = useState<GetChildrenInfoResponse>()
+  const [childInfo, setChildInfo] = useAtom(childAtom)
+  //const [childInfo, setChildInfo] = useState<GetChildrenInfoResponse>()
   const id = location.state.childId
   const { data, isLoading } = useQuery({
     queryKey: ['children'],
@@ -34,6 +36,7 @@ const EditChildren = () => {
   useEffect(() => {
     const mychild = data?.filter((data) => data.childId === id)
     if (mychild) {
+      console.log(mychild[0])
       setChildInfo(mychild[0])
     }
   }, [data])
