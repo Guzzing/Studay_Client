@@ -31,7 +31,7 @@ const HomePage = () => {
         <Spacing size={80} />
         <div
           className={
-            'flex flex-col items-center gap-[20px] pb-[20px] pt-[20px] overflow-y-scroll'
+            'flex flex-col items-center gap-[20px] pb-[20px] pt-[20px] scrollbar-hide overflow-y-scroll'
           }>
           {data && data?.length > 0 ? (
             data.map((data) => {
