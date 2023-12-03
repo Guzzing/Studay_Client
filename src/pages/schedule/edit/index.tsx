@@ -18,6 +18,8 @@ import AddScheduleTime from '@/pages/schedule/new/AddScheduleTime'
 const EditSchedule = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const isAllUpdated = location.state.isAllUpdated
+  console.log(isAllUpdated)
   const scheduleId = Number.parseInt(location.pathname.split('/')[2], 10)
   const [scheduleInfo, setScheduleInfo] = useAtom(scheduleAtom)
   const { setToast } = useToastify()
@@ -60,7 +62,8 @@ const EditSchedule = () => {
         },
         isAlarmed: data.isAlarmed,
         periodicity: 'WEEKLY',
-        memo: data.memo
+        memo: data.memo,
+        isAllUpdated: isAllUpdated
       })
     }
   }, [data])
@@ -70,7 +73,7 @@ const EditSchedule = () => {
       <div className={'px-[20px]'}>
         <AddScheduleAcademy isEdit={true} />
         <h2 className={'body-16 mb-[13px]'}>{'일정 설정하기'}</h2>
-        <AddScheduleTime isEdit={true} />
+        <AddScheduleTime isEdit={true} isAllUpdated={isAllUpdated} />
         <Spacing size={20} />
         <AddScheduleMemo />
       </div>

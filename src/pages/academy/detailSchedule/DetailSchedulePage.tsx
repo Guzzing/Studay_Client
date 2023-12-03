@@ -12,6 +12,8 @@ import {
   deleteAcademySchedule
 } from '@/libs/api/academy/scheduleDetail/ScheduleDetailApi'
 import useModal from '@/libs/hooks/useModal'
+import DetailScheduleHeader from '@/pages/academy/detailSchedule/DetailScheduleHeader'
+
 const DetailSchedulePage = () => {
   const navigate = useNavigate()
   const location = useLocation()
@@ -49,31 +51,10 @@ const DetailSchedulePage = () => {
   return (
     <div className={'border h-full relative'}>
       <Spacing size={110} />
-      <div className={'pl-[20px] h-[194px] relative'}>
-        <Icon
-          icon={'Edit'}
-          classStyle={'absolute top-0 right-[20px] cursor-pointer'}
-          onClick={() => navigate(`/schedule/${scheduleId}/edit`)}
-        />
-        <h2 className={'headline-25 mb-[10px]'}>
-          {data?.academyInfo.academyName}
-        </h2>
-        <p className={'body-14 mb-[6px]'}>{data?.date}</p>
-        <div className={'flex items-center pb-[10px]'}>
-          <Icon icon={'Time'} classStyle={'mr-[5px]'} />
-          <span>
-            {data?.lessonInfo.lessonTimes.startTime +
-              ' ~ ' +
-              data?.lessonInfo.lessonTimes.endTime}
-          </span>
-        </div>
-        <div className={'flex items-center relative w-[350px] h-[30px]'}>
-          <Icon icon={'MapPin'} classStyle={'w-[30px] ml-[-4px]'} />
-          <div className={'w-full h-full grow'}>
-            <span className={'body-14'}>{data?.academyInfo.address}</span>
-          </div>
-        </div>
-      </div>
+      <DetailScheduleHeader
+        data={data}
+        scheduleId={scheduleId ? scheduleId : ''}
+      />
       <div className={'h-[150px] relative'}>
         <div
           className={

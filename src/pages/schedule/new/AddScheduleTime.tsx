@@ -10,7 +10,13 @@ import {
   ScheduleServerWeekDataString
 } from '@/libs/api/schedule/scheduleType'
 import { scheduleAtom } from '@/libs/store/scheduleInfo'
-const AddScheduleTime = ({ isEdit }: { isEdit?: boolean }) => {
+const AddScheduleTime = ({
+  isEdit,
+  isAllUpdated
+}: {
+  isEdit?: boolean
+  isAllUpdated?: boolean
+}) => {
   const [academySchedule, setAcademySchedule] = useAtom(scheduleAtom)
   const [fixedDate, setFixedDate] = useState<number[]>([])
 
@@ -53,7 +59,7 @@ const AddScheduleTime = ({ isEdit }: { isEdit?: boolean }) => {
       <div className={'pointer-events-none'}>
         <SelectWeek fixedDate={fixedDate} />
       </div>
-      <SelectAttendanceDate isEdit={isEdit} />
+      <SelectAttendanceDate isEdit={isEdit} isAllUpdated={isAllUpdated} />
       {academySchedule.lessonScheduleCreateRequests.map((data, index) => {
         return (
           <div key={index} className={'w-full px-[20px] py-[10px]'}>

@@ -6,7 +6,13 @@ import CustomTimePicker from '@/components/academy/CustomTimePicker'
 import { scheduleAtom } from '@/libs/store/scheduleInfo'
 import { getFormattingDate } from '@/libs/utils/dateParse'
 
-const SelectAttendanceDate = ({ isEdit = false }: { isEdit?: boolean }) => {
+const SelectAttendanceDate = ({
+  isEdit = false,
+  isAllUpdated
+}: {
+  isEdit?: boolean
+  isAllUpdated?: boolean
+}) => {
   const [startTime, setStartTime] = useState(new Date())
   const [endTime, setEndTime] = useState<Date | null>()
   const [isSelected, setIsSelected] = useState(false)
@@ -43,6 +49,7 @@ const SelectAttendanceDate = ({ isEdit = false }: { isEdit?: boolean }) => {
   }
 
   useEffect(() => {
+    console.log(isAllUpdated)
     if (isEdit) {
       setIsSelected(true)
     }
@@ -58,6 +65,7 @@ const SelectAttendanceDate = ({ isEdit = false }: { isEdit?: boolean }) => {
           <h3 className={'body-15'}>{'첫 등원일'}</h3>
           <DatePicker
             selected={startTime}
+            disabled={isAllUpdated ? false : true}
             locale={'ko'}
             onChange={onSelect}
             dateFormat={`yy년 MM월 dd일`}
