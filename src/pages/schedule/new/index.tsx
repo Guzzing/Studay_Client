@@ -17,10 +17,19 @@ const NewSchedule = () => {
   const [scheduleInfo, setScheduleInfo] = useAtom(scheduleAtom)
   const { setToast } = useToastify()
 
+  useEffect(() => {
+    console.log(scheduleInfo)
+  }, [scheduleInfo])
   const postNewScheduleMutation = useMutation({
     onSuccess: (data) => {
       setToast({ comment: '일정이 생성되었어요.', type: 'success' })
       navigate(`/schedule/${data.academyTimeTemplateIds[0]}`)
+    },
+    onError: (data) => {
+      setToast({
+        comment: '해당 스케쥴과 겹치는 일정이 있어요.',
+        type: 'error'
+      })
     },
     mutationFn: (scheduleInfo: PostScheduleType) =>
       postScheduleApi(scheduleInfo)
@@ -40,7 +49,15 @@ const NewSchedule = () => {
         buttonType={'Square'}
         label={'일정 등록 완료!'}
         onClick={() => {
-          postNewScheduleMutation.mutate(scheduleInfo)
+          if (scheduleInfo.attendanceDate.endDateOfAttendance.length === 0) {
+            setToast({
+              comment: '첫 등월일과 마지막 등원일을 설정해주세요',
+              type: 'warning'
+            })
+            return
+          } else {
+            postNewScheduleMutation.mutate(scheduleInfo)
+          }
         }}
       />
     </div>

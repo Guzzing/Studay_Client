@@ -77,6 +77,7 @@ const AddScheduleAcademy = ({
           })
         }}
       />
+      <Spacing size={15} />
       <Select
         ref={lessonSelectRef}
         selecttype={'Single'}
