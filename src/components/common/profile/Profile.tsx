@@ -1,7 +1,9 @@
 import type { ProfileImageProps } from './ProfileType'
 import { useRef, useState, RefObject } from 'react'
+import { useMutation } from '@tanstack/react-query'
 import { PROFILE_SIZE, PROFILE_BORDER_COLOR } from './constants'
-import request from '@/libs/api'
+import { uploadChildImg } from '@/libs/api/children/ChildrenApi'
+import { queryClient } from '@/libs/api/queryClient'
 import useToastify from '@/libs/hooks/useToastify'
 const Profile = ({
   imageSize,
@@ -17,29 +19,38 @@ const Profile = ({
   const { setToast } = useToastify()
   const [image, setImage] = useState(imageUrl)
 
+  const updateImageMutation = useMutation({
+    mutationFn: ({
+      editId,
+      formData
+    }: {
+      editId: number
+      formData: FormData
+    }) => uploadChildImg({ editId: editId, formData: formData }),
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['children'] })
+    },
+    onSuccess: () => {
+      setToast({
+        comment: '프로필 사진을 수정했어요.',
+        type: 'success'
+      })
+      setToast({ comment: '아이 정보를 수정했어요', type: 'success' })
+    },
+    onError: () => {
+      setToast({
+        comment: '파일 용량이 너무 커서 업로드를 실패했어요.',
+        type: 'error'
+      })
+    }
+  })
+
   const handleImageChange = (editId: number) => {
     if (imgRef.current && imgRef.current?.files) {
       setImage(URL.createObjectURL(imgRef.current.files[0]))
       const formData = new FormData()
       formData.append('file', imgRef.current.files[0], 'myfile')
-      request
-        .post(`/children/${editId}/profile`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        .then(() => {
-          setToast({
-            comment: '프로필 사진을 수정했어요.',
-            type: 'success'
-          })
-        })
-        .catch(() => {
-          setToast({
-            comment: '파일 용량이 너무 커서 업로드를 실패했어요.',
-            type: 'error'
-          })
-        })
+      updateImageMutation.mutate({ editId: editId, formData: formData })
     }
   }
   return (
