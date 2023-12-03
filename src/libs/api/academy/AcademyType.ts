@@ -121,40 +121,37 @@ export interface AcademyClassResponse {
 }
 
 export type ServerAcademyType =
-  | '예능(대)'
-  | '국제화'
-  | '입시, 검정 및 보습'
-  | '직업기술'
-  | '종합(대)'
-  | '독서실'
-  | '기예(대)'
-  | '기타(대)'
-  | '인문사회(대)'
-  | '정보'
-
-export type ClientAcademyType =
-  | '예능'
-  | '국제화'
-  | '입시'
-  | '직업기술'
-  | '종합'
-  | '독서실'
-  | '기예'
+  | '수학'
+  | '과학'
+  | '국어'
+  | '영어'
+  | '컴퓨터'
+  | '예체능'
+  | '외국어'
+  | '보습'
   | '기타'
-  | '인문사회'
-  | '정보'
 
-export type AcademyType = Record<ServerAcademyType, ClientAcademyType>
+export type AcademyIconType =
+  | 'Math'
+  | 'Science'
+  | 'Korean'
+  | 'English'
+  | 'Computer'
+  | 'Music'
+  | 'Social'
+  | 'Synthesis'
+  | 'Etc'
+
+export type AcademyType = Record<ServerAcademyType, AcademyIconType>
 
 export const AcademyTypeData: AcademyType = {
-  '예능(대)': '예능',
-  국제화: '국제화',
-  '입시, 검정 및 보습': '입시',
-  직업기술: '직업기술',
-  '종합(대)': '종합',
-  독서실: '독서실',
-  '기예(대)': '기예',
-  '기타(대)': '기타',
-  '인문사회(대)': '인문사회',
-  정보: '정보'
+  수학: 'Math',
+  과학: 'Science',
+  국어: 'Korean',
+  영어: 'English',
+  컴퓨터: 'Computer',
+  예체능: 'Music',
+  외국어: 'Social',
+  보습: 'Synthesis',
+  기타: 'Etc'
 }

@@ -12,6 +12,7 @@ const AcademyDetailClass = ({ data }: { data: GetAllDashBoardResponse }) => {
       <Accordion
         title={data.lessonInfo.curriculum}
         contentHeight={200}
+        initialState={true}
         rightElement={<Icon icon={'ArrowDown'} />}
         content={
           <div className={'flex flex-col'}>
@@ -21,8 +22,9 @@ const AcademyDetailClass = ({ data }: { data: GetAllDashBoardResponse }) => {
               className={'bg-white-100'}
               rightElement={
                 <div className={'body-14 text-blue-500'}>
-                  {data.lessonInfo.capacity}
-                  {'명'}
+                  {data.lessonInfo.capacity
+                    ? `${data.lessonInfo.capacity}명`
+                    : '문의 필요'}
                 </div>
               }
             />
@@ -32,8 +34,9 @@ const AcademyDetailClass = ({ data }: { data: GetAllDashBoardResponse }) => {
               className={'bg-white-100'}
               rightElement={
                 <div className={'body-14 text-blue-500'}>
-                  {data.lessonInfo.totalFee.toLocaleString('ko-KR')}
-                  {'원'}
+                  {data.lessonInfo.totalFee
+                    ? `${data.lessonInfo.totalFee.toLocaleString('ko-KR')}원`
+                    : '문의 필요'}
                 </div>
               }
             />
@@ -43,7 +46,9 @@ const AcademyDetailClass = ({ data }: { data: GetAllDashBoardResponse }) => {
               className={'bg-white-100'}
               rightElement={
                 <div className={'body-14 text-blue-500'}>
-                  {data.lessonInfo.duration.split('월').join('월 ')}
+                  {data.lessonInfo.duration
+                    ? `${data.lessonInfo.duration.split('월').join('월 ')}`
+                    : '문의 필요'}
                 </div>
               }
             />

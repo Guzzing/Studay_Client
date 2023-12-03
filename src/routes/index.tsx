@@ -170,7 +170,10 @@ export const router = createBrowserRouter(
           path: 'academies/:dashboardId/',
           element: (
             <>
-              <Header headerType={'Close'} pageTitle={'학원 상세보기'} />
+              <Header
+                headerType={'CloseWithTitle'}
+                pageTitle={'학원 상세보기'}
+              />
               <AcademyDetail />
             </>
           ),

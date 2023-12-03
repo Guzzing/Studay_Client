@@ -37,8 +37,12 @@ const ScheduleBox = ({
             <div className={'subHead-18'}>{mainTitle}</div>
           )}
           <div className={'flex cursor-pointer text-black-800 items-center'}>
-            <Icon icon={'Edit'} onClick={handleEdit} />
-            <Icon icon={'Close'} onClick={handleDelete} />
+            <div onClick={handleEdit}>
+              <Icon icon={'Edit'} />
+            </div>
+            <div onClick={handleDelete}>
+              <Icon icon={'Close'} />
+            </div>
           </div>
         </div>
         <div className={'grow-6'}>
