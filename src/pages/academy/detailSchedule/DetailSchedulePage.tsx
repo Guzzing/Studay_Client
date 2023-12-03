@@ -4,16 +4,33 @@ import Loading from '@/components/Loading/Loading'
 import { Accordion } from '@/components/common/accordion/Accordion'
 import Button from '@/components/common/button/Button'
 import Icon from '@/components/common/icon/Icon'
+import Label from '@/components/common/label/Label'
 import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
+import {
+  AcademyScheduleType,
+  AcademyTypeData
+} from '@/libs/api/academy/AcademyType'
 import {
   getAcademiesScheduleDetail,
   deleteAcademySchedule
 } from '@/libs/api/academy/scheduleDetail/ScheduleDetailApi'
 import useModal from '@/libs/hooks/useModal'
+
 const DetailSchedulePage = () => {
   const navigate = useNavigate()
+  const labelType = {
+    수학: 'Math',
+    과학: 'Science',
+    국어: 'Korean',
+    영어: 'English',
+    컴퓨터: 'Computer',
+    예체능: 'Music',
+    외국어: 'Social',
+    보습: 'Synthesis',
+    기타: 'Etc'
+  }
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const scheduleId = queryParams.get('scheduleId')
@@ -47,7 +64,7 @@ const DetailSchedulePage = () => {
     return <Loading />
   }
   return (
-    <div className={'border h-full relative'}>
+    <div className={'border h-full relative border'}>
       <Spacing size={110} />
       <div className={'pl-[20px] h-[194px] relative'}>
         <Icon
@@ -73,10 +90,18 @@ const DetailSchedulePage = () => {
           </div>
         </div>
       </div>
+      <div
+        className={
+          'border w-[70%] grid grid-rows-2 grid-cols-4 place-items-center gap-4'
+        }>
+        {data?.categories.map((category) => (
+          <Label label={category} variant={'medium'} />
+        ))}
+      </div>
       <div className={'h-[150px] relative'}>
         <div
           className={
-            'absolute top-[-20px] left-[50%] h-full w-full translate-x-[-50%]'
+            'absolute top-[0px] left-[50%] h-full w-full translate-x-[-50%]'
           }>
           <Accordion
             initialState={true}
