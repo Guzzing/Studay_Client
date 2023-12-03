@@ -117,7 +117,7 @@ export const convertTo12HourFormat = (time: string) => {
 
   // 24시간 형식의 시간을 12시간 형식으로 변환합니다.
   const ampm = hours >= 12 ? '오후' : '오전'
-  const convertHours = hours === 0 ? 12 : hours % 12
+  const convertHours = hours > 12 ? hours - 12 : hours
   const timeFormat = `${ampm} ${convertHours}시`
 
   // 변환된 시간을 "오후 2시 30분" 형식으로 반환합니다.

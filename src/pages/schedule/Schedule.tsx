@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { CalenderType } from '../../types/date.ts'
+import Loading from '@/components/Loading/Loading.tsx'
 import Calender from '@/components/common/calender/Calender.tsx'
 import Icon from '@/components/common/icon/Icon.tsx'
 import Profile from '@/components/common/profile/Profile.tsx'
@@ -42,7 +43,7 @@ const Schedule = () => {
         month: calenderState.nowMonth
       })
   })
-  const { data: scheduleData } = useQuery({
+  const { data: scheduleData, isLoading } = useQuery({
     queryKey: ['scheduleData', calenderState.toDay],
     queryFn: () =>
       getDaySchedule({
@@ -77,7 +78,8 @@ const Schedule = () => {
           holidays={monthSchedule?.holidays || []}
         />
       </div>
-      <div className={'flex flex-col overflow-y-auto h-1/3'}>
+      <div className={'flex flex-col overflow-y-auto h-[120px]'}>
+        {isLoading && <Loading />}
         {scheduleData &&
           scheduleData.dateResponses.map((data, index) => (
             <>
@@ -122,7 +124,7 @@ const Schedule = () => {
               ))}
             </>
           ))}
-        {!scheduleData && (
+        {!scheduleData && !isLoading && (
           <span className={'mt-[20px] body-16 text-gray-600 text-center'}>
             {'생성된 스케줄이 없습니다. 스케줄을 생성해주세요!'}
           </span>
