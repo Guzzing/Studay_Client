@@ -157,7 +157,7 @@ const AcademyDashboard = () => {
                             setDashboardId(data.dashboardId)
                           }
                         }}
-                        onClick={(e) => {
+                        onClick={() => {
                           navigate(`/academies/${data.dashboardId}`, {
                             state: data.dashboardId
                           })
