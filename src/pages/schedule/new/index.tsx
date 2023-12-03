@@ -17,13 +17,10 @@ const NewSchedule = () => {
   const [scheduleInfo, setScheduleInfo] = useAtom(scheduleAtom)
   const { setToast } = useToastify()
 
-  useEffect(() => {
-    console.log(scheduleInfo)
-  }, [scheduleInfo])
   const postNewScheduleMutation = useMutation({
     onSuccess: (data) => {
       setToast({ comment: '일정이 생성되었어요.', type: 'success' })
-      navigate(`/schedule/${data.academyTimeTemplateIds[0]}`)
+      navigate(`/schedule`)
     },
     onError: (data) => {
       setToast({

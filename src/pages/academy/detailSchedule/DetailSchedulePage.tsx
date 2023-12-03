@@ -53,6 +53,7 @@ const DetailSchedulePage = () => {
         <Icon
           icon={'Edit'}
           classStyle={'absolute top-0 right-[20px] cursor-pointer'}
+          onClick={() => navigate(`/schedule/${scheduleId}/edit`)}
         />
         <h2 className={'headline-25 mb-[10px]'}>
           {data?.academyInfo.academyName}

@@ -13,6 +13,7 @@ import { scheduleAtom } from '@/libs/store/scheduleInfo'
 const AddScheduleTime = ({ isEdit }: { isEdit?: boolean }) => {
   const [academySchedule, setAcademySchedule] = useAtom(scheduleAtom)
   const [fixedDate, setFixedDate] = useState<number[]>([])
+
   const { data } = useQuery({
     queryKey: ['dashboard', academySchedule.dashboardId],
     queryFn: () => getDetailDashboard(academySchedule.dashboardId),

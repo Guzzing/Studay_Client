@@ -29,8 +29,15 @@ const EditSchedule = () => {
   const editScheduleMutation = useMutation({
     onSuccess: (data) => {
       setToast({ comment: '일정을 수정했어요.', type: 'success' })
-      navigate(`/schedule/${data.academyTimeTemplateIds[0]}`)
+      navigate(`/schedule`)
       setScheduleInfo(initialScheduleAtom)
+    },
+    onError: (error) => {
+      console.log(error.message)
+      setToast({
+        comment: '해당 스케쥴과 겹치는 일정이 있어요.',
+        type: 'error'
+      })
     },
     mutationFn: ({
       payload
