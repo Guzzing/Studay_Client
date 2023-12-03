@@ -18,11 +18,11 @@ const NewSchedule = () => {
   const { setToast } = useToastify()
 
   const postNewScheduleMutation = useMutation({
-    onSuccess: (data) => {
+    onSuccess: () => {
       setToast({ comment: '일정이 생성되었어요.', type: 'success' })
       navigate(`/schedule`)
     },
-    onError: (data) => {
+    onError: () => {
       setToast({
         comment: '해당 스케쥴과 겹치는 일정이 있어요.',
         type: 'error'

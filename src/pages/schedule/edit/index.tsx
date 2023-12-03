@@ -27,7 +27,7 @@ const EditSchedule = () => {
   })
 
   const editScheduleMutation = useMutation({
-    onSuccess: (data) => {
+    onSuccess: () => {
       setToast({ comment: '일정을 수정했어요.', type: 'success' })
       navigate(`/schedule`)
       setScheduleInfo(initialScheduleAtom)
