@@ -50,7 +50,9 @@ const AddScheduleTime = ({ isEdit }: { isEdit?: boolean }) => {
 
   return (
     <div className={'flex flex-col items-center w-full '}>
-      <SelectWeek fixedDate={fixedDate} />
+      <div className={'pointer-events-none'}>
+        <SelectWeek fixedDate={fixedDate} />
+      </div>
       <SelectAttendanceDate isEdit={isEdit} />
       {academySchedule.lessonScheduleCreateRequests.map((data, index) => {
         return (
