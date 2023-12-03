@@ -41,11 +41,11 @@ const CityStep = ({
     return [PROVINCE_TEXT, CITY_TEXT, TOWN_TEXT]
   }, [])
 
-  useEffect(()=>{
-    if(selectRef.current){
+  useEffect(() => {
+    if (selectRef.current) {
       selectRef.current.selectedIndex = 0
     }
-  },[currentStep])
+  }, [currentStep])
 
   return (
     <>
@@ -85,7 +85,7 @@ const CityStep = ({
           text={StepQuestionTitle[currentStep - 1]}
           step={currentStep}
         />
-        <div className={'mt-[14px]'}>
+        <div className={'mt-[14px] w-[323px]'}>
           <Select
             selecttype={'Single'}
             fullWidth={true}

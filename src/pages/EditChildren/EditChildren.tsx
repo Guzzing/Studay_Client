@@ -12,10 +12,14 @@ import Spacing from '@/components/common/spacing/Spacing'
 import { deleteChild, getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 import { GetChildrenInfoResponse } from '@/libs/api/children/ChildrenType'
 import { queryClient } from '@/libs/api/queryClient'
+import useModal from '@/libs/hooks/useModal'
+import useToastify from '@/libs/hooks/useToastify'
 
 const EditChildren = () => {
   const navigate = useNavigate()
+  const { setToast } = useToastify()
   const location = useLocation()
+  const { open, close, Modal } = useModal()
   const [childInfo, setChildInfo] = useState<GetChildrenInfoResponse>()
   const id = location.state.childId
   const { data, isLoading } = useQuery({
@@ -84,10 +88,37 @@ const EditChildren = () => {
           buttonType={'Plain-red'}
           width={'LW'}
           height={'SH'}
-          label={'아이 삭제하기'}
-          onClick={() => childInfoMutation.mutate(id)}
+          label={'아이 정보 삭제하기'}
+          onClick={() => open()}
         />
       </div>
+      <Modal
+        children={
+          <div
+            className={
+              'h-[200px] w-[370px] bg-white-0 p-[24px] px-[50px] flex flex-col items-center justify-between rounded-[15px]'
+            }>
+            <h2 className={'subHead-18 pb-3'}>{'아이 정보를 삭제할까요?'}</h2>
+            <Button
+              buttonType={'Plain-red'}
+              label={'삭제할래요'}
+              onClick={() => {
+                childInfoMutation.mutate(id)
+                close()
+                setToast({
+                  comment: '삭제가 완료되었어요.',
+                  type: 'success'
+                })
+              }}
+            />
+            <Button
+              buttonType={'Plain-blue'}
+              label={'취소하기'}
+              onClick={close}
+            />
+          </div>
+        }
+      />
     </div>
   )
 }

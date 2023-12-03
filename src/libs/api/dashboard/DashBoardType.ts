@@ -32,10 +32,10 @@ interface AcademyInfoType {
   academyName: string
   contact: string
   fullAddress: string
-  shuttleAvailability: 'AVAILABLE' | 'DISAVAILABLE'
+  shuttleAvailability: 'AVAILABLE' | 'DISAVAILABLE' | 'NEED_INQUIRE'
   expectedFee: number
   updatedDate: string
-  areaOfExpertise: ServerAcademyType
+  categories: ServerAcademyType[]
 }
 
 export interface AcademyScheduleType {

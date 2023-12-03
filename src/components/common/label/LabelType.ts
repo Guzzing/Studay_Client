@@ -20,7 +20,7 @@ export const LabelColorVariant = {
 
 export const LabelTextColorVariant = {
   default: {
-    medium: 'stroke-blue-500 text-blue-500 ',
+    medium: 'stroke-blue-500 text-blue-500',
     small: 'text-white-0'
   },
   selected: {

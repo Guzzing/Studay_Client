@@ -140,6 +140,7 @@ const Onboarding = () => {
                 ref={selectRef}
                 onChange={handleSelectChange}
                 value={selectValue}
+                placeholder={'아이 학년을 선택해주세요'}
               />
             ) : (
               <Input
@@ -160,7 +161,8 @@ const Onboarding = () => {
           </div>
         ))}
       </div>
-      <ul className={'absolute bottom-[15px] w-full text-center'}>
+      <Spacing size={220} />
+      <ul className={'w-full text-center'}>
         {PAGE_CONTENT[currentPage].buttonType.map(
           (buttonLabel, i) =>
             buttonLabel && (
@@ -180,7 +182,6 @@ const Onboarding = () => {
                         : 'Round-blue-500'
                     }
                     onClick={() => {
-                      // 아무것도 입력을 하지 않았을 때!
                       if (
                         inputRef.current?.value === '' ||
                         selectRef.current?.value === ''

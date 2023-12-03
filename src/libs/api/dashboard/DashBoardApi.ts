@@ -29,3 +29,13 @@ export const getDetailDashboard = async (
   const res = await request.get(`/dashboards/${dashboardId}`)
   return res.data
 }
+
+export const getIsUserWroteReview = async (
+  academyId: number
+): Promise<{
+  academyId: number
+  reviewable: boolean
+}> => {
+  const res = await request.get(`/reviews/reviewable?academyId=${academyId}`)
+  return res.data
+}

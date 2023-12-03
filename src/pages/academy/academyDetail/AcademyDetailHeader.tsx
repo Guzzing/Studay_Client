@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import Loading from '@/components/Loading/Loading'
 import Icon from '@/components/common/icon/Icon'
 import Label from '@/components/common/label/Label'
+import { AcademyTypeData } from '@/libs/api/academy/AcademyType'
 import { GetAllDashBoardResponse } from '@/libs/api/dashboard/DashBoardType'
 import { getWeekday } from '@/libs/utils/weekParse'
 
@@ -58,11 +59,17 @@ const AcademyDetailHeader = ({ data }: { data: GetAllDashBoardResponse }) => {
               {data?.academyInfo.fullAddress}
             </div>
           </div>
-          <div className={'flex flex-row gap-[14px] mb-[40px]'}>
-            <Label
-              variant={'medium'}
-              label={data ? data?.academyInfo.areaOfExpertise : ''}
-            />
+          <div className={'flex flex-row gap-[11px] mb-[40px]'}>
+            {data.academyInfo.categories.map((data, index) => {
+              return (
+                <Label
+                  key={index}
+                  variant={'medium'}
+                  label={data}
+                  icon={AcademyTypeData[data]}
+                />
+              )
+            })}
             {data?.academyInfo.shuttleAvailability && (
               <Label
                 variant={'medium'}

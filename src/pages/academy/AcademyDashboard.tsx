@@ -56,6 +56,17 @@ const AcademyDashboard = () => {
     dashboardData.map((data) => {
       {
         if (data.dashboardId === res.dashboardId) {
+          if (data.isActive) {
+            setToast({
+              comment: '학원을 그만둔 상태로 설정했어요',
+              type: 'success'
+            })
+          } else {
+            setToast({
+              comment: '학원을 다니는 중으로 설정했어요',
+              type: 'success'
+            })
+          }
           const newData = dashboardData.map((data) => {
             if (data.dashboardId === res.dashboardId) {
               data.isActive = !data.isActive
@@ -93,9 +104,9 @@ const AcademyDashboard = () => {
               {dashboardData.length === 0 ? (
                 <div
                   className={
-                    'w-full text-center absolute top-72 font-nsk body-15 text-gray-600'
+                    'w-full text-center absolute top-96 font-nsk body-15 text-gray-600'
                   }>
-                  {'학원을 먼저 생성해주세요'}
+                  {'아이가 다니는 학원 정보를 등록해주세요'}
                 </div>
               ) : (
                 <div
@@ -116,21 +127,25 @@ const AcademyDashboard = () => {
                         rightBottomElement={
                           <Label
                             variant={'medium'}
-                            label={
-                              AcademyTypeData[data.academyInfo.areaOfExpertise]
+                            label={data.academyInfo.categories[0]}
+                            icon={
+                              AcademyTypeData[data.academyInfo.categories[0]]
                             }
                             color={data.isActive ? 'default' : 'disabled'}
                           />
                         }
-                        handleEdit={() => {
+                        handleEdit={(e) => {
+                          e.stopPropagation()
                           navigate(`${data.dashboardId}/edit`, {
                             state: data.dashboardId
                           })
                         }}
-                        handleToggle={() =>
+                        handleToggle={(e) => {
+                          e.stopPropagation()
                           fetchToggleDashboard(data.dashboardId)
-                        }
-                        handleDelete={() => {
+                        }}
+                        handleDelete={(e) => {
+                          e.stopPropagation()
                           if (data.isActive) {
                             setToast({
                               comment:
@@ -142,8 +157,7 @@ const AcademyDashboard = () => {
                             setDashboardId(data.dashboardId)
                           }
                         }}
-                        onClick={(e) => {
-                          if (e.target !== e.currentTarget) return
+                        onClick={() => {
                           navigate(`/academies/${data.dashboardId}`, {
                             state: data.dashboardId
                           })
@@ -162,7 +176,13 @@ const AcademyDashboard = () => {
         </div>
         <div
           className={'absolute right-[10px] bottom-[90px] cursor-pointer'}
-          onClick={() => navigate('register')}>
+          onClick={() =>
+            navigate('register', {
+              state: {
+                childId: childInfo.childId
+              }
+            })
+          }>
           <Icon icon={'Add'} classStyle={'h-[60px] w-[60px]'} />
         </div>
         <Modal
@@ -171,10 +191,10 @@ const AcademyDashboard = () => {
               className={
                 'h-[200px] w-[370px] bg-white-0 p-[24px] px-[50px] flex flex-col items-center justify-between rounded-[15px]'
               }>
-              <h2 className={'subHead-18 pb-3'}>{'일정을 삭제할까요?'}</h2>
+              <h2 className={'subHead-18 pb-3'}>{'학원 정보를 삭제할까요?'}</h2>
               <Button
                 buttonType={'Plain-red'}
-                label={'대시보드를 삭제할게요'}
+                label={'학원 정보를 삭제할게요'}
                 onClick={() => {
                   deleteDashboardInfo(dashboardId)
                   close()
