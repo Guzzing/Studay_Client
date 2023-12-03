@@ -8,15 +8,15 @@ import { getFormattingDate } from '@/libs/utils/dateParse'
 
 const SelectAttendanceDate = ({
   isEdit = false,
-  isAllUpdated
+  isAllUpdated = true
 }: {
   isEdit?: boolean
   isAllUpdated?: boolean
 }) => {
-  const [startTime, setStartTime] = useState(new Date())
   const [endTime, setEndTime] = useState<Date | null>()
   const [isSelected, setIsSelected] = useState(false)
   const [scheduleInfo, setScheduleInfo] = useAtom(scheduleAtom)
+  const [startTime, setStartTime] = useState(new Date())
 
   const autoCalculateDate = (date: Date) => {
     const newDate = new Date(date)
@@ -31,9 +31,22 @@ const SelectAttendanceDate = ({
     })
   }
 
+  useEffect(() => {
+    if (
+      scheduleInfo.attendanceDate.startDateOfAttendance &&
+      scheduleInfo.attendanceDate.endDateOfAttendance
+    ) {
+      setStartTime(new Date(scheduleInfo.attendanceDate.startDateOfAttendance))
+      setEndTime(new Date(scheduleInfo.attendanceDate.endDateOfAttendance))
+    }
+  }, [
+    scheduleInfo.attendanceDate.startDateOfAttendance,
+    scheduleInfo.attendanceDate.endDateOfAttendance
+  ])
+
   registerLocale('ko', ko)
   useEffect(() => {
-    autoCalculateDate(startTime)
+    if (!endTime) autoCalculateDate(startTime)
   }, [startTime])
 
   const onSelect = (time: Date) => {
@@ -49,7 +62,6 @@ const SelectAttendanceDate = ({
   }
 
   useEffect(() => {
-    console.log(isAllUpdated)
     if (isEdit) {
       setIsSelected(true)
     }

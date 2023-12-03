@@ -12,7 +12,7 @@ import {
 import { scheduleAtom } from '@/libs/store/scheduleInfo'
 const AddScheduleTime = ({
   isEdit,
-  isAllUpdated
+  isAllUpdated = true
 }: {
   isEdit?: boolean
   isAllUpdated?: boolean
