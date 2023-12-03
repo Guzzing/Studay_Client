@@ -9,10 +9,6 @@ import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
 import {
-  AcademyScheduleType,
-  AcademyTypeData
-} from '@/libs/api/academy/AcademyType'
-import {
   getAcademiesScheduleDetail,
   deleteAcademySchedule
 } from '@/libs/api/academy/scheduleDetail/ScheduleDetailApi'
@@ -64,14 +60,14 @@ const DetailSchedulePage = () => {
     return <Loading />
   }
   return (
-    <div className={'border h-full relative border'}>
+    <div className={'border h-[100%] relative overflow-scroll'}>
       <Spacing size={110} />
       <div className={'pl-[20px] h-[194px] relative'}>
         <Icon
           icon={'Edit'}
           classStyle={'absolute top-0 right-[20px] cursor-pointer'}
         />
-        <h2 className={'headline-25 mb-[10px]'}>
+        <h2 className={'headline-25 mb-[10px] w-[80%] h-[60px]'}>
           {data?.academyInfo.academyName}
         </h2>
         <p className={'body-14 mb-[6px]'}>{data?.date}</p>
@@ -92,13 +88,13 @@ const DetailSchedulePage = () => {
       </div>
       <div
         className={
-          'border w-[70%] grid grid-rows-2 grid-cols-4 place-items-center gap-4'
+          'w-[70%] grid grid-rows-2 grid-cols-4 place-items-center gap-4 px-[20px]'
         }>
         {data?.categories.map((category) => (
           <Label label={category} variant={'medium'} />
         ))}
       </div>
-      <div className={'h-[150px] relative'}>
+      <div className={'h-[150px] relative top-[10px]'}>
         <div
           className={
             'absolute top-[0px] left-[50%] h-full w-full translate-x-[-50%]'
@@ -131,7 +127,7 @@ const DetailSchedulePage = () => {
           />
         </div>
       </div>
-      <div className={'pl-[20px] pt-[10px] h-[165px]'}>
+      <div className={'relative pl-[20px] pt-[10px] h-[165px] top-[40px]'}>
         <h2 className={'subHead-18 mb-[10px]'}>{'일정 수행중인 아이'}</h2>
         <div className={'flex'}>
           <div
@@ -148,16 +144,16 @@ const DetailSchedulePage = () => {
           </div>
         </div>
       </div>
-      <div className={'px-[20px] h-[265px] pt-[10px]'}>
+      <div className={'relative px-[20px] h-[265px] pt-[10px] top-[50px]'}>
         <h2 className={'subHead-18 mb-[10px]'}>{'메모'}</h2>
-        <ul className={'h-[50px]'}>
+        <ul className={'h-[150px]'}>
           <div
             key={data?.childrenInfo.childId}
             className={'flex h-[50px] overflow-auto'}>
             <span>{data?.childrenInfo.memo}</span>
           </div>
         </ul>
-        <div className={'h-[190px] flex flex-col items-center mt-[20px]'}>
+        <div className={'h-[80px] flex flex-col items-center mt-[20px]'}>
           <Button
             buttonType={'Plain-red'}
             label={'일정 삭제하기'}
