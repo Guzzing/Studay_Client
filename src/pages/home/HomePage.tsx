@@ -27,7 +27,7 @@ const HomePage = () => {
       className={'relative bg-white-100 overflow-hidden'}
       style={{ height: 'calc(100% - 80px)' }}>
       <SettingPage isOpen={toggleOpen} />
-      <div className={'h-full overflow-y-scroll'}>
+      <div className={'h-full overflow-y-scroll scrollbar-hide'}>
         <Spacing size={80} />
         <div
           className={
