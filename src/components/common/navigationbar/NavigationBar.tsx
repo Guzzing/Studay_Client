@@ -39,8 +39,7 @@ const NavigationBar = ({ selectIcon }: NavigationBarProps) => {
         if (item.icon === selectedIcon) {
           switch (item.icon) {
             case 'SearchMap': {
-              navigate('/selectcity')
-
+              navigate('/map')
               break
             }
             case 'Home': {
