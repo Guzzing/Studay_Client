@@ -73,7 +73,9 @@ const MyPage = () => {
                         canEdit={true}
                         onClick={() =>
                           navigate(`/edit/${childId}`, {
-                            state: childId
+                            state: {
+                              childId: childId
+                            }
                           })
                         }
                       />

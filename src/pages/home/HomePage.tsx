@@ -8,6 +8,7 @@ import Spacing from '@/components/common/spacing/Spacing'
 import { getChildrenInfo } from '@/libs/api/children/ChildrenApi'
 import useSidebar from '@/libs/hooks/useSidebar'
 import useToastify from '@/libs/hooks/useToastify'
+import { scheduleParse } from '@/libs/utils/scheduleParse'
 
 const HomePage = () => {
   const navigate = useNavigate()
@@ -41,7 +42,7 @@ const HomePage = () => {
                   mainTitle={data.nickname}
                   imageUrl={data.profileImageUrl}
                   subTitle={data.grade}
-                  description={data.schedule}
+                  description={scheduleParse(data.schedule, data.nickname)}
                   onClick={() =>
                     navigate(`edit/${data.childId}`, {
                       state: {

@@ -8,4 +8,3 @@ export const getAcademyFilter = async ({
   const res = await request.get(`/academies/filter${queryString}`)
   return res.data
 }
-// console.log('call~')

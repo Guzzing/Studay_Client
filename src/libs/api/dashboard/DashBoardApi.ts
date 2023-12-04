@@ -3,10 +3,11 @@ import { GetAllDashBoardResponse } from '@/libs/api/dashboard/DashBoardType'
 import { ToggleAcademyResponseType } from '@/libs/api/dashboard/DashBoardType'
 
 export const getAllDashboards = async (
-  childId: number
+  childId: number,
+  activeOnly: boolean
 ): Promise<GetAllDashBoardResponse[]> => {
   const res = await request.get(
-    `/dashboards?childId=${childId}&active-only=${false}`
+    `/dashboards?childId=${childId}&active-only=${activeOnly}`
   )
   return res.data.responses
 }
