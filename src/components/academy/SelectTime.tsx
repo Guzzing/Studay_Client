@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
-import { setHours, setMinutes } from 'date-fns'
+import { setHours } from 'date-fns'
 import ko from 'date-fns/locale/ko'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useAtom } from 'jotai'
