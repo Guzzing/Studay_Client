@@ -15,12 +15,12 @@ const ReviewGraph = ({ value, review }: { value: string; review: number }) => {
         }}
       />
       <div
-        className={'absolute text-center subHead-18 z-50 ml-[13px] mt-[7px]'}>
+        className={'absolute text-center subHead-16 z-50 ml-[13px] mt-[7px]'}>
         {value}
       </div>
       <div
         className={
-          'absolute text-right left-[90%] subHead-18 z-50 ml-[13px] mt-[7px]'
+          'absolute text-right left-[90%] subHead-16 z-50 ml-[13px] mt-[7px]'
         }>
         {review}
       </div>
