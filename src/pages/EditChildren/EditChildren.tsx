@@ -21,7 +21,7 @@ const EditChildren = () => {
   const location = useLocation()
   const { open, close, Modal } = useModal()
   const [childInfo, setChildInfo] = useState<GetChildrenInfoResponse>()
-  const id = location.state
+  const id = location.state.childId
   const { data, isLoading } = useQuery({
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
