@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { LikeBlank, LikeFilled } from '@/assets/icon'
 import Label from '@/components/common/label/Label.tsx'
@@ -28,8 +28,10 @@ const MapBottomSheetItem = ({
       setLiked(!liked)
     }
   })
-
   const [liked, setLiked] = useState<boolean>(isLiked)
+  useEffect(() => {
+    setLiked(isLiked)
+  }, [isLiked])
 
   return (
     <div className={'flex flex-col mb-[10px]'}>
