@@ -50,13 +50,19 @@ const AcademySetting = ({ data }: { data: GetAllDashBoardResponse }) => {
       <div className={'w-full mt-[37px] px-[20px]'}>
         {data.isActive ? (
           <div className={'flex flex-col gap-[12px]'}>
-            {reviewData?.reviewable && (
+            {reviewData?.reviewable ? (
               <Button
                 fullWidth={true}
                 buttonType={'Plain-blue'}
                 label={'리뷰 남기기'}
                 onClick={() => setBottomSheetOpen(!isbottomSheetOpen)}
               />
+            ) : (
+              <Button
+                fullWidth={true}
+                buttonType={'Plain-disabled'}
+                disabled={true}
+                label={'이미 리뷰를 남긴 학원이에요'}></Button>
             )}
 
             <Button
