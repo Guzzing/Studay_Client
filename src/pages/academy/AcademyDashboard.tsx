@@ -27,7 +27,6 @@ const AcademyDashboard = () => {
   const [dashboardData, setDashboardData] = useState<GetAllDashBoardResponse[]>(
     []
   )
-  console.log(childInfo)
   const [dashboardId, setDashboardId] = useState(0)
   const { setToast } = useToastify()
   const { open, close, Modal } = useModal()
