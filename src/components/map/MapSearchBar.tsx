@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { useAtom } from 'jotai/index'
 import Icon from '@/components/common/icon/Icon.tsx'
@@ -11,6 +11,7 @@ import { useDebounce } from '@/libs/hooks/useDebounce.ts'
 import { InitSelectAcademy } from '@/libs/store/mapInfoAtom.ts'
 
 const MapSearchBar = () => {
+  const location = useLocation()
   const [_, setSelectAcademy] = useAtom(InitSelectAcademy)
   const navigate = useNavigate()
   const [searchValue, setSearchValue] = useState('')
@@ -113,14 +114,25 @@ const MapSearchBar = () => {
             onChange={(e) => setSearchValue(e.target.value)}
           />
         </div>
-        <div
-          className={
-            'flex flex-col cursor-pointer w-[50px] h-[50px] justify-center items-center ml-[30px]'
-          }
-          onClick={() => navigate('/map/filter')}>
-          <Icon icon={'Filter'} />
-          <span className={'font-nsk body-10'}>{'필터'}</span>
-        </div>
+        {location.search ? (
+          <div
+            className={
+              'flex flex-col cursor-pointer w-[50px] h-[50px] justify-center items-center ml-[30px]'
+            }
+            onClick={() => navigate('/map')}>
+            <Icon icon={'Filter'} />
+            <span className={'font-nsk body-10'}>{'필터취소'}</span>
+          </div>
+        ) : (
+          <div
+            className={
+              'flex flex-col cursor-pointer w-[50px] h-[50px] justify-center items-center ml-[30px]'
+            }
+            onClick={() => navigate('/map/filter')}>
+            <Icon icon={'Filter'} />
+            <span className={'font-nsk body-10'}>{'필터'}</span>
+          </div>
+        )}
       </div>
       <div className={`w-full bg-white-0 z-[99999]`}>
         <div

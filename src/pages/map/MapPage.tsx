@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { useAtom } from 'jotai/index'
 import Icon from '@/components/common/icon/Icon.tsx'
@@ -6,15 +7,22 @@ import Spacing from '@/components/common/spacing/Spacing.tsx'
 import MapBottomSheet from '@/components/map/MapBottomSheet.tsx'
 import MapSearchBar from '@/components/map/MapSearchBar.tsx'
 import NaverMap from '@/components/map/NaverMap.tsx'
+import { getAcademyFilter } from '@/libs/api/filter/filterApi.ts'
 import { getAcademyList } from '@/libs/api/mapapi/mapApi.ts'
 import { Academy } from '@/libs/api/mapapi/mapApiType.ts'
 import { InitSelectAcademy, mapInfoAtom } from '@/libs/store/mapInfoAtom.ts'
 
 const MapPage = () => {
-  const [mapInfo, _] = useAtom(mapInfoAtom)
+  const location = useLocation()
+  const [mapInfo, setMapInfo] = useAtom(mapInfoAtom)
   const [page, setPage] = useState(0)
   const [academyList, setAcademyList] = useState<Academy[]>([])
   const [selectAcademy, setSelectAcademy] = useAtom(InitSelectAcademy)
+  const [filterData, setFilterData] = useState<FilterData | null>(null)
+  const [isLastPage, setIsLastPage] = useState(false)
+  /**
+   * 맵 페이지 처음의 academyData api
+   * */
   const { data: academyData, isLoading } = useQuery({
     queryKey: ['academyData', mapInfo.latitude, mapInfo.longitude, page],
     queryFn: () =>
@@ -23,55 +31,79 @@ const MapPage = () => {
         longitude: mapInfo.longitude,
         pageNumber: page
       }),
-    enabled: mapInfo.latitude > 0 && mapInfo.longitude > 0
+    enabled: mapInfo.latitude > 0 && mapInfo.longitude > 0 && !location.search
   })
 
+  /**
+   * 필터를 설정했을때 호출할 API
+   * */
+  const { data: academyFilterData } = useQuery({
+    queryKey: ['academyFilterData', filterData, page],
+    queryFn: () =>
+      getAcademyFilter({
+        latitude: filterData?.latitude as number,
+        longitude: filterData?.longitude as number,
+        categories: filterData?.categories as string,
+        pageNumber: page,
+        desiredMinAmount: filterData?.minMoney as number,
+        desiredMaxAmount: filterData?.maxMoney as number
+      }),
+    enabled: !!location.search && !!filterData
+  })
+
+  /**
+   * 필터를 설정했을때 URLSearchParams을 통해 FilterData의 상태를 변경한다.
+   * */
   useEffect(() => {
+    if (location.search) {
+      const searchParams = new URLSearchParams(location.search)
+      const categories = searchParams.get('categories') as string
+      const minMoney = searchParams.get('desiredMinAmount') as string
+      const maxMoney = searchParams.get('desiredMaxAmount') as string
+
+      setFilterData({
+        latitude: mapInfo.latitude,
+        longitude: mapInfo.longitude,
+        categories: categories,
+        maxMoney: Number.parseInt(maxMoney),
+        minMoney: Number.parseInt(minMoney)
+      })
+    }
+  }, [location.search])
+
+  useEffect(() => {
+    if (academyFilterData) {
+      const { AcademiesFilterWithScrollResponses, hasNext } = academyFilterData
+      setIsLastPage(hasNext)
+      if (page === 0) {
+        setAcademyList(AcademiesFilterWithScrollResponses)
+      } else {
+        setAcademyList((prev) => [
+          ...prev,
+          ...AcademiesFilterWithScrollResponses
+        ])
+      }
+    }
+  }, [academyFilterData])
+
+  useEffect(() => {
+    console.log('call~~')
     if (academyData) {
-      const { academiesByLocationResponse } = academyData
-      console.log(academyData)
+      setMapInfo((prev) => ({
+        ...prev,
+        selectProvince: academyData.sido,
+        selectCity: academyData.sigungu,
+        selectTown: academyData.upmyeondong
+      }))
+      const { academiesByLocationResponse, hasNext } = academyData
+      setIsLastPage(hasNext)
       if (page === 0) {
         setAcademyList(academiesByLocationResponse)
       } else {
         setAcademyList((prev) => [...prev, ...academiesByLocationResponse])
       }
     }
-  }, [academyData])
-
-  // useEffect(() => {
-  // setMapInfo({
-  //   selectProvince: '서울특별시',
-  //   selectCity: '강남구',
-  //   selectTown: '대치동',
-  //   latitude: 37.493_182,
-  //   longitude: 127.056_705
-  // })
-  // navigator.geolocation.getCurrentPosition(
-  //   (position) => {
-  //     const { latitude, longitude } = position.coords
-  //     setMapInfo((prev) => ({
-  //       ...prev,
-  //       latitude: latitude,
-  //       longitude: longitude
-  //     }))
-  //     setMapLoding(false)
-  //   },
-  //   () => {
-  //     setMapInfo({
-  //       selectProvince: '서울특별시',
-  //       selectCity: '강남구',
-  //       selectTown: '대치동',
-  //       latitude: 37.493_182,
-  //       longitude: 127.056_705
-  //     })
-  //     setMapLoding(false)
-  //   },
-  //   {
-  //     enableHighAccuracy: false,
-  //     timeout: 5000
-  //   }
-  // )
-  // }, [])
+  }, [academyData, location.search])
 
   return (
     <div className={'bg-white-100 w-full h-full relative overflow-hidden'}>
@@ -92,7 +124,7 @@ const MapPage = () => {
       <MapBottomSheet
         setPage={() => setPage(page + 1)}
         academyList={academyList}
-        isLast={academyData?.hasNext || false}
+        isLast={isLastPage}
         isLoading={isLoading}
       />
     </div>
