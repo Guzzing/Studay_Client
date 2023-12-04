@@ -30,10 +30,14 @@ const LoginPage = () => {
     getCode() && req()
   }, [navigate])
   return (
-    <div className={'w-full h-full border flex-col flex'}>
-      <div className={'h-[80%] w-full flex justify-center items-center'}>
-        <div>
-          <Icon icon={'Logo'} />
+    <div className={'w-full h-full flex-col flex relative'}>
+      <div
+        className={'h-[80%] w-full flex flex-col justify-center items-center'}>
+        <div className={'relative '}>
+          <Icon icon={'Logo'} classStyle={'w-[300px] h-[300px]'} />
+          <h2 className={'absolute text-center top-3/4 w-full right-0 body-16'}>
+            {'똑똑한 아이 학원 관리, 스터데이'}
+          </h2>
         </div>
       </div>
       <div className={`h-[20%] flex flex-col justify-around items-center`}>
