@@ -16,17 +16,6 @@ import useModal from '@/libs/hooks/useModal'
 
 const DetailSchedulePage = () => {
   const navigate = useNavigate()
-  const labelType = {
-    수학: 'Math',
-    과학: 'Science',
-    국어: 'Korean',
-    영어: 'English',
-    컴퓨터: 'Computer',
-    예체능: 'Music',
-    외국어: 'Social',
-    보습: 'Synthesis',
-    기타: 'Etc'
-  }
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
   const scheduleId = queryParams.get('scheduleId')
@@ -149,7 +138,9 @@ const DetailSchedulePage = () => {
         <ul className={'h-[150px]'}>
           <div
             key={data?.childrenInfo.childId}
-            className={'flex h-[50px] overflow-auto'}>
+            className={
+              'flex h-full overflow-auto shadow shadow-blue-200/30 rounded-[10px] p-[10px]'
+            }>
             <span>{data?.childrenInfo.memo}</span>
           </div>
         </ul>
