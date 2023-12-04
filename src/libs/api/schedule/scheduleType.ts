@@ -52,6 +52,7 @@ export interface PostScheduleType {
   childId: number
   dashboardId: number
   memo: string
+  isAllUpdated: boolean
 }
 
 export interface UpdateScheduleType {

@@ -54,7 +54,6 @@ export const getAcademyList = async ({
   const res = await request.get(
     `/academies/complexes?lat=${latitude}&lng=${longitude}`
   )
-  console.log(res.data)
   return res.data
 }
 

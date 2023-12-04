@@ -12,7 +12,8 @@ export const initialScheduleAtom: PostScheduleType = {
   periodicity: 'WEEKLY',
   childId: 0,
   dashboardId: 0,
-  memo: ''
+  memo: '',
+  isAllUpdated: true
 }
 
 export const scheduleAtom = atom(initialScheduleAtom)

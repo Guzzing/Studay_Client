@@ -5,7 +5,13 @@ const initialChildAtom: GetChildrenInfoResponse = {
   childId: 0,
   nickname: '',
   grade: '',
-  schedule: '',
+  schedule: {
+    academyName: '',
+    lessonEndTime: '',
+    lessonStartTime: '',
+    lessonSubject: '',
+    schedule_date: ''
+  },
   profileImageUrl: ''
 }
 

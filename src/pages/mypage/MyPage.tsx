@@ -58,7 +58,7 @@ const MyPage = () => {
               }
             />
           </div>
-          <div className={'flex overflow-x-scroll flex-start'}>
+          <div className={'flex overflow-x-scroll scrollbar-hide flex-start'}>
             {data?.childInformationResponses.length === 0 ? (
               <p>{'🥲아직 아이를 등록하지 않으셨습니다...'}</p>
             ) : (
@@ -73,7 +73,9 @@ const MyPage = () => {
                         canEdit={true}
                         onClick={() =>
                           navigate(`/edit/${childId}`, {
-                            state: childId
+                            state: {
+                              childId: childId
+                            }
                           })
                         }
                       />

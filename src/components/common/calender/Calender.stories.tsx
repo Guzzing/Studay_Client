@@ -15,7 +15,6 @@ const meta: Meta<typeof Calender> = {
       nowDays: defaultDays,
       toDay: days
     },
-    setCalenderState: () => console.log('test'),
     existenceDays: [],
     holidays: []
   }
