@@ -34,7 +34,7 @@ const BottomSheetContent = ({
             <span className={'font-nsk subHead-18 mb-[15px]'}>
               {'개설반 정보'}
             </span>
-            <div className={'h-[200px] overflow-y-auto'}>
+            <div className={'h-[200px] scrollbar-hide overflow-y-auto'}>
               {lessonGetResponses.lessons &&
                 lessonGetResponses.lessons.map((lesson, index) => (
                   <Accordion
@@ -105,12 +105,14 @@ const BottomSheetContent = ({
                   className={'h-full bg-blue-200'}
                   style={{
                     width: reviewPercentGetResponse.kindnessPercent + '%'
-                  }}></div>
+                  }}
+                />
                 <div
                   className={'h-full bg-gray-200'}
                   style={{
                     width: `${100 - reviewPercentGetResponse.kindnessPercent}%`
-                  }}></div>
+                  }}
+                />
                 <div
                   className={
                     'absolute text-center subHead-18 z-50 ml-[13px] mt-[7px]'

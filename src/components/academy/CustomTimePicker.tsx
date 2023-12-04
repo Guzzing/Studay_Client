@@ -23,7 +23,7 @@ const CustomTimePicker = forwardRef<HTMLButtonElement, CustomTimePickerProps>(
               className={
                 'caption-13 text-white-0 flex justify-center items-baseline text-center'
               }>
-              {'선택 불가'}
+              {value ? value : '선택 불가'}
             </div>
           </button>
         ) : (

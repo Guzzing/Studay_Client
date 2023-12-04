@@ -19,7 +19,7 @@ const EditingChildren = () => {
   const { setToast } = useToastify()
   const [childInfo, setChildInfo] = useState<EditChildInfoRequest>({
     childId: location.state.childId,
-    profileImageUrl: location.state.profileImageUrl,
+    profileImageUrl: `${location.state.profileImageUrl}?q=${new Date()}`,
     nickname: location.state.nickname,
     grade: location.state.grade
   })
@@ -36,7 +36,6 @@ const EditingChildren = () => {
           childId: data
         }
       })
-      window.location.reload()
       setToast({ comment: '아이 정보를 수정했어요', type: 'success' })
     }
   })

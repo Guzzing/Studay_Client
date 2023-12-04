@@ -6,29 +6,81 @@ import CustomTimePicker from '@/components/academy/CustomTimePicker'
 import { scheduleAtom } from '@/libs/store/scheduleInfo'
 import { getFormattingDate } from '@/libs/utils/dateParse'
 
-const SelectAttendanceDate = ({ isEdit = false }: { isEdit?: boolean }) => {
-  const [startTime, setStartTime] = useState(new Date())
+const SelectAttendanceDate = ({
+  isEdit = false,
+  isAllUpdated = true,
+  date = ''
+}: {
+  isEdit?: boolean
+  isAllUpdated?: boolean
+  date?: string
+}) => {
   const [endTime, setEndTime] = useState<Date | null>()
   const [isSelected, setIsSelected] = useState(false)
   const [scheduleInfo, setScheduleInfo] = useAtom(scheduleAtom)
+  const [startTime, setStartTime] = useState(new Date())
+  const [calculateTime, setCalculateTime] = useState(new Date())
 
   const autoCalculateDate = (date: Date) => {
     const newDate = new Date(date)
     newDate.setMonth(newDate.getMonth() + 1)
-    setEndTime(newDate)
+    // setEndTime(newDate)
+    setCalculateTime(newDate)
+    // setScheduleInfo({
+    //   ...scheduleInfo,
+    //   attendanceDate: {
+    //     endDateOfAttendance: getFormattingDate(newDate),
+    //     startDateOfAttendance: scheduleInfo.attendanceDate.startDateOfAttendance
+    //   }
+    // })
+  }
+
+  useEffect(() => {
+    setEndTime(calculateTime)
     setScheduleInfo({
       ...scheduleInfo,
       attendanceDate: {
-        endDateOfAttendance: getFormattingDate(newDate),
+        endDateOfAttendance: getFormattingDate(calculateTime),
         startDateOfAttendance: scheduleInfo.attendanceDate.startDateOfAttendance
       }
     })
-  }
+  }, [calculateTime])
+
+  useEffect(() => {
+    console.log(scheduleInfo)
+  }, [scheduleInfo.attendanceDate.endDateOfAttendance])
+
+  useEffect(() => {
+    if (
+      isEdit &&
+      scheduleInfo.attendanceDate.startDateOfAttendance &&
+      scheduleInfo.attendanceDate.endDateOfAttendance
+    ) {
+      if (date) {
+        setStartTime(new Date(date))
+        setEndTime(new Date(scheduleInfo.attendanceDate.endDateOfAttendance))
+        setScheduleInfo({
+          ...scheduleInfo,
+          attendanceDate: {
+            endDateOfAttendance:
+              scheduleInfo.attendanceDate.endDateOfAttendance,
+            startDateOfAttendance: date.split(' ')[0]
+          }
+        })
+      } else {
+        setStartTime(
+          new Date(scheduleInfo.attendanceDate.startDateOfAttendance)
+        )
+        setEndTime(new Date(scheduleInfo.attendanceDate.endDateOfAttendance))
+      }
+    }
+  }, [
+    scheduleInfo.attendanceDate.startDateOfAttendance,
+    scheduleInfo.attendanceDate.endDateOfAttendance,
+    date
+  ])
 
   registerLocale('ko', ko)
-  useEffect(() => {
-    autoCalculateDate(startTime)
-  }, [startTime])
 
   const onSelect = (time: Date) => {
     setStartTime(time)
@@ -40,6 +92,7 @@ const SelectAttendanceDate = ({ isEdit = false }: { isEdit?: boolean }) => {
       }
     })
     setIsSelected(true)
+    autoCalculateDate(time)
   }
 
   useEffect(() => {
@@ -58,6 +111,7 @@ const SelectAttendanceDate = ({ isEdit = false }: { isEdit?: boolean }) => {
           <h3 className={'body-15'}>{'첫 등원일'}</h3>
           <DatePicker
             selected={startTime}
+            disabled={isAllUpdated ? false : true}
             locale={'ko'}
             onChange={onSelect}
             dateFormat={`yy년 MM월 dd일`}

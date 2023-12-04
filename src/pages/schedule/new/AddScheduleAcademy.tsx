@@ -29,7 +29,7 @@ const AddScheduleAcademy = ({
     queryFn: () => getChildrenInfo()
   })
   const fetchChildrenDashboard = async (childId: number) => {
-    const res = await getAllDashboards(childId)
+    const res = await getAllDashboards(childId, true)
     const academyList = res.map((data) => {
       return {
         dashBoardId: data.dashboardId,
@@ -66,6 +66,7 @@ const AddScheduleAcademy = ({
       <ListRowSelect
         ref={childrenSelectRef}
         title={'아이 선택하기'}
+        disabled={isEdit ? true : false}
         selecttype={'Single'}
         placeholder={'아이를 선택해주세요'}
         values={data ? data?.map((data) => data.childId) : []}
@@ -77,8 +78,10 @@ const AddScheduleAcademy = ({
           })
         }}
       />
+      <Spacing size={15} />
       <Select
         ref={lessonSelectRef}
+        disabled={isEdit ? true : false}
         selecttype={'Single'}
         fullWidth={true}
         placeholder={'반을 선택해주세요'}

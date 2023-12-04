@@ -22,8 +22,6 @@ const LoginPage = () => {
         if (getCode()?.method === 'kakao') {
           const kakaoToken = await getKaKaoAccessToken(pushData())
           kakaoToken && (await getAccessToken(kakaoToken, 'kakao'))
-        } else {
-          await getAccessToken(getCode()?.accessToken as string, 'google')
         }
       } catch (error) {
         console.error('액세스 토큰 요청 실패:', error)
@@ -46,17 +44,6 @@ const LoginPage = () => {
           buttonType={'Round-blue-500'}
           width={'LW'}
           onClick={() => (window.location.href = `${LOGIN_LINK.KAKAO}`)}
-        />
-        <Button
-          label={
-            <img
-              src={BUTTON_IMG_LINK.GOOGLE}
-              className={'w-[100%] h-[100%]'}
-              onClick={() => (window.location.href = `${LOGIN_LINK.GOOGLE}`)}
-            />
-          }
-          buttonType={'Round-blue-500'}
-          width={'LW'}
         />
       </div>
     </div>

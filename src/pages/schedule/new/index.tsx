@@ -12,22 +12,31 @@ import { scheduleAtom } from '@/libs/store/scheduleInfo'
 import AddScheduleAcademy from '@/pages/schedule/new/AddScheduleAcademy'
 import AddScheduleMemo from '@/pages/schedule/new/AddScheduleMemo'
 import AddScheduleTime from '@/pages/schedule/new/AddScheduleTime'
+
 const NewSchedule = () => {
   const navigate = useNavigate()
   const [scheduleInfo, setScheduleInfo] = useAtom(scheduleAtom)
   const { setToast } = useToastify()
 
   const postNewScheduleMutation = useMutation({
-    onSuccess: (data) => {
+    onSuccess: () => {
       setToast({ comment: '일정이 생성되었어요.', type: 'success' })
-      navigate(`/schedule/${data.academyTimeTemplateIds[0]}`)
+      navigate(`/schedule`)
+    },
+    onError: () => {
+      setToast({
+        comment: '해당 스케쥴과 겹치는 일정이 있어요.',
+        type: 'error'
+      })
     },
     mutationFn: (scheduleInfo: PostScheduleType) =>
       postScheduleApi(scheduleInfo)
   })
+
   useEffect(() => {
     setScheduleInfo(initialScheduleAtom)
-  }, [])
+  }, [setScheduleInfo])
+
   return (
     <div className={'flex flex-col px-[20px] relative w-full h-full'}>
       <AddScheduleAcademy />
@@ -40,7 +49,15 @@ const NewSchedule = () => {
         buttonType={'Square'}
         label={'일정 등록 완료!'}
         onClick={() => {
-          postNewScheduleMutation.mutate(scheduleInfo)
+          if (scheduleInfo.attendanceDate.endDateOfAttendance.length === 0) {
+            setToast({
+              comment: '첫 등월일과 마지막 등원일을 설정해주세요',
+              type: 'warning'
+            })
+            return
+          } else {
+            postNewScheduleMutation.mutate(scheduleInfo)
+          }
         }}
       />
     </div>
