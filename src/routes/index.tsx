@@ -98,7 +98,6 @@ export const router = createBrowserRouter(
             <>
               <Header headerType={'Logo'} pageTitle={'학원 지도'} />
               <MapPage />
-              <NavigationBar selectIcon={'SearchMap'} />
             </>
           )
         },

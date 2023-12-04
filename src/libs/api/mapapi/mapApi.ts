@@ -4,7 +4,7 @@ import {
   CityResponse,
   DetailAcademyResponse,
   GetAcademyDetailProps,
-  GetAcademysParams,
+  GetAcademyParams,
   GetLocationParam,
   GetTownParam,
   LikeResponse,
@@ -47,14 +47,25 @@ export const getLocation = async ({
   return res.data
 }
 
+// export const getAcademyList = async ({
+//   latitude,
+//   longitude
+// }: GetAcademysParams): Promise<AcademyResponse> => {
+//   const res = await request.get(
+//     `/academies/complexes?lat=${latitude}&lng=${longitude}`
+//   )
+//   console.log(res.data)
+//   return res.data
+// }
+
 export const getAcademyList = async ({
   latitude,
-  longitude
-}: GetAcademysParams): Promise<AcademyResponse> => {
+  longitude,
+  pageNumber
+}: GetAcademyParams): Promise<AcademyResponse> => {
   const res = await request.get(
-    `/academies/complexes?lat=${latitude}&lng=${longitude}`
+    `/academies/complexes-scroll?lat=${latitude}&lng=${longitude}&pageNumber=${pageNumber}`
   )
-  console.log(res.data)
   return res.data
 }
 

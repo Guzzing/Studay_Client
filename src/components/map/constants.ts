@@ -1,20 +1,4 @@
-import {
-  InitSelectAcademyType,
-  MarkerProps
-} from '@/components/map/naverMapType.ts'
-
-export const initSelectAcademy: InitSelectAcademyType = {
-  isBottomSheet: false,
-  academy: {
-    academyId: -1,
-    academyName: '',
-    address: '',
-    contact: '',
-    areaOfExpertise: '',
-    latitude: -1,
-    longitude: -1
-  }
-}
+import { MarkerProps } from '@/components/map/naverMapType.ts'
 
 export const DefaultMapOption = {
   zoom: 14,
