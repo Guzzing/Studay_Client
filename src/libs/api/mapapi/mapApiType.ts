@@ -64,6 +64,9 @@ export interface SearchAcademy {
 export interface AcademyResponse {
   academiesByLocationResponse: Academy[]
   hasNext: boolean
+  sido: string
+  sigungu: string
+  upmyeondong: string
 }
 
 export interface GetAcademyDetailProps {
