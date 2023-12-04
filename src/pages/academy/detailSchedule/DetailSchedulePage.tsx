@@ -8,6 +8,7 @@ import Label from '@/components/common/label/Label'
 import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
+import { AcademyType, AcademyTypeData } from '@/libs/api/academy/AcademyType'
 import {
   getAcademiesScheduleDetail,
   deleteAcademySchedule
@@ -44,7 +45,7 @@ const DetailSchedulePage = () => {
       throw new Error('error!')
     }
   }
-
+  // "국어"
   if (isLoading) {
     return <Loading />
   }
@@ -77,10 +78,14 @@ const DetailSchedulePage = () => {
       </div>
       <div
         className={
-          'w-[70%] grid grid-rows-2 grid-cols-4 place-items-center gap-4 px-[20px]'
+          'w-[90%] grid grid-rows-2 grid-cols-4 place-items-center gap-4 px-[20px] border'
         }>
         {data?.categories.map((category) => (
-          <Label label={category} variant={'medium'} />
+          <Label
+            label={category}
+            variant={'medium'}
+            icon={AcademyTypeData[category as keyof AcademyType]}
+          />
         ))}
       </div>
       <div className={'h-[150px] relative top-[10px]'}>
@@ -135,15 +140,10 @@ const DetailSchedulePage = () => {
       </div>
       <div className={'relative px-[20px] h-[265px] pt-[10px] top-[50px]'}>
         <h2 className={'subHead-18 mb-[10px]'}>{'메모'}</h2>
-        <ul className={'h-[150px]'}>
-          <div
-            key={data?.childrenInfo.childId}
-            className={
-              'flex h-full overflow-auto shadow shadow-blue-200/30 rounded-[10px] p-[10px]'
-            }>
-            <span>{data?.childrenInfo.memo}</span>
-          </div>
-        </ul>
+        <div
+          className={'h-[150px] w-[350px] border overflow-y-scroll p-[10px]'}>
+          {data?.childrenInfo.memo}
+        </div>
         <div className={'h-[80px] flex flex-col items-center mt-[20px]'}>
           <Button
             buttonType={'Plain-red'}
