@@ -40,7 +40,7 @@ const HomePage = () => {
                 <InformationBox
                   key={data.childId}
                   mainTitle={data.nickname}
-                  imageUrl={data.profileImageUrl}
+                  imageUrl={`${data.profileImageUrl}?q=${new Date()}`}
                   subTitle={data.grade}
                   description={scheduleParse(data.schedule, data.nickname)}
                   onClick={() =>

@@ -20,3 +20,18 @@ export const deleteChild = async (childId: number) => {
   const res = await request.delete(`/children/${childId}`)
   return res.data
 }
+
+export const uploadChildImg = async ({
+  editId,
+  formData
+}: {
+  editId: number
+  formData: FormData
+}) => {
+  const res = await request.post(`/children/${editId}/profile`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+  return res.data
+}
