@@ -1,23 +1,25 @@
 import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { useAtom } from 'jotai'
+import { useAtom } from 'jotai/index'
 import Icon from '@/components/common/icon/Icon.tsx'
-import Input from '@/components/common/inputbox/input/Input.tsx'
 import { getAcademiesSearchResult } from '@/libs/api/academy/AcademyApi.ts'
+import { getAcademyDetail } from '@/libs/api/mapapi/mapApi.ts'
 import { SearchAcademiesResponse } from '@/libs/api/mapapi/mapApiType.ts'
 import { useDebounce } from '@/libs/hooks/useDebounce.ts'
-import { selectSearchAcademyAtom } from '@/libs/store/mapInfoAtom.ts'
+import { InitSelectAcademy } from '@/libs/store/mapInfoAtom.ts'
 
 const MapSearchBar = () => {
+  const location = useLocation()
+  const [_, setSelectAcademy] = useAtom(InitSelectAcademy)
   const navigate = useNavigate()
   const [searchValue, setSearchValue] = useState('')
   const [page, setPage] = useState(0)
   const debounceValue = useDebounce<string>(searchValue, 300)
   const [searchList, setSearchList] = useState<SearchAcademiesResponse[]>([])
-  const [_, setSelectValue] = useAtom(selectSearchAcademyAtom)
-  const [isHidden, setHidden] = useState(false)
+  const [selectValue, setSelectValue] =
+    useState<SearchAcademiesResponse | null>(null)
 
   const { ref, inView } = useInView({
     threshold: 1
@@ -26,33 +28,60 @@ const MapSearchBar = () => {
   const { data: searchData } = useQuery({
     queryKey: ['searchData', debounceValue, page],
     queryFn: () => getAcademiesSearchResult(debounceValue, page),
-    enabled: debounceValue !== ''
+    enabled: debounceValue.length > 0
+  })
+
+  const { data: selectAcademy } = useQuery({
+    queryKey: ['academyDetail', selectValue?.academyId],
+    queryFn: () =>
+      getAcademyDetail({
+        academyId: selectValue?.academyId as number
+      }),
+    enabled: !!selectValue
   })
 
   useEffect(() => {
-    if (searchData && page === 0) {
-      // 검색어만 바뀌었을때
-      setSearchList([...searchData.content])
-    } else if (searchData && page > 0) {
-      // 페이지가 바뀌었을때
-      setSearchList((prevList) => [...prevList, ...searchData.content])
-    } else {
-      // debounceValue가 ''일때
-      setSearchList([])
-    }
-  }, [searchData, page, debounceValue])
+    if (debounceValue.length === 0) setSearchList([])
 
-  const isLast = searchData?.last || false
-  const updatePage = () => {
-    setPage(page + 1)
-  }
-
-  //검색어가 바뀔때마다 페이지도 0으로 맞춰 api를 호출
-  const updateSearchValue = (value: string) => {
-    setSearchValue(value)
-    setHidden(true)
     setPage(0)
-  }
+  }, [debounceValue])
+
+  useEffect(() => {
+    if (selectValue && selectAcademy) {
+      setSearchList([])
+      setPage(0)
+      const { latitude, longitude, academyId } = selectValue
+      const {
+        academyName,
+        contact,
+        categories,
+        address,
+        shuttleAvailability,
+        isLiked
+      } = selectAcademy
+      setSelectAcademy({
+        academyId,
+        academyName,
+        address,
+        contact,
+        categories,
+        latitude,
+        longitude,
+        shuttleAvailable: shuttleAvailability,
+        isLiked
+      })
+    }
+  }, [selectAcademy])
+
+  useEffect(() => {
+    if (searchData && searchData.content.length > 0) {
+      if (page === 0) {
+        setSearchList(searchData.content)
+      } else {
+        setSearchList((prev) => [...prev, ...searchData.content])
+      }
+    }
+  }, [searchData])
 
   const observer = (
     <div
@@ -63,67 +92,77 @@ const MapSearchBar = () => {
   )
 
   useEffect(() => {
-    if (isLast) {
-      return
-    } else if (inView) {
-      updatePage()
+    console.log(inView, !searchData?.last)
+    if (inView && !searchData?.last) {
+      setPage(page + 1)
     }
   }, [inView])
 
   return (
-    <div className={'fixed z-10 flex flex-row ml-[10px] mt-[12px]'}>
-      <div className={'w-[297px]'}>
-        <Input
-          inputType={'Search'}
-          fullWidth={true}
-          height={'53'}
-          onChange={(e) => {
-            updateSearchValue(e.target.value)
-          }}
-        />
+    <div className={'flex flex-col'}>
+      <div className={'flex z-10 flex flex-row w-[390px] h-[55px] bg-white-0'}>
+        <div className={'w-[297px] flex items-center body-18'}>
+          <Icon
+            icon={'Search'}
+            classStyle={'ml-[10px] text-black-800 mr-[5px]'}
+          />
+          <input
+            type={'search'}
+            className={`grow h-full w-full px-[5px] 
+            font-nsk body-15 text-black-800 placeholder:text-gray-600 outline-none`}
+            placeholder={'학원 이름으로 검색해주세요'}
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+        </div>
+        {location.search ? (
+          <div
+            className={
+              'flex flex-col cursor-pointer w-[50px] h-[50px] justify-center items-center ml-[30px]'
+            }
+            onClick={() => navigate('/map')}>
+            <Icon icon={'Filter'} />
+            <span className={'font-nsk body-10'}>{'필터취소'}</span>
+          </div>
+        ) : (
+          <div
+            className={
+              'flex flex-col cursor-pointer w-[50px] h-[50px] justify-center items-center ml-[30px]'
+            }
+            onClick={() => navigate('/map/filter')}>
+            <Icon icon={'Filter'} />
+            <span className={'font-nsk body-10'}>{'필터'}</span>
+          </div>
+        )}
+      </div>
+      <div className={`w-full bg-white-0 z-[99999]`}>
         <div
-          className={`w-full bg-white-100 ${
-            searchList.length > 0 && isHidden
-              ? 'rounded-lg border-blue-350 border mb-4 mt-2'
-              : ''
-          }`}>
-          {isHidden && searchList.length > 0 && (
-            <div className={'max-h-[300px] overflow-scroll scrollbar-hide'}>
-              {searchList.map((data, index) => (
+          className={
+            'flex flex-col max-h-[250px] border-t-2 border-gray-100 overflow-scroll scrollbar-hide'
+          }>
+          {searchList.length > 0 &&
+            searchList.map((data, index) => (
+              <div
+                className={
+                  'flex flex-row items-center cursor-pointer border-b-2 border-gray-100'
+                }
+                key={index}
+                onClick={() => {
+                  setSelectValue(data)
+                }}>
+                <Icon icon={'Marker'} classStyle={'ml-[20px] mr-[8px]'} />
                 <div
-                  className={
-                    'flex flex-row items-center cursor-pointer border-b-2 border-gray-100'
-                  }
-                  key={index}
-                  onClick={() => {
-                    setSelectValue(data)
-                    setHidden(false)
-                  }}>
-                  <Icon icon={'Marker'} classStyle={'ml-[20px] mr-[8px]'} />
-                  <div
-                    className={`flex flex-col items-center w-full cursor-pointer p-[10px]`}>
-                    <div className={'body-15 w-full text-left'}>
-                      {data.academyName}
-                    </div>
-                    <div
-                      className={'caption-13 text-gray-600 w-full text-left'}>
-                      {data.address}
-                    </div>
+                  className={`flex flex-col items-center w-full cursor-pointer p-[10px]`}>
+                  <div className={'body-15 w-full text-left'}>
+                    {data.academyName}
+                  </div>
+                  <div className={'caption-13 text-gray-600 w-full text-left'}>
+                    {data.address}
                   </div>
                 </div>
-              ))}
-              {observer}
-            </div>
-          )}
+              </div>
+            ))}
+          {searchList.length > 0 && observer}
         </div>
-      </div>
-      <div
-        className={
-          'flex flex-col cursor-pointer bg-white-0 rounded-full w-[50px] h-[50px] justify-center items-center ml-[10px]'
-        }
-        onClick={() => navigate('/map/filter')}>
-        <Icon icon={'Filter'} />
-        <span className={'font-nsk body-10'}>{'필터'}</span>
       </div>
     </div>
   )

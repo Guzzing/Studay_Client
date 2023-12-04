@@ -34,9 +34,10 @@ export interface LocationResponse {
   longitude: number
 }
 
-export interface GetAcademysParams {
+export interface GetAcademyParams {
   latitude: number
   longitude: number
+  pageNumber: number
 }
 
 export interface Academy {
@@ -44,9 +45,11 @@ export interface Academy {
   academyName: string
   address: string
   contact: string
-  areaOfExpertise: string
+  categories: string[]
   latitude: number
   longitude: number
+  shuttleAvailable: string
+  isLiked: boolean
 }
 
 export interface SearchAcademy {
@@ -60,6 +63,10 @@ export interface SearchAcademy {
 
 export interface AcademyResponse {
   academiesByLocationResponse: Academy[]
+  hasNext: boolean
+  sido: string
+  sigungu: string
+  upmyeondong: string
 }
 
 export interface GetAcademyDetailProps {

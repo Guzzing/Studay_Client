@@ -45,18 +45,20 @@ const MyPage = () => {
         <div className={'h-[175px] p-[20px]'}>
           <div className={'flex items-center mb-[5px]'}>
             <span>{'내 아이 관리하기'}</span>
-            <Icon
-              icon={'Add'}
-              classStyle={'w-[30px] h-[30px] cursor-pointer'}
-              onClick={() =>
-                data?.childInformationResponses.length === 5
-                  ? setToast({
-                      comment: '아이는 최대 5명까지만 입력할 수 있어요.',
-                      type: 'warning'
-                    })
-                  : navigate('/onboarding')
-              }
-            />
+            {(data?.childInformationResponses.length as number) < 5 && (
+              <Icon
+                icon={'Add'}
+                classStyle={'w-[30px] h-[30px] cursor-pointer'}
+                onClick={() =>
+                  data?.childInformationResponses.length === 5
+                    ? setToast({
+                        comment: '아이는 최대 5명까지만 입력할 수 있어요.',
+                        type: 'warning'
+                      })
+                    : navigate('/onboarding')
+                }
+              />
+            )}
           </div>
           <div className={'flex overflow-x-scroll scrollbar-hide flex-start'}>
             {data?.childInformationResponses.length === 0 ? (

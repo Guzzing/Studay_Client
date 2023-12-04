@@ -14,10 +14,6 @@ const FilterPage = () => {
   const [mapFilter, setMapFilter] = useAtom(mapFilterState)
   const { Modal, open, close } = useModal()
 
-  const moveSelectCity = () => {
-    navigate('/selectcity')
-  }
-
   const moveMap = () => {
     const subjectList = mapFilter.subjectList
       .filter((subject) => subject.color === 'selected')
@@ -27,15 +23,11 @@ const FilterPage = () => {
       return open()
     }
 
-    let url = `/map?lat=${mapInfo.latitude}&lng=${
-      mapInfo.longitude
-    }&categories=${subjectList.join(',')}`
-
-    if (mapFilter.minMoney > 1) {
-      url += `&desiredMinAmount=${mapFilter.minMoney}&desiredMaxAmount=${mapFilter.maxMoney}`
-    }
-    navigate(url)
+    const url = `/map?&categories=${subjectList.join(',')}&desiredMinAmount=${
+      mapFilter.minMoney
+    }&desiredMaxAmount=${mapFilter.maxMoney}`
     setMapFilter(initMapFilter)
+    navigate(url)
   }
 
   const selectSubjec = (index: number) => {
@@ -58,8 +50,8 @@ const FilterPage = () => {
   const updateMoney = (money: number) => {
     setMapFilter((prev) => ({
       ...prev,
-      maxMoney: money + 100_000,
-      minMoney: money
+      maxMoney: money > 0 ? money + 100_000 : 0,
+      minMoney: money > 0 ? money : 0
     }))
   }
 
@@ -68,7 +60,7 @@ const FilterPage = () => {
       <Spacing size={80} />
       <div
         className={
-          'flex flex-col w-full h-[200px] bg-white-0 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] mb-[10px] '
+          'flex flex-col w-full h-[120px] bg-white-0 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] mb-[10px] '
         }>
         <span
           className={'text-left font-nsk body-18-black-lg ml-[17px] mt-[13px]'}>
@@ -77,14 +69,6 @@ const FilterPage = () => {
         <span className={'font-nsk headline-25 ml-[35px] mt-[19px]'}>
           {`${mapInfo.selectProvince} ${mapInfo.selectCity} ${mapInfo.selectTown}`}
         </span>
-        <div className={'mt-[25px] ml-[32px]'}>
-          <Button
-            label={'지역을 다시 선택할래요'}
-            buttonType={'Plain-blue'}
-            width={'LW'}
-            height={'SH'}
-            onClick={moveSelectCity}></Button>
-        </div>
       </div>
       <div
         className={
@@ -127,14 +111,6 @@ const FilterPage = () => {
           {'희망 금액(추정치)'}
         </span>
         <Slider onChange={(e) => updateMoney(e)} />
-        <div className={'mt-[10px]'}>
-          <Button
-            label={'금액은 상관없어요'}
-            buttonType={'Plain-blue'}
-            width={'LW'}
-            height={'SH'}
-          />
-        </div>
       </div>
       <Button
         buttonType={'Square'}

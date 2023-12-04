@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import Button from '@/components/common/button/Button.tsx'
 
 const Silder = ({ onChange }: { onChange: (e: number) => void }) => {
   const [value, setValue] = useState(0)
+  const [infinityMoney, setInfinityMoney] = useState(false)
   const parseAcademyFee = (value: number) => {
     switch (value) {
       case 0: {
@@ -33,7 +35,7 @@ const Silder = ({ onChange }: { onChange: (e: number) => void }) => {
   return (
     <div className={'flex flex-col w-full justify-center items-center'}>
       <div className={'headline-20 mb-6 text-center'}>
-        {parseAcademyFee(value)}
+        {infinityMoney ? '금액은 상관 없어요' : parseAcademyFee(value)}
       </div>
       <div className={'relative w-[300px] mb-6'}>
         <div
@@ -108,7 +110,20 @@ const Silder = ({ onChange }: { onChange: (e: number) => void }) => {
           onChange={(e) => {
             const newValue = Number.parseInt(e.target.value, 10)
             setValue(newValue * 1000)
+            setInfinityMoney(false)
             onChange(newValue * 1000)
+          }}
+        />
+      </div>
+      <div className={'mt-[10px]'}>
+        <Button
+          label={'금액은 상관없어요'}
+          buttonType={'Plain-blue'}
+          width={'LW'}
+          height={'SH'}
+          onClick={() => {
+            setInfinityMoney(true)
+            onChange(0)
           }}
         />
       </div>

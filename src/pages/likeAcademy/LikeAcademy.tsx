@@ -13,6 +13,7 @@ import {
   checkGroupAtom,
   likeAcademyAtom
 } from '@/libs/store/likeacademyAtom'
+import { priceFormat } from '@/libs/utils/priceFormat'
 
 const LikeAcademy = () => {
   const [total, setTotal] = useAtom(totalAtom)
@@ -121,7 +122,7 @@ const LikeAcademy = () => {
           }>
           <span>{'예상 교육금액'}</span>
           <span className={'headline-25'}>
-            {total === 0 ? '0' : total + '원'}
+            {total === 0 ? '0' : priceFormat(total) + '원'}
           </span>
         </div>
       </div>

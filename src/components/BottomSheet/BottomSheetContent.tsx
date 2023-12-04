@@ -105,12 +105,14 @@ const BottomSheetContent = ({
                   className={'h-full bg-blue-200'}
                   style={{
                     width: reviewPercentGetResponse.kindnessPercent + '%'
-                  }}></div>
+                  }}
+                />
                 <div
                   className={'h-full bg-gray-200'}
                   style={{
                     width: `${100 - reviewPercentGetResponse.kindnessPercent}%`
-                  }}></div>
+                  }}
+                />
                 <div
                   className={
                     'absolute text-center subHead-18 z-50 ml-[13px] mt-[7px]'
