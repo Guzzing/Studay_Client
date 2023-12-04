@@ -27,6 +27,7 @@ const AcademyDashboard = () => {
   const [dashboardData, setDashboardData] = useState<GetAllDashBoardResponse[]>(
     []
   )
+  console.log(childInfo)
   const [dashboardId, setDashboardId] = useState(0)
   const { setToast } = useToastify()
   const { open, close, Modal } = useModal()
@@ -92,7 +93,11 @@ const AcademyDashboard = () => {
   }
 
   useEffect(() => {
-    if (isSuccess) setChildrenInfo(data[0])
+    if (childInfo.childId > 0) {
+      setChildrenInfo(childInfo)
+    } else {
+      if (isSuccess) setChildrenInfo(data[0])
+    }
   }, [data])
 
   useEffect(() => {
