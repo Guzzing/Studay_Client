@@ -51,30 +51,10 @@ const DetailSchedulePage = () => {
   return (
     <div className={'h-[100%] relative overflow-scroll'}>
       <Spacing size={110} />
-      <div className={'pl-[20px] h-[194px] relative'}>
-        <Icon
-          icon={'Edit'}
-          classStyle={'absolute top-0 right-[20px] cursor-pointer'}
-        />
-        <h2 className={'headline-25 mb-[10px] w-[80%] h-[60px]'}>
-          {data?.academyInfo.academyName}
-        </h2>
-        <p className={'body-14 mb-[6px]'}>{data?.date}</p>
-        <div className={'flex items-center pb-[10px]'}>
-          <Icon icon={'Time'} classStyle={'mr-[5px]'} />
-          <span>
-            {data?.lessonInfo.lessonTimes.startTime +
-              ' ~ ' +
-              data?.lessonInfo.lessonTimes.endTime}
-          </span>
-        </div>
-        <div className={'flex items-center relative w-[350px] h-[30px]'}>
-          <Icon icon={'MapPin'} classStyle={'w-[30px] ml-[-4px]'} />
-          <div className={'w-full h-full grow'}>
-            <span className={'body-14'}>{data?.academyInfo.address}</span>
-          </div>
-        </div>
-      </div>
+      <DetailScheduleHeader
+        data={data}
+        scheduleId={scheduleId ? scheduleId : ''}
+      />
       <div
         className={
           'w-[90%] grid grid-rows-2 grid-cols-4 place-items-center gap-4 px-[20px]'
@@ -88,10 +68,6 @@ const DetailSchedulePage = () => {
         ))}
       </div>
       <div className={'h-[150px] relative top-[10px]'}>
-        <DetailScheduleHeader
-          data={data}
-          scheduleId={scheduleId ? scheduleId : ''}
-        />
         <div className={'h-[150px] relative'}>
           <div
             className={
