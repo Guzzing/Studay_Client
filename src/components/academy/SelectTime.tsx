@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import DatePicker, { registerLocale } from 'react-datepicker'
-import { setHours } from 'date-fns'
+import { setHours, setMinutes } from 'date-fns'
 import ko from 'date-fns/locale/ko'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useAtom } from 'jotai'
@@ -12,7 +12,11 @@ const SelectTime = ({ isEdit }: { isEdit?: boolean }) => {
 
   const autoCalculateTime = (date: Date) => {
     const newDate = new Date(date)
-    newDate.setHours(newDate.getHours() + 2)
+    if (newDate.getHours() === 21) {
+      newDate.setHours(newDate.getHours() + 1)
+    } else {
+      newDate.setHours(newDate.getHours() + 2)
+    }
     setEndTime(newDate)
     setScheduleInfo({
       ...scheduleInfo,
@@ -62,7 +66,7 @@ const SelectTime = ({ isEdit }: { isEdit?: boolean }) => {
             showTimeSelectOnly
             timeIntervals={30}
             minTime={setHours(new Date(0), 8)}
-            maxTime={setHours(new Date(0), 22)}
+            maxTime={setHours(new Date(0), 21)}
             dateFormat={`aa h시 mm분`}
             customInput={
               <CustomTimePicker value={'선택해주세요'} disabled={isEdit} />
