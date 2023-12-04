@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 import Button from '@/components/common/button/Button'
 import Icon from '@/components/common/icon/Icon'
+import Label from '@/components/common/label/Label'
+import { AcademyType, AcademyTypeData } from '@/libs/api/academy/AcademyType'
 import { ScheduleDetailResponse } from '@/libs/api/academy/scheduleDetail/ScheduleDetailType'
 import useModal from '@/libs/hooks/useModal'
+
 const DetailScheduleHeader = ({
   data,
   scheduleId
@@ -14,15 +17,20 @@ const DetailScheduleHeader = ({
   const { open, close, Modal } = useModal()
   return (
     <>
-      <div className={'pl-[20px] h-[194px] relative'}>
-        <Icon
-          icon={'Edit'}
-          classStyle={'absolute top-0 right-[20px] cursor-pointer'}
-          onClick={() => open()}
-        />
-        <h2 className={'headline-25 mb-[10px]'}>
-          {data?.academyInfo.academyName}
-        </h2>
+      <div className={'pl-[20px] relative grid'}>
+        <div className={'w-[100%] flex whitespace-normal'}>
+          <div
+            className={
+              'headline-25 mb-[10px] w-[90%] word-break overflow-hidden'
+            }>
+            {data?.academyInfo.academyName}
+          </div>
+          <Icon
+            icon={'Edit'}
+            classStyle={'w-[10%] cursor-pointer'}
+            onClick={() => open()}
+          />
+        </div>
         <p className={'body-14 mb-[6px]'}>{data?.date}</p>
         <div className={'flex items-center pb-[10px]'}>
           <Icon icon={'Time'} classStyle={'mr-[5px]'} />
@@ -37,6 +45,18 @@ const DetailScheduleHeader = ({
           <div className={'w-full h-full grow'}>
             <span className={'body-14'}>{data?.academyInfo.address}</span>
           </div>
+        </div>
+        <div
+          className={
+            'h-[80%] w-[110%] grid grid-rows-2 grid-cols-4 place-items-center gap-4 mt-[20px] ml-[-20px] p-[15px]'
+          }>
+          {data?.categories.map((category) => (
+            <Label
+              label={category}
+              variant={'medium'}
+              icon={AcademyTypeData[category as keyof AcademyType]}
+            />
+          ))}
         </div>
         <Modal
           children={
