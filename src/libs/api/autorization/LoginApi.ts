@@ -8,11 +8,7 @@ import request from '@/libs/api'
 
 export const getCode = () => {
   const currentURL = window.location.href
-  if (currentURL.includes('access_token')) {
-    const params = new URLSearchParams(currentURL.split('#')[1])
-    const accessToken = params.get('access_token')
-    return { accessToken: accessToken as string, method: 'google' }
-  } else if (currentURL.includes('code')) {
+  if (currentURL.includes('code')) {
     const params = new URLSearchParams(currentURL.split('?')[1])
     const code = params.get('code')
     return { code: code as string, method: 'kakao' }
