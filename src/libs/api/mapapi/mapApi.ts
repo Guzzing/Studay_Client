@@ -87,3 +87,8 @@ export const postLike = async ({
   })
   return res.data
 }
+
+export const deleteLike = async ({ academyId }: { academyId: number }) => {
+  const res = await request.delete(`/likes?academyId=${academyId}`)
+  return res.data
+}

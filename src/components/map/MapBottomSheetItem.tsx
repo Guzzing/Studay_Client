@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { LikeBlank, LikeFilled } from '@/assets/icon'
 import Label from '@/components/common/label/Label.tsx'
-import { postLike } from '@/libs/api/mapapi/mapApi.ts'
+import { deleteLike, postLike } from '@/libs/api/mapapi/mapApi.ts'
 import { Academy } from '@/libs/api/mapapi/mapApiType.ts'
 
 export type AcademyItemProps = Omit<
@@ -25,7 +25,14 @@ const MapBottomSheetItem = ({
     mutationFn: (academyId: number) => postLike({ academyId: academyId }),
     onSuccess: () => {},
     onSettled: () => {
-      setLiked(!liked)
+      setLiked(true)
+    }
+  })
+  const deleteLikeMutation = useMutation({
+    mutationFn: (academyId: number) => deleteLike({ academyId: academyId }),
+    onSuccess: () => {},
+    onSettled: () => {
+      setLiked(false)
     }
   })
   const [liked, setLiked] = useState<boolean>(isLiked)
@@ -46,7 +53,7 @@ const MapBottomSheetItem = ({
         {liked ? (
           <LikeFilled
             className={'cursor-pointer'}
-            onClick={() => likeMutation.mutate(academyId)}
+            onClick={() => deleteLikeMutation.mutate(academyId)}
           />
         ) : (
           <LikeBlank
