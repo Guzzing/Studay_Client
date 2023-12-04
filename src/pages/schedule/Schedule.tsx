@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { CalenderType } from '../../types/date.ts'
+import SettingPage from '../setting/SettingPage.tsx'
 import Loading from '@/components/Loading/Loading.tsx'
 import Calender from '@/components/common/calender/Calender.tsx'
 import Icon from '@/components/common/icon/Icon.tsx'
@@ -14,11 +15,13 @@ import {
   getMonthScheduleAll
 } from '@/libs/api/schedule/scheduleApi.ts'
 import useModal from '@/libs/hooks/useModal.tsx'
+import useSidebar from '@/libs/hooks/useSidebar.tsx'
 import { convertTo12HourFormat, defaultDate } from '@/libs/utils/date.ts'
 import { HandlerScheduleProps } from '@/pages/schedule/scheduleType.ts'
 
 const Schedule = () => {
   const navigate = useNavigate()
+  const { toggleOpen } = useSidebar()
   const [defaultYear, defaultMonth, defaultDays, days] = useMemo(
     () => [...defaultDate()],
     []
@@ -68,7 +71,8 @@ const Schedule = () => {
   }
 
   return (
-    <div className={'flex flex-col w-full h-full'}>
+    <div className={'flex flex-col w-full h-full relative overflow-hidden'}>
+      <SettingPage isOpen={toggleOpen} />
       <Spacing size={80} />
       <div className={'h-auto'}>
         <Calender

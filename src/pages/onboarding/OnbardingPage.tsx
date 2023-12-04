@@ -106,7 +106,7 @@ const Onboarding = () => {
   }, [currentPage])
 
   return (
-    <div>
+    <div className={'h-[100%]'}>
       <Header
         headerType={'BackPush'}
         pageTitle={'onboarding'}
@@ -121,8 +121,8 @@ const Onboarding = () => {
         step={currentPage <= 2 ? currentPage + 1 : 3}
         fullStepNum={3}
       />
-      <Spacing size={45} />
-      <div className={'px-[36px]'}>
+      <div className={'px-[36px] h-[70%]'}>
+        <Spacing size={45} />
         {PAGE_CONTENT[currentPage].mainTitle.map((mainTitle) => (
           <h2 className={'headline-25 leading-[40px]'}>{mainTitle}</h2>
         ))}
@@ -134,14 +134,17 @@ const Onboarding = () => {
           <div>
             <StepQuestion step={PAGE_CONTENT[currentPage].step[i]} text={v} />
             {i === 1 ? (
-              <Select
-                selecttype={'Single'}
-                options={CHILD_GRADE}
-                ref={selectRef}
-                onChange={handleSelectChange}
-                value={selectValue}
-                placeholder={'아이 학년을 선택해주세요'}
-              />
+              <>
+                <Spacing size={10} />
+                <Select
+                  selecttype={'Single'}
+                  options={CHILD_GRADE}
+                  ref={selectRef}
+                  onChange={handleSelectChange}
+                  value={selectValue}
+                  placeholder={'아이 학년을 선택해주세요'}
+                />
+              </>
             ) : (
               <Input
                 inputType={'Default'}
@@ -161,8 +164,10 @@ const Onboarding = () => {
           </div>
         ))}
       </div>
-      <Spacing size={220} />
-      <ul className={'w-full text-center'}>
+      <ul
+        className={
+          'w-full text-center h-[30%] flex flex-col justify-around items-center'
+        }>
         {PAGE_CONTENT[currentPage].buttonType.map(
           (buttonLabel, i) =>
             buttonLabel && (
