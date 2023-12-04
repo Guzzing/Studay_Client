@@ -68,7 +68,7 @@ const EditSchedule = () => {
 
   return (
     <div className={'flex flex-col relative w-full h-full'}>
-      <div className={'px-[20px]'}>
+      <div className={'px-[20px] w-full h-full overflow-scroll scrollbar-hide'}>
         <AddScheduleAcademy isEdit={true} />
         <h2 className={'body-16 mb-[13px]'}>{'일정 설정하기'}</h2>
         <AddScheduleTime
