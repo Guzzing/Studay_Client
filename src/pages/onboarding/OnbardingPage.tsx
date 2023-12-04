@@ -164,10 +164,8 @@ const Onboarding = () => {
           </div>
         ))}
       </div>
-      <ul
-        className={
-          'w-full text-center h-[30%] flex flex-col justify-around items-center'
-        }>
+      {currentPage <= 1 && <Spacing size={40} />}
+      <ul className={'w-full text-center h-[20%] flex flex-col items-center'}>
         {PAGE_CONTENT[currentPage].buttonType.map(
           (buttonLabel, i) =>
             buttonLabel && (
@@ -181,7 +179,7 @@ const Onboarding = () => {
                     label={buttonLabel}
                     buttonType={
                       isError
-                        ? 'Plain-disabled'
+                        ? 'Plain-Onboarding-disabled'
                         : i === 0
                         ? 'Round-blue-700'
                         : 'Round-blue-500'

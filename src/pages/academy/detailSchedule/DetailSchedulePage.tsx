@@ -4,11 +4,9 @@ import Loading from '@/components/Loading/Loading'
 import { Accordion } from '@/components/common/accordion/Accordion'
 import Button from '@/components/common/button/Button'
 import Icon from '@/components/common/icon/Icon'
-import Label from '@/components/common/label/Label'
 import ListRow from '@/components/common/listRow/ListRow'
 import Profile from '@/components/common/profile/Profile'
 import Spacing from '@/components/common/spacing/Spacing'
-import { AcademyType, AcademyTypeData } from '@/libs/api/academy/AcademyType'
 import {
   getAcademiesScheduleDetail,
   deleteAcademySchedule
@@ -49,26 +47,18 @@ const DetailSchedulePage = () => {
     return <Loading />
   }
   return (
-    <div className={'h-[100%] relative overflow-scroll'}>
+    <div
+      className={
+        'h-[100%] relative overflow-scroll flex flex-col overflow-x-hidden'
+      }>
       <Spacing size={110} />
       <DetailScheduleHeader
         data={data}
         scheduleId={scheduleId ? scheduleId : ''}
       />
-      <div
-        className={
-          'w-[90%] grid grid-rows-2 grid-cols-4 place-items-center gap-4 px-[20px]'
-        }>
-        {data?.categories.map((category) => (
-          <Label
-            label={category}
-            variant={'medium'}
-            icon={AcademyTypeData[category as keyof AcademyType]}
-          />
-        ))}
-      </div>
-      <div className={'h-[150px] relative top-[10px]'}>
-        <div className={'h-[150px] relative'}>
+
+      <div className={'h-[20%] relative top-[10px] border'}>
+        <div className={'h-full relative'}>
           <div
             className={
               'absolute top-[0px] left-[50%] h-full w-full translate-x-[-50%]'
