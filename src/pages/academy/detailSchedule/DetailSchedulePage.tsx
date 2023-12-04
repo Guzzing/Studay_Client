@@ -47,7 +47,10 @@ const DetailSchedulePage = () => {
     return <Loading />
   }
   return (
-    <div className={'h-[100%] relative overflow-scroll flex flex-col'}>
+    <div
+      className={
+        'h-[100%] relative overflow-scroll flex flex-col overflow-x-hidden'
+      }>
       <Spacing size={110} />
       <DetailScheduleHeader
         data={data}
