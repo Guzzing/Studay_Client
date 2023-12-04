@@ -9,3 +9,9 @@ export interface MarkerProps {
   value: string
   select: boolean
 }
+
+export interface CreateMarkerProps {
+  latitude: number
+  longitude: number
+  title: string
+}

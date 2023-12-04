@@ -4,7 +4,7 @@ import {
   CityResponse,
   DetailAcademyResponse,
   GetAcademyDetailProps,
-  GetAcademysParams,
+  GetAcademyParams,
   GetLocationParam,
   GetTownParam,
   LikeResponse,
@@ -47,12 +47,24 @@ export const getLocation = async ({
   return res.data
 }
 
+// export const getAcademyList = async ({
+//   latitude,
+//   longitude
+// }: GetAcademysParams): Promise<AcademyResponse> => {
+//   const res = await request.get(
+//     `/academies/complexes?lat=${latitude}&lng=${longitude}`
+//   )
+//   console.log(res.data)
+//   return res.data
+// }
+
 export const getAcademyList = async ({
   latitude,
-  longitude
-}: GetAcademysParams): Promise<AcademyResponse> => {
+  longitude,
+  pageNumber
+}: GetAcademyParams): Promise<AcademyResponse> => {
   const res = await request.get(
-    `/academies/complexes?lat=${latitude}&lng=${longitude}`
+    `/academies/complexes-scroll?lat=${latitude}&lng=${longitude}&pageNumber=${pageNumber}`
   )
   return res.data
 }
@@ -73,5 +85,10 @@ export const postLike = async ({
   const res = await request.post(`/likes`, {
     academyId: academyId
   })
+  return res.data
+}
+
+export const deleteLike = async ({ academyId }: { academyId: number }) => {
+  const res = await request.delete(`/likes?academyId=${academyId}`)
   return res.data
 }
