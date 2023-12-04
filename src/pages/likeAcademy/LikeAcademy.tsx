@@ -83,7 +83,9 @@ const LikeAcademy = () => {
                     {'예상 교육비'}
                     <span
                       className={`p-[10px] ${expectedFee || 'body-15-gray'}`}>
-                      {expectedFee === 0 ? '문의필요' : expectedFee + '원'}
+                      {expectedFee === 0
+                        ? '문의필요'
+                        : priceFormat(expectedFee) + '원'}
                     </span>
                   </p>
                 </div>
