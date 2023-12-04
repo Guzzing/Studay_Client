@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import SettingPage from '../setting/SettingPage'
 import Loading from '@/components/Loading/Loading'
@@ -37,6 +37,42 @@ const AcademyDashboard = () => {
     queryKey: ['children'],
     queryFn: () => getChildrenInfo()
   })
+
+  const toggleMutation = useMutation({
+    mutationFn: (dashboardId: number) => patchToggleDashboardState(dashboardId),
+    onSuccess: (res) => {
+      dashboardData.map((data) => {
+        {
+          if (data.dashboardId === res.dashboardId) {
+            if (data.isActive) {
+              setToast({
+                comment: '학원을 그만둔 상태로 설정했어요',
+                type: 'success'
+              })
+            } else {
+              setToast({
+                comment: '학원을 다니는 중으로 설정했어요',
+                type: 'success'
+              })
+            }
+            const newData = dashboardData.map((data) => {
+              if (data.dashboardId === res.dashboardId) {
+                data.isActive = !data.isActive
+              }
+              return data
+            })
+            setDashboardData([...newData])
+          }
+        }
+      })
+    },
+    onError: () => {
+      setToast({
+        comment: '현재 학원 일정과 겹치는 학원을 이미 다니고 있어요.',
+        type: 'error'
+      })
+    }
+  })
   const fetchAllDashboard = async () => {
     if (childInfo.childId) {
       const data = await getAllDashboards(childInfo.childId, false)
@@ -52,31 +88,7 @@ const AcademyDashboard = () => {
   }
 
   const fetchToggleDashboard = async (dashboardId: number) => {
-    const res = await patchToggleDashboardState(dashboardId)
-    dashboardData.map((data) => {
-      {
-        if (data.dashboardId === res.dashboardId) {
-          if (data.isActive) {
-            setToast({
-              comment: '학원을 그만둔 상태로 설정했어요',
-              type: 'success'
-            })
-          } else {
-            setToast({
-              comment: '학원을 다니는 중으로 설정했어요',
-              type: 'success'
-            })
-          }
-          const newData = dashboardData.map((data) => {
-            if (data.dashboardId === res.dashboardId) {
-              data.isActive = !data.isActive
-            }
-            return data
-          })
-          setDashboardData([...newData])
-        }
-      }
-    })
+    toggleMutation.mutate(dashboardId)
   }
 
   useEffect(() => {
