@@ -145,10 +145,10 @@ const NaverMap = ({ academyList }: { academyList: Academy[] }) => {
 
   return (
     <div className={'flex h-full w-full'}>
-      {isNewLocation && (
+      {isNewLocation && !selectAcademy && (
         <button
           className={
-            'absolute bottom-[200px] left-1/3 z-10 cursor-pointer w-[160px] h-[45px] bg-blue-500 rounded-3xl text-center'
+            'absolute bottom-[100px] left-1/3 z-10 cursor-pointer w-[160px] h-[45px] bg-blue-500 rounded-3xl text-center'
           }
           onClick={updateLocation}>
           <span className={'font-nsk body-15 text-white-0'}>
@@ -156,17 +156,21 @@ const NaverMap = ({ academyList }: { academyList: Academy[] }) => {
           </span>
         </button>
       )}
-      <div
-        className={
-          'absolute z-10 cursor-pointer rounded drop-shadow-lg bg-white-0 top-[150px] left-[80%] mb-[28px] ml-[20px]'
-        }>
-        {isLoading && (
-          <div className={'flex justify-center items-center'}>
-            <Spinner className={'animate-spin h-[40px] w-[40px]'} />
-          </div>
-        )}
-        {!isLoading && <Icon icon={'Gps'} onClick={() => currentLocation()} />}
-      </div>
+      {!selectAcademy && (
+        <div
+          className={
+            'absolute z-10 cursor-pointer rounded drop-shadow-lg bg-white-0 top-[150px] left-[80%] mb-[28px] ml-[20px]'
+          }>
+          {isLoading && (
+            <div className={'flex justify-center items-center'}>
+              <Spinner className={'animate-spin h-[40px] w-[40px]'} />
+            </div>
+          )}
+          {!isLoading && (
+            <Icon icon={'Gps'} onClick={() => currentLocation()} />
+          )}
+        </div>
+      )}
       <div id={'map'} className={'w-[390px] h-full'} />
     </div>
   )
