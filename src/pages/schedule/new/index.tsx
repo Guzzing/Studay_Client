@@ -39,14 +39,18 @@ const NewSchedule = () => {
 
   return (
     <div className={'flex flex-col px-[20px] relative w-full h-full'}>
-      <AddScheduleAcademy />
-      <h2 className={'body-16 mb-[13px]'}>{'일정 설정하기'}</h2>
-      <AddScheduleTime />
-      <Spacing size={20} />
-      <AddScheduleMemo />
+      <div className={'w-full h-full overflow-scroll scrollbar-hide'}>
+        <AddScheduleAcademy />
+        <h2 className={'body-16 mb-[13px]'}>{'일정 설정하기'}</h2>
+        <AddScheduleTime />
+        <Spacing size={20} />
+        <AddScheduleMemo />
+        <Spacing size={100} />
+      </div>
       <Button
-        style={{ position: 'absolute', bottom: 0 }}
+        style={{ position: 'absolute', left: 0, bottom: 0 }}
         buttonType={'Square'}
+        fullWidth={true}
         label={'일정 등록 완료!'}
         onClick={() => {
           if (scheduleInfo.attendanceDate.endDateOfAttendance.length === 0) {
