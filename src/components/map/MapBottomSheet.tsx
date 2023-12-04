@@ -91,7 +91,7 @@ const MapBottomSheet = ({
             </div>
           )}
           {expanded > 1 && !selectAcademy && (
-            <div className={'flex flex-col overflow-y-auto'}>
+            <div className={'flex flex-col overflow-y-scroll scrollbar-hide'}>
               {academyList.length > 0 &&
                 academyList?.map((academy, index) => (
                   <MapBottomSheetItem
@@ -114,7 +114,10 @@ const MapBottomSheet = ({
             </div>
           )}
           {expanded > 1 && academyDetail && (
-            <div className={'flex flex-col overflow-y-auto h-full'}>
+            <div
+              className={
+                'flex flex-col overflow-y-scroll scrollbar-hide h-full'
+              }>
               <MapBottomSheetItem
                 academyId={selectAcademy?.academyId as number}
                 academyName={academyDetail.academyName}

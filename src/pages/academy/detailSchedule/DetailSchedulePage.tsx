@@ -57,7 +57,7 @@ const DetailSchedulePage = () => {
         scheduleId={scheduleId ? scheduleId : ''}
       />
 
-      <div className={'h-[20%] relative top-[10px] border'}>
+      <div className={'h-[20%] relative top-[10px]'}>
         <div className={'h-full relative'}>
           <div
             className={
