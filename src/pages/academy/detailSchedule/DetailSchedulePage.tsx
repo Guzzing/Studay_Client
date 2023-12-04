@@ -50,7 +50,7 @@ const DetailSchedulePage = () => {
     return <Loading />
   }
   return (
-    <div className={'border h-[100%] relative overflow-scroll'}>
+    <div className={'h-[100%] relative overflow-scroll'}>
       <Spacing size={110} />
       <div className={'pl-[20px] h-[194px] relative'}>
         <Icon
@@ -78,7 +78,7 @@ const DetailSchedulePage = () => {
       </div>
       <div
         className={
-          'w-[90%] grid grid-rows-2 grid-cols-4 place-items-center gap-4 px-[20px] border'
+          'w-[90%] grid grid-rows-2 grid-cols-4 place-items-center gap-4 px-[20px]'
         }>
         {data?.categories.map((category) => (
           <Label
@@ -140,8 +140,7 @@ const DetailSchedulePage = () => {
       </div>
       <div className={'relative px-[20px] h-[265px] pt-[10px] top-[50px]'}>
         <h2 className={'subHead-18 mb-[10px]'}>{'메모'}</h2>
-        <div
-          className={'h-[150px] w-[350px] border overflow-y-scroll p-[10px]'}>
+        <div className={'h-[150px] w-[350px] overflow-y-scroll p-[10px]'}>
           {data?.childrenInfo.memo}
         </div>
         <div className={'h-[80px] flex flex-col items-center mt-[20px]'}>
