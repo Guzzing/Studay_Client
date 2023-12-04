@@ -12,14 +12,15 @@ import {
 import { scheduleAtom } from '@/libs/store/scheduleInfo'
 const AddScheduleTime = ({
   isEdit,
-  isAllUpdated = true
+  isAllUpdated = true,
+  date = ''
 }: {
   isEdit?: boolean
   isAllUpdated?: boolean
+  date?: string
 }) => {
   const [academySchedule, setAcademySchedule] = useAtom(scheduleAtom)
   const [fixedDate, setFixedDate] = useState<number[]>([])
-
   const { data } = useQuery({
     queryKey: ['dashboard', academySchedule.dashboardId],
     queryFn: () => getDetailDashboard(academySchedule.dashboardId),
@@ -59,7 +60,11 @@ const AddScheduleTime = ({
       <div className={'pointer-events-none'}>
         <SelectWeek fixedDate={fixedDate} />
       </div>
-      <SelectAttendanceDate isEdit={isEdit} isAllUpdated={isAllUpdated} />
+      <SelectAttendanceDate
+        isEdit={isEdit}
+        isAllUpdated={isAllUpdated}
+        date={date}
+      />
       {academySchedule.lessonScheduleCreateRequests.map((data, index) => {
         return (
           <div key={index} className={'w-full px-[20px] py-[10px]'}>

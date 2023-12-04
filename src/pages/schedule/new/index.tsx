@@ -12,6 +12,7 @@ import { scheduleAtom } from '@/libs/store/scheduleInfo'
 import AddScheduleAcademy from '@/pages/schedule/new/AddScheduleAcademy'
 import AddScheduleMemo from '@/pages/schedule/new/AddScheduleMemo'
 import AddScheduleTime from '@/pages/schedule/new/AddScheduleTime'
+
 const NewSchedule = () => {
   const navigate = useNavigate()
   const [scheduleInfo, setScheduleInfo] = useAtom(scheduleAtom)
@@ -31,9 +32,11 @@ const NewSchedule = () => {
     mutationFn: (scheduleInfo: PostScheduleType) =>
       postScheduleApi(scheduleInfo)
   })
+
   useEffect(() => {
     setScheduleInfo(initialScheduleAtom)
-  }, [])
+  }, [setScheduleInfo])
+
   return (
     <div className={'flex flex-col px-[20px] relative w-full h-full'}>
       <AddScheduleAcademy />

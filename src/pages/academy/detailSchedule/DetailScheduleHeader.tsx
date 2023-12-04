@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import Button from '@/components/common/button/Button'
 import Icon from '@/components/common/icon/Icon'
-import Spacing from '@/components/common/spacing/Spacing'
 import { ScheduleDetailResponse } from '@/libs/api/academy/scheduleDetail/ScheduleDetailType'
 import useModal from '@/libs/hooks/useModal'
 const DetailScheduleHeader = ({
@@ -52,7 +51,8 @@ const DetailScheduleHeader = ({
                 onClick={() => {
                   navigate(`/schedule/${scheduleId}/edit`, {
                     state: {
-                      isAllUpdated: false
+                      isAllUpdated: false,
+                      date: data?.date.split('(')[0]
                     }
                   })
                 }}

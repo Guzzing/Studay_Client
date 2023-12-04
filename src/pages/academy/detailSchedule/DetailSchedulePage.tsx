@@ -32,7 +32,6 @@ const DetailSchedulePage = () => {
         scheduleId: Number(scheduleId as string)
       })
   })
-
   const deleteSchedule = async (all: boolean) => {
     try {
       await deleteAcademySchedule({
@@ -44,7 +43,6 @@ const DetailSchedulePage = () => {
       throw new Error('error!')
     }
   }
-
   if (isLoading) {
     return <Loading />
   }

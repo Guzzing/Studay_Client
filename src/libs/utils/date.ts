@@ -40,7 +40,6 @@ export const getDays = (year: number, month: MonthType) => {
     )
 
   const firstDay = new Date(year, nowMonth, 1).getDay()
-  console.log(firstDay)
   //이번달
   for (let day = 1; day <= lastDay; day++) {
     const currentDate = new Date(year, nowMonth, day)

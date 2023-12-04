@@ -19,7 +19,7 @@ const EditSchedule = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const isAllUpdated = location.state.isAllUpdated
-  console.log(isAllUpdated)
+  const date = location.state.date
   const scheduleId = Number.parseInt(location.pathname.split('/')[2], 10)
   const [scheduleInfo, setScheduleInfo] = useAtom(scheduleAtom)
   const { setToast } = useToastify()
@@ -27,15 +27,13 @@ const EditSchedule = () => {
     queryKey: ['beforeEditData', scheduleId],
     queryFn: () => beforeEditInfoScheduleApi({ scheduleId })
   })
-
   const editScheduleMutation = useMutation({
     onSuccess: () => {
       setToast({ comment: '일정을 수정했어요.', type: 'success' })
       navigate(`/schedule`)
       setScheduleInfo(initialScheduleAtom)
     },
-    onError: (error) => {
-      console.log(error.message)
+    onError: () => {
       setToast({
         comment: '해당 스케쥴과 겹치는 일정이 있어요.',
         type: 'error'
@@ -73,7 +71,11 @@ const EditSchedule = () => {
       <div className={'px-[20px]'}>
         <AddScheduleAcademy isEdit={true} />
         <h2 className={'body-16 mb-[13px]'}>{'일정 설정하기'}</h2>
-        <AddScheduleTime isEdit={true} isAllUpdated={isAllUpdated} />
+        <AddScheduleTime
+          isEdit={true}
+          isAllUpdated={isAllUpdated}
+          date={date}
+        />
         <Spacing size={20} />
         <AddScheduleMemo />
       </div>
@@ -88,7 +90,7 @@ const EditSchedule = () => {
               lessonScheduleUpdateRequests: [
                 ...scheduleInfo.lessonScheduleCreateRequests
               ],
-              isAllUpdated: true
+              isAllUpdated: isAllUpdated
             }
           })
         }}

@@ -21,6 +21,5 @@ export const onboarding = async (requestValue: Request) => {
     }
   )
 
-  console.log('id >>', req.data)
   return req.data
 }
