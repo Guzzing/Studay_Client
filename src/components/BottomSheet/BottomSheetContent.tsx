@@ -34,7 +34,7 @@ const BottomSheetContent = ({
             <span className={'font-nsk subHead-18 mb-[15px]'}>
               {'개설반 정보'}
             </span>
-            <div className={'h-[200px] overflow-y-auto'}>
+            <div className={'h-[200px] scrollbar-hide overflow-y-auto'}>
               {lessonGetResponses.lessons &&
                 lessonGetResponses.lessons.map((lesson, index) => (
                   <Accordion

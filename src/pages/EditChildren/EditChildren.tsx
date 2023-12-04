@@ -38,7 +38,13 @@ const EditChildren = () => {
   useEffect(() => {
     const mychild = data?.filter((data) => data.childId === id)
     if (mychild) {
-      setChildInfo(mychild[0])
+      setChildInfo({
+        childId: mychild[0].childId,
+        schedule: mychild[0].schedule,
+        grade: mychild[0].grade,
+        nickname: mychild[0].nickname,
+        profileImageUrl: `${mychild[0].profileImageUrl}?q=${new Date()}`
+      })
     }
   }, [data])
 

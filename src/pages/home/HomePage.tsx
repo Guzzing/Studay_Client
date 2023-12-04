@@ -28,11 +28,11 @@ const HomePage = () => {
       className={'relative bg-white-100 overflow-hidden'}
       style={{ height: 'calc(100% - 80px)' }}>
       <SettingPage isOpen={toggleOpen} />
-      <div className={'h-full overflow-y-scroll'}>
+      <div className={'h-full overflow-y-scroll scrollbar-hide'}>
         <Spacing size={80} />
         <div
           className={
-            'flex flex-col items-center gap-[20px] pb-[20px] pt-[20px] overflow-y-scroll'
+            'flex flex-col items-center gap-[20px] pb-[20px] pt-[20px] scrollbar-hide overflow-y-scroll'
           }>
           {data && data?.length > 0 ? (
             data.map((data) => {
@@ -40,7 +40,7 @@ const HomePage = () => {
                 <InformationBox
                   key={data.childId}
                   mainTitle={data.nickname}
-                  imageUrl={data.profileImageUrl}
+                  imageUrl={`${data.profileImageUrl}?q=${new Date()}`}
                   subTitle={data.grade}
                   description={scheduleParse(data.schedule, data.nickname)}
                   onClick={() =>
