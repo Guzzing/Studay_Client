@@ -78,10 +78,10 @@
 
 ## 팀원
 
-|Frontend|                                                        Frontend                                                        |                           Frontend                            |                                                   
-|:--:|:----------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------:|
-|![image](https://avatars.githubusercontent.com/u/106604926?s=400&v=4)|![image](https://avatars.githubusercontent.com/u/67894159?s=400&v=4)|![image](https://avatars.githubusercontent.com/u/85999976?s=400&v=4) |
-|[김희석](https://github.com/HeeSeok-kim)|[김유진](https://github.com/eugene028)|[김지성](https://github.com/jisung24)|
+|                                           Frontend                                           |                                                      Frontend                                                       |                                          Frontend                                          |                                                   
+|:--------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------:|
+| <img width="120" height="120" src="https://avatars.githubusercontent.com/u/106604926?v=4" /> |             <img width="120" height="120" src="https://avatars.githubusercontent.com/u/67894159?v=4" />             |<img width="120" height="120" src="https://avatars.githubusercontent.com/u/85999976?v=4" /> |
+|                            [김희석](https://github.com/HeeSeok-kim)                             |                                         [김유진](https://github.com/eugene028)                                         |                             [김지성](https://github.com/jisung24)                             |
 
 
 
