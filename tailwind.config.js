@@ -47,6 +47,16 @@ export default {
         r200: 'rgba(244,244,244,1)'
       },
       gray: {
+        5: '#F2F2F2',
+        10: '#E4E4E4',
+        20: '#D4D3D3',
+        30: '#C7C7C7',
+        40: '#ABABAB',
+        50: '#919191',
+        60: '#777777',
+        70: '#5F5F5F',
+        80: '#333333',
+        90: '#1C1C1C',
         100: '#D9D9D9',
         200: '#CACACA',
         300: '#B2b9C1',
@@ -75,6 +85,18 @@ export default {
         r400: 'rgba(255,94,94,1)',
         r500: 'rgba(252,76,78,1)',
         r600: 'rgba(255,0,0,1)'
+      },
+      green: {
+        5: '#E2FDF3',
+        10: '#1AFFA8',
+        20: '#00F598',
+        30: '#00F598',
+        40: '#00E58E',
+        50: '#00D282',
+        60: '#00C278',
+        70: '#00AD6B',
+        80: '#00995F',
+        90: '#00804F'
       }
     },
     extend: {
@@ -83,5 +105,5 @@ export default {
       }
     }
   },
-  plugins: [require("tailwind-scrollbar-hide")]
+  plugins: [require('tailwind-scrollbar-hide')]
 }
