@@ -1,6 +1,5 @@
 import { ComponentProps } from 'react'
-import { ChangeEvent } from 'react'
-export interface SearchBarType extends ComponentProps<'search'> {
+export interface SearchBarType extends ComponentProps<'input'> {
   fullWidth?: boolean
   width?: string
   height?: string
@@ -9,5 +8,5 @@ export interface SearchBarType extends ComponentProps<'search'> {
   field?: string
   errorMessage?: string
   placeholder?: string
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void
+  onSearch?: (e: string) => void
 }
