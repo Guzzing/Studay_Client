@@ -7,7 +7,8 @@ const meta: Meta<typeof Divider> = {
   title: 'components/Divider',
   argTypes: {
     width: {
-      control: 'text'
+      control: 'text',
+      description: '컴포넌트에서 사용할 너비를 넣어주세요'
     }
   }
 }
