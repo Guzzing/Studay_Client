@@ -1,10 +1,14 @@
-<svg width="35" height="35" viewBox="0 0 35 35" stroke="currentColor" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-<rect x="4.375" y="8.75" width="26.25" height="21.875" rx="2" fill="none"  stroke-width="2"/>
-<path d="M4.375 12.75C4.375 10.8644 4.375 9.92157 4.96079 9.33579C5.54657 8.75 6.48938 8.75 8.375 8.75H26.625C28.5106 8.75 29.4534 8.75 30.0392 9.33579C30.625 9.92157 30.625 10.8644 30.625 12.75V14.5833H4.375V12.75Z"/>
-<path d="M10.208 4.375L10.208 8.75" stroke-width="2" stroke-linecap="round"/>
-<path d="M24.792 4.375L24.792 8.75"  stroke-width="2" stroke-linecap="round"/>
-<rect x="10.208" y="17.5" width="5.83333" height="2.91667" rx="0.5" />
-<rect x="10.208" y="23.3333" width="5.83333" height="2.91667" rx="0.5" />
-<rect x="18.958" y="17.5" width="5.83333" height="2.91667" rx="0.5" />
-<rect x="18.958" y="23.3333" width="5.83333" height="2.91667" rx="0.5"/>
+<svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M21.5 8H3.5V4H21.5V8Z" fill="#ABABAB"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M21.5 22H3.5V20H21.5V22Z" fill="#ABABAB"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 20V8H5.5V20H3.5Z" fill="#ABABAB"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.5 20V8H21.5V20H19.5Z" fill="#ABABAB"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 2H9.5V4H7.5V2Z" fill="#ABABAB"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5 2H17.5V4H15.5V2Z" fill="#ABABAB"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5 11H17.5V13H15.5V11Z" fill="#ABABAB"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5 15H17.5V17H15.5V15Z" fill="#ABABAB"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 11H13.5V13H11.5V11Z" fill="#ABABAB"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 15H13.5V17H11.5V15Z" fill="#ABABAB"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 11H9.5V13H7.5V11Z" fill="#ABABAB"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15H9.5V17H7.5V15Z" fill="#ABABAB"/>
 </svg>

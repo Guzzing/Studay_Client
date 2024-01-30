@@ -34,7 +34,8 @@ import {
   Write,
   Logo,
   Save,
-  Marker
+  Marker,
+  MyPageIcon
 } from '@/assets/icon'
 const Icons = {
   Abacus,
@@ -72,7 +73,8 @@ const Icons = {
   Write,
   Logo,
   Save,
-  Marker
+  Marker,
+  MyPageIcon
 }
 
 export default Icons

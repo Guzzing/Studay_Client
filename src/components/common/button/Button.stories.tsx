@@ -19,7 +19,8 @@ const meta = {
         'Round-blue-500',
         'Round-blue-700',
         'Square',
-        'Floating'
+        'Floating',
+        'Text-Plain'
       ]
     },
     width: {
@@ -76,5 +77,13 @@ export const SquareButton: Story = {
     label: 'Square',
     buttonType: 'Square',
     onClick: () => alert('square clicked!')
+  }
+}
+
+export const TextPlainButton: Story = {
+  args: {
+    label: 'Text',
+    buttonType: 'Text-Plain',
+    onClick: () => alert('text clicked!')
   }
 }

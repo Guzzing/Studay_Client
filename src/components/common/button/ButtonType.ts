@@ -12,6 +12,7 @@ export type ButtonType =
   | 'Floating'
   | 'Plain-disabled'
   | 'Plain-Onboarding-disabled'
+  | 'Text-Plain'
 export type ButtonBorderRadius = 'min' | 'middle' | 'max'
 export type ButtonWidth = 'SW' | 'MW' | 'LW' | 'XLW'
 export type ButtonHeight = 'SH' | 'MH' | 'LH'

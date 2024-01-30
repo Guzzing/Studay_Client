@@ -69,6 +69,8 @@ const Button = ({
         } ${height ? 'h-[56px]' : BUTTON_HEIGHT[height]} ${
           BUTTON_BG_COLOR['blue700']
         } ${BUTTON_TEXT_COLOR['white0']}`
+      : buttonType === 'Text-Plain'
+      ? ``
       : ''
   }
   ${FONT_STYLE['NSK']}
