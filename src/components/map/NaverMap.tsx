@@ -58,7 +58,10 @@ const NaverMap = ({ academyList }: { academyList: Academy[] }) => {
    * */
   const deleteMarker = useCallback(() => {
     if (markerRef.current.length > 0) {
-      markerRef.current.map((marker) => marker.setMap(null))
+      for (const marker of markerRef.current) {
+        marker.setMap(null)
+      }
+      markerRef.current = []
     }
   }, [])
 
