@@ -1,7 +1,7 @@
 import { MarkerProps } from '@/components/map/naverMapType.ts'
 
 export const DefaultMapOption = {
-  zoom: 14,
+  zoom: 15,
   disableKineticPan: false,
   tileTransition: false,
   mapDataControl: true,
