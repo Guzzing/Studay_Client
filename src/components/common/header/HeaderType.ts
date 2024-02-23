@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-type HeaderType = 'BackPush' | 'Logo' | 'Close' | 'CloseWithTitle'
+type HeaderType = 'BackPush' | 'Logo' | 'Close' | 'CloseWithTitle' | 'Map'
 export interface HeaderProps {
   headerType: HeaderType
   pageTitle?: string

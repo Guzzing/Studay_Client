@@ -99,7 +99,7 @@ export const router = createBrowserRouter(
           path: 'map',
           element: (
             <>
-              <Header headerType={'Logo'} pageTitle={'학원 지도'} />
+              <Header headerType={'Map'} pageTitle={'학원 지도'} />
               <MapPage />
             </>
           )
