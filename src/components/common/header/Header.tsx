@@ -76,6 +76,20 @@ const Header = ({
             </span>
             <span className={'mx-[20px] font-nsk subHead-18'}>{pageTitle}</span>
           </div>
+        ) : headerType === 'Map' ? (
+          <>
+            <div className={'flex flex-row items-center'}>
+              <Icon
+                icon={'Logo'}
+                classStyle={'w-[50px] cursor-pointer'}
+                onClick={() => navigate('/')}
+              />
+              <span className={'mx-[30px] font-nsk subHead-18'}>
+                {pageTitle}
+              </span>
+            </div>
+            <div className={'flex items-center justify-between'}></div>
+          </>
         ) : (
           ''
         )}

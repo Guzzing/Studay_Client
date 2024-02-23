@@ -72,6 +72,21 @@ const Button = ({
       : ''
   }
   ${FONT_STYLE['NSK']}
+  ${
+    buttonType === 'Plain-blue'
+      ? 'hover:bg-blue-500 hover:text-white-0 focus:bg-blue-500 focus:text-white-0 focus:outline-none'
+      : ''
+  }
+  ${
+    buttonType === 'Plain-red'
+      ? 'hover:bg-red-400 hover:text-white-0 foucs: bg-red-400 focus:text-white-0'
+      : ''
+  }
+  ${
+    buttonType === 'Round-blue-500'
+      ? 'hover:bg-blue-700 hover:text-white-0 focus:bg-blue-700 focus:text-white-0 focus:outline-none'
+      : ''
+  }
   `
   return (
     <button
